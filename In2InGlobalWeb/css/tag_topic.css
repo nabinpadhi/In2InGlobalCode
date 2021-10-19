@@ -1,0 +1,66 @@
+body{ font-family:arial, Helvetica, sans-serif; color:#4a4a4a;}
+h1, h2, h3, h4, h5, h6, ul, ol, p{ margin:0px; padding:0px;}
+li{ list-style:none;}
+a { text-decoration:none; color:#0460a7;}
+a:hover{ text-decoration:none; color:#000;}
+a img { border:none;}
+
+.clr{ clear:both !important; }
+.main{ width:1000px; margin:auto;}
+.lft{ width:670px; float:left; padding-top:10px;}
+.latest-news-top-nav{ border:1px solid #ececec; height:22px;  background:#ffffff; overflow:hidden;}
+.latest-news-top-nav li{float:left;}
+.latest-news-top-nav li a{ padding:0px 20px; height:22px; display:block; font:bold 11px/22px Arial, Helvetica, sans-serif; color:#858484;}
+.latest-news-top-nav li a:hover{color:#ffffff; background:#848484;}
+.latest-news-top-nav li a.acts{color:#ffffff; background:#848484;}
+.latest-stories{ padding-top:5px;}
+.latest-stories li{ padding:10px 0px; border-bottom:1px dotted #ccc; font:normal 12px arial;  color:#757676; line-height:18px;}
+.mrgn10-fleft{ float:left; margin-right:10px; margin-bottom:10px;}
+.latest-stories li a{ font:bold 16px Arial, Helvetica, sans-serif; line-height:20px;}
+.photo-intro{ float:left; width:100%;font-size:14px;}
+.share-left{display:none;float:right; text-align:right; width:20px;}
+.vspacer10{ padding-top:10px;}
+.vspacer5{ padding-top:5px;}
+.txtblk{ color:#333;}
+.txt12{font:normal 12px/18px arial;}
+.txt12 a{font:normal 12px/18px arial !important;}
+.rgt{ width:300px; float:right;}
+.txt11-orng{ font-size:11px; color:#ef8632; font-weight:normal; }
+.share-sprite{ width:18px; height:16px; display:block; background:url(http://static.ibnlive.in.com/ibnlive/pix/mailer/share.png) no-repeat 0px 0px;}
+.share-sprite:hover{background-position:-18px 0px;}
+.twtr{ background-position:0px -18px;}
+.twtr:hover{ background-position:-18px -18px;}
+.gpls{ background-position:0px -40px;}
+.gpls:hover{ background-position:-18px -40px;}
+.right-section-box{ padding:10px; border:1px solid #ccc; font-size:12px; line-height:18px;}
+.dtbrdr{ border-bottom:1px solid #ccc;}
+.txt14{ font-size:14px; line-height:18px;}
+.arrow-dts{}
+.arrow-dts li{font-size:12px;font-weight:bold; padding-left:10px; margin-bottom:10px; background:url(http://static.ibnlive.com/pix/ibnhome/arrow-rd.jpg) 0 4px no-repeat;}
+.pls{font-weight: bold;font-size: 12px;margin-top: 10px;padding-bottom: 10px;}
+.grbgs2{ background:#f4f5f5;}
+.top-photo-story{ padding-top:10px;}
+.top-photo-story li{width:130px; height:90px; position:relative; margin-left:5px; float:left; overflow:hidden; background:#1a6c96;}
+.top-photo-story li img{width:130px; height:90px; float:left;}
+.hover-text{ position:absolute; left:0px; right:0px; bottom:-100px;  background:#1a6c96; z-index:100;}
+.top-photo-story li a{ font:normal 12px arial; color:#fff; }
+.hover-text a{ font:normal 12px arial; color:#fff; }
+.top-photo-story li.nmrgns{ margin-left:0px;}
+.top-photo-story li:hover .hover-text{  bottom:0px;  transition:all 1s ease-in-out; -moz-transition:all 1s ease-in-out; -webkit-transition:all 1s ease-in-out;}
+.pdng8{ padding:8px;}
+.hover-text2{ position:absolute; left:0px; right:0px; bottom:-100px; width:114px; padding:8px; height:74px; background:#1a6c96; z-index:100;}
+.top-photo-story li:hover .hover-text2{ bottom:0px; transition:all 1s ease-in-out; -moz-transition:all 1s ease-in-out; -webkit-transition:all 1s ease-in-out;}
+.pslist {
+display:none;
+}
+.pslist li a{font-size:12px !important;}
+#news_mid {
+    padding: 0px !important;
+}
+.latest-stories {
+    padding-top: 0px !important;
+}
+#news_nav_box {
+    padding-bottom: 0px !important;
+   
+}

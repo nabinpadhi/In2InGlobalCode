@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>jquery.eHelp v1.1.4. plugin</title>	
+  <style>
+   html,body { font-size:12px; position:relative; padding:0; margin:0; width:100%; height:100%; }
+   body { width:100%; height:100%; }	
+   #rightdiv { position:relative; display:block; float:right; width:15%; padding-right:5%; }
+   #leftdiv { position:relative; display:block; float:left; width:70%; }
+
+   #resultsection { width:120px; }
+   #EHhelpBox { position:relative; width:200px; background-color:#eee; padding:5px 10px 10px 10px; }
+   #EHhelpBox .title { color:red; }
+   #EHhelpBox a { color:black !important; text-decoration:none; }
+   #EHhelpBox a:hover { color:red; text-decoration:none; }	
+  </style>
+  <script src="jquery-1.5.2.min.js"></script>
+  <script src="jquery.ehelp-1.1.4-min.js"></script>
+  <script src="jquery.ehelp.functions.js"></script>
+  <link href="jquery.ehelp.css" type="text/css" rel="stylesheet" />
+
+  <script type="text/javascript">  
+    $(document).ready(function() {
+	/*
+	OPTIONS: default values
+		'animatedvp': true, -> viewport traction on animated method
+		'staticvp': true,  -> viewport traction on static method
+		'autoalign':true  -> align of tooltips 
+					true -> positioned by script, 
+					false -> poistioned by "align" value in paths 	              definition
+		'autolinks':true  -> generates help links from json paths definitions
+	*/
+		$.getJSON("./paths.json",
+		function(paths) {
+			$('#EHhelpBox').embeddedHelp(paths, {
+			'animatedvp': true,
+			'staticvp': true,
+			'autoalign':true,
+			'callextf':true,
+		        'autolinks':true,			
+	     		});
+		});
+    });
+    </script>
+</head>
+<body>
+<div id="rightdiv">
+
+<div id="EHhelpBox">
+<p class="title">How to...</p>
+
+</div>
+
+</div>
+
+
+<div id="leftdiv">
+<h1>Jquery E-help v.1.1.4 demo page</h1>
+<h2>Database reports module</h2>
+
+<div>
+Search: <input name="search" id="search" value="" maxlength="30" size="30" type="text">
+<input type="button" value="Search" name="dosearch"> <input type="button" value="Refresh" name="dorefresh"> 
+</div>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br /><br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<h2>Databases</h2> 
+<table id="baseTable">
+<thead><tr>
+<th>Select</th>
+<th>Name</th>
+<th>Last update</th>
+<th>Activity</th>
+<tr></thead>
+<tbody>
+<tr>
+	<td><input name="chckid[]" value="23558" style="" type="checkbox"></td>
+	<td>Database One</td>
+	<td>12/12/2010</td>
+	<td>Active</td>
+</tr>
+<tr>
+	<td><input name="chckid[]" value="23558" id="" style="" type="checkbox"></td>
+	<td>Database One</td>
+	<td>12/12/2010</td>
+	<td>Active</td>
+</tr>
+<tr>
+	<td><input name="chckid[]" value="23558" id="" style="" type="checkbox"></td>
+	<td>Database One</td>
+	<td>12/12/2010</td>
+	<td>Active</td>
+</tr>
+<tr>
+	<td><input name="chckid[]" value="23558" id="" style="" type="checkbox"></td>
+	<td>Database One</td>
+	<td>12/12/2010</td>
+	<td>Active</td>
+</tr>
+<tr>
+	<td><input name="chckid[]" value="23558" id="" style="" type="checkbox"></td>
+	<td>Database One</td>
+	<td>12/12/2010</td>
+	<td>Active</td>
+</tr>
+<tr>
+	<td><input name="chckid[]" value="23558" id="" style="" type="checkbox"></td>
+	<td>Database One</td>
+	<td>12/12/2010</td>
+	<td>Active</td>
+</tr>
+
+</tbody>
+</table>
+<hr>
+
+<div style="width:1800px; display:block; clear:both;">
+<div style="float:right;">
+<input type="button" value="Generate report" name="doreport"> <input type="button" value="Clear results" name="clearResults"> 
+</div>
+</div>
+
+<div style="width:1800px; display:block; clear:both;">
+<div style="float:right;">
+<input type="button" value="Generate report" name="doNewReport"> <input type="button" value="Clear results" name="clearNewResults"> 
+</div>
+</div>
+
+
+<h2 id="resultsection">Results</h2>
+<div id="resultsbox"></div> 
+
+
+
+<br />
+<br />
+<p>End of document</p>
+</div>
+
+</body>
+</html>

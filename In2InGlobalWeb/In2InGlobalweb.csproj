@@ -1,0 +1,2205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F552702E-3D60-4E1A-BC8E-B850193353C3}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>In2InGlobal.presentation</RootNamespace>
+    <AssemblyName>In2InGlobalweb</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Ajax">
+      <HintPath>kss-ref\Ajax.dll</HintPath>
+    </Reference>
+    <Reference Include="AjaxControlToolkit">
+      <HintPath>kss-ref\AjaxControlToolkit\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="AntiXSSLibrary">
+      <HintPath>kss-ref\AntiXSSLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>kss-ref\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Trirand.Web">
+      <HintPath>kss-ref\Trirand.Web.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="articles\ArticleOnJava.aspx" />
+    <Content Include="articles\ArticleOnJQuery.aspx" />
+    <Content Include="articles\ArticleOnPHP.aspx" />
+    <Content Include="articles\image\icon-fb.png" />
+    <Content Include="articles\image\icon-gplus.png" />
+    <Content Include="articles\image\icon-rss.png" />
+    <Content Include="articles\image\icon-twitter.png" />
+    <Content Include="articles\image\photo-scott-tall.jpg" />
+    <Content Include="articles\ArticleOnDotNet.aspx" />
+    <Content Include="CircleOval.html" />
+    <Content Include="css\anythingslider-ie.css" />
+    <Content Include="css\anythingslider.css" />
+    <Content Include="css\landing-default-font-awesome.min.css" />
+    <Content Include="css\landing-default-zistyle.css" />
+    <Content Include="css\landing-font-awesome.min.css" />
+    <Content Include="css\landing-zistyle.css" />
+    <Content Include="css\font-awesome.min.css" />
+    <Content Include="css\icon-style.css" />
+    <Content Include="css\jquery.loadmask.css" />
+    <Content Include="css\jquery.tooltip.css" />
+    <Content Include="css\js-mindmap.css" />
+    <Content Include="css\Master.css" />
+    <Content Include="css\msgBoxLight.css" />
+    <Content Include="css\risktree-style.css" />
+    <Content Include="css\screen.css" />
+    <Content Include="css\sisa.css" />
+    <Content Include="css\sratstyle.css" />
+    <Content Include="css\tag_topic.css" />
+    <Content Include="css\theme-metallic.css" />
+    <Content Include="css\zistyle.css" />
+    <Content Include="Global.asax" />
+    <Content Include="images\about_bg.png" />
+    <Content Include="images\bg.jpg" />
+    <Content Include="images\coming-soon.jpg" />
+    <Content Include="images\coming-soon1.png" />
+    <Content Include="images\enrichment-process.png" />
+    <Content Include="images\functionIcon\projects.jpg" />
+    <Content Include="images\HeaderBg.png" />
+    <Content Include="images\in2ingloballogo.png" />
+    <Content Include="images\kss-logo.png" />
+    <Content Include="images\kss-logotext.png" />
+    <Content Include="images\L2RArrow.png" />
+    <Content Include="images\loggedout.png" />
+    <Content Include="images\LoginScreenImg1.png" />
+    <Content Include="images\logo.png" />
+    <Content Include="images\Menu\company-trans.png" />
+    <Content Include="images\Menu\company.png" />
+    <Content Include="images\Menu\database_oracle.png" />
+    <Content Include="images\Menu\dotnet_icon.jpg" />
+    <Content Include="images\Menu\dotnet_icon.png" />
+    <Content Include="images\Menu\home.png" />
+    <Content Include="images\Menu\ittpm-home.png" />
+    <Content Include="images\Menu\ittpm-signup.jpg" />
+    <Content Include="images\Menu\java.png" />
+    <Content Include="images\Menu\Java_icon.png" />
+    <Content Include="images\Menu\jQuery.png" />
+    <Content Include="images\Menu\my-cabin.png" />
+    <Content Include="images\Menu\Oracle.png" />
+    <Content Include="images\Menu\others_icon.jpg" />
+    <Content Include="images\Menu\php.png" />
+    <Content Include="images\Menu\php_icon.png" />
+    <Content Include="images\Menu\pricing-trans.png" />
+    <Content Include="images\Menu\pricing.png" />
+    <Content Include="images\Menu\process-trans.png" />
+    <Content Include="images\Menu\process.png" />
+    <Content Include="images\Menu\resources-trans.png" />
+    <Content Include="images\Menu\resources.png" />
+    <Content Include="images\Menu\services-trans-new.png" />
+    <Content Include="images\Menu\services-trans.png" />
+    <Content Include="images\Menu\services.png" />
+    <Content Include="images\Menu\solutions-trans.png" />
+    <Content Include="images\Menu\solutions.png" />
+    <Content Include="images\Menu\SQL.png" />
+    <Content Include="images\Menu\Team-work-technical-PM.jpg" />
+    <Content Include="images\Menu\tpm.jpg" />
+    <Content Include="images\MessageBoxIcon\background.png" />
+    <Content Include="images\MessageBoxIcon\info.png" />
+    <Content Include="images\MessageBoxIcon\msgBoxBackGround.png" />
+    <Content Include="images\Processing.gif" />
+    <Content Include="images\processing1.gif" />
+    <Content Include="images\Processing_big.gif" />
+    <Content Include="images\signup.png" />
+    <Content Include="images\technical_way.png" />
+    <Content Include="css\garagedoor.css" />
+    <Content Include="css\style.css" />
+    <Content Include="images\Menu\bg-pattern.png" />
+    <Content Include="images\Menu\bg.jpg" />
+    <Content Include="images\Menu\garage2.jpg" />
+    <Content Include="images\Menu\garage3.jpg" />
+    <Content Include="images\Menu\garage4.jpg" />
+    <Content Include="images\Menu\garage5.jpg" />
+    <Content Include="images\Menu\nothing.gif" />
+    <Content Include="images\welcomeTPM.png" />
+    <Content Include="images\welcomeTPM_new.png" />
+    <Content Include="Index.aspx" />
+    <Content Include="RANews.aspx" />
+    <Content Include="jqdashboard\images\chart-1.png" />
+    <Content Include="jqdashboard\images\chart-2.png" />
+    <Content Include="jqdashboard\images\chart-3.png" />
+    <Content Include="jqdashboard\images\tab-1.png" />
+    <Content Include="jqdashboard\jquery.portal.js" />
+    <Content Include="jqdashboard\js\easyloader.js" />
+    <Content Include="jqdashboard\js\jquery-1.7.1.min.js" />
+    <Content Include="jqdashboard\js\jquery.easyui.min.js" />
+    <Content Include="jqdashboard\plugins\jquery.accordion.js" />
+    <Content Include="jqdashboard\plugins\jquery.calendar.js" />
+    <Content Include="jqdashboard\plugins\jquery.combo.js" />
+    <Content Include="jqdashboard\plugins\jquery.combobox.js" />
+    <Content Include="jqdashboard\plugins\jquery.combogrid.js" />
+    <Content Include="jqdashboard\plugins\jquery.combotree.js" />
+    <Content Include="jqdashboard\plugins\jquery.datagrid.js" />
+    <Content Include="jqdashboard\plugins\jquery.datebox.js" />
+    <Content Include="jqdashboard\plugins\jquery.datetimebox.js" />
+    <Content Include="jqdashboard\plugins\jquery.dialog.js" />
+    <Content Include="jqdashboard\plugins\jquery.draggable.js" />
+    <Content Include="jqdashboard\plugins\jquery.droppable.js" />
+    <Content Include="jqdashboard\plugins\jquery.form.js" />
+    <Content Include="jqdashboard\plugins\jquery.layout.js" />
+    <Content Include="jqdashboard\plugins\jquery.linkbutton.js" />
+    <Content Include="jqdashboard\plugins\jquery.menu.js" />
+    <Content Include="jqdashboard\plugins\jquery.menubutton.js" />
+    <Content Include="jqdashboard\plugins\jquery.messager.js" />
+    <Content Include="jqdashboard\plugins\jquery.numberbox.js" />
+    <Content Include="jqdashboard\plugins\jquery.numberspinner.js" />
+    <Content Include="jqdashboard\plugins\jquery.pagination.js" />
+    <Content Include="jqdashboard\plugins\jquery.panel.js" />
+    <Content Include="jqdashboard\plugins\jquery.parser.js" />
+    <Content Include="jqdashboard\plugins\jquery.progressbar.js" />
+    <Content Include="jqdashboard\plugins\jquery.propertygrid.js" />
+    <Content Include="jqdashboard\plugins\jquery.resizable.js" />
+    <Content Include="jqdashboard\plugins\jquery.searchbox.js" />
+    <Content Include="jqdashboard\plugins\jquery.spinner.js" />
+    <Content Include="jqdashboard\plugins\jquery.splitbutton.js" />
+    <Content Include="jqdashboard\plugins\jquery.tabs.js" />
+    <Content Include="jqdashboard\plugins\jquery.timespinner.js" />
+    <Content Include="jqdashboard\plugins\jquery.tree.js" />
+    <Content Include="jqdashboard\plugins\jquery.treegrid.js" />
+    <Content Include="jqdashboard\plugins\jquery.ui.button.js" />
+    <Content Include="jqdashboard\plugins\jquery.validatebox.js" />
+    <Content Include="jqdashboard\plugins\jquery.window.js" />
+    <Content Include="jqdashboard\portal.css" />
+    <Content Include="jqdashboard\RADashboard.aspx" />
+    <Content Include="jqdashboard\RADashboard.html" />
+    <Content Include="jqdashboard\themes\default\accordion.css" />
+    <Content Include="jqdashboard\themes\default\calendar.css" />
+    <Content Include="jqdashboard\themes\default\combo.css" />
+    <Content Include="jqdashboard\themes\default\combobox.css" />
+    <Content Include="jqdashboard\themes\default\datagrid.css" />
+    <Content Include="jqdashboard\themes\default\datebox.css" />
+    <Content Include="jqdashboard\themes\default\dialog.css" />
+    <Content Include="jqdashboard\themes\default\easyui.css" />
+    <Content Include="jqdashboard\themes\default\images\accordion_collapse.png" />
+    <Content Include="jqdashboard\themes\default\images\accordion_expand.png" />
+    <Content Include="jqdashboard\themes\default\images\blank.gif" />
+    <Content Include="jqdashboard\themes\default\images\button_a_bg.gif" />
+    <Content Include="jqdashboard\themes\default\images\button_plain_hover.png" />
+    <Content Include="jqdashboard\themes\default\images\button_span_bg.gif" />
+    <Content Include="jqdashboard\themes\default\images\calendar_nextmonth.gif" />
+    <Content Include="jqdashboard\themes\default\images\calendar_nextyear.gif" />
+    <Content Include="jqdashboard\themes\default\images\calendar_prevmonth.gif" />
+    <Content Include="jqdashboard\themes\default\images\calendar_prevyear.gif" />
+    <Content Include="jqdashboard\themes\default\images\combo_arrow.gif" />
+    <Content Include="jqdashboard\themes\default\images\datagrid_header_bg.gif" />
+    <Content Include="jqdashboard\themes\default\images\datagrid_row_collapse.gif" />
+    <Content Include="jqdashboard\themes\default\images\datagrid_row_expand.gif" />
+    <Content Include="jqdashboard\themes\default\images\datagrid_sort_asc.gif" />
+    <Content Include="jqdashboard\themes\default\images\datagrid_sort_desc.gif" />
+    <Content Include="jqdashboard\themes\default\images\datagrid_title_bg.png" />
+    <Content Include="jqdashboard\themes\default\images\datebox_arrow.png" />
+    <Content Include="jqdashboard\themes\default\images\layout_button_down.gif" />
+    <Content Include="jqdashboard\themes\default\images\layout_button_left.gif" />
+    <Content Include="jqdashboard\themes\default\images\layout_button_right.gif" />
+    <Content Include="jqdashboard\themes\default\images\layout_button_up.gif" />
+    <Content Include="jqdashboard\themes\default\images\menu.gif" />
+    <Content Include="jqdashboard\themes\default\images\menu_downarrow.png" />
+    <Content Include="jqdashboard\themes\default\images\menu_rightarrow.png" />
+    <Content Include="jqdashboard\themes\default\images\menu_sep.png" />
+    <Content Include="jqdashboard\themes\default\images\menu_split_downarrow.png" />
+    <Content Include="jqdashboard\themes\default\images\messager_error.gif" />
+    <Content Include="jqdashboard\themes\default\images\messager_info.gif" />
+    <Content Include="jqdashboard\themes\default\images\messager_question.gif" />
+    <Content Include="jqdashboard\themes\default\images\messager_warning.gif" />
+    <Content Include="jqdashboard\themes\default\images\pagination_first.gif" />
+    <Content Include="jqdashboard\themes\default\images\pagination_last.gif" />
+    <Content Include="jqdashboard\themes\default\images\pagination_load.png" />
+    <Content Include="jqdashboard\themes\default\images\pagination_loading.gif" />
+    <Content Include="jqdashboard\themes\default\images\pagination_next.gif" />
+    <Content Include="jqdashboard\themes\default\images\pagination_prev.gif" />
+    <Content Include="jqdashboard\themes\default\images\panel_loading.gif" />
+    <Content Include="jqdashboard\themes\default\images\panel_title.png" />
+    <Content Include="jqdashboard\themes\default\images\panel_tools.gif" />
+    <Content Include="jqdashboard\themes\default\images\panel_tool_collapse.gif" />
+    <Content Include="jqdashboard\themes\default\images\panel_tool_expand.gif" />
+    <Content Include="jqdashboard\themes\default\images\searchbox_button.png" />
+    <Content Include="jqdashboard\themes\default\images\spinner_arrow_down.gif" />
+    <Content Include="jqdashboard\themes\default\images\spinner_arrow_up.gif" />
+    <Content Include="jqdashboard\themes\default\images\tabs_active.png" />
+    <Content Include="jqdashboard\themes\default\images\tabs_close.gif" />
+    <Content Include="jqdashboard\themes\default\images\tabs_enabled.png" />
+    <Content Include="jqdashboard\themes\default\images\tabs_leftarrow.png" />
+    <Content Include="jqdashboard\themes\default\images\tabs_rightarrow.png" />
+    <Content Include="jqdashboard\themes\default\images\tree_arrows.gif" />
+    <Content Include="jqdashboard\themes\default\images\tree_checkbox_0.gif" />
+    <Content Include="jqdashboard\themes\default\images\tree_checkbox_1.gif" />
+    <Content Include="jqdashboard\themes\default\images\tree_checkbox_2.gif" />
+    <Content Include="jqdashboard\themes\default\images\tree_dnd_no.png" />
+    <Content Include="jqdashboard\themes\default\images\tree_dnd_yes.png" />
+    <Content Include="jqdashboard\themes\default\images\tree_file.gif" />
+    <Content Include="jqdashboard\themes\default\images\tree_folder.gif" />
+    <Content Include="jqdashboard\themes\default\images\tree_folder_open.gif" />
+    <Content Include="jqdashboard\themes\default\images\tree_loading.gif" />
+    <Content Include="jqdashboard\themes\default\images\validatebox_pointer.gif" />
+    <Content Include="jqdashboard\themes\default\images\validatebox_warning.png" />
+    <Content Include="jqdashboard\themes\default\layout.css" />
+    <Content Include="jqdashboard\themes\default\linkbutton.css" />
+    <Content Include="jqdashboard\themes\default\menu.css" />
+    <Content Include="jqdashboard\themes\default\menubutton.css" />
+    <Content Include="jqdashboard\themes\default\messager.css" />
+    <Content Include="jqdashboard\themes\default\pagination.css" />
+    <Content Include="jqdashboard\themes\default\panel.css" />
+    <Content Include="jqdashboard\themes\default\progressbar.css" />
+    <Content Include="jqdashboard\themes\default\propertygrid.css" />
+    <Content Include="jqdashboard\themes\default\searchbox.css" />
+    <Content Include="jqdashboard\themes\default\spinner.css" />
+    <Content Include="jqdashboard\themes\default\splitbutton.css" />
+    <Content Include="jqdashboard\themes\default\tabs.css" />
+    <Content Include="jqdashboard\themes\default\tree.css" />
+    <Content Include="jqdashboard\themes\default\validatebox.css" />
+    <Content Include="jqdashboard\themes\default\window.css" />
+    <Content Include="jqdashboard\themes\gray\accordion.css" />
+    <Content Include="jqdashboard\themes\gray\calendar.css" />
+    <Content Include="jqdashboard\themes\gray\combo.css" />
+    <Content Include="jqdashboard\themes\gray\combobox.css" />
+    <Content Include="jqdashboard\themes\gray\datagrid.css" />
+    <Content Include="jqdashboard\themes\gray\datebox.css" />
+    <Content Include="jqdashboard\themes\gray\dialog.css" />
+    <Content Include="jqdashboard\themes\gray\easyui.css" />
+    <Content Include="jqdashboard\themes\gray\images\accordion_collapse.png" />
+    <Content Include="jqdashboard\themes\gray\images\accordion_expand.png" />
+    <Content Include="jqdashboard\themes\gray\images\blank.gif" />
+    <Content Include="jqdashboard\themes\gray\images\button_a_bg.gif" />
+    <Content Include="jqdashboard\themes\gray\images\button_plain_hover.png" />
+    <Content Include="jqdashboard\themes\gray\images\button_span_bg.gif" />
+    <Content Include="jqdashboard\themes\gray\images\calendar_nextmonth.gif" />
+    <Content Include="jqdashboard\themes\gray\images\calendar_nextyear.gif" />
+    <Content Include="jqdashboard\themes\gray\images\calendar_prevmonth.gif" />
+    <Content Include="jqdashboard\themes\gray\images\calendar_prevyear.gif" />
+    <Content Include="jqdashboard\themes\gray\images\combo_arrow.gif" />
+    <Content Include="jqdashboard\themes\gray\images\datagrid_header_bg.gif" />
+    <Content Include="jqdashboard\themes\gray\images\datagrid_row_collapse.gif" />
+    <Content Include="jqdashboard\themes\gray\images\datagrid_row_expand.gif" />
+    <Content Include="jqdashboard\themes\gray\images\datagrid_sort_asc.gif" />
+    <Content Include="jqdashboard\themes\gray\images\datagrid_sort_desc.gif" />
+    <Content Include="jqdashboard\themes\gray\images\datagrid_title_bg.gif" />
+    <Content Include="jqdashboard\themes\gray\images\datebox_arrow.png" />
+    <Content Include="jqdashboard\themes\gray\images\layout_button_down.gif" />
+    <Content Include="jqdashboard\themes\gray\images\layout_button_left.gif" />
+    <Content Include="jqdashboard\themes\gray\images\layout_button_right.gif" />
+    <Content Include="jqdashboard\themes\gray\images\layout_button_up.gif" />
+    <Content Include="jqdashboard\themes\gray\images\menu.gif" />
+    <Content Include="jqdashboard\themes\gray\images\menu_downarrow.png" />
+    <Content Include="jqdashboard\themes\gray\images\menu_rightarrow.png" />
+    <Content Include="jqdashboard\themes\gray\images\menu_sep.png" />
+    <Content Include="jqdashboard\themes\gray\images\menu_split_downarrow.png" />
+    <Content Include="jqdashboard\themes\gray\images\messager_error.gif" />
+    <Content Include="jqdashboard\themes\gray\images\messager_info.gif" />
+    <Content Include="jqdashboard\themes\gray\images\messager_question.gif" />
+    <Content Include="jqdashboard\themes\gray\images\messager_warning.gif" />
+    <Content Include="jqdashboard\themes\gray\images\pagination_first.gif" />
+    <Content Include="jqdashboard\themes\gray\images\pagination_last.gif" />
+    <Content Include="jqdashboard\themes\gray\images\pagination_load.png" />
+    <Content Include="jqdashboard\themes\gray\images\pagination_loading.gif" />
+    <Content Include="jqdashboard\themes\gray\images\pagination_next.gif" />
+    <Content Include="jqdashboard\themes\gray\images\pagination_prev.gif" />
+    <Content Include="jqdashboard\themes\gray\images\panel_loading.gif" />
+    <Content Include="jqdashboard\themes\gray\images\panel_title.gif" />
+    <Content Include="jqdashboard\themes\gray\images\panel_tools.gif" />
+    <Content Include="jqdashboard\themes\gray\images\panel_tool_collapse.gif" />
+    <Content Include="jqdashboard\themes\gray\images\panel_tool_expand.gif" />
+    <Content Include="jqdashboard\themes\gray\images\searchbox_button.png" />
+    <Content Include="jqdashboard\themes\gray\images\spinner_arrow_down.gif" />
+    <Content Include="jqdashboard\themes\gray\images\spinner_arrow_up.gif" />
+    <Content Include="jqdashboard\themes\gray\images\tabs_close.gif" />
+    <Content Include="jqdashboard\themes\gray\images\tabs_enabled.gif" />
+    <Content Include="jqdashboard\themes\gray\images\tabs_leftarrow.png" />
+    <Content Include="jqdashboard\themes\gray\images\tabs_rightarrow.png" />
+    <Content Include="jqdashboard\themes\gray\images\tree_arrows.gif" />
+    <Content Include="jqdashboard\themes\gray\images\tree_checkbox_0.gif" />
+    <Content Include="jqdashboard\themes\gray\images\tree_checkbox_1.gif" />
+    <Content Include="jqdashboard\themes\gray\images\tree_checkbox_2.gif" />
+    <Content Include="jqdashboard\themes\gray\images\tree_dnd_no.png" />
+    <Content Include="jqdashboard\themes\gray\images\tree_dnd_yes.png" />
+    <Content Include="jqdashboard\themes\gray\images\tree_file.gif" />
+    <Content Include="jqdashboard\themes\gray\images\tree_folder.gif" />
+    <Content Include="jqdashboard\themes\gray\images\tree_folder_open.gif" />
+    <Content Include="jqdashboard\themes\gray\images\tree_loading.gif" />
+    <Content Include="jqdashboard\themes\gray\images\validatebox_pointer.gif" />
+    <Content Include="jqdashboard\themes\gray\images\validatebox_warning.png" />
+    <Content Include="jqdashboard\themes\gray\layout.css" />
+    <Content Include="jqdashboard\themes\gray\linkbutton.css" />
+    <Content Include="jqdashboard\themes\gray\menu.css" />
+    <Content Include="jqdashboard\themes\gray\menubutton.css" />
+    <Content Include="jqdashboard\themes\gray\messager.css" />
+    <Content Include="jqdashboard\themes\gray\pagination.css" />
+    <Content Include="jqdashboard\themes\gray\panel.css" />
+    <Content Include="jqdashboard\themes\gray\progressbar.css" />
+    <Content Include="jqdashboard\themes\gray\propertygrid.css" />
+    <Content Include="jqdashboard\themes\gray\searchbox.css" />
+    <Content Include="jqdashboard\themes\gray\spinner.css" />
+    <Content Include="jqdashboard\themes\gray\splitbutton.css" />
+    <Content Include="jqdashboard\themes\gray\tabs.css" />
+    <Content Include="jqdashboard\themes\gray\tree.css" />
+    <Content Include="jqdashboard\themes\gray\validatebox.css" />
+    <Content Include="jqdashboard\themes\gray\window.css" />
+    <Content Include="jqdashboard\themes\icon.css" />
+    <Content Include="jqdashboard\themes\icons\back.png" />
+    <Content Include="jqdashboard\themes\icons\blank.gif" />
+    <Content Include="jqdashboard\themes\icons\cancel.png" />
+    <Content Include="jqdashboard\themes\icons\cut.png" />
+    <Content Include="jqdashboard\themes\icons\edit_add.png" />
+    <Content Include="jqdashboard\themes\icons\edit_remove.png" />
+    <Content Include="jqdashboard\themes\icons\filesave.png" />
+    <Content Include="jqdashboard\themes\icons\help.png" />
+    <Content Include="jqdashboard\themes\icons\mini_add.png" />
+    <Content Include="jqdashboard\themes\icons\mini_edit.png" />
+    <Content Include="jqdashboard\themes\icons\mini_refresh.png" />
+    <Content Include="jqdashboard\themes\icons\no.png" />
+    <Content Include="jqdashboard\themes\icons\ok.png" />
+    <Content Include="jqdashboard\themes\icons\pencil.png" />
+    <Content Include="jqdashboard\themes\icons\print.png" />
+    <Content Include="jqdashboard\themes\icons\redo.png" />
+    <Content Include="jqdashboard\themes\icons\reload.png" />
+    <Content Include="jqdashboard\themes\icons\search.png" />
+    <Content Include="jqdashboard\themes\icons\sum.png" />
+    <Content Include="jqdashboard\themes\icons\tip.png" />
+    <Content Include="jqdashboard\themes\icons\undo.png" />
+    <Content Include="jquery\eHelp\cursor.png" />
+    <Content Include="jquery\eHelp\inlineJSon998913.html" />
+    <Content Include="jquery\eHelp\jquery-1.5.2.min.js" />
+    <Content Include="jquery\eHelp\jquery-1.6.4.js" />
+    <Content Include="jquery\eHelp\jquery.ehelp-1.1.4-min.js" />
+    <Content Include="jquery\eHelp\jquery.ehelp-1.1.4.js" />
+    <Content Include="jquery\eHelp\jquery.ehelp.css" />
+    <Content Include="jquery\eHelp\jquery.ehelp.functions.js" />
+    <Content Include="jquery\eHelp\outJson10989.html" />
+    <Content Include="jquery\jqdashboard\images\chart-1.png" />
+    <Content Include="jquery\jqdashboard\images\chart-2.png" />
+    <Content Include="jquery\jqdashboard\images\chart-3.png" />
+    <Content Include="jquery\jqdashboard\images\tab-1.png" />
+    <Content Include="jquery\jqdashboard\jquery.portal.js" />
+    <Content Include="jquery\jqdashboard\js\easyloader.js" />
+    <Content Include="jquery\jqdashboard\js\jquery-1.7.1.min.js" />
+    <Content Include="jquery\jqdashboard\js\jquery.easyui.min.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.accordion.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.calendar.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.combo.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.combobox.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.combogrid.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.combotree.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.datagrid.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.datebox.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.datetimebox.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.dialog.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.draggable.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.droppable.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.form.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.layout.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.linkbutton.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.menu.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.menubutton.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.messager.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.numberbox.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.numberspinner.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.pagination.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.panel.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.parser.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.progressbar.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.propertygrid.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.resizable.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.searchbox.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.spinner.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.splitbutton.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.tabs.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.timespinner.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.tree.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.treegrid.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.ui.button.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.validatebox.js" />
+    <Content Include="jquery\jqdashboard\plugins\jquery.window.js" />
+    <Content Include="jquery\jqdashboard\portal.css" />
+    <Content Include="jquery\jqdashboard\RADashboard.aspx" />
+    <Content Include="jquery\jqdashboard\RADashboard.html" />
+    <Content Include="jquery\jqdashboard\themes\default\accordion.css" />
+    <Content Include="jquery\jqdashboard\themes\default\calendar.css" />
+    <Content Include="jquery\jqdashboard\themes\default\combo.css" />
+    <Content Include="jquery\jqdashboard\themes\default\combobox.css" />
+    <Content Include="jquery\jqdashboard\themes\default\datagrid.css" />
+    <Content Include="jquery\jqdashboard\themes\default\datebox.css" />
+    <Content Include="jquery\jqdashboard\themes\default\dialog.css" />
+    <Content Include="jquery\jqdashboard\themes\default\easyui.css" />
+    <Content Include="jquery\jqdashboard\themes\default\images\accordion_collapse.png" />
+    <Content Include="jquery\jqdashboard\themes\default\images\accordion_expand.png" />
+    <Content Include="jquery\jqdashboard\themes\default\images\blank.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\button_a_bg.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\button_plain_hover.png" />
+    <Content Include="jquery\jqdashboard\themes\default\images\button_span_bg.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\calendar_nextmonth.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\calendar_nextyear.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\calendar_prevmonth.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\calendar_prevyear.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\combo_arrow.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\datagrid_header_bg.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\datagrid_row_collapse.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\datagrid_row_expand.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\datagrid_sort_asc.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\datagrid_sort_desc.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\datagrid_title_bg.png" />
+    <Content Include="jquery\jqdashboard\themes\default\images\datebox_arrow.png" />
+    <Content Include="jquery\jqdashboard\themes\default\images\layout_button_down.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\layout_button_left.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\layout_button_right.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\layout_button_up.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\menu.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\menu_downarrow.png" />
+    <Content Include="jquery\jqdashboard\themes\default\images\menu_rightarrow.png" />
+    <Content Include="jquery\jqdashboard\themes\default\images\menu_sep.png" />
+    <Content Include="jquery\jqdashboard\themes\default\images\menu_split_downarrow.png" />
+    <Content Include="jquery\jqdashboard\themes\default\images\messager_error.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\messager_info.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\messager_question.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\messager_warning.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\pagination_first.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\pagination_last.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\pagination_load.png" />
+    <Content Include="jquery\jqdashboard\themes\default\images\pagination_loading.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\pagination_next.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\pagination_prev.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\panel_loading.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\panel_title.png" />
+    <Content Include="jquery\jqdashboard\themes\default\images\panel_tools.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\panel_tool_collapse.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\panel_tool_expand.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\searchbox_button.png" />
+    <Content Include="jquery\jqdashboard\themes\default\images\spinner_arrow_down.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\spinner_arrow_up.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\tabs_active.png" />
+    <Content Include="jquery\jqdashboard\themes\default\images\tabs_close.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\tabs_enabled.png" />
+    <Content Include="jquery\jqdashboard\themes\default\images\tabs_leftarrow.png" />
+    <Content Include="jquery\jqdashboard\themes\default\images\tabs_rightarrow.png" />
+    <Content Include="jquery\jqdashboard\themes\default\images\tree_arrows.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\tree_checkbox_0.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\tree_checkbox_1.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\tree_checkbox_2.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\tree_dnd_no.png" />
+    <Content Include="jquery\jqdashboard\themes\default\images\tree_dnd_yes.png" />
+    <Content Include="jquery\jqdashboard\themes\default\images\tree_file.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\tree_folder.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\tree_folder_open.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\tree_loading.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\validatebox_pointer.gif" />
+    <Content Include="jquery\jqdashboard\themes\default\images\validatebox_warning.png" />
+    <Content Include="jquery\jqdashboard\themes\default\layout.css" />
+    <Content Include="jquery\jqdashboard\themes\default\linkbutton.css" />
+    <Content Include="jquery\jqdashboard\themes\default\menu.css" />
+    <Content Include="jquery\jqdashboard\themes\default\menubutton.css" />
+    <Content Include="jquery\jqdashboard\themes\default\messager.css" />
+    <Content Include="jquery\jqdashboard\themes\default\pagination.css" />
+    <Content Include="jquery\jqdashboard\themes\default\panel.css" />
+    <Content Include="jquery\jqdashboard\themes\default\progressbar.css" />
+    <Content Include="jquery\jqdashboard\themes\default\propertygrid.css" />
+    <Content Include="jquery\jqdashboard\themes\default\searchbox.css" />
+    <Content Include="jquery\jqdashboard\themes\default\spinner.css" />
+    <Content Include="jquery\jqdashboard\themes\default\splitbutton.css" />
+    <Content Include="jquery\jqdashboard\themes\default\tabs.css" />
+    <Content Include="jquery\jqdashboard\themes\default\tree.css" />
+    <Content Include="jquery\jqdashboard\themes\default\validatebox.css" />
+    <Content Include="jquery\jqdashboard\themes\default\window.css" />
+    <Content Include="jquery\jqdashboard\themes\gray\accordion.css" />
+    <Content Include="jquery\jqdashboard\themes\gray\calendar.css" />
+    <Content Include="jquery\jqdashboard\themes\gray\combo.css" />
+    <Content Include="jquery\jqdashboard\themes\gray\combobox.css" />
+    <Content Include="jquery\jqdashboard\themes\gray\datagrid.css" />
+    <Content Include="jquery\jqdashboard\themes\gray\datebox.css" />
+    <Content Include="jquery\jqdashboard\themes\gray\dialog.css" />
+    <Content Include="jquery\jqdashboard\themes\gray\easyui.css" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\accordion_collapse.png" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\accordion_expand.png" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\blank.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\button_a_bg.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\button_plain_hover.png" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\button_span_bg.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\calendar_nextmonth.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\calendar_nextyear.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\calendar_prevmonth.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\calendar_prevyear.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\combo_arrow.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\datagrid_header_bg.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\datagrid_row_collapse.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\datagrid_row_expand.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\datagrid_sort_asc.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\datagrid_sort_desc.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\datagrid_title_bg.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\datebox_arrow.png" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\layout_button_down.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\layout_button_left.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\layout_button_right.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\layout_button_up.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\menu.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\menu_downarrow.png" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\menu_rightarrow.png" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\menu_sep.png" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\menu_split_downarrow.png" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\messager_error.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\messager_info.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\messager_question.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\messager_warning.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\pagination_first.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\pagination_last.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\pagination_load.png" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\pagination_loading.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\pagination_next.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\pagination_prev.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\panel_loading.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\panel_title.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\panel_tools.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\panel_tool_collapse.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\panel_tool_expand.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\searchbox_button.png" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\spinner_arrow_down.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\spinner_arrow_up.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\tabs_close.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\tabs_enabled.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\tabs_leftarrow.png" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\tabs_rightarrow.png" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\tree_arrows.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\tree_checkbox_0.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\tree_checkbox_1.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\tree_checkbox_2.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\tree_dnd_no.png" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\tree_dnd_yes.png" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\tree_file.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\tree_folder.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\tree_folder_open.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\tree_loading.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\validatebox_pointer.gif" />
+    <Content Include="jquery\jqdashboard\themes\gray\images\validatebox_warning.png" />
+    <Content Include="jquery\jqdashboard\themes\gray\layout.css" />
+    <Content Include="jquery\jqdashboard\themes\gray\linkbutton.css" />
+    <Content Include="jquery\jqdashboard\themes\gray\menu.css" />
+    <Content Include="jquery\jqdashboard\themes\gray\menubutton.css" />
+    <Content Include="jquery\jqdashboard\themes\gray\messager.css" />
+    <Content Include="jquery\jqdashboard\themes\gray\pagination.css" />
+    <Content Include="jquery\jqdashboard\themes\gray\panel.css" />
+    <Content Include="jquery\jqdashboard\themes\gray\progressbar.css" />
+    <Content Include="jquery\jqdashboard\themes\gray\propertygrid.css" />
+    <Content Include="jquery\jqdashboard\themes\gray\searchbox.css" />
+    <Content Include="jquery\jqdashboard\themes\gray\spinner.css" />
+    <Content Include="jquery\jqdashboard\themes\gray\splitbutton.css" />
+    <Content Include="jquery\jqdashboard\themes\gray\tabs.css" />
+    <Content Include="jquery\jqdashboard\themes\gray\tree.css" />
+    <Content Include="jquery\jqdashboard\themes\gray\validatebox.css" />
+    <Content Include="jquery\jqdashboard\themes\gray\window.css" />
+    <Content Include="jquery\jqdashboard\themes\icon.css" />
+    <Content Include="jquery\jqdashboard\themes\icons\back.png" />
+    <Content Include="jquery\jqdashboard\themes\icons\blank.gif" />
+    <Content Include="jquery\jqdashboard\themes\icons\cancel.png" />
+    <Content Include="jquery\jqdashboard\themes\icons\cut.png" />
+    <Content Include="jquery\jqdashboard\themes\icons\edit_add.png" />
+    <Content Include="jquery\jqdashboard\themes\icons\edit_remove.png" />
+    <Content Include="jquery\jqdashboard\themes\icons\filesave.png" />
+    <Content Include="jquery\jqdashboard\themes\icons\help.png" />
+    <Content Include="jquery\jqdashboard\themes\icons\mini_add.png" />
+    <Content Include="jquery\jqdashboard\themes\icons\mini_edit.png" />
+    <Content Include="jquery\jqdashboard\themes\icons\mini_refresh.png" />
+    <Content Include="jquery\jqdashboard\themes\icons\no.png" />
+    <Content Include="jquery\jqdashboard\themes\icons\ok.png" />
+    <Content Include="jquery\jqdashboard\themes\icons\pencil.png" />
+    <Content Include="jquery\jqdashboard\themes\icons\print.png" />
+    <Content Include="jquery\jqdashboard\themes\icons\redo.png" />
+    <Content Include="jquery\jqdashboard\themes\icons\reload.png" />
+    <Content Include="jquery\jqdashboard\themes\icons\search.png" />
+    <Content Include="jquery\jqdashboard\themes\icons\sum.png" />
+    <Content Include="jquery\jqdashboard\themes\icons\tip.png" />
+    <Content Include="jquery\jqdashboard\themes\icons\undo.png" />
+    <Content Include="jquery\jqgrid\grid.base-th-div.js" />
+    <Content Include="jquery\jqgrid\grid.base.js" />
+    <Content Include="jquery\jqgrid\grid.celledit.js" />
+    <Content Include="jquery\jqgrid\grid.common.js" />
+    <Content Include="jquery\jqgrid\grid.custom.js" />
+    <Content Include="jquery\jqgrid\grid.filter.js" />
+    <Content Include="jquery\jqgrid\grid.formedit.js" />
+    <Content Include="jquery\jqgrid\grid.grouping.js" />
+    <Content Include="jquery\jqgrid\grid.import.js" />
+    <Content Include="jquery\jqgrid\grid.inlinedit.js" />
+    <Content Include="jquery\jqgrid\grid.jqueryui.js" />
+    <Content Include="jquery\jqgrid\grid.loader.js" />
+    <Content Include="jquery\jqgrid\grid.subgrid.js" />
+    <Content Include="jquery\jqgrid\grid.tbltogrid.js" />
+    <Content Include="jquery\jqgrid\grid.treegrid.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-ar.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-bg.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-bg1251.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-cat.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-cn.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-cs.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-da.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-de.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-dk.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-el.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-en.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-es.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-fa.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-fi.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-fr.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-gl.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-he.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-hr.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-hr1250.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-hu.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-is.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-it.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-ja.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-lt.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-mne.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-nl.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-no.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-pl.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-pt-br.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-pt.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-ro.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-ru.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-sk.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-sr-latin.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-sr.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-sv.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-th.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-tr.js" />
+    <Content Include="jquery\jqgrid\i18n\grid.locale-ua.js" />
+    <Content Include="jquery\jqgrid\jqDnR.js" />
+    <Content Include="jquery\jqgrid\jqModal.js" />
+    <Content Include="jquery\jqgrid\jquery.contextmenu.js" />
+    <Content Include="jquery\jqgrid\jquery.fmatter.js" />
+    <Content Include="jquery\jqgrid\jquery.jqGrid.min.js" />
+    <Content Include="jquery\jqgrid\jquery.jqGrid.src.js" />
+    <Content Include="jquery\jqgrid\json2.js" />
+    <Content Include="jquery\jqgrid\JsonXml.js" />
+    <Content Include="jquery\jquery-1.7.1.js" />
+    <Content Include="jquery\jquery-1.7.1.min.js" />
+    <Content Include="jquery\jquery-fileIcon.pack.js" />
+    <Content Include="jquery\jquery-ui-1.8.18.custom.min.js" />
+    <Content Include="jquery\jquery.contextmenu.js" />
+    <Content Include="jquery\jquery.easing.1.3.js" />
+    <Content Include="jquery\jquery.layout-1.3.0.js" />
+    <Content Include="jquery\jquery.layout-1.3.0.min.js" />
+    <Content Include="jquery\jquery.loadmask.js" />
+    <Content Include="jquery\jquery.mousewheel.js" />
+    <Content Include="jquery\jquery.msgBox.js" />
+    <Content Include="jquery\jquery.multiselect.filter.js" />
+    <Content Include="jquery\jquery.multiselect.filter.min.js" />
+    <Content Include="jquery\jquery.printElement.js" />
+    <Content Include="jquery\jquery.printElement.min.js" />
+    <Content Include="jquery\jquery.tablednd.0.6.js" />
+    <Content Include="jquery\jquery.tablednd.0.6.min.js" />
+    <Content Include="jquery\modal\css\basic.css" />
+    <Content Include="jquery\modal\css\basic_ie.css" />
+    <Content Include="jquery\modal\css\confirm.css" />
+    <Content Include="jquery\modal\css\demo.css" />
+    <Content Include="jquery\modal\img\basic\x.png" />
+    <Content Include="jquery\modal\img\button.gif" />
+    <Content Include="jquery\modal\img\header.gif" />
+    <Content Include="jquery\modal\js\basic.js" />
+    <Content Include="jquery\modal\js\confirm.js" />
+    <Content Include="jquery\modal\js\jquery.js" />
+    <Content Include="jquery\modal\js\jquery.simplemodal.js" />
+    <Content Include="jquery\MultiseletedDropDown.js" />
+    <Content Include="jquery\scrollbox\jquery.scrollbox.js" />
+    <Content Include="jquery\tooltip\chili-1.7.pack.js" />
+    <Content Include="jquery\tooltip\jquery.bgiframe.js" />
+    <Content Include="jquery\tooltip\jquery.delegate.js" />
+    <Content Include="jquery\tooltip\jquery.dimensions.js" />
+    <Content Include="jquery\tooltip\jquery.tooltip.js" />
+    <Content Include="jquery\tooltip\jquery.tooltip.min.js" />
+    <Content Include="jquery\tooltip\jquery.tooltip.pack.js" />
+    <Content Include="jquery\ui.multiselect.js" />
+    <Content Include="jquery\ui\i18n\jquery-ui-i18n.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-af.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-ar-DZ.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-ar.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-az.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-bg.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-bs.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-ca.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-cs.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-cy-GB.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-da.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-de.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-el.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-en-AU.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-en-GB.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-en-NZ.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-eo.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-es.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-et.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-eu.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-fa.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-fi.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-fo.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-fr-CH.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-fr.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-gl.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-he.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-hi.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-hr.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-hu.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-hy.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-id.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-is.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-it.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-ja.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-kk.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-km.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-ko.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-lb.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-lt.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-lv.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-mk.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-ml.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-ms.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-nl-BE.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-nl.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-no.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-pl.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-pt-BR.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-pt.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-rm.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-ro.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-ru.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-sk.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-sl.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-sq.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-sr-SR.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-sr.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-sv.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-ta.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-th.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-tj.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-tr.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-uk.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-vi.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-zh-CN.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-zh-HK.js" />
+    <Content Include="jquery\ui\i18n\jquery.ui.datepicker-zh-TW.js" />
+    <Content Include="jquery\ui\jquery-ui-1.8.18.custom.js" />
+    <Content Include="jquery\ui\jquery.effects.blind.js" />
+    <Content Include="jquery\ui\jquery.effects.bounce.js" />
+    <Content Include="jquery\ui\jquery.effects.clip.js" />
+    <Content Include="jquery\ui\jquery.effects.core.js" />
+    <Content Include="jquery\ui\jquery.effects.drop.js" />
+    <Content Include="jquery\ui\jquery.effects.explode.js" />
+    <Content Include="jquery\ui\jquery.effects.fade.js" />
+    <Content Include="jquery\ui\jquery.effects.fold.js" />
+    <Content Include="jquery\ui\jquery.effects.highlight.js" />
+    <Content Include="jquery\ui\jquery.effects.pulsate.js" />
+    <Content Include="jquery\ui\jquery.effects.scale.js" />
+    <Content Include="jquery\ui\jquery.effects.shake.js" />
+    <Content Include="jquery\ui\jquery.effects.slide.js" />
+    <Content Include="jquery\ui\jquery.effects.transfer.js" />
+    <Content Include="jquery\ui\jquery.ui.accordion.js" />
+    <Content Include="jquery\ui\jquery.ui.autocomplete.js" />
+    <Content Include="jquery\ui\jquery.ui.button.js" />
+    <Content Include="jquery\ui\jquery.ui.core.js" />
+    <Content Include="jquery\ui\jquery.ui.datepicker.js" />
+    <Content Include="jquery\ui\jquery.ui.dialog.js" />
+    <Content Include="jquery\ui\jquery.ui.draggable.js" />
+    <Content Include="jquery\ui\jquery.ui.droppable.js" />
+    <Content Include="jquery\ui\jquery.ui.mouse.js" />
+    <Content Include="jquery\ui\jquery.ui.position.js" />
+    <Content Include="jquery\ui\jquery.ui.progressbar.js" />
+    <Content Include="jquery\ui\jquery.ui.resizable.js" />
+    <Content Include="jquery\ui\jquery.ui.selectable.js" />
+    <Content Include="jquery\ui\jquery.ui.slider.js" />
+    <Content Include="jquery\ui\jquery.ui.sortable.js" />
+    <Content Include="jquery\ui\jquery.ui.tabs.js" />
+    <Content Include="jquery\ui\jquery.ui.widget.js" />
+    <Content Include="jquery\ui\jquery.silky.merquee.js" />
+    <Content Include="jquery\ui\minified\jquery.effects.blind.min.js" />
+    <Content Include="jquery\ui\minified\jquery.effects.bounce.min.js" />
+    <Content Include="jquery\ui\minified\jquery.effects.clip.min.js" />
+    <Content Include="jquery\ui\minified\jquery.effects.core.min.js" />
+    <Content Include="jquery\ui\minified\jquery.effects.drop.min.js" />
+    <Content Include="jquery\ui\minified\jquery.effects.explode.min.js" />
+    <Content Include="jquery\ui\minified\jquery.effects.fade.min.js" />
+    <Content Include="jquery\ui\minified\jquery.effects.fold.min.js" />
+    <Content Include="jquery\ui\minified\jquery.effects.highlight.min.js" />
+    <Content Include="jquery\ui\minified\jquery.effects.pulsate.min.js" />
+    <Content Include="jquery\ui\minified\jquery.effects.scale.min.js" />
+    <Content Include="jquery\ui\minified\jquery.effects.shake.min.js" />
+    <Content Include="jquery\ui\minified\jquery.effects.slide.min.js" />
+    <Content Include="jquery\ui\minified\jquery.effects.transfer.min.js" />
+    <Content Include="jquery\ui\minified\jquery.ui.accordion.min.js" />
+    <Content Include="jquery\ui\minified\jquery.ui.autocomplete.min.js" />
+    <Content Include="jquery\ui\minified\jquery.ui.button.min.js" />
+    <Content Include="jquery\ui\minified\jquery.ui.core.min.js" />
+    <Content Include="jquery\ui\minified\jquery.ui.datepicker.min.js" />
+    <Content Include="jquery\ui\minified\jquery.ui.dialog.min.js" />
+    <Content Include="jquery\ui\minified\jquery.ui.draggable.min.js" />
+    <Content Include="jquery\ui\minified\jquery.ui.droppable.min.js" />
+    <Content Include="jquery\ui\minified\jquery.ui.mouse.min.js" />
+    <Content Include="jquery\ui\minified\jquery.ui.position.min.js" />
+    <Content Include="jquery\ui\minified\jquery.ui.progressbar.min.js" />
+    <Content Include="jquery\ui\minified\jquery.ui.resizable.min.js" />
+    <Content Include="jquery\ui\minified\jquery.ui.selectable.min.js" />
+    <Content Include="jquery\ui\minified\jquery.ui.slider.min.js" />
+    <Content Include="jquery\ui\minified\jquery.ui.sortable.min.js" />
+    <Content Include="jquery\ui\minified\jquery.ui.tabs.min.js" />
+    <Content Include="jquery\ui\minified\jquery.ui.widget.min.js" />
+    <Content Include="MailTemplates\WelcomeTPMMailTemplate.txt" />
+    <Content Include="NewJEasyUI\demo.css" />
+    <Content Include="NewJEasyUI\easyloader.js" />
+    <Content Include="NewJEasyUI\jquery.easyui.min.js" />
+    <Content Include="NewJEasyUI\jquery.min.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.accordion.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.calendar.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.combo.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.combobox.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.combogrid.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.combotree.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.datagrid.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.datebox.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.datetimebox.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.dialog.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.draggable.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.droppable.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.form.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.layout.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.linkbutton.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.menu.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.menubutton.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.messager.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.numberbox.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.numberspinner.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.pagination.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.panel.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.parser.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.progressbar.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.propertygrid.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.resizable.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.searchbox.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.slider.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.spinner.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.splitbutton.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.tabs.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.timespinner.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.tooltip.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.tree.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.treegrid.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.validatebox.js" />
+    <Content Include="NewJEasyUI\plugins\jquery.window.js" />
+    <Content Include="NewJEasyUI\plugins\jqValidation\css\bootstrap.min.css" />
+    <Content Include="NewJEasyUI\plugins\jqValidation\css\jquery.validity.css" />
+    <Content Include="NewJEasyUI\plugins\jqValidation\js\jquery-1.9.0.min.js" />
+    <Content Include="NewJEasyUI\plugins\jqValidation\js\jquery.validity.min.js" />
+    <Content Include="NewJEasyUI\plugins\jqValidation\Validate.html" />
+    <Content Include="NewJEasyUI\themes\black\accordion.css" />
+    <Content Include="NewJEasyUI\themes\black\calendar.css" />
+    <Content Include="NewJEasyUI\themes\black\combo.css" />
+    <Content Include="NewJEasyUI\themes\black\combobox.css" />
+    <Content Include="NewJEasyUI\themes\black\datagrid.css" />
+    <Content Include="NewJEasyUI\themes\black\datebox.css" />
+    <Content Include="NewJEasyUI\themes\black\dialog.css" />
+    <Content Include="NewJEasyUI\themes\black\easyui.css" />
+    <Content Include="NewJEasyUI\themes\black\images\accordion_arrows.png" />
+    <Content Include="NewJEasyUI\themes\black\images\blank.gif" />
+    <Content Include="NewJEasyUI\themes\black\images\calendar_arrows.png" />
+    <Content Include="NewJEasyUI\themes\black\images\combo_arrow.png" />
+    <Content Include="NewJEasyUI\themes\black\images\datagrid_icons.png" />
+    <Content Include="NewJEasyUI\themes\black\images\datebox_arrow.png" />
+    <Content Include="NewJEasyUI\themes\black\images\layout_arrows.png" />
+    <Content Include="NewJEasyUI\themes\black\images\linkbutton_bg.png" />
+    <Content Include="NewJEasyUI\themes\black\images\loading.gif" />
+    <Content Include="NewJEasyUI\themes\black\images\menu_arrows.png" />
+    <Content Include="NewJEasyUI\themes\black\images\messager_icons.png" />
+    <Content Include="NewJEasyUI\themes\black\images\pagination_icons.png" />
+    <Content Include="NewJEasyUI\themes\black\images\panel_tools.png" />
+    <Content Include="NewJEasyUI\themes\black\images\searchbox_button.png" />
+    <Content Include="NewJEasyUI\themes\black\images\slider_handle.png" />
+    <Content Include="NewJEasyUI\themes\black\images\spinner_arrows.png" />
+    <Content Include="NewJEasyUI\themes\black\images\tabs_icons.png" />
+    <Content Include="NewJEasyUI\themes\black\images\tree_icons.png" />
+    <Content Include="NewJEasyUI\themes\black\images\validatebox_warning.png" />
+    <Content Include="NewJEasyUI\themes\black\layout.css" />
+    <Content Include="NewJEasyUI\themes\black\linkbutton.css" />
+    <Content Include="NewJEasyUI\themes\black\menu.css" />
+    <Content Include="NewJEasyUI\themes\black\menubutton.css" />
+    <Content Include="NewJEasyUI\themes\black\messager.css" />
+    <Content Include="NewJEasyUI\themes\black\pagination.css" />
+    <Content Include="NewJEasyUI\themes\black\panel.css" />
+    <Content Include="NewJEasyUI\themes\black\progressbar.css" />
+    <Content Include="NewJEasyUI\themes\black\propertygrid.css" />
+    <Content Include="NewJEasyUI\themes\black\searchbox.css" />
+    <Content Include="NewJEasyUI\themes\black\slider.css" />
+    <Content Include="NewJEasyUI\themes\black\spinner.css" />
+    <Content Include="NewJEasyUI\themes\black\splitbutton.css" />
+    <Content Include="NewJEasyUI\themes\black\tabs.css" />
+    <Content Include="NewJEasyUI\themes\black\tooltip.css" />
+    <Content Include="NewJEasyUI\themes\black\tree.css" />
+    <Content Include="NewJEasyUI\themes\black\validatebox.css" />
+    <Content Include="NewJEasyUI\themes\black\window.css" />
+    <Content Include="NewJEasyUI\themes\bootstrap\accordion.css" />
+    <Content Include="NewJEasyUI\themes\bootstrap\calendar.css" />
+    <Content Include="NewJEasyUI\themes\bootstrap\combo.css" />
+    <Content Include="NewJEasyUI\themes\bootstrap\combobox.css" />
+    <Content Include="NewJEasyUI\themes\bootstrap\datagrid.css" />
+    <Content Include="NewJEasyUI\themes\bootstrap\datebox.css" />
+    <Content Include="NewJEasyUI\themes\bootstrap\dialog.css" />
+    <Content Include="NewJEasyUI\themes\bootstrap\easyui.css" />
+    <Content Include="NewJEasyUI\themes\bootstrap\images\accordion_arrows.png" />
+    <Content Include="NewJEasyUI\themes\bootstrap\images\blank.gif" />
+    <Content Include="NewJEasyUI\themes\bootstrap\images\calendar_arrows.png" />
+    <Content Include="NewJEasyUI\themes\bootstrap\images\combo_arrow.png" />
+    <Content Include="NewJEasyUI\themes\bootstrap\images\datagrid_icons.png" />
+    <Content Include="NewJEasyUI\themes\bootstrap\images\datebox_arrow.png" />
+    <Content Include="NewJEasyUI\themes\bootstrap\images\layout_arrows.png" />
+    <Content Include="NewJEasyUI\themes\bootstrap\images\linkbutton_bg.png" />
+    <Content Include="NewJEasyUI\themes\bootstrap\images\loading.gif" />
+    <Content Include="NewJEasyUI\themes\bootstrap\images\menu_arrows.png" />
+    <Content Include="NewJEasyUI\themes\bootstrap\images\messager_icons.png" />
+    <Content Include="NewJEasyUI\themes\bootstrap\images\pagination_icons.png" />
+    <Content Include="NewJEasyUI\themes\bootstrap\images\panel_tools.png" />
+    <Content Include="NewJEasyUI\themes\bootstrap\images\searchbox_button.png" />
+    <Content Include="NewJEasyUI\themes\bootstrap\images\slider_handle.png" />
+    <Content Include="NewJEasyUI\themes\bootstrap\images\spinner_arrows.png" />
+    <Content Include="NewJEasyUI\themes\bootstrap\images\tabs_icons.png" />
+    <Content Include="NewJEasyUI\themes\bootstrap\images\tree_icons.png" />
+    <Content Include="NewJEasyUI\themes\bootstrap\images\validatebox_warning.png" />
+    <Content Include="NewJEasyUI\themes\bootstrap\layout.css" />
+    <Content Include="NewJEasyUI\themes\bootstrap\linkbutton.css" />
+    <Content Include="NewJEasyUI\themes\bootstrap\menu.css" />
+    <Content Include="NewJEasyUI\themes\bootstrap\menubutton.css" />
+    <Content Include="NewJEasyUI\themes\bootstrap\messager.css" />
+    <Content Include="NewJEasyUI\themes\bootstrap\pagination.css" />
+    <Content Include="NewJEasyUI\themes\bootstrap\panel.css" />
+    <Content Include="NewJEasyUI\themes\bootstrap\progressbar.css" />
+    <Content Include="NewJEasyUI\themes\bootstrap\propertygrid.css" />
+    <Content Include="NewJEasyUI\themes\bootstrap\searchbox.css" />
+    <Content Include="NewJEasyUI\themes\bootstrap\slider.css" />
+    <Content Include="NewJEasyUI\themes\bootstrap\spinner.css" />
+    <Content Include="NewJEasyUI\themes\bootstrap\splitbutton.css" />
+    <Content Include="NewJEasyUI\themes\bootstrap\tabs.css" />
+    <Content Include="NewJEasyUI\themes\bootstrap\tooltip.css" />
+    <Content Include="NewJEasyUI\themes\bootstrap\tree.css" />
+    <Content Include="NewJEasyUI\themes\bootstrap\validatebox.css" />
+    <Content Include="NewJEasyUI\themes\bootstrap\window.css" />
+    <Content Include="NewJEasyUI\themes\default\accordion.css" />
+    <Content Include="NewJEasyUI\themes\default\calendar.css" />
+    <Content Include="NewJEasyUI\themes\default\combo.css" />
+    <Content Include="NewJEasyUI\themes\default\combobox.css" />
+    <Content Include="NewJEasyUI\themes\default\datagrid.css" />
+    <Content Include="NewJEasyUI\themes\default\datebox.css" />
+    <Content Include="NewJEasyUI\themes\default\dialog.css" />
+    <Content Include="NewJEasyUI\themes\default\easyui.css" />
+    <Content Include="NewJEasyUI\themes\default\images\accordion_arrows.png" />
+    <Content Include="NewJEasyUI\themes\default\images\blank.gif" />
+    <Content Include="NewJEasyUI\themes\default\images\calendar_arrows.png" />
+    <Content Include="NewJEasyUI\themes\default\images\combo_arrow.png" />
+    <Content Include="NewJEasyUI\themes\default\images\datagrid_icons.png" />
+    <Content Include="NewJEasyUI\themes\default\images\datebox_arrow.png" />
+    <Content Include="NewJEasyUI\themes\default\images\layout_arrows.png" />
+    <Content Include="NewJEasyUI\themes\default\images\linkbutton_bg.png" />
+    <Content Include="NewJEasyUI\themes\default\images\loading.gif" />
+    <Content Include="NewJEasyUI\themes\default\images\menu_arrows.png" />
+    <Content Include="NewJEasyUI\themes\default\images\messager_icons.png" />
+    <Content Include="NewJEasyUI\themes\default\images\pagination_icons.png" />
+    <Content Include="NewJEasyUI\themes\default\images\panel_tools.png" />
+    <Content Include="NewJEasyUI\themes\default\images\searchbox_button.png" />
+    <Content Include="NewJEasyUI\themes\default\images\slider_handle.png" />
+    <Content Include="NewJEasyUI\themes\default\images\spinner_arrows.png" />
+    <Content Include="NewJEasyUI\themes\default\images\tabs_icons.png" />
+    <Content Include="NewJEasyUI\themes\default\images\tree_icons.png" />
+    <Content Include="NewJEasyUI\themes\default\images\validatebox_warning.png" />
+    <Content Include="NewJEasyUI\themes\default\layout.css" />
+    <Content Include="NewJEasyUI\themes\default\linkbutton.css" />
+    <Content Include="NewJEasyUI\themes\default\menu.css" />
+    <Content Include="NewJEasyUI\themes\default\menubutton.css" />
+    <Content Include="NewJEasyUI\themes\default\messager.css" />
+    <Content Include="NewJEasyUI\themes\default\pagination.css" />
+    <Content Include="NewJEasyUI\themes\default\panel.css" />
+    <Content Include="NewJEasyUI\themes\default\progressbar.css" />
+    <Content Include="NewJEasyUI\themes\default\propertygrid.css" />
+    <Content Include="NewJEasyUI\themes\default\searchbox.css" />
+    <Content Include="NewJEasyUI\themes\default\slider.css" />
+    <Content Include="NewJEasyUI\themes\default\spinner.css" />
+    <Content Include="NewJEasyUI\themes\default\splitbutton.css" />
+    <Content Include="NewJEasyUI\themes\default\tabs.css" />
+    <Content Include="NewJEasyUI\themes\default\tooltip.css" />
+    <Content Include="NewJEasyUI\themes\default\tree.css" />
+    <Content Include="NewJEasyUI\themes\default\validatebox.css" />
+    <Content Include="NewJEasyUI\themes\default\window.css" />
+    <Content Include="NewJEasyUI\themes\gray\accordion.css" />
+    <Content Include="NewJEasyUI\themes\gray\calendar.css" />
+    <Content Include="NewJEasyUI\themes\gray\combo.css" />
+    <Content Include="NewJEasyUI\themes\gray\combobox.css" />
+    <Content Include="NewJEasyUI\themes\gray\datagrid.css" />
+    <Content Include="NewJEasyUI\themes\gray\datebox.css" />
+    <Content Include="NewJEasyUI\themes\gray\dialog.css" />
+    <Content Include="NewJEasyUI\themes\gray\easyui.css" />
+    <Content Include="NewJEasyUI\themes\gray\images\accordion_arrows.png" />
+    <Content Include="NewJEasyUI\themes\gray\images\blank.gif" />
+    <Content Include="NewJEasyUI\themes\gray\images\calendar_arrows.png" />
+    <Content Include="NewJEasyUI\themes\gray\images\combo_arrow.png" />
+    <Content Include="NewJEasyUI\themes\gray\images\datagrid_icons.png" />
+    <Content Include="NewJEasyUI\themes\gray\images\datebox_arrow.png" />
+    <Content Include="NewJEasyUI\themes\gray\images\layout_arrows.png" />
+    <Content Include="NewJEasyUI\themes\gray\images\linkbutton_bg.png" />
+    <Content Include="NewJEasyUI\themes\gray\images\loading.gif" />
+    <Content Include="NewJEasyUI\themes\gray\images\menu_arrows.png" />
+    <Content Include="NewJEasyUI\themes\gray\images\messager_icons.png" />
+    <Content Include="NewJEasyUI\themes\gray\images\pagination_icons.png" />
+    <Content Include="NewJEasyUI\themes\gray\images\panel_tools.png" />
+    <Content Include="NewJEasyUI\themes\gray\images\searchbox_button.png" />
+    <Content Include="NewJEasyUI\themes\gray\images\slider_handle.png" />
+    <Content Include="NewJEasyUI\themes\gray\images\spinner_arrows.png" />
+    <Content Include="NewJEasyUI\themes\gray\images\tabs_icons.png" />
+    <Content Include="NewJEasyUI\themes\gray\images\tree_icons.png" />
+    <Content Include="NewJEasyUI\themes\gray\images\validatebox_warning.png" />
+    <Content Include="NewJEasyUI\themes\gray\layout.css" />
+    <Content Include="NewJEasyUI\themes\gray\linkbutton.css" />
+    <Content Include="NewJEasyUI\themes\gray\menu.css" />
+    <Content Include="NewJEasyUI\themes\gray\menubutton.css" />
+    <Content Include="NewJEasyUI\themes\gray\messager.css" />
+    <Content Include="NewJEasyUI\themes\gray\pagination.css" />
+    <Content Include="NewJEasyUI\themes\gray\panel.css" />
+    <Content Include="NewJEasyUI\themes\gray\progressbar.css" />
+    <Content Include="NewJEasyUI\themes\gray\propertygrid.css" />
+    <Content Include="NewJEasyUI\themes\gray\searchbox.css" />
+    <Content Include="NewJEasyUI\themes\gray\slider.css" />
+    <Content Include="NewJEasyUI\themes\gray\spinner.css" />
+    <Content Include="NewJEasyUI\themes\gray\splitbutton.css" />
+    <Content Include="NewJEasyUI\themes\gray\tabs.css" />
+    <Content Include="NewJEasyUI\themes\gray\tooltip.css" />
+    <Content Include="NewJEasyUI\themes\gray\tree.css" />
+    <Content Include="NewJEasyUI\themes\gray\validatebox.css" />
+    <Content Include="NewJEasyUI\themes\gray\window.css" />
+    <Content Include="NewJEasyUI\themes\icon.css" />
+    <Content Include="NewJEasyUI\themes\icons\back.png" />
+    <Content Include="NewJEasyUI\themes\icons\blank.gif" />
+    <Content Include="NewJEasyUI\themes\icons\cancel.png" />
+    <Content Include="NewJEasyUI\themes\icons\cut.png" />
+    <Content Include="NewJEasyUI\themes\icons\edit_add.png" />
+    <Content Include="NewJEasyUI\themes\icons\edit_remove.png" />
+    <Content Include="NewJEasyUI\themes\icons\filesave.png" />
+    <Content Include="NewJEasyUI\themes\icons\help.png" />
+    <Content Include="NewJEasyUI\themes\icons\mini_add.png" />
+    <Content Include="NewJEasyUI\themes\icons\mini_edit.png" />
+    <Content Include="NewJEasyUI\themes\icons\mini_refresh.png" />
+    <Content Include="NewJEasyUI\themes\icons\no.png" />
+    <Content Include="NewJEasyUI\themes\icons\ok.png" />
+    <Content Include="NewJEasyUI\themes\icons\pencil.png" />
+    <Content Include="NewJEasyUI\themes\icons\print.png" />
+    <Content Include="NewJEasyUI\themes\icons\redo.png" />
+    <Content Include="NewJEasyUI\themes\icons\reload.png" />
+    <Content Include="NewJEasyUI\themes\icons\search.png" />
+    <Content Include="NewJEasyUI\themes\icons\sum.png" />
+    <Content Include="NewJEasyUI\themes\icons\tip.png" />
+    <Content Include="NewJEasyUI\themes\icons\undo.png" />
+    <Content Include="NewJEasyUI\themes\metro\accordion.css" />
+    <Content Include="NewJEasyUI\themes\metro\calendar.css" />
+    <Content Include="NewJEasyUI\themes\metro\combo.css" />
+    <Content Include="NewJEasyUI\themes\metro\combobox.css" />
+    <Content Include="NewJEasyUI\themes\metro\datagrid.css" />
+    <Content Include="NewJEasyUI\themes\metro\datebox.css" />
+    <Content Include="NewJEasyUI\themes\metro\dialog.css" />
+    <Content Include="NewJEasyUI\themes\metro\easyui.css" />
+    <Content Include="NewJEasyUI\themes\metro\images\accordion_arrows.png" />
+    <Content Include="NewJEasyUI\themes\metro\images\blank.gif" />
+    <Content Include="NewJEasyUI\themes\metro\images\calendar_arrows.png" />
+    <Content Include="NewJEasyUI\themes\metro\images\combo_arrow.png" />
+    <Content Include="NewJEasyUI\themes\metro\images\datagrid_icons.png" />
+    <Content Include="NewJEasyUI\themes\metro\images\datebox_arrow.png" />
+    <Content Include="NewJEasyUI\themes\metro\images\layout_arrows.png" />
+    <Content Include="NewJEasyUI\themes\metro\images\linkbutton_bg.png" />
+    <Content Include="NewJEasyUI\themes\metro\images\loading.gif" />
+    <Content Include="NewJEasyUI\themes\metro\images\menu_arrows.png" />
+    <Content Include="NewJEasyUI\themes\metro\images\messager_icons.png" />
+    <Content Include="NewJEasyUI\themes\metro\images\pagination_icons.png" />
+    <Content Include="NewJEasyUI\themes\metro\images\panel_tools.png" />
+    <Content Include="NewJEasyUI\themes\metro\images\searchbox_button.png" />
+    <Content Include="NewJEasyUI\themes\metro\images\slider_handle.png" />
+    <Content Include="NewJEasyUI\themes\metro\images\spinner_arrows.png" />
+    <Content Include="NewJEasyUI\themes\metro\images\tabs_icons.png" />
+    <Content Include="NewJEasyUI\themes\metro\images\tree_icons.png" />
+    <Content Include="NewJEasyUI\themes\metro\images\validatebox_warning.png" />
+    <Content Include="NewJEasyUI\themes\metro\layout.css" />
+    <Content Include="NewJEasyUI\themes\metro\linkbutton.css" />
+    <Content Include="NewJEasyUI\themes\metro\menu.css" />
+    <Content Include="NewJEasyUI\themes\metro\menubutton.css" />
+    <Content Include="NewJEasyUI\themes\metro\messager.css" />
+    <Content Include="NewJEasyUI\themes\metro\pagination.css" />
+    <Content Include="NewJEasyUI\themes\metro\panel.css" />
+    <Content Include="NewJEasyUI\themes\metro\progressbar.css" />
+    <Content Include="NewJEasyUI\themes\metro\propertygrid.css" />
+    <Content Include="NewJEasyUI\themes\metro\searchbox.css" />
+    <Content Include="NewJEasyUI\themes\metro\slider.css" />
+    <Content Include="NewJEasyUI\themes\metro\spinner.css" />
+    <Content Include="NewJEasyUI\themes\metro\splitbutton.css" />
+    <Content Include="NewJEasyUI\themes\metro\tabs.css" />
+    <Content Include="NewJEasyUI\themes\metro\tooltip.css" />
+    <Content Include="NewJEasyUI\themes\metro\tree.css" />
+    <Content Include="NewJEasyUI\themes\metro\validatebox.css" />
+    <Content Include="NewJEasyUI\themes\metro\window.css" />
+    <Content Include="PopNews.aspx" />
+    <Content Include="scripts\Ajax.js" />
+    <Content Include="scripts\jquery.anythingslider.fx.js" />
+    <Content Include="scripts\jquery.anythingslider.fx.min.js" />
+    <Content Include="scripts\jquery.anythingslider.js" />
+    <Content Include="scripts\jquery.anythingslider.min.js" />
+    <Content Include="scripts\jquery.anythingslider.video.js" />
+    <Content Include="scripts\jquery.anythingslider.video.min.js" />
+    <Content Include="scripts\JQuery.Sparkline.js" />
+    <Content Include="scripts\jquery.waitforimages.js" />
+    <Content Include="scripts\jquery\html5.js" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\dark\images\close-btn-old.png" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\new_signup.png" />
+    <Content Include="styles\anythingslider-ie.css" />
+    <Content Include="styles\anythingslider.css" />
+    <Content Include="styles\complianceManagement_steps.css" />
+    <Content Include="styles\icon-style.css" />
+    <Content Include="styles\jquery.loadmask.css" />
+    <Content Include="styles\jquery.tooltip.css" />
+    <Content Include="styles\js-mindmap.css" />
+    <Content Include="styles\risktree-style.css" />
+    <Content Include="styles\screen.css" />
+    <Content Include="styles\ittpm.css" />
+    <Content Include="styles\sratstyle.css" />
+    <Content Include="styles\theme-metallic.css" />
+    <Content Include="themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="themes\base\jquery.ui.accordion.css" />
+    <Content Include="themes\base\jquery.ui.all.css" />
+    <Content Include="themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="themes\base\jquery.ui.base.css" />
+    <Content Include="themes\base\jquery.ui.button.css" />
+    <Content Include="themes\base\jquery.ui.core.css" />
+    <Content Include="themes\base\jquery.ui.datepicker.css" />
+    <Content Include="themes\base\jquery.ui.dialog.css" />
+    <Content Include="themes\base\jquery.ui.progressbar.css" />
+    <Content Include="themes\base\jquery.ui.resizable.css" />
+    <Content Include="themes\base\jquery.ui.selectable.css" />
+    <Content Include="themes\base\jquery.ui.slider.css" />
+    <Content Include="themes\base\jquery.ui.tabs.css" />
+    <Content Include="themes\base\jquery.ui.theme.css" />
+    <Content Include="themes\black\accordion.css" />
+    <Content Include="themes\black\calendar.css" />
+    <Content Include="themes\black\combo.css" />
+    <Content Include="themes\black\combobox.css" />
+    <Content Include="themes\black\datagrid.css" />
+    <Content Include="themes\black\datebox.css" />
+    <Content Include="themes\black\dialog.css" />
+    <Content Include="themes\black\easyui.css" />
+    <Content Include="themes\black\images\accordion_arrows.png" />
+    <Content Include="themes\black\images\blank.gif" />
+    <Content Include="themes\black\images\calendar_arrows.png" />
+    <Content Include="themes\black\images\combo_arrow.png" />
+    <Content Include="themes\black\images\datagrid_icons.png" />
+    <Content Include="themes\black\images\datebox_arrow.png" />
+    <Content Include="themes\black\images\layout_arrows.png" />
+    <Content Include="themes\black\images\linkbutton_bg.png" />
+    <Content Include="themes\black\images\loading.gif" />
+    <Content Include="themes\black\images\menu_arrows.png" />
+    <Content Include="themes\black\images\messager_icons.png" />
+    <Content Include="themes\black\images\pagination_icons.png" />
+    <Content Include="themes\black\images\panel_tools.png" />
+    <Content Include="themes\black\images\searchbox_button.png" />
+    <Content Include="themes\black\images\slider_handle.png" />
+    <Content Include="themes\black\images\spinner_arrows.png" />
+    <Content Include="themes\black\images\tabs_icons.png" />
+    <Content Include="themes\black\images\tree_icons.png" />
+    <Content Include="themes\black\images\validatebox_warning.png" />
+    <Content Include="themes\black\layout.css" />
+    <Content Include="themes\black\linkbutton.css" />
+    <Content Include="themes\black\menu.css" />
+    <Content Include="themes\black\menubutton.css" />
+    <Content Include="themes\black\messager.css" />
+    <Content Include="themes\black\pagination.css" />
+    <Content Include="themes\black\panel.css" />
+    <Content Include="themes\black\progressbar.css" />
+    <Content Include="themes\black\propertygrid.css" />
+    <Content Include="themes\black\searchbox.css" />
+    <Content Include="themes\black\slider.css" />
+    <Content Include="themes\black\spinner.css" />
+    <Content Include="themes\black\splitbutton.css" />
+    <Content Include="themes\black\tabs.css" />
+    <Content Include="themes\black\tooltip.css" />
+    <Content Include="themes\black\tree.css" />
+    <Content Include="themes\black\validatebox.css" />
+    <Content Include="themes\black\window.css" />
+    <Content Include="themes\cupertino\images\ui-bg_diagonals-thick_90_eeeeee_40x40.png" />
+    <Content Include="themes\cupertino\images\ui-bg_flat_15_cd0a0a_40x100.png" />
+    <Content Include="themes\cupertino\images\ui-bg_glass_100_e4f1fb_1x400.png" />
+    <Content Include="themes\cupertino\images\ui-bg_glass_50_3baae3_1x400.png" />
+    <Content Include="themes\cupertino\images\ui-bg_glass_80_d7ebf9_1x400.png" />
+    <Content Include="themes\cupertino\images\ui-bg_highlight-hard_100_f2f5f7_1x100.png" />
+    <Content Include="themes\cupertino\images\ui-bg_highlight-hard_70_000000_1x100.png" />
+    <Content Include="themes\cupertino\images\ui-bg_highlight-soft_100_deedf7_1x100.png" />
+    <Content Include="themes\cupertino\images\ui-bg_highlight-soft_25_ffef8f_1x100.png" />
+    <Content Include="themes\cupertino\images\ui-icons_2694e8_256x240.png" />
+    <Content Include="themes\cupertino\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="themes\cupertino\images\ui-icons_3d80b3_256x240.png" />
+    <Content Include="themes\cupertino\images\ui-icons_72a7cf_256x240.png" />
+    <Content Include="themes\cupertino\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="themes\cupertino\jquery-ui-1.8.18.custom.css" />
+    <Content Include="themes\kss-metro\accordion.css" />
+    <Content Include="themes\kss-metro\calendar.css" />
+    <Content Include="themes\kss-metro\combo.css" />
+    <Content Include="themes\kss-metro\combobox.css" />
+    <Content Include="themes\kss-metro\datagrid.css" />
+    <Content Include="themes\kss-metro\datebox.css" />
+    <Content Include="themes\kss-metro\dialog.css" />
+    <Content Include="themes\kss-metro\easyui.css" />
+    <Content Include="themes\kss-metro\images\accordion_arrows.png" />
+    <Content Include="themes\kss-metro\images\blank.gif" />
+    <Content Include="themes\kss-metro\images\calendar_arrows.png" />
+    <Content Include="themes\kss-metro\images\combo_arrow.png" />
+    <Content Include="themes\kss-metro\images\datagrid_icons.png" />
+    <Content Include="themes\kss-metro\images\datebox_arrow.png" />
+    <Content Include="themes\kss-metro\images\layout_arrows.png" />
+    <Content Include="themes\kss-metro\images\linkbutton_bg.png" />
+    <Content Include="themes\kss-metro\images\loading.gif" />
+    <Content Include="themes\kss-metro\images\menu_arrows.png" />
+    <Content Include="themes\kss-metro\images\messager_icons.png" />
+    <Content Include="themes\kss-metro\images\pagination_icons.png" />
+    <Content Include="themes\kss-metro\images\panel_tools.png" />
+    <Content Include="themes\kss-metro\images\searchbox_button.png" />
+    <Content Include="themes\kss-metro\images\slider_handle.png" />
+    <Content Include="themes\kss-metro\images\spinner_arrows.png" />
+    <Content Include="themes\kss-metro\images\tabs_icons.png" />
+    <Content Include="themes\kss-metro\images\tree_icons.png" />
+    <Content Include="themes\kss-metro\images\validatebox_warning.png" />
+    <Content Include="themes\kss-metro\jquery-ui-1.8.18.custom.css" />
+    <Content Include="themes\kss-metro\layout.css" />
+    <Content Include="themes\kss-metro\linkbutton.css" />
+    <Content Include="themes\kss-metro\menu.css" />
+    <Content Include="themes\kss-metro\menubutton.css" />
+    <Content Include="themes\kss-metro\messager.css" />
+    <Content Include="themes\kss-metro\MultiseletedDropDown.css" />
+    <Content Include="themes\kss-metro\pagination.css" />
+    <Content Include="themes\kss-metro\panel.css" />
+    <Content Include="themes\kss-metro\progressbar.css" />
+    <Content Include="themes\kss-metro\propertygrid.css" />
+    <Content Include="themes\kss-metro\searchbox.css" />
+    <Content Include="themes\kss-metro\slider.css" />
+    <Content Include="themes\kss-metro\spinner.css" />
+    <Content Include="themes\kss-metro\splitbutton.css" />
+    <Content Include="themes\kss-metro\tabs.css" />
+    <Content Include="themes\kss-metro\tooltip.css" />
+    <Content Include="themes\kss-metro\tree.css" />
+    <Content Include="themes\kss-metro\ui.jqgrid.css" />
+    <Content Include="themes\kss-metro\ui.jqtreeview.css" />
+    <Content Include="themes\kss-metro\validatebox.css" />
+    <Content Include="themes\kss-metro\window.css" />
+    <Content Include="themes\redmond\images\animated-overlay.gif" />
+    <Content Include="themes\redmond\images\dashboard-icon.png" />
+    <Content Include="themes\redmond\images\ui-bg_diagonals-thick_75_f3d8d8_40x40.png" />
+    <Content Include="themes\redmond\images\ui-bg_dots-small_65_a6a6a6_2x2.png" />
+    <Content Include="themes\redmond\images\ui-bg_flat_0_333333_40x100.png" />
+    <Content Include="themes\redmond\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="themes\redmond\images\ui-bg_flat_55_fbec88_40x100.png" />
+    <Content Include="themes\redmond\images\ui-bg_flat_65_af0c00_40x100.png" />
+    <Content Include="themes\redmond\images\ui-bg_flat_65_ffffff_40x100.png" />
+    <Content Include="themes\redmond\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="themes\redmond\images\ui-bg_glass_55_fbf8ee_1x400.png" />
+    <Content Include="themes\redmond\images\ui-bg_glass_75_d0e5f5_1x400.png" />
+    <Content Include="themes\redmond\images\ui-bg_glass_85_dfeffc_1x400.png" />
+    <Content Include="themes\redmond\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="themes\redmond\images\ui-bg_gloss-wave_55_5c9ccc_500x100.png" />
+    <Content Include="themes\redmond\images\ui-bg_gloss-wave_55_5c9ccc_500x100_new.png" />
+    <Content Include="themes\redmond\images\ui-bg_highlight-hard_100_eeeeee_1x100.png" />
+    <Content Include="themes\redmond\images\ui-bg_highlight-hard_100_f6f6f6_1x100.png" />
+    <Content Include="themes\redmond\images\ui-bg_highlight-soft_15_c20f00_1x100.png" />
+    <Content Include="themes\redmond\images\ui-bg_inset-hard_100_f5f8f9_1x100.png" />
+    <Content Include="themes\redmond\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="themes\redmond\images\ui-icons_004276_256x240.png" />
+    <Content Include="themes\redmond\images\ui-icons_217bc0_256x240.png" />
+    <Content Include="themes\redmond\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="themes\redmond\images\ui-icons_469bdd_256x240.png" />
+    <Content Include="themes\redmond\images\ui-icons_6da8d5_256x240.png" />
+    <Content Include="themes\redmond\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="themes\redmond\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="themes\redmond\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="themes\redmond\images\ui-icons_f9bd01_256x240.png" />
+    <Content Include="themes\redmond\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="themes\redmond\jquery-ui-1.8.18.custom.css" />
+    <Content Include="themes\redmond\MultiseletedDropDown.css" />
+    <Content Include="themes\redmond\ui.jqgrid.css" />
+    <Content Include="themes\redmond\ui.jqtreeview.css" />
+    <Content Include="themes\ksstheme\images\dashboard-icon.png" />
+    <Content Include="themes\ksstheme\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="themes\ksstheme\images\ui-bg_flat_55_fbec88_40x100.png" />
+    <Content Include="themes\ksstheme\images\ui-bg_glass_75_d0e5f5_1x400.png" />
+    <Content Include="themes\ksstheme\images\ui-bg_glass_85_dfeffc_1x400.png" />
+    <Content Include="themes\ksstheme\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="themes\ksstheme\images\ui-bg_gloss-wave_55_5c9ccc_500x100.png" />
+    <Content Include="themes\ksstheme\images\ui-bg_inset-hard_100_f5f8f9_1x100.png" />
+    <Content Include="themes\ksstheme\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="themes\ksstheme\images\ui-icons_217bc0_256x240.png" />
+    <Content Include="themes\ksstheme\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="themes\ksstheme\images\ui-icons_469bdd_256x240.png" />
+    <Content Include="themes\ksstheme\images\ui-icons_6da8d5_256x240.png" />
+    <Content Include="themes\ksstheme\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="themes\ksstheme\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="themes\ksstheme\images\ui-icons_f9bd01_256x240.png" />
+    <Content Include="themes\ksstheme\jquery-ui-1.8.18.custom_alter.css" />
+    <Content Include="themes\ksstheme\MultiseletedDropDown.css" />
+    <Content Include="themes\ksstheme\ui.jqgrid.css" />
+    <Content Include="themes\ksstheme\ui.jqtreeview.css" />
+    <Content Include="User\ChangePwd.aspx" />
+    <Content Include="User\Circle Menu\Half Circle Navigation\lrtb_all.htm" />
+    <Content Include="User\Circle Menu\Half Circle Navigation\right.htm" />
+    <Content Include="User\Circle Menu\Half Circle Navigation\top.htm" />
+    <Content Include="User\Circle Menu\Half Circle Navigation\bottom.htm" />
+    <Content Include="User\Circle Menu\testCircle.htm" />
+    <Content Include="User\Circle Menu\Half Circle Navigation.htm" />
+    <Content Include="User\Circle Menu\Half Circle Navigation\conversion.js" />
+    <Content Include="User\Circle Menu\Half Circle Navigation\full_screen_preview-2dff58760ddd3fb5acb3540e65f6ef43.css" />
+    <Content Include="User\Circle Menu\Half Circle Navigation\full_screen_preview-66e03710e3770ad30c192e56f9e890f6.js" />
+    <Content Include="User\Circle Menu\Half Circle Navigation\ga.js" />
+    <Content Include="User\Circle Menu\Half Circle Navigation\jquery.min.js" />
+    <Content Include="User\Circle Menu\Half Circle Navigation\nr-100.js" />
+    <Content Include="User\Circle Menu\Half Circle Navigation\left.htm" />
+    <Content Include="User\Circle Menu\Half Circle Navigation\webtrends-5a2a0b3d9f0eeafea3f60e4831cf4958.js" />
+    <Content Include="User\Circle Menu\Half Circle Navigation\webtrends.hm.js" />
+    <Content Include="User\Circle Menu\Half Circle Navigation\_nil.css" />
+    <Content Include="User\ServerMessage.aspx" />
+    <Content Include="User\Dock Menu\core\dockmenu.css" />
+    <Content Include="User\Dock Menu\core\dockmenu.min.js" />
+    <Content Include="User\Dock Menu\core\jquery-1.10.2.min.js" />
+    <Content Include="User\Dock Menu\Dock-Menu.html" />
+    <Content Include="User\Dock Menu\icons\AppStore.png" />
+    <Content Include="User\Dock Menu\icons\Camera.png" />
+    <Content Include="User\Dock Menu\icons\Games.png" />
+    <Content Include="User\Dock Menu\icons\grey_wash_wall.png" />
+    <Content Include="User\Dock Menu\icons\Mail.png" />
+    <Content Include="User\Dock Menu\icons\Music.png" />
+    <Content Include="User\Dock Menu\icons\Photos.png" />
+    <Content Include="User\Dock Menu\icons\Safari.png" />
+    <Content Include="User\Dock Menu\icons\Settings.png" />
+    <Content Include="User\Dock Menu\icons\span.png" />
+    <Content Include="User\images\Functions\articles.png" />
+    <Content Include="User\images\Functions\mom.png" />
+    <Content Include="User\images\Functions\qans.png" />
+    <Content Include="User\images\Functions\sitemap-projects.png" />
+    <Content Include="User\images\Functions\tasks.png" />
+    <Content Include="User\images\MessageBoxIcon\background.png" />
+    <Content Include="User\images\MessageBoxIcon\info.png" />
+    <Content Include="User\images\MessageBoxIcon\msgBoxBackGround.png" />
+    <Content Include="User\images\welcomeTPM_new.png" />
+    <Content Include="User\LandingDefault.aspx" />
+    <Content Include="User\PageException.aspx" />
+    <Content Include="User\right.htm" />
+    <Content Include="User\Request Demo\In2InRequestDemo.aspx" />
+    <Content Include="User\TPMLanding.aspx" />
+    <Content Include="User\login.aspx" />
+    <Content Include="scripts\garagedoorjQuery.js" />
+    <Content Include="scripts\jquery-1.3.2.min.js" />
+    <Content Include="scripts\jquery\jQpop\data\highlighter\css\shCore.css" />
+    <Content Include="scripts\jquery\jQpop\data\highlighter\css\shThemeDefault.css" />
+    <Content Include="scripts\jquery\jQpop\data\highlighter\js\shBrushJScript.js" />
+    <Content Include="scripts\jquery\jQpop\data\highlighter\js\shBrushXml.js" />
+    <Content Include="scripts\jquery\jQpop\data\highlighter\js\shCore.js" />
+    <Content Include="scripts\jquery\jQpop\data\highlighter\js\XRegExp.js" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-notify\skins\agapa\agapa.css" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-notify\skins\agapa\images\bg.jpg" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-notify\skins\agapa\images\bg_old.jpg" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-notify\skins\agapa\images\close-btn.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-notify\speedo.notify.fx.css" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-notify\speedo.notify.min.js" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skin-preview-images\blueglass.jpg" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skin-preview-images\clouds.jpg" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skin-preview-images\dark.jpg" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skin-preview-images\darkglass.jpg" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skin-preview-images\default.jpg" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skin-preview-images\ignito.jpg" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skin-preview-images\light.jpg" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skin-preview-images\lightbox.jpg" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skin-preview-images\metro.jpg" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skin-preview-images\notify-glass.jpg" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skin-preview-images\rain.jpg" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skin-preview-images\snow.jpg" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skin-preview-images\trap.jpg" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skin-preview-images\winter.jpg" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\blueglass\blueglass.css" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\blueglass\images\close-btn.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\blueglass\images\next.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\blueglass\images\pause.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\blueglass\images\play.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\blueglass\images\prev.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\clouds\clouds.css" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\clouds\clouds.js" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\clouds\images\close-btn.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\dark\dark.css" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\dark\images\close-btn.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\default\default.css" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\default\images\close-btn.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\default\images\loading.gif" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\default\images\next.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\default\images\pause.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\default\images\play.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\default\images\prev.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\ignito\ignito.css" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\ignito\images\close-btn.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\ignito\images\loading.gif" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\lightbox\images\close-btn.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\lightbox\lightbox.css" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\light\images\bg.jpg" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\light\images\close-btn.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\light\light.css" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\metro\images\close-btn-new.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\metro\metro.css" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\notify-glass\images\bgc4ca.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\notify-glass\images\close-btn.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\notify-glass\notify-glass.css" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\rain\images\close-btn.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\rain\rain.css" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\rain\rain.js" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\snow\images\close-btn-new.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\snow\snow.css" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\snow\snow.js" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\trap\images\close-btn.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\trap\images\next.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\trap\images\pause.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\trap\images\play.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\trap\images\prev.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\trap\trap.css" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\winter\images\close-btn-new.png" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\winter\winter.css" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\winter\winter.js" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\speedo.popup.fx.css" />
+    <Content Include="scripts\jquery\jQpop\data\speedo-popup\speedo.popup.min.js" />
+    <Content Include="scripts\jquery\jQpop\Images\agapa_logo.png" />
+    <Content Include="scripts\jquery\jQpop\Images\bg.jpg" />
+    <Content Include="scripts\jquery\jQpop\Images\bg_old.jpg" />
+    <Content Include="scripts\jquery\jQpop\Images\blueglass.jpg" />
+    <Content Include="scripts\jquery\jQpop\Images\close-btn.png" />
+    <Content Include="scripts\jquery\jQpop\Images\clouds.jpg" />
+    <Content Include="scripts\jquery\jQpop\Images\css3-demo-image.jpg" />
+    <Content Include="scripts\jquery\jQpop\Images\dark.jpg" />
+    <Content Include="scripts\jquery\jQpop\Images\darkglass.jpg" />
+    <Content Include="scripts\jquery\jQpop\Images\default.jpg" />
+    <Content Include="scripts\jquery\jQpop\Images\ignito.jpg" />
+    <Content Include="scripts\jquery\jQpop\Images\jquery-effects-demo-image.jpg" />
+    <Content Include="scripts\jquery\jQpop\Images\landing-jquery-speedo-popup-sprites.png" />
+    <Content Include="scripts\jquery\jQpop\Images\light.jpg" />
+    <Content Include="scripts\jquery\jQpop\Images\lightbox.jpg" />
+    <Content Include="scripts\jquery\jQpop\Images\metro.jpg" />
+    <Content Include="scripts\jquery\jQpop\Images\notify-glass.jpg" />
+    <Content Include="scripts\jquery\jQpop\Images\popup-layout-editor-banner.png" />
+    <Content Include="scripts\jquery\jQpop\Images\rain.jpg" />
+    <Content Include="scripts\jquery\jQpop\Images\snow.jpg" />
+    <Content Include="scripts\jquery\jQpop\Images\social_icons.png" />
+    <Content Include="scripts\jquery\jQpop\Images\trap.jpg" />
+    <Content Include="scripts\jquery\jQpop\Images\winter.jpg" />
+    <Content Include="scripts\jquery\jQpop\Images\wordpress-speedo-popup-banner-1.png" />
+    <Content Include="scripts\jquery\jQpop\Images\wordpress-speedo-popup-banner.png" />
+    <Content Include="scripts\jquery\jQpop\Index.html" />
+    <Content Include="scripts\jquery\jQpop\KSS_jquery_pop.html" />
+    <Content Include="scripts\jquery\jQpop\products\banners\kss-speedo-popup-banner.png" />
+    <Content Include="scripts\jquery\jQpop\products\banners\wordpress-speedo-popup-banner.png" />
+    <Content Include="scripts\jquery\jQpop\products\speedo-popup-jquery-plugin\addons.html" />
+    <Content Include="scripts\jquery\jQpop\products\speedo-popup-jquery-plugin\demo.html" />
+    <Content Include="scripts\jquery\jQpop\products\speedo-popup-jquery-plugin\demo\index.html" />
+    <Content Include="scripts\jquery\jQpop\products\speedo-popup-jquery-plugin\index.html" />
+    <Content Include="scripts\jquery\jQpop\products\speedo-popup-jquery-plugin\options.html" />
+    <Content Include="scripts\jquery\jQpop\Scripts\clouds.js" />
+    <Content Include="scripts\jquery\jQpop\Scripts\html5.js" />
+    <Content Include="scripts\jquery\jQpop\Scripts\jquery-1.7.1.min.js" />
+    <Content Include="scripts\jquery\jQpop\Scripts\jquery-2.0.1.min.js" />
+    <Content Include="scripts\jquery\jQpop\Scripts\jquery.min.js" />
+    <Content Include="scripts\jquery\jQpop\Scripts\rain.js" />
+    <Content Include="scripts\jquery\jQpop\Scripts\script.js" />
+    <Content Include="scripts\jquery\jQpop\Scripts\shBrushJScript.js" />
+    <Content Include="scripts\jquery\jQpop\Scripts\shBrushXml.js" />
+    <Content Include="scripts\jquery\jQpop\Scripts\shCore.js" />
+    <Content Include="scripts\jquery\jQpop\Scripts\snow.js" />
+    <Content Include="scripts\jquery\jQpop\Scripts\speedo.notify.min.js" />
+    <Content Include="scripts\jquery\jQpop\Scripts\speedo.popup.min.js" />
+    <Content Include="scripts\jquery\jQpop\Scripts\winter.js" />
+    <Content Include="scripts\jquery\jQpop\Scripts\XRegExp.js" />
+    <Content Include="scripts\jquery\jQpop\Stylesheets\account.css" />
+    <Content Include="scripts\jquery\jQpop\Stylesheets\agapa.css" />
+    <Content Include="scripts\jquery\jQpop\Stylesheets\blog.css" />
+    <Content Include="scripts\jquery\jQpop\Stylesheets\demo_effects.css" />
+    <Content Include="scripts\jquery\jQpop\Stylesheets\forms.css" />
+    <Content Include="scripts\jquery\jQpop\Stylesheets\google-Font.css" />
+    <Content Include="scripts\jquery\jQpop\Stylesheets\ignito.css" />
+    <Content Include="scripts\jquery\jQpop\Stylesheets\landings-jquery-speedo-popup.css" />
+    <Content Include="scripts\jquery\jQpop\Stylesheets\login.css" />
+    <Content Include="scripts\jquery\jQpop\Stylesheets\shCore.css" />
+    <Content Include="scripts\jquery\jQpop\Stylesheets\shThemeDefault.css" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\css\account.css" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\css\blog.css" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\css\demo_effects.css" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\css\forms.css" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\css\global.css" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\css\landings-addons-jquery-speedo-popup.css" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\css\landings-jquery-speedo-popup.css" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\css\login.css" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\account-sidebar-arrow.png" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\agapa_logo.png" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\banner_bottom_shadow.png" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\cartIcon.png" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\closeBtn.png" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\css3-demo-image.jpg" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\example-161d8.jpg" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\grid_view.png" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\homeSlide89.png" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\homeSlideee80_old.png" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\homeSlide_old.png" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\icons\message-boxes\error.html" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\icons\message-boxes\info.html" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\icons\message-boxes\success.html" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\icons\message-boxes\warn.html" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\jquery-effects-demo-image.jpg" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\landing-jquery-speedo-popup-sprites.png" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\landings\social-addon\social_addon.jpg" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\list_view.png" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\main-banner-bg.jpg" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\newsIcon.png" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\Signup.png" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\social_icons.png" />
+    <Content Include="scripts\jquery\jQpop\themes\agapa\assets\js\script.js" />
+    <Content Include="Test.html" />
+    <Content Include="scripts\ErrorMessage.js" />
+    <Content Include="scripts\gu-util.js" />
+    <Content Include="scripts\HighCharts\gfx\vml-radial-gradient.png" />
+    <Content Include="scripts\HighCharts\graphics\skies.jpg" />
+    <Content Include="scripts\HighCharts\graphics\snow.png" />
+    <Content Include="scripts\HighCharts\graphics\sun.png" />
+    <Content Include="scripts\HighCharts\highcharts.js" />
+    <Content Include="scripts\jquery\anythingslider\jquery.anythingslider.fx.js" />
+    <Content Include="scripts\jquery\anythingslider\jquery.anythingslider.fx.min.js" />
+    <Content Include="scripts\jquery\anythingslider\jquery.anythingslider.js" />
+    <Content Include="scripts\jquery\anythingslider\jquery.anythingslider.min.js" />
+    <Content Include="scripts\jquery\anythingslider\jquery.anythingslider.video.js" />
+    <Content Include="scripts\jquery\anythingslider\jquery.anythingslider.video.min.js" />
+    <Content Include="scripts\jquery\anythingslider\JQuery.Sparkline.js" />
+    <Content Include="scripts\jquery\anythingslider\jquery.waitforimages.js" />
+    <Content Include="scripts\jquery\colorpicker\spectrum.css" />
+    <Content Include="scripts\jquery\colorpicker\spectrum.js" />
+    <Content Include="scripts\jquery\eHelp\cursor.png" />
+    <Content Include="scripts\jquery\eHelp\inlineJSon998913.html" />
+    <Content Include="scripts\jquery\eHelp\jquery-1.5.2.min.js" />
+    <Content Include="scripts\jquery\eHelp\jquery-1.6.4.js" />
+    <Content Include="scripts\jquery\eHelp\jquery.ehelp-1.1.4-min.js" />
+    <Content Include="scripts\jquery\eHelp\jquery.ehelp-1.1.4.js" />
+    <Content Include="scripts\jquery\eHelp\jquery.ehelp.css" />
+    <Content Include="scripts\jquery\eHelp\jquery.ehelp.functions.js" />
+    <Content Include="scripts\jquery\eHelp\outJson10989.html" />
+    <Content Include="scripts\jquery\html5validation.js" />
+    <Content Include="scripts\jquery\jqgrid\grid.base-th-div.js" />
+    <Content Include="scripts\jquery\jqgrid\grid.base.js" />
+    <Content Include="scripts\jquery\jqgrid\grid.celledit.js" />
+    <Content Include="scripts\jquery\jqgrid\grid.common.js" />
+    <Content Include="scripts\jquery\jqgrid\grid.custom.js" />
+    <Content Include="scripts\jquery\jqgrid\grid.filter.js" />
+    <Content Include="scripts\jquery\jqgrid\grid.formedit.js" />
+    <Content Include="scripts\jquery\jqgrid\grid.grouping.js" />
+    <Content Include="scripts\jquery\jqgrid\grid.import.js" />
+    <Content Include="scripts\jquery\jqgrid\grid.inlinedit.js" />
+    <Content Include="scripts\jquery\jqgrid\grid.jqueryui.js" />
+    <Content Include="scripts\jquery\jqgrid\grid.loader.js" />
+    <Content Include="scripts\jquery\jqgrid\grid.subgrid.js" />
+    <Content Include="scripts\jquery\jqgrid\grid.tbltogrid.js" />
+    <Content Include="scripts\jquery\jqgrid\grid.treegrid.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-ar.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-bg.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-bg1251.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-cat.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-cn.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-cs.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-da.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-de.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-dk.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-el.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-en.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-es.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-fa.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-fi.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-fr.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-gl.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-he.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-hr.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-hr1250.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-hu.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-is.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-it.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-ja.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-lt.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-mne.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-nl.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-no.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-pl.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-pt-br.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-pt.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-ro.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-ru.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-sk.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-sr-latin.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-sr.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-sv.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-th.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-tr.js" />
+    <Content Include="scripts\jquery\jqgrid\i18n\grid.locale-ua.js" />
+    <Content Include="scripts\jquery\jqgrid\jqDnR.js" />
+    <Content Include="scripts\jquery\jqgrid\jqModal.js" />
+    <Content Include="scripts\jquery\jqgrid\jquery.contextmenu.js" />
+    <Content Include="scripts\jquery\jqgrid\jquery.fmatter.js" />
+    <Content Include="scripts\jquery\jqgrid\jquery.jqGrid.min.js" />
+    <Content Include="scripts\jquery\jqgrid\jquery.jqGrid.src.js" />
+    <Content Include="scripts\jquery\jqgrid\json2.js" />
+    <Content Include="scripts\jquery\jqgrid\JsonXml.js" />
+    <Content Include="scripts\jquery\jquery-1.7.1.js" />
+    <Content Include="scripts\jquery\jquery-1.7.1.min.js" />
+    <Content Include="scripts\jquery\jquery-2.0.1.min.js" />
+    <Content Include="scripts\jquery\jquery-fileIcon.pack.js" />
+    <Content Include="scripts\jquery\jquery-ui-1.8.18.custom.min.js" />
+    <Content Include="scripts\jquery\jquery.contextmenu.js" />
+    <Content Include="scripts\jquery\jquery.easing.1.3.js" />
+    <Content Include="scripts\jquery\jquery.layout-1.3.0.js" />
+    <Content Include="scripts\jquery\jquery.layout-1.3.0.min.js" />
+    <Content Include="scripts\jquery\jquery.loadmask.js" />
+    <Content Include="scripts\jquery\jquery.multiselect.filter.js" />
+    <Content Include="scripts\jquery\jquery.multiselect.filter.min.js" />
+    <Content Include="scripts\jquery\jquery.printElement.js" />
+    <Content Include="scripts\jquery\jquery.printElement.min.js" />
+    <Content Include="scripts\jquery\jquery.tablednd.0.6.js" />
+    <Content Include="scripts\jquery\jquery.tablednd.0.6.min.js" />
+    <Content Include="scripts\jquery\jquery1.7.1.min.js" />
+    <Content Include="scripts\jquery\jstree\jquery.jstree.js" />
+    <Content Include="scripts\jquery\jstree\README.txt" />
+    <Content Include="scripts\jquery\jstree\themes\apple\bg.jpg" />
+    <Content Include="scripts\jquery\jstree\themes\apple\d.png" />
+    <Content Include="scripts\jquery\jstree\themes\apple\dot_for_ie.gif" />
+    <Content Include="scripts\jquery\jstree\themes\apple\style.css" />
+    <Content Include="scripts\jquery\jstree\themes\apple\throbber.gif" />
+    <Content Include="scripts\jquery\jstree\themes\classic\d.gif" />
+    <Content Include="scripts\jquery\jstree\themes\classic\d.png" />
+    <Content Include="scripts\jquery\jstree\themes\classic\dot_for_ie.gif" />
+    <Content Include="scripts\jquery\jstree\themes\classic\style.css" />
+    <Content Include="scripts\jquery\jstree\themes\classic\throbber.gif" />
+    <Content Include="scripts\jquery\jstree\themes\default-rtl\d.gif" />
+    <Content Include="scripts\jquery\jstree\themes\default-rtl\d.png" />
+    <Content Include="scripts\jquery\jstree\themes\default-rtl\dots.gif" />
+    <Content Include="scripts\jquery\jstree\themes\default-rtl\style.css" />
+    <Content Include="scripts\jquery\jstree\themes\default-rtl\throbber.gif" />
+    <Content Include="scripts\jquery\jstree\themes\default\d.gif" />
+    <Content Include="scripts\jquery\jstree\themes\default\d.png" />
+    <Content Include="scripts\jquery\jstree\themes\default\style.css" />
+    <Content Include="scripts\jquery\jstree\themes\default\throbber.gif" />
+    <Content Include="scripts\jquery\jstree\_lib\jquery.cookie.js" />
+    <Content Include="scripts\jquery\jstree\_lib\jquery.hotkeys.js" />
+    <Content Include="scripts\jquery\jstree\_lib\jquery.js" />
+    <Content Include="scripts\jquery\modal\css\basic.css" />
+    <Content Include="scripts\jquery\modal\css\basic_ie.css" />
+    <Content Include="scripts\jquery\modal\css\confirm.css" />
+    <Content Include="scripts\jquery\modal\css\demo.css" />
+    <Content Include="scripts\jquery\modal\img\basic\x.png" />
+    <Content Include="scripts\jquery\modal\img\button.gif" />
+    <Content Include="scripts\jquery\modal\img\header.gif" />
+    <Content Include="scripts\jquery\modal\js\basic.js" />
+    <Content Include="scripts\jquery\modal\js\confirm.js" />
+    <Content Include="scripts\jquery\modal\js\jquery.js" />
+    <Content Include="scripts\jquery\modal\js\jquery.simplemodal.js" />
+    <Content Include="scripts\jquery\MultiseletedDropDown.js" />
+    <Content Include="scripts\jquery\notifyBar.js" />
+    <Content Include="scripts\jquery\PassMeter\jquery.simplePassMeter-0.6.js" />
+    <Content Include="scripts\jquery\PassMeter\jquery.simplePassMeter-0.6.min.js" />
+    <Content Include="scripts\jquery\PassMeter\meteraccepted.png" />
+    <Content Include="scripts\jquery\PassMeter\meterstong.png" />
+    <Content Include="scripts\jquery\PassMeter\meterweek.png" />
+    <Content Include="scripts\jquery\PassMeter\simplePassMeter.css" />
+    <Content Include="scripts\jquery\PassMeter\simplePassMeterSprite.png" />
+    <Content Include="scripts\jquery\tooltip\chili-1.7.pack.js" />
+    <Content Include="scripts\jquery\tooltip\jquery.bgiframe.js" />
+    <Content Include="scripts\jquery\tooltip\jquery.delegate.js" />
+    <Content Include="scripts\jquery\tooltip\jquery.dimensions.js" />
+    <Content Include="scripts\jquery\tooltip\jquery.tooltip.js" />
+    <Content Include="scripts\jquery\tooltip\jquery.tooltip.min.js" />
+    <Content Include="scripts\jquery\tooltip\jquery.tooltip.pack.js" />
+    <Content Include="scripts\jquery\ui.multiselect.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery-ui-i18n.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-af.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-ar-DZ.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-ar.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-az.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-bg.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-bs.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-ca.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-cs.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-cy-GB.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-da.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-de.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-el.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-en-AU.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-en-GB.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-en-NZ.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-eo.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-es.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-et.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-eu.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-fa.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-fi.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-fo.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-fr-CH.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-fr.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-gl.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-he.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-hi.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-hr.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-hu.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-hy.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-id.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-is.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-it.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-ja.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-kk.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-km.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-ko.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-lb.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-lt.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-lv.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-mk.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-ml.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-ms.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-nl-BE.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-nl.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-no.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-pl.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-pt-BR.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-pt.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-rm.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-ro.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-ru.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-sk.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-sl.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-sq.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-sr-SR.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-sr.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-sv.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-ta.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-th.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-tj.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-tr.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-uk.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-vi.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-zh-CN.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-zh-HK.js" />
+    <Content Include="scripts\jquery\ui\i18n\jquery.ui.datepicker-zh-TW.js" />
+    <Content Include="scripts\jquery\ui\jquery-ui-1.8.18.custom.js" />
+    <Content Include="scripts\jquery\ui\jquery.effects.blind.js" />
+    <Content Include="scripts\jquery\ui\jquery.effects.bounce.js" />
+    <Content Include="scripts\jquery\ui\jquery.effects.clip.js" />
+    <Content Include="scripts\jquery\ui\jquery.effects.core.js" />
+    <Content Include="scripts\jquery\ui\jquery.effects.drop.js" />
+    <Content Include="scripts\jquery\ui\jquery.effects.explode.js" />
+    <Content Include="scripts\jquery\ui\jquery.effects.fade.js" />
+    <Content Include="scripts\jquery\ui\jquery.effects.fold.js" />
+    <Content Include="scripts\jquery\ui\jquery.effects.highlight.js" />
+    <Content Include="scripts\jquery\ui\jquery.effects.pulsate.js" />
+    <Content Include="scripts\jquery\ui\jquery.effects.scale.js" />
+    <Content Include="scripts\jquery\ui\jquery.effects.shake.js" />
+    <Content Include="scripts\jquery\ui\jquery.effects.slide.js" />
+    <Content Include="scripts\jquery\ui\jquery.effects.transfer.js" />
+    <Content Include="scripts\jquery\ui\jquery.ui.accordion.js" />
+    <Content Include="scripts\jquery\ui\jquery.ui.autocomplete.js" />
+    <Content Include="scripts\jquery\ui\jquery.ui.button.js" />
+    <Content Include="scripts\jquery\ui\jquery.ui.core.js" />
+    <Content Include="scripts\jquery\ui\jquery.ui.datepicker.js" />
+    <Content Include="scripts\jquery\ui\jquery.ui.dialog.js" />
+    <Content Include="scripts\jquery\ui\jquery.ui.draggable.js" />
+    <Content Include="scripts\jquery\ui\jquery.ui.droppable.js" />
+    <Content Include="scripts\jquery\ui\jquery.ui.mouse.js" />
+    <Content Include="scripts\jquery\ui\jquery.ui.position.js" />
+    <Content Include="scripts\jquery\ui\jquery.ui.progressbar.js" />
+    <Content Include="scripts\jquery\ui\jquery.ui.resizable.js" />
+    <Content Include="scripts\jquery\ui\jquery.ui.selectable.js" />
+    <Content Include="scripts\jquery\ui\jquery.ui.slider.js" />
+    <Content Include="scripts\jquery\ui\jquery.ui.sortable.js" />
+    <Content Include="scripts\jquery\ui\jquery.ui.tabs.js" />
+    <Content Include="scripts\jquery\ui\jquery.ui.widget.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.effects.blind.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.effects.bounce.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.effects.clip.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.effects.core.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.effects.drop.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.effects.explode.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.effects.fade.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.effects.fold.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.effects.highlight.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.effects.pulsate.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.effects.scale.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.effects.shake.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.effects.slide.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.effects.transfer.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.ui.accordion.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.ui.autocomplete.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.ui.button.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.ui.core.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.ui.datepicker.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.ui.dialog.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.ui.draggable.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.ui.droppable.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.ui.mouse.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.ui.position.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.ui.progressbar.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.ui.resizable.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.ui.selectable.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.ui.slider.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.ui.sortable.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.ui.tabs.min.js" />
+    <Content Include="scripts\jquery\ui\minified\jquery.ui.widget.min.js" />
+    <Content Include="scripts\js-mindmap.js" />
+    <Content Include="scripts\livevalidation_standalone.compressed.js" />
+    <Content Include="scripts\Master.js" />
+    <Content Include="scripts\ModifyUsers.js" />
+    <Content Include="scripts\NLogonPage.js" />
+    <Content Include="scripts\passwordstrength.js" />
+    <Content Include="scripts\raphael-min.js" />
+    <Content Include="scripts\risktree-script.js" />
+    <Content Include="scripts\ToolTip.js" />
+    <Content Include="scripts\Validation.js" />
+    <Content Include="User\tpm\articles.aspx" />
+    <Content Include="User\tpm\mom.aspx" />
+    <Content Include="User\tpm\projects.aspx" />
+    <Content Include="User\tpm\qans.aspx" />
+    <Content Include="User\tpm\UploadDocument.aspx" />
+    <Content Include="User\tpm\task.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="articles\ArticleOnJava.aspx.cs">
+      <DependentUpon>ArticleOnJava.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="articles\ArticleOnJava.aspx.designer.cs">
+      <DependentUpon>ArticleOnJava.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="articles\ArticleOnDotNet.aspx.cs">
+      <DependentUpon>ArticleOnDotNet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="articles\ArticleOnDotNet.aspx.designer.cs">
+      <DependentUpon>ArticleOnDotNet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="articles\ArticleOnJQuery.aspx.cs">
+      <DependentUpon>ArticleOnJQuery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="articles\ArticleOnJQuery.aspx.designer.cs">
+      <DependentUpon>ArticleOnJQuery.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="articles\ArticleOnPHP.aspx.cs">
+      <DependentUpon>ArticleOnPHP.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="articles\ArticleOnPHP.aspx.designer.cs">
+      <DependentUpon>ArticleOnPHP.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Common.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RANews.aspx.cs">
+      <DependentUpon>RANews.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RANews.aspx.designer.cs">
+      <DependentUpon>RANews.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="jqdashboard\RADashboard.aspx.cs">
+      <DependentUpon>RADashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="jqdashboard\RADashboard.aspx.designer.cs">
+      <DependentUpon>RADashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PopNews.aspx.cs">
+      <DependentUpon>PopNews.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PopNews.aspx.designer.cs">
+      <DependentUpon>PopNews.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\Common.cs" />
+    <Compile Include="Tools\Cryptograpymanager.cs" />
+    <Compile Include="Tools\EncryptField.cs" />
+    <Compile Include="Tools\FingerPrint.cs" />
+    <Compile Include="Tools\GridUtils.cs" />
+    <Compile Include="Tools\Password.cs" />
+    <Compile Include="Tools\DataSecurity.cs" />
+    <Compile Include="Tools\XSSValidator.cs" />
+    <Compile Include="User\ChangePwd.aspx.cs">
+      <DependentUpon>ChangePwd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\ChangePwd.aspx.designer.cs">
+      <DependentUpon>ChangePwd.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\ServerMessage.aspx.cs">
+      <DependentUpon>ServerMessage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\ServerMessage.aspx.designer.cs">
+      <DependentUpon>ServerMessage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\LandingDefault.aspx.cs">
+      <DependentUpon>LandingDefault.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\LandingDefault.aspx.designer.cs">
+      <DependentUpon>LandingDefault.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\PageException.aspx.cs">
+      <DependentUpon>PageException.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\PageException.aspx.designer.cs">
+      <DependentUpon>PageException.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\Request Demo\In2InRequestDemo.aspx.cs">
+      <DependentUpon>In2InRequestDemo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\Request Demo\In2InRequestDemo.aspx.designer.cs">
+      <DependentUpon>In2InRequestDemo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\TPMLanding.aspx.cs">
+      <DependentUpon>TPMLanding.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\TPMLanding.aspx.designer.cs">
+      <DependentUpon>TPMLanding.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\login.aspx.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\login.aspx.designer.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Site.Master.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site.Master.designer.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="User\tpm\articles.aspx.cs">
+      <DependentUpon>articles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\tpm\articles.aspx.designer.cs">
+      <DependentUpon>articles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\tpm\mom.aspx.cs">
+      <DependentUpon>mom.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\tpm\mom.aspx.designer.cs">
+      <DependentUpon>mom.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\tpm\projects.aspx.cs">
+      <DependentUpon>projects.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\tpm\projects.aspx.designer.cs">
+      <DependentUpon>projects.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\tpm\qans.aspx.cs">
+      <DependentUpon>qans.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\tpm\qans.aspx.designer.cs">
+      <DependentUpon>qans.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\tpm\UploadDocument.aspx.cs">
+      <DependentUpon>UploadDocument.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\tpm\UploadDocument.aspx.designer.cs">
+      <DependentUpon>UploadDocument.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\tpm\task.aspx.cs">
+      <DependentUpon>task.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\tpm\task.aspx.designer.cs">
+      <DependentUpon>task.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="scripts\jquery\jqMenu\css\" />
+    <Folder Include="scripts\jquery\jqMenu\images\" />
+    <Folder Include="scripts\jquery\jqMenu\js\" />
+    <Folder Include="Technology\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Site.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="font\fontawesome-webfont.ttf" />
+    <None Include="font\fontawesome-webfont.woff" />
+    <None Include="GoogleFont\2UX7WLTfW3W8TclTUvlFyQ.woff" />
+    <None Include="GoogleFont\d-6IYplOFocCacKzxwXSOD8E0i7KZn-EPnyo3HZu7kw.woff" />
+    <None Include="GoogleFont\Hgo13k-tfSpn0qi1SFdUfT8E0i7KZn-EPnyo3HZu7kw.woff" />
+    <None Include="GoogleFont\vzIUHo9z-oJ4WgkpPOtg1_esZW2xOQ-xsNqO47m55DA.woff" />
+    <None Include="jqdashboard\datagrid_data.json" />
+    <None Include="jqdashboard\themes\default\images\Thumbs.db" />
+    <None Include="jqdashboard\themes\gray\images\Thumbs.db" />
+    <None Include="jquery.min.map" />
+    <None Include="jquery\eHelp\loginPaths.json" />
+    <None Include="jquery\eHelp\RAAssetPaths.json" />
+    <None Include="jquery\eHelp\RAProfilingPaths.json" />
+    <None Include="jquery\eHelp\RARTPmainPaths.json" />
+    <None Include="jquery\eHelp\RAThreatPaths.json" />
+    <None Include="jquery\eHelp\RAVulnerabilityPaths.json" />
+    <None Include="jquery\eHelp\SevenStepsPaths.json" />
+    <None Include="jquery\jqdashboard\datagrid_data.json" />
+    <None Include="jquery\jqdashboard\themes\default\images\Thumbs.db" />
+    <None Include="jquery\jqdashboard\themes\gray\images\Thumbs.db" />
+    <None Include="json-data\loc.json" />
+    <None Include="NewJEasyUI\themes\black\images\Thumbs.db" />
+    <None Include="NewJEasyUI\themes\bootstrap\images\Thumbs.db" />
+    <None Include="NewJEasyUI\themes\default\images\Thumbs.db" />
+    <None Include="NewJEasyUI\themes\gray\images\Thumbs.db" />
+    <None Include="NewJEasyUI\themes\metro\images\Thumbs.db" />
+    <None Include="Properties\PublishProfiles\ITTPM.pubxml" />
+    <None Include="scripts\jquery\eHelp\loginPaths.json" />
+    <None Include="scripts\jquery\eHelp\RAAssetPaths.json" />
+    <None Include="scripts\jquery\eHelp\RAProfilingPaths.json" />
+    <None Include="scripts\jquery\eHelp\RARTPmainPaths.json" />
+    <None Include="scripts\jquery\eHelp\RAThreatPaths.json" />
+    <None Include="scripts\jquery\eHelp\RAVulnerabilityPaths.json" />
+    <None Include="scripts\jquery\eHelp\SevenStepsPaths.json" />
+    <None Include="scripts\jquery\jQpop\Scripts\jquery.min.map" />
+    <None Include="scripts\jquery\jQpop\Stylesheets\css" />
+    <None Include="scripts\jquery\jquery.min.map" />
+    <None Include="themes\black\images\Thumbs.db" />
+    <None Include="themes\kss-metro\images\Thumbs.db" />
+    <None Include="User\Circle Menu\Half Circle Navigation\fcf8d519de" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\In2InGlobalBL\In2InGlobalBL.csproj">
+      <Project>{263D275B-2E79-4EC3-A194-28AD9964E92F}</Project>
+      <Name>In2InGlobalBL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\In2InGlobalInterface\In2InGlobalInterface.csproj">
+      <Project>{A294EC6B-9400-4C64-BBA4-6EBAD7AEC7EF}</Project>
+      <Name>In2InGlobalInterface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>26677</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

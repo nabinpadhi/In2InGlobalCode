@@ -1,0 +1,207 @@
+[{
+		"rel":"Add New Asset",
+		"link":"Add New Asset",
+		"method":"animated",
+		"path": [{
+		"element": "#btnAddNew",
+			"desc": "Click Here to open the Add New Asset panel.",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarker",			
+			"extf": "AddAssetTabClick('#btnAddNew')",
+			"ftriger": "E"
+		},
+		{
+			"element": "#TDLocations",
+			"desc": "Then ,Select the location(s) for the Assets to be added.",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarkerNB",
+			"extf": "userOpenDropDownF('#ddlLocation')",
+			"ftriger": "E",
+			"value": ""
+
+		},
+		{
+			"element": "#txtName",
+			"desc": "Enter the name of the Asset.",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userValueF",
+			"ftriger": "E",
+			"value": "Asset name"
+
+		},
+		{
+			"element": "#txtdescription",
+			"desc": "Provide a brief Asset Description.",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userValueF",
+			"ftriger": "E",
+			"value": "Asset Description"
+
+		},
+		{
+			"element": "#txtOwner",
+			"desc": "Specify the Asset Owner, i.e the entity in charge of the Asset.",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userValueF",
+			"ftriger": "E",
+			"value": "Asset Owner"
+
+		},
+		{
+			
+			"element": "#txtCustodian",
+			"desc": "Specify the Asset Custodian, i.e. the entity currently using the Asset.",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userValueF",
+			"ftriger": "E",
+			"value": "Asset Custodian"
+
+		},
+		{
+			"element": "#TDAssetType",
+			"desc": "Match the Asset to one of the given Asset Types.",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarkerNB",
+			"extf": "userOpenDropDownF('#ddlAssetType')",
+			"ftriger": "E",
+			"value": ""
+
+		},
+		{
+			"element": "#TDConfidentiality",
+			"desc": "Set the Confidentiality rating of the Asset.",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarkerNB",
+			"extf": "userOpenDropDownF('#ddlConfidentiality')"
+
+		},
+		{
+			"element": "#TDIntegrity",
+			"desc": "Set the Integrity rating of the Asset.",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarkerNB",
+			"extf": "userOpenDropDownF('#ddlIntegrity')"
+
+		}
+		,
+		{
+			"element": "#TDAvailability",
+			"desc": "Set the Availability rating of the Asset",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarkerNB",
+			"extf": "userOpenDropDownF('#ddlAvailability')"
+
+		}
+		,
+		{
+			"element": "#txtAssetValue",
+			"desc": "Asset Value will be calculated based on C-I-A values you have entered.",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userOpenDropDownF"
+
+		}
+		,
+		{
+			"element": "#btnSave",
+			"desc": "Click here to save the Asset .",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userClickF"
+		}]
+	},
+	
+	{
+		"rel":"Update  Asset",
+		"link":"Update  Asset",
+		"method":"animated",
+		"path": 
+		[{
+		"element": "#grdRAAssetReview_rc_0_0_1",
+		"desc": "Click here to edit the Asset Name.",
+		"duration": 2500,
+		"align": "R",
+		"marker": "EHmarker",
+		"extf": "userGridCellClick"
+		},
+		{
+		"element": "#grdRAAssetReview_rc_0_0_2",
+		"desc": "Click here to edit the Asset Description.",
+		"duration": 2500,
+		"align": "R",
+		"marker": "EHmarker",
+		"extf": "userGridCellClick"
+		},
+		{
+		"element": "#grdRAAssetReview_rc_0_0_3",
+		"desc": "Then Click here to edit the Asset Owner.",
+		"duration": 2500,
+		"align": "R",
+		"marker": "EHmarker",
+		"extf": "userGridCellClick"
+		},
+		{
+		"element": "#grdRAAssetReview_rc_0_0_4",
+		"desc": "Then Click here to edit the Asset Custodian.",
+		"duration": 2500,
+		"align": "R",
+		"marker": "EHmarker",
+		"extf": "userGridCellClick"
+		},
+		{
+		"element": "#grdRAAssetReview_rc_0_0_5",
+		"desc": "Then Click here to edit the Asset Type.",
+		"duration": 2500,
+		"align": "R",
+		"marker": "EHmarker",
+		"extf": "userGridCellClick"
+		},
+		{
+		"element": "#grdRAAssetReview_rc_0_0_6",
+		"desc": "Then Click here to edit the Confidentiality.",
+		"duration": 2500,
+		"align": "R",
+		"marker": "EHmarker",
+		"extf": "userGridCellClick"
+		},
+		{
+		"element": "#grdRAAssetReview_rc_0_0_7",
+		"desc": "Then Click here to edit the Integrity.",
+		"duration": 2500,
+		"align": "R",
+		"marker": "EHmarker",
+		"extf": "userGridCellClick"
+		},
+		{
+		"element": "#grdRAAssetReview_rc_0_0_8",
+		"desc": "Then Click Here to edit the Availability.",
+		"duration": 2500,
+		"align": "R",
+		"marker": "EHmarker",
+		"extf": "userGridCellClick"
+		},
+		{
+		"element": "#grdRAAssetReview_rc_0_0_9",
+		"desc": "Asset Value will be re-calulated.",
+		"duration": 2500,
+		"align": "R",
+		"marker": "EHmarker",
+		"extf": "userGridCellClick"
+		}]
+	}]

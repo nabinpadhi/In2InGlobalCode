@@ -1,0 +1,12 @@
+
+.content {
+	width: 700px;	
+	background-color: #ffffff;
+	background-image: url(../images/bg.jpg);
+}
+
+h1 {
+	color:#221A69;
+	font-weight:normal;
+	text-decoration:none;
+}

@@ -1,0 +1,47 @@
+﻿.loggedForm
+{
+}
+
+.loggedForm p
+{
+	color: #009cdc;
+}
+
+span.user
+{
+	color: #f55b8f;
+}
+
+#loginForm h3
+{
+	font-weight: normal;
+	margin: 24px 0;
+}
+
+.loginFormHolder
+{
+	background-color: #f6f6f6;
+	border: 1px solid #dbdbdb;
+	width: 100%;
+	margin-top: 8%;
+	text-align: center;
+}
+
+.loginFormHolder form
+{
+	width: 250px;
+	margin: 0 auto;
+}
+
+.loginFormHolder input[type='text'],
+.loginFormHolder input[type='password']
+{
+	/*width: 100%;*/
+	border-radius: 4px;
+	border-color: #eee;
+}
+
+.slideBottomShadow
+{
+	background: transparent url('../images/banner_bottom_shadow.png') no-repeat scroll 0 100%;
+}

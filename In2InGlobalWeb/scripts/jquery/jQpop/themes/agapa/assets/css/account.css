@@ -1,0 +1,116 @@
+﻿.accountSidebar
+{
+	float: left;
+	width: 140px;
+	border-right: 1px solid #eee;
+	height: 300px;
+}
+
+.accountSidebar h4
+{
+	font-size: 14px;
+	font-weight: normal;
+}
+
+.accountContent
+{
+	float: right;
+	width: 798px;
+}
+
+.accountSidebar ul
+{
+	display: block;
+	list-style-type: none;
+	margin-top: 24px;
+}
+
+.accountSidebar ul li
+{
+	margin-bottom: 8px;
+	/*padding-left: 14px;
+	background: transparent url('../images/account-sidebar-arrow.png') no-repeat 90% 50%;*/
+}
+
+.accountSidebar ul li a
+{
+	display: block;
+	width: 100%;
+	font-size: 14px;
+	color: #2e373f;
+	/*background: transparent url('../images/account-sidebar-arrow.png') no-repeat 0 50%;*/
+
+	background-image: url('../images/account-sidebar-arrow.png'), url('../images/account-sidebar-arrow.png'), url('../images/account-sidebar-arrow.png');
+	background-repeat: no-repeat, no-repeat, no-repeat;
+	background-position: 80% 50%;
+
+	padding-left: 14px;
+	-webkit-transition: background linear .2s;
+	-moz-transition: background-position linear .2s;
+	-o-transition: background-position linear .2s;
+	transition: background-position linear .2s;
+}
+
+.accountSidebar ul li a.selected
+{
+	font-weight: bold;
+	background-position: 80% 50%, 75% 50%, 70% 50%;
+}
+
+.accountSidebar ul li a:hover
+{
+	background-position: 80% 50%, 75% 50%, 70% 50%;
+}
+
+.accountContent .productBox
+{
+	width: 748px;
+	height: 90px;
+	padding: 24px;
+	border: 1px solid #dedede;
+	margin-bottom: 12px;
+}
+
+.accountContent .productBox .title
+{
+	display: block;
+	font-size: 24px;
+	margin-bottom: 24px;
+}
+
+.accountContent .productBox p
+{
+	font-size: 12px;
+	color: #b0b0b0;
+}
+
+.accountContent .productBox .submitBtn
+{
+	margin: 24px 0;
+}
+
+.accountContent h2
+{
+	font-weight: 300;
+	font-size: 22px;
+	color: #2e373f;
+	margin-bottom: 28px;
+}
+
+.accountContent input[type='text'],
+.accountContent input[type='password']
+{
+	/*width: 100%;*/
+	border-radius: 4px;
+	//border-color: #eee;
+}
+
+.accountContent label
+{
+	text-transform: uppercase;
+}
+
+.accountContent .required
+{
+	color: #eb274f;
+}

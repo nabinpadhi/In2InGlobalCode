@@ -1,0 +1,44 @@
+.garagedoor a:active, .under_header a:active, .header a:focus, .under_header a:focus {
+	outline: none; -moz-outline-style: none;
+}
+
+.garagedoor img {
+	border: 0px; display: block;	
+}
+
+.item .mouse {
+	height: 80px;
+	width: 110px;
+	
+	margin:0;padding:0;border:0;display:block;position:absolute;cursor:pointer;top:0;
+}
+
+.item .mouse img {
+	height: 80px;
+	width: 110px;
+	
+	margin:0;padding:0;
+}
+
+.item {
+	height: 80px;
+	width: 110px;
+	color: black;
+	
+	overflow:hidden;display:block;overflow:hidden;position:relative;margin:0;padding:0;float:left;background-repeat:no-repeat;text-decoration: none;
+}
+
+.item .underlay {
+	padding: 10px;
+	padding-top: 40px;
+	color: red;	
+	position:relative;	
+	margin:0 auto; 
+	text-align: center;
+}
+
+.item .overlay {
+	height: 80px;
+	width: 100px;
+	margin:0 auto; text-align: center;padding:0;border:0;left:0;position:absolute;top:0;
+}

@@ -1,0 +1,66 @@
+[{
+		"rel":"login",
+		"link":"Login",
+		"method":"animated",
+		"path": [{
+			"element": "#txtUserName",
+			"desc": "First, provide User Name.",
+			"duration": 1500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userValueF",
+			"value": "you@yourcompany.com"
+		},
+		{
+			"element": "#txtPassword",
+			"desc": "Then, type your password.",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userValueF",
+			"ftriger": "E",
+			"value": "your password"
+
+		},
+		{
+			"element": "input[name=cmdLogin]",
+			"desc": "And then click on Login button",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userClickF"
+		}]
+	},
+	{
+		"rel":"forget_password",
+		"link":"Retrieve Password",
+		"method":"animated",
+		"path": [{
+			"element": "#LinkButton1",
+			"desc": "First, click on Forgot Password link.",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userTClickF"
+		},
+		{
+			"element": "#txtRetPassword",
+			"desc": "Then, type your registered Email ID.",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userValueF",
+			"ftriger": "E",
+			"value": "you@yourcompany.com"
+
+		},
+		{
+			"element": "input[name=Button1]",
+			"desc": "And then click on Submit button",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userClickF"
+		}]
+	}
+]

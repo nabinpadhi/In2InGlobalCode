@@ -1,0 +1,63 @@
+﻿body {
+    background-color: #dcf7f6;
+}
+.PopLoginPlace:hover, .Signup:hover  {
+  border-width:1px;
+  border-color:Yellow;
+  border-style:solid;
+  -webkit-border-radius: 4px; 
+    -moz-border-radius: 4px;  
+    border-radius: 4px;  
+  background-color: Black ;
+  color:Red;
+}
+ .LogoutLink
+{
+    color: Blue;
+    height:30px;
+    
+    text-decoration :none;
+    
+}
+.LogoutLink:hover {
+    border-width:1px;
+    border-color:Yellow;
+    border-style:solid;
+    -webkit-border-radius: 8px; 
+    -moz-border-radius: 8px;  
+    border-radius: 8px;  
+    background-color: Black ;
+    color:white;
+}
+.DocumentDownload {
+     color: Blue;
+    height:30px;    
+    text-decoration :none;
+}
+.DocumentDownload:hover {
+    border-width:1px;
+    border-color:Yellow;
+    border-style:solid;
+    -webkit-border-radius: 4px; 
+    -moz-border-radius: 4px;  
+    border-radius: 4px;  
+    background-color: Black ;
+    color:white;
+    text-align:center;
+}
+.UploadDocument {
+    color: Blue;
+    height:30px;    
+    text-decoration :none;
+}
+.UploadDocument:hover {
+    border-width:1px;
+    border-color:red;
+    border-style:solid;
+    -webkit-border-radius: 4px; 
+    -moz-border-radius: 4px;  
+    border-radius: 4px;  
+    background-color: lightgreen ;
+    color:Blue;
+    text-align:center;
+}

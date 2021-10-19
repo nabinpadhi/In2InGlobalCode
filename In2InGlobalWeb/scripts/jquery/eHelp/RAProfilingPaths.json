@@ -1,0 +1,196 @@
+[{
+		"rel":"Add New Asset",
+		"link":"Add New Asset",
+		"method":"animated",
+		"path": [{
+		"element": "#btnAddNew",
+			"desc": "Click Here to open the add new panel.",
+			"duration": 1500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userTClickF"
+		},
+		{
+			"element": "#ddlLocation",
+			"desc": "Then, Select the locations to map.You can check/uncheck all location or select locations individually.",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userMultiDropDownF"
+
+		},
+		{
+			"element": "#txtName",
+			"desc": "Then, Enter the asset name.",
+			"duration": 500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userValueF",
+			"ftriger": "E",
+			"value": "Asset name"
+
+		},
+		{
+			"element": "#txtdescription",
+			"desc": "Then, Enter the asset description..",
+			"duration": 500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userValueF"
+
+		},
+		{
+			"element": "#txtOwner",
+			"desc": "Then, Enter Asset owner.",
+			"duration": 500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userValueF"
+
+		},
+		{
+			
+			"element": "#txtCustodian",
+			"desc": "Then, Enter Asset Custidian.",
+			"duration": 500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userValueF"
+
+		},
+		{
+			"element": "#ddlAssetType",
+			"desc": "Then,Change the asset type.",
+			"duration": 500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userOpenDropDownF"
+
+		},
+		{
+			"element": "#ddlConfidentiality",
+			"desc": "Then,Change the confidentiality.",
+			"duration": 500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userOpenDropDownF"
+
+		},
+		{
+			"element": "#ddlIntegrity",
+			"desc": "Then,Change the Integrity.",
+			"duration": 500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userOpenDropDownF"
+
+		}
+		,
+		{
+			"element": "#ddlAvailability",
+			"desc": "Then,Change Avalaibility.",
+			"duration": 500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userOpenDropDownF"
+
+		}
+		,
+		{
+			"element": "#txtAssetValue",
+			"desc": "Asset Value will be calulated based on C-I-A values.",
+			"duration": 500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userOpenDropDownF"
+
+		}
+		,
+		{
+			"element": "#btnSave",
+			"desc": "Then,Click Here to sav asset .",
+			"duration": 500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userClickF"
+		}]
+	},
+	
+	{
+		"rel":"Update  Asset",
+		"link":"Update  Asset",
+		"method":"animated",
+		"path": 
+		[{
+		"element": "#grdRAAssetReview_rc_0_0_1",
+		"desc": "Click Here and change the asset name.",
+		"duration": 1500,
+		"align": "R",
+		"marker": "EHmarker",
+		"extf": "userGridCellClick"
+		},
+		{
+		"element": "#grdRAAssetReview_rc_0_0_2",
+		"desc": "Click here asset name will be update, then change the description.",
+		"duration": 1500,
+		"align": "R",
+		"marker": "EHmarker",
+		"extf": "userGridCellClick"
+		},
+		{
+		"element": "#grdRAAssetReview_rc_0_0_3",
+		"desc": "Then Click Here to change asset owner.",
+		"duration": 1500,
+		"align": "R",
+		"marker": "EHmarker",
+		"extf": "userGridCellClick"
+		},
+		{
+		"element": "#grdRAAssetReview_rc_0_0_4",
+		"desc": "Then Click Here to change asset custodian.",
+		"duration": 1500,
+		"align": "R",
+		"marker": "EHmarker",
+		"extf": "userGridCellClick"
+		},
+		{
+		"element": "#grdRAAssetReview_rc_0_0_5",
+		"desc": "Then Click Here to change asset type.",
+		"duration": 1500,
+		"align": "R",
+		"marker": "EHmarker",
+		"extf": "userGridCellClick"
+		},
+		{
+		"element": "#grdRAAssetReview_rc_0_0_6",
+		"desc": "Then Click Here to change confidentiality.",
+		"duration": 1500,
+		"align": "R",
+		"marker": "EHmarker",
+		"extf": "userGridCellClick"
+		},
+		{
+		"element": "#grdRAAssetReview_rc_0_0_7",
+		"desc": "Then Click Here to change integrity.",
+		"duration": 1500,
+		"align": "R",
+		"marker": "EHmarker",
+		"extf": "userGridCellClick"
+		},
+		{
+		"element": "#grdRAAssetReview_rc_0_0_8",
+		"desc": "Then Click Here to change availibility.",
+		"duration": 1500,
+		"align": "R",
+		"marker": "EHmarker",
+		"extf": "userGridCellClick"
+		},
+		{
+		"element": "#grdRAAssetReview_rc_0_0_9",
+		"desc": "Asset value will be calulated automatically.",
+		"duration": 1500,
+		"align": "R",
+		"marker": "EHmarker",
+		"extf": "userGridCellClick"
+		}]
+	}]

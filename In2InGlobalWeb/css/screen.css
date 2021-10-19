@@ -1,0 +1,48 @@
+div { margin: 0; padding: 0;}
+#main { padding: 1em; }
+
+h3 {
+	font-size: 13px;
+	font-weight: bold;
+	margin: .2em 0 .5em 0;
+}
+
+#tooltip.pretty {
+	font-family: Arial;
+	border: none;
+	width: 210px;
+	padding:20px;
+	padding-bottom:35px;
+	height: 135px;
+	opacity: 0.8;
+	margin:0 auto;
+	background: url('../images/shadow.png');
+}
+#tooltip.pretty h3 
+{
+    margin-top:10px;
+	margin-bottom: 0.75em;
+	font-weight:normal;
+	font-size:12px;
+	width: 220px;
+	text-align: left;
+}
+#tooltip.pretty div { width: 220px; text-align: left; }
+
+#tooltip.fancy {
+	background: url('../images/shadow2.png');
+	padding-top: 5em;
+	height: 100px;
+}
+#tooltip.fancy.viewport-right {
+	background: url('../images/shadow2-reverse.png');
+}
+#right, #right2 { text-align: right; }
+#tooltip.right { width: 250px; }
+#fancy2 { float: right; }
+#tooltip.fancy.viewport-bottom
+{
+    padding-top: 4em;
+	height: 100px;
+    background: url('../images/shadow2-top-view.png');
+    }

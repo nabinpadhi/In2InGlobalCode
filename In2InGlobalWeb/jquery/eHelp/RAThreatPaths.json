@@ -1,0 +1,145 @@
+[{
+		"rel":"Add New Threat",
+		"link":"Add New Threat",
+		"method":"animated",
+		"path":
+		 [{
+		"element": "#spanaddnew",
+			"desc": "Click here to open the add new Threat panel.",
+			"duration": 1500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "AddThreatTabClick('#spanaddnew')"
+		},
+		{
+			"element": "#TDAssets",
+			"desc": "Select the Asset(s) for which you would like to add new Threats",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarkerNB",
+			"extf": "userOpenDropDownF('#lstAssets')"
+
+		},
+		{
+			"element": "#txtThreatName",
+			"desc": "Provide the name of the Threat.",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userValueF",
+			"ftriger": "E",
+			"value": "Threat name"
+
+		},
+		{
+			"element": "#txtThreatDesc",
+			"desc": "Provide a brief Threat Description.",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userValueF",
+			"ftriger": "E",
+			"value": "Threat Description"
+
+		},
+		{
+			"element": "#TDAccess",
+			"desc": " Specify the Threat Access channel.",
+			"duration": 2500,
+			"align": "T",
+			"marker": "EHmarkerNB",
+			"extf": "userOpenDropDownF('#ddlAccess')"
+
+		},
+		{
+			
+			"element": "#TDActor",
+			"desc": "Specify the Threat Actor.",
+			"duration": 2500,
+			"align": "T",
+			"marker": "EHmarkerNB",
+			"extf": "userOpenDropDownF('#ddlActor')"
+
+		},
+		{
+			"element": "#TDMotive",
+			"desc": "Select the Motive of the Threat Actor.",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarkerNB",
+			"extf": "userOpenDropDownF('#ddlMotive')"
+
+		},
+		{
+			"element": "#TDLHOT",
+			"desc": "LHOT stands for Likelihood of Threat.</br> Provide an LHOT rating here.",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarkerNB",
+			"extf": "userOpenDropDownF('#ddlLHOT')"
+
+		},
+		{
+			"element": "#btnSave",
+			"desc": "Click here to save Threat .",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userClickF"
+		}]
+	},
+	
+	{
+		"rel":"Update  Threat",
+		"link":"Update  Threat",
+		"method":"animated",
+		"path": 
+		[{
+		"element": "#dgdThreats_rc_0_0_0_1",
+		"desc": "Click here to edit the Threat name.",
+		"duration": 2500,
+		"align": "R",
+		"marker": "EHmarker",
+		"extf": "userGridCellClick"
+		},
+		{
+		"element": "#dgdThreats_rc_0_0_0_2",
+		"desc": "Click here to edit the Threat Description.",
+		"duration": 2500,
+		"align": "R",
+		"marker": "EHmarker",
+		"extf": "userGridCellClick"
+		},
+		{
+		"element": "#dgdThreats_rc_0_0_0_3",
+		"desc": "Click here to edit the Threat’s Access channel",
+		"duration": 2500,
+		"align": "R",
+		"marker": "EHmarker",
+		"extf": "userGridCellClick"
+		},
+		{
+		"element": "#dgdThreats_rc_0_0_0_4",
+		"desc": "Click here to edit the Threat Actor.",
+		"duration": 2500,
+		"align": "R",
+		"marker": "EHmarker",
+		"extf": "userGridCellClick"
+		},
+		{
+		"element": "#dgdThreats_rc_0_0_0_5",
+		"desc": "Click here to edit the Threat Motive.",
+		"duration": 2500,
+		"align": "R",
+		"marker": "EHmarker",
+		"extf": "userGridCellClick"
+		},
+		{
+		"element": "#dgdThreats_rc_0_0_0_6",
+		"desc": "Click here to edit the LHOT.",
+		"duration": 2500,
+		"align": "R",
+		"marker": "EHmarker",
+		"extf": "userGridCellClick"
+		}]
+	}]

@@ -1,0 +1,47 @@
+.formBack { background-color: #fff; border: 1px solid #ececec; width: 740px; margin: 0 auto; overflow: hidden; }
+
+.formLeftSide { width: 410px; margin: 0; padding: 0; float: left; height: 580px; text-align: center; }
+
+.formRightSide { float: right; width: 329px; height: 580px; background-color: #f7f8fa; text-align: center; }
+
+form label { text-align: left; }
+
+.formRegister form { width: 300px; margin: 20px auto; }
+
+.formRegister label { font-size: 14px; }
+
+.formRegister input[type='text'],
+.formRegister input[type='password'] { width: 300px; }
+
+.legal-text { display: block; margin-bottom: 15px; padding-top: 10px; line-height: 15px; font-size: 11px; color: #999; text-align: left; width: 330px; }
+
+.info-box, .confirmation-box, .error-box, .warning-box { position: relative; padding: 0.833em 0.833em 0.833em 3em; /* 10/12 36/12 */ margin-bottom: 0.833em; /* 20/12 */ border-radius: 0.3125em; /* 5/16 */ -moz-border-radius: 0.3125em; /* 5/16 */ -webkit-border-radius: 0.3125em; /* 5/16 */ }
+
+.info-box .close, .confirmation-box .close, .error-box .close, .warning-box .close { font-size: 18px; font-weight: bold; position: absolute; top: 0; right: 0; width: 20px; height: 20px; color: #333; -moz-transition: color linear .8s; -o-transition: color linear .8s; -webkit-transition: color linear .8s; transition: color linear .8s; }
+
+.info-box .close:hover, .confirmation-box .close:hover, .error-box .close:hover, .warning-box .close:hover { color: red; }
+
+.info-box { background: #e5f5f9 url('../images/icons/message-boxes/info.png') no-repeat 0.833em center; border: 1px solid #cae0e5; color: #5a9bab; }
+
+.confirmation-box { background: #e7fae6 url('../images/icons/message-boxes/success.png') no-repeat 0.833em center; border: 1px solid #b7cbb6; color: #52964f; }
+
+.error-box { background: #fde8e4 url('../images/icons/message-boxes/error.png') no-repeat 0.833em center; border: 1px solid #e6bbb3; color: #cf4425; }
+
+.warning-box { background: #fdf7e4 url('../images/icons/message-boxes/warn.png') no-repeat 0.833em center; border: 1px solid #e5d9b2; color: #b28a0b; }
+
+small { color: #fff; }
+
+small.error { clear: both; color: red; display: block; float: left; font-size: 12px; margin: 0 10px; transition: color 0.8s linear 0s; width: 100%; }
+
+input[type='text'].error,
+input[type='email'].error,
+input[type='password'].error,
+textarea.error { font-size: 12px; color: red; -moz-transition: -moz-box-shadow linear .8s; -o-transition: -o-box-shadow linear .8s; -webkit-transition: -webkit-box-shadow linear .8s; transition: box-shadow linear .8s; border: 1px solid rgba(255, 0, 0, 0.75); -webkit-box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.75); -moz-box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.75); box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.75); }
+
+.loggedForm p { color: #009cdc; }
+
+span.user { color: #f55b8f; }
+
+/*.loginFormHolder { background-color: #ececec; width: 250px; padding: 30px; }*/
+
+.slideBottomShadow { background: transparent url('../images/banner_bottom_shadow.png') no-repeat scroll 0 100%; }

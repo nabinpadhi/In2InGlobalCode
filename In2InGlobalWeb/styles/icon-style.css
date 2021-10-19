@@ -1,0 +1,52 @@
+a.pdf { /*The background image*/
+	background: url(../images/document-pdf_16x16.png.png) no-repeat left center;
+	padding:2px;
+	padding-left: 20px;
+	line-height: 16px; /* To center the text vertically with the icon */
+}
+
+a.txt { /*The background image*/
+	background: url(../images/txt.png) no-repeat left center;
+	padding:2px;
+	padding-left: 20px;
+	line-height: 16px;
+}
+a.excel { /*The background image*/
+	background: url(../images/document-excel_16x16.png) no-repeat left center;
+	padding:2px;
+	padding-left: 20px;
+	line-height: 16px;
+}
+a.doc { /*The background image*/
+	background: url(../images/document-word_16x16.png) no-repeat left center;
+	padding:2px;
+	padding-left: 20px;
+	line-height: 16px;
+	
+}
+a.img { /*The background image*/
+	background: url(../images/document-png_16x16.png) no-repeat left center;
+	padding:2px;
+	padding-left: 20px;
+	line-height: 16px;
+}
+a.zip { /*The background image*/
+	background: url(../images/zip.png) no-repeat left center;
+	padding:2px;
+	padding-left: 20px;
+	line-height: 16px;
+}
+
+a.email {
+	background: url(../images/email.png) no-repeat left center;
+	padding:2px;
+	padding-left: 20px;
+	line-height: 16px;
+}
+
+a.external {
+	background: url(../images/ext_link.png) no-repeat left center;
+	padding:2px;
+	padding-left: 20px;
+	line-height: 16px;
+}

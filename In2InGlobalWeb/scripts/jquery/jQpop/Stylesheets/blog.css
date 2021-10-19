@@ -1,0 +1,53 @@
+.blog .content { background: white; border: 1px solid #e0e0e0; }
+.blog .main { float:left; width: 640px; padding: 25px; border-right: 1px solid #F3F3F3;}
+.blog .sidebar { float:right; width: 250px; padding-top: 45px; }
+
+.post-list li { overflow:hidden; border-bottom: 1px solid #F3F3F3; margin-bottom: 5px; padding:25px 0; }
+.post .image {   height: 250px;    margin-bottom: 10px;    width: 100%; }
+.post-list .post .date { color:#f2f2f2; font-size:12px; width: 40px; float: left; background: #ccc; text-align:center;}
+.post-list .post .date  span{    background: none repeat scroll 0 0 #F2F2F2;    color: #CCCCCC;    display: block;    font-size: 25px;    text-align: center;    width: 100%; }
+.post .details { float: right; width: 580px; }
+.post-list .categories {font-size: 11px; margin-bottom: 10px; }
+
+h1.post-title { margin-bottom: 15px; }
+.post .post-content { margin-bottom: 5px; }
+
+.blogPost h1
+{
+	/*color: #76d1ff;*/
+	color: #009cdc;
+}
+
+.blogPost h2, .blogPost h3,
+.blogPost h4, .blogPost h5, .blogPost h6
+{
+	color: #009cdc;
+	margin: 25px 0;
+}
+
+.blogPost p
+{
+	margin: 10px 0;
+}
+
+.blogPost .post-content
+{
+	margin-bottom: 25px;
+}
+
+.blogPost ul
+{
+	list-style-type: disc;
+	margin-left: 40px;
+}
+
+.blogPost p.code
+{
+	font-family: 'Courier New', Courier, 'Nimbus Mono L', monospace;
+	margin: 15px 0 15px 20px;
+}
+
+.blogPost p.code .string
+{
+	color: #ff6a00;
+}

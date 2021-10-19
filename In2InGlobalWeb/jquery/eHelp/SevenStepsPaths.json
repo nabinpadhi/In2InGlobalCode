@@ -1,0 +1,68 @@
+
+
+[{
+		"rel":"Seven Steps work?",
+		"link":"Seven Steps work?",
+		"method":"animated",
+		"path":
+		 [{
+		"element": "#ancStep1",
+			"desc": "Click here to go to Scoping. Select the Locations <br/> to be scoped in.",
+			"duration": 3500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userClickF"
+		},
+		{
+			"element": "#ancStep2",
+			"desc": "You can now add the Assets in those Locations.",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userClickF"
+
+		},
+		{
+			"element": "#ancStep3",
+			"desc": "Map the corresponding Threats for the Assets.",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userClickF"
+
+		},
+		{
+			"element": "#ancStep4",
+			"desc": "Enter the corresponding <br/> Vulnerabilities for the Assets.",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userClickF"
+
+		},
+		{
+			"element": "#ancStep5",
+			"desc": "Then Click here to start Risk Profiling.<br/> Here you can create and assign Risk Treatment Actions.",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userClickF"
+
+		},
+		{
+			"element": "#ancStep6",
+			"desc": "Click here to view the Risk Treatment Plan.",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userClickF"
+		},
+		{
+			"element": "#ancStep7",
+			"desc": "Click here to generate the Risk Assessment Report.",
+			"duration": 2500,
+			"align": "R",
+			"marker": "EHmarker",
+			"extf": "userClickF"
+		}]
+	}]

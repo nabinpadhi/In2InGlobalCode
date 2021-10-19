@@ -1,0 +1,7 @@
+
+.product-detail .content { width: 460px; padding-top:45px; }
+.addon .image { width: 100%;  }
+.social-addon h1 {    font-size: 35px !important;    font-weight: bold; }
+.social-addon  .content { padding-top:15px; }
+.social-addon .image {  height: 172px;background: url("../images/landings/social-addon/social_addon.jpg") no-repeat scroll 0 0 transparent;  width: 272px;}
+.social-addon .submitBtn { margin-top: 5px; }

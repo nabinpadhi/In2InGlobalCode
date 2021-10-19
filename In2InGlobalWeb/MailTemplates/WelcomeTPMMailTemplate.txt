@@ -1,0 +1,90 @@
+    <html>
+      <head>
+        <style type='text/css'>
+			{.tdstyle { font-family:Arial;font-size:11pt;font-weight:normal; font-style: normal;}
+			ol 
+			{
+			list-style-image:url('http://www.w3schools.com/cssref/sqpurple.gif');
+			}
+		</style>
+      </head>
+       
+           <table align='center' width='100%'>
+      <tr>
+          <td class='tdstyle'>
+              Dear $USERNAME,
+          </td>
+      </tr>
+      <tr style='height: 40px'>
+          <td class='tdstyle'>
+              <p>
+                  Welcome & Thanks for joining TPM family, a formal help zone for your all technical needs.</p>
+          </td>
+      </tr>
+      <tr>
+          <td class='tdstyle'>
+              <ol type="1">
+                  <li>
+                      <p>
+                          Technical managers are backbone of any software product or service development for any effective software service or product organizations.
+                          Managing a team or a product/project or a client is really a very big responsibility for any TPM. ITTPM is our attempt
+                          to reduce any TPM's tension and simultaneously help anyone out of this IT industry as much as possible .
+                          In this attempt we have kept in mind the best <u> development process & practices </u> along with large number of TPM from across the world and their view.
+                       </p>
+                              <br/>
+                  </li>                  
+                  <li>
+                      <p>
+                          Your login credentials are as follows:<br>
+                          <br />
+                          User Name: $ToEmail<br />
+                          Password: $PASSWORD</p>
+                      <br/>
+                  </li>
+                  <li>
+                      <p>
+                          Please go to <a href="http://ittpm.com">www.ittpm.com</a> website and click
+                          on login.You will be allowed to start using ittpm.However we will recommend you to change your login credential.
+                      </p>
+                      <br/>
+                  </li>
+                  <li>
+                      <p style='margin-top: 8px;'>
+                          Lastly, we solicit your feedback on how ITTPM helps or on any improvement required.
+                          Your feedback is important so please mail your comments to <a href='mailto:feedbacks@ittpm.com'>
+                              feedback@ittpm.com</a>
+                      </p>
+                      <br/>
+                  </li>
+              </ol>
+          </td>
+      </tr>
+      <tr height='25px'>
+      </tr>
+      <tr>
+          <td>
+              <br/>
+              <p>
+                  Yours truly,</p>
+                 ITTPM Family
+              <br />
+              <b>Note:</b> - ITTPM is a helping corner presented by <b> KSS Pvt. Ltd. [Kalahandi Security Soft Pvt. Ltd. </b> (<a href='http://www.kalahandisecuritysoft.com'>www.kalahandisecuritysoft.com</a>),
+              an Indian, Odisha based company.
+              <p>
+              </p>
+              <hr />
+              <p>
+                  <i>This email and any files transmitted in this email are confidential and intended
+                      solely for the use of the individual or entity to which it is addressed. This message
+                      contains confidential information and is intended only for the individual named.
+                      If you are not the named addressee you should not disseminate, distribute or copy
+                      this e-mail. Please notify ITTPM at <a href='mailto:info@ittpm.com'>info@ittpm.com</a>
+                      immediately by e-mail. If you have received this e-mail by mistake, then please
+                      delete this e-mail from your system. If you are not the intended recipient you are
+                      notified that disclosing, copying, distributing or taking any action in reliance
+                      on the contents of this information is strictly prohibited.</i></p>
+          </td>
+      </tr>
+  </table>
+	
+    </html>
