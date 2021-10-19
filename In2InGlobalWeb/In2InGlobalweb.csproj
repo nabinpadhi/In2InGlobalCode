@@ -80,6 +80,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="admin\css\admin.css" />
+    <Content Include="admin\css\login.css" />
+    <Content Include="admin\css\toastr.min.css" />
+    <Content Include="admin\img\security.jpg" />
+    <Content Include="admin\js\jquery.cookie.js" />
+    <Content Include="admin\js\login.js" />
+    <Content Include="admin\js\toastr.min.js" />
+    <Content Include="admin\login.aspx" />
+    <Content Include="admin\vendor\bootstrap\js\bootstrap.bundle.min.js" />
+    <Content Include="admin\vendor\fontawesome-free\css\all.min.css" />
+    <Content Include="admin\vendor\fontawesome-free\webfonts\fa-brands-400.svg" />
+    <Content Include="admin\vendor\fontawesome-free\webfonts\fa-light-300.svg" />
+    <Content Include="admin\vendor\fontawesome-free\webfonts\fa-regular-400.svg" />
+    <Content Include="admin\vendor\fontawesome-free\webfonts\fa-solid-900.svg" />
+    <Content Include="admin\vendor\jquery-easing\jquery.easing.min.js" />
+    <Content Include="admin\vendor\jquery\jquery.min.js" />
     <Content Include="articles\ArticleOnJava.aspx" />
     <Content Include="articles\ArticleOnJQuery.aspx" />
     <Content Include="articles\ArticleOnPHP.aspx" />
@@ -1939,6 +1955,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="admin\login.aspx.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\login.aspx.designer.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="articles\ArticleOnJava.aspx.cs">
       <DependentUpon>ArticleOnJava.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2118,6 +2141,26 @@
     <Content Include="Site.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="admin\vendor\fontawesome-free\webfonts\fa-brands-400.eot" />
+    <Content Include="admin\vendor\fontawesome-free\webfonts\fa-brands-400.ttf" />
+    <Content Include="admin\vendor\fontawesome-free\webfonts\fa-brands-400.woff" />
+    <Content Include="admin\vendor\fontawesome-free\webfonts\fa-brands-400.woff2" />
+    <Content Include="admin\vendor\fontawesome-free\webfonts\fa-brands-400d41d.eot" />
+    <Content Include="admin\vendor\fontawesome-free\webfonts\fa-light-300.eot" />
+    <Content Include="admin\vendor\fontawesome-free\webfonts\fa-light-300.ttf" />
+    <Content Include="admin\vendor\fontawesome-free\webfonts\fa-light-300.woff" />
+    <Content Include="admin\vendor\fontawesome-free\webfonts\fa-light-300.woff2" />
+    <Content Include="admin\vendor\fontawesome-free\webfonts\fa-light-300d41d.eot" />
+    <Content Include="admin\vendor\fontawesome-free\webfonts\fa-regular-400.eot" />
+    <Content Include="admin\vendor\fontawesome-free\webfonts\fa-regular-400.ttf" />
+    <Content Include="admin\vendor\fontawesome-free\webfonts\fa-regular-400.woff" />
+    <Content Include="admin\vendor\fontawesome-free\webfonts\fa-regular-400.woff2" />
+    <Content Include="admin\vendor\fontawesome-free\webfonts\fa-regular-400d41d.eot" />
+    <Content Include="admin\vendor\fontawesome-free\webfonts\fa-solid-900.eot" />
+    <Content Include="admin\vendor\fontawesome-free\webfonts\fa-solid-900.ttf" />
+    <Content Include="admin\vendor\fontawesome-free\webfonts\fa-solid-900.woff" />
+    <Content Include="admin\vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
+    <Content Include="admin\vendor\fontawesome-free\webfonts\fa-solid-900d41d.eot" />
     <None Include="font\fontawesome-webfont.ttf" />
     <None Include="font\fontawesome-webfont.woff" />
     <None Include="GoogleFont\2UX7WLTfW3W8TclTUvlFyQ.woff" />
