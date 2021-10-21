@@ -48,7 +48,7 @@
                   <input type="checkbox" class="custom-input checkAll" id="remember" name="remember" checked>
                   <label class="custom-label" for="remember">Remember me</label>
                 </div>
-                <button class="btn btn-primary btn-user btn-block loginButton" type="button">Login</button>
+                <button class="btn btn-primary btn-user btn-block loginButton"  type="button">Login</button>
               </form>
               <hr>
               <div class="text-center">
@@ -125,7 +125,7 @@
 
 
 <script type="text/javascript">
-    var BASE_URL = 'index.html';
+    var BASE_URL = 'login.aspx';
 </script>
 <script src="js/login.js"></script>
 <script src="js/jquery.cookie.js"></script>

@@ -24,7 +24,8 @@ $('#forgotForm input').keypress(function (e) {
  }
 });
 
-	$(".loginButton").click(function(){
+	$(".loginButton").click(function () {
+
 		var enable = true;
 		$( ".validate" ).each(function( index,element ) {
 			if($(element).attr('name') == 'email' && $(element).val() != '' && IsEmail($(element).val())==false){
@@ -143,11 +144,12 @@ function IsEmail(email) {
   }
 }
 
-function Login(){
+function Login() {	
 	var formData = new FormData($("#loginForm")[0]);
+	var target ='?target=NormalUser';
 	$.ajax({
 		type: "POST",
-		url: BASE_URL +'admin/login',
+		url: BASE_URL,
 		data: formData,
 		enctype:'multipart/form-data',
 		contentType : false,
@@ -156,13 +158,20 @@ function Login(){
 
 			$('.loginButton').prop('disabled',true);
 			$('.loginButton').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Logging...');
-		},
-		success:function(result){
 			
-			var data = jQuery.parseJSON(result);
+		},
+		success: function (result) {
+			if ($('#email').val() == 'admin@in2inglobal.com') {
+				target = '?target=admin';
+			}
+	
+			var data = jQuery.parseJSON('{ "status": "1" }');
+			
 			if(data.status == 1){
 				$('.loginButton').html('Logged In');
-				toastr.success(data.msg, 'Success', {timeOut: 1000,progressBar:true,onHidden:function() { window.location.href = BASE_URL+'admin/dashboard'; }   });
+				
+				toastr.success(data.msg, 'Success', { timeOut: 1000, progressBar: true, onHidden: function () { window.location.href = BASE_URL; } });
+				location.href = '../InternalLanding.aspx' + target;
 			} else {
 				$('.loginButton').prop('disabled',false);
 				$('.loginButton').html('Login');

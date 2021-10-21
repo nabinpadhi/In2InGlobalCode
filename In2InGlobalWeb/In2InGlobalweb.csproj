@@ -80,6 +80,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="admin\AdminAnalytics.aspx" />
+    <Content Include="admin\AdminFileManagement.aspx" />
+    <Content Include="admin\assets\css\style.css" />
+    <Content Include="admin\assets\img\cd-arrow.svg" />
+    <Content Include="admin\assets\img\cd-avatar.svg" />
+    <Content Include="admin\assets\img\cd-logo.svg" />
+    <Content Include="admin\assets\img\cd-nav-icons.svg" />
+    <Content Include="admin\assets\img\cd-search.svg" />
+    <Content Include="admin\assets\js\main.js" />
+    <Content Include="admin\assets\js\menu-aim.js" />
+    <Content Include="admin\assets\js\util.js" />
     <Content Include="admin\css\admin.css" />
     <Content Include="admin\css\login.css" />
     <Content Include="admin\css\toastr.min.css" />
@@ -88,6 +99,9 @@
     <Content Include="admin\js\login.js" />
     <Content Include="admin\js\toastr.min.js" />
     <Content Include="admin\login.aspx" />
+    <Content Include="admin\MyProfile.aspx" />
+    <Content Include="admin\UserAnalytics.aspx" />
+    <Content Include="admin\UserFileManagement.aspx" />
     <Content Include="admin\vendor\bootstrap\js\bootstrap.bundle.min.js" />
     <Content Include="admin\vendor\fontawesome-free\css\all.min.css" />
     <Content Include="admin\vendor\fontawesome-free\webfonts\fa-brands-400.svg" />
@@ -191,6 +205,7 @@
     <Content Include="images\welcomeTPM.png" />
     <Content Include="images\welcomeTPM_new.png" />
     <Content Include="Index.aspx" />
+    <Content Include="InternalLanding.aspx" />
     <Content Include="RANews.aspx" />
     <Content Include="jqdashboard\images\chart-1.png" />
     <Content Include="jqdashboard\images\chart-2.png" />
@@ -1955,12 +1970,47 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="admin\AdminAnalytics.aspx.cs">
+      <DependentUpon>AdminAnalytics.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\AdminAnalytics.aspx.designer.cs">
+      <DependentUpon>AdminAnalytics.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\AdminFileManagement.aspx.cs">
+      <DependentUpon>AdminFileManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\AdminFileManagement.aspx.designer.cs">
+      <DependentUpon>AdminFileManagement.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="admin\login.aspx.designer.cs">
       <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\MyProfile.aspx.cs">
+      <DependentUpon>MyProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\MyProfile.aspx.designer.cs">
+      <DependentUpon>MyProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\UserAnalytics.aspx.cs">
+      <DependentUpon>UserAnalytics.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\UserAnalytics.aspx.designer.cs">
+      <DependentUpon>UserAnalytics.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\UserFileManagement.aspx.cs">
+      <DependentUpon>UserFileManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\UserFileManagement.aspx.designer.cs">
+      <DependentUpon>UserFileManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="articles\ArticleOnJava.aspx.cs">
       <DependentUpon>ArticleOnJava.aspx</DependentUpon>
@@ -2000,6 +2050,13 @@
     </Compile>
     <Compile Include="Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InternalLanding.aspx.cs">
+      <DependentUpon>InternalLanding.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InternalLanding.aspx.designer.cs">
+      <DependentUpon>InternalLanding.aspx</DependentUpon>
     </Compile>
     <Compile Include="RANews.aspx.cs">
       <DependentUpon>RANews.aspx</DependentUpon>
@@ -2161,6 +2218,7 @@
     <Content Include="admin\vendor\fontawesome-free\webfonts\fa-solid-900.woff" />
     <Content Include="admin\vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="admin\vendor\fontawesome-free\webfonts\fa-solid-900d41d.eot" />
+    <Content Include="admin\assets\css\style.scss" />
     <None Include="font\fontawesome-webfont.ttf" />
     <None Include="font\fontawesome-webfont.woff" />
     <None Include="GoogleFont\2UX7WLTfW3W8TclTUvlFyQ.woff" />
