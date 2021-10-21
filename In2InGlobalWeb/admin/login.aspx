@@ -21,8 +21,9 @@
         <link href="css/login.css" rel="stylesheet">
 </head> 
 <body class="bg-gradient-primary">
-	<div class="login-page">
-		<div class="container m-auto">
+    <div style="position:fixed;left:10px;top:10px;color:yellow;"><img src="../images/in2ingloballogo.png" style="width:50%;" /></div>
+	<div class="login-page">        
+		<div class="container m-auto">            
 			<div class="row justify-content-center">
   <div class="col-xl-10 col-lg-12 col-md-9">
     <div class="card o-hidden border-0 shadow-lg my-5" style="border: 2px solid blue;border-radius: 50px;">
