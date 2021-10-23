@@ -4163,3 +4163,20 @@ input[type="text"] {
     border-top-style: solid;
     border-top-width: 1px;
 }
+.sidebar-brand-icon i {
+    font-size: 2rem;
+}
+
+.rounded-circle {
+    border-radius: 50% !important
+}
+
+.rounded-circle img {
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #fff;
+    box-shadow: rgb(0 0 0 / 15%) 0 4px 20px;
+}

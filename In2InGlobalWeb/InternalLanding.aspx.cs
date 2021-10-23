@@ -14,13 +14,13 @@ namespace In2InGlobal.presentation.admin
             string target = Request.QueryString.Get("target");
             if(target=="NormalUser")
             {
-                spnUserName.InnerText = "Welcome Normal User";
+                spnUserName.InnerText = "Ganeswar Sahoo";
                 ancFileMan.Attributes.Add("onclick", "javascript:OpenPage('admin/UserFileManagement.aspx');");
                 ancAnalytics.Attributes.Add("onclick", "javascript:OpenPage('admin/UserAnalytics.aspx');");
             }
             else
             {
-                spnUserName.InnerText = "Welcome Admin User";
+                spnUserName.InnerText = "Sujay Mondal";
                 ancFileMan.Attributes.Add("onclick","javascript:OpenPage('admin/AdminFileManagement.aspx');");
                 ancAnalytics.Attributes.Add("onclick", "javascript:OpenPage('admin/AdminAnalytics.aspx');");
             }

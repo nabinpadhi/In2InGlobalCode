@@ -14,7 +14,7 @@ var GarageDoor = {
     setBindings: function (id) {
         $("#" + id + " .mouse").each(function (i) {
             $(this).bind("mouseenter", function (e) {
-                alert("hi");
+               
                 GarageDoor.hideDoor(this);
             });
             $(this).bind("mouseleave", function (e) {

@@ -88,6 +88,7 @@
     <Content Include="admin\assets\img\cd-logo.svg" />
     <Content Include="admin\assets\img\cd-nav-icons.svg" />
     <Content Include="admin\assets\img\cd-search.svg" />
+    <Content Include="admin\assets\img\loggedInAvatar.jpg" />
     <Content Include="admin\assets\js\main.js" />
     <Content Include="admin\assets\js\menu-aim.js" />
     <Content Include="admin\assets\js\util.js" />
@@ -128,7 +129,6 @@
     <Content Include="articles\image\icon-twitter.png" />
     <Content Include="articles\image\photo-scott-tall.jpg" />
     <Content Include="articles\ArticleOnDotNet.aspx" />
-    <Content Include="CircleOval.html" />
     <Content Include="css\anythingslider-ie.css" />
     <Content Include="css\anythingslider.css" />
     <Content Include="css\landing-default-font-awesome.min.css" />
@@ -937,7 +937,6 @@
     <Content Include="jquery\ui\minified\jquery.ui.sortable.min.js" />
     <Content Include="jquery\ui\minified\jquery.ui.tabs.min.js" />
     <Content Include="jquery\ui\minified\jquery.ui.widget.min.js" />
-    <Content Include="MailTemplates\WelcomeTPMMailTemplate.txt" />
     <Content Include="NewJEasyUI\demo.css" />
     <Content Include="NewJEasyUI\easyloader.js" />
     <Content Include="NewJEasyUI\jquery.easyui.min.js" />
@@ -2049,7 +2048,6 @@
     <Compile Include="articles\ArticleOnPHP.aspx.designer.cs">
       <DependentUpon>ArticleOnPHP.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Common.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
