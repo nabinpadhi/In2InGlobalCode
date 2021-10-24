@@ -75,13 +75,10 @@
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Trirand.Web">
-      <HintPath>kss-ref\Trirand.Web.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="admin\AdminAnalytics.aspx" />
-    <Content Include="admin\AdminFileManagement.aspx" />
+    <Content Include="admin\FileManagement.aspx" />
     <Content Include="admin\assets\css\style.css" />
     <Content Include="admin\assets\img\cd-arrow.svg" />
     <Content Include="admin\assets\img\cd-avatar.svg" />
@@ -111,7 +108,6 @@
     <Content Include="admin\login.aspx" />
     <Content Include="admin\MyProfile.aspx" />
     <Content Include="admin\UserAnalytics.aspx" />
-    <Content Include="admin\UserFileManagement.aspx" />
     <Content Include="admin\vendor\bootstrap\js\bootstrap.bundle.min.js" />
     <Content Include="admin\vendor\fontawesome-free\css\all.min.css" />
     <Content Include="admin\vendor\fontawesome-free\webfonts\fa-brands-400.svg" />
@@ -120,15 +116,6 @@
     <Content Include="admin\vendor\fontawesome-free\webfonts\fa-solid-900.svg" />
     <Content Include="admin\vendor\jquery-easing\jquery.easing.min.js" />
     <Content Include="admin\vendor\jquery\jquery.min.js" />
-    <Content Include="articles\ArticleOnJava.aspx" />
-    <Content Include="articles\ArticleOnJQuery.aspx" />
-    <Content Include="articles\ArticleOnPHP.aspx" />
-    <Content Include="articles\image\icon-fb.png" />
-    <Content Include="articles\image\icon-gplus.png" />
-    <Content Include="articles\image\icon-rss.png" />
-    <Content Include="articles\image\icon-twitter.png" />
-    <Content Include="articles\image\photo-scott-tall.jpg" />
-    <Content Include="articles\ArticleOnDotNet.aspx" />
     <Content Include="css\anythingslider-ie.css" />
     <Content Include="css\anythingslider.css" />
     <Content Include="css\landing-default-font-awesome.min.css" />
@@ -215,7 +202,6 @@
     <Content Include="images\welcomeTPM_new.png" />
     <Content Include="Index.aspx" />
     <Content Include="InternalLanding.aspx" />
-    <Content Include="RANews.aspx" />
     <Content Include="jqdashboard\images\chart-1.png" />
     <Content Include="jqdashboard\images\chart-2.png" />
     <Content Include="jqdashboard\images\chart-3.png" />
@@ -937,300 +923,6 @@
     <Content Include="jquery\ui\minified\jquery.ui.sortable.min.js" />
     <Content Include="jquery\ui\minified\jquery.ui.tabs.min.js" />
     <Content Include="jquery\ui\minified\jquery.ui.widget.min.js" />
-    <Content Include="NewJEasyUI\demo.css" />
-    <Content Include="NewJEasyUI\easyloader.js" />
-    <Content Include="NewJEasyUI\jquery.easyui.min.js" />
-    <Content Include="NewJEasyUI\jquery.min.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.accordion.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.calendar.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.combo.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.combobox.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.combogrid.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.combotree.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.datagrid.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.datebox.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.datetimebox.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.dialog.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.draggable.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.droppable.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.form.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.layout.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.linkbutton.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.menu.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.menubutton.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.messager.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.numberbox.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.numberspinner.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.pagination.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.panel.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.parser.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.progressbar.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.propertygrid.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.resizable.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.searchbox.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.slider.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.spinner.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.splitbutton.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.tabs.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.timespinner.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.tooltip.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.tree.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.treegrid.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.validatebox.js" />
-    <Content Include="NewJEasyUI\plugins\jquery.window.js" />
-    <Content Include="NewJEasyUI\plugins\jqValidation\css\bootstrap.min.css" />
-    <Content Include="NewJEasyUI\plugins\jqValidation\css\jquery.validity.css" />
-    <Content Include="NewJEasyUI\plugins\jqValidation\js\jquery-1.9.0.min.js" />
-    <Content Include="NewJEasyUI\plugins\jqValidation\js\jquery.validity.min.js" />
-    <Content Include="NewJEasyUI\plugins\jqValidation\Validate.html" />
-    <Content Include="NewJEasyUI\themes\black\accordion.css" />
-    <Content Include="NewJEasyUI\themes\black\calendar.css" />
-    <Content Include="NewJEasyUI\themes\black\combo.css" />
-    <Content Include="NewJEasyUI\themes\black\combobox.css" />
-    <Content Include="NewJEasyUI\themes\black\datagrid.css" />
-    <Content Include="NewJEasyUI\themes\black\datebox.css" />
-    <Content Include="NewJEasyUI\themes\black\dialog.css" />
-    <Content Include="NewJEasyUI\themes\black\easyui.css" />
-    <Content Include="NewJEasyUI\themes\black\images\accordion_arrows.png" />
-    <Content Include="NewJEasyUI\themes\black\images\blank.gif" />
-    <Content Include="NewJEasyUI\themes\black\images\calendar_arrows.png" />
-    <Content Include="NewJEasyUI\themes\black\images\combo_arrow.png" />
-    <Content Include="NewJEasyUI\themes\black\images\datagrid_icons.png" />
-    <Content Include="NewJEasyUI\themes\black\images\datebox_arrow.png" />
-    <Content Include="NewJEasyUI\themes\black\images\layout_arrows.png" />
-    <Content Include="NewJEasyUI\themes\black\images\linkbutton_bg.png" />
-    <Content Include="NewJEasyUI\themes\black\images\loading.gif" />
-    <Content Include="NewJEasyUI\themes\black\images\menu_arrows.png" />
-    <Content Include="NewJEasyUI\themes\black\images\messager_icons.png" />
-    <Content Include="NewJEasyUI\themes\black\images\pagination_icons.png" />
-    <Content Include="NewJEasyUI\themes\black\images\panel_tools.png" />
-    <Content Include="NewJEasyUI\themes\black\images\searchbox_button.png" />
-    <Content Include="NewJEasyUI\themes\black\images\slider_handle.png" />
-    <Content Include="NewJEasyUI\themes\black\images\spinner_arrows.png" />
-    <Content Include="NewJEasyUI\themes\black\images\tabs_icons.png" />
-    <Content Include="NewJEasyUI\themes\black\images\tree_icons.png" />
-    <Content Include="NewJEasyUI\themes\black\images\validatebox_warning.png" />
-    <Content Include="NewJEasyUI\themes\black\layout.css" />
-    <Content Include="NewJEasyUI\themes\black\linkbutton.css" />
-    <Content Include="NewJEasyUI\themes\black\menu.css" />
-    <Content Include="NewJEasyUI\themes\black\menubutton.css" />
-    <Content Include="NewJEasyUI\themes\black\messager.css" />
-    <Content Include="NewJEasyUI\themes\black\pagination.css" />
-    <Content Include="NewJEasyUI\themes\black\panel.css" />
-    <Content Include="NewJEasyUI\themes\black\progressbar.css" />
-    <Content Include="NewJEasyUI\themes\black\propertygrid.css" />
-    <Content Include="NewJEasyUI\themes\black\searchbox.css" />
-    <Content Include="NewJEasyUI\themes\black\slider.css" />
-    <Content Include="NewJEasyUI\themes\black\spinner.css" />
-    <Content Include="NewJEasyUI\themes\black\splitbutton.css" />
-    <Content Include="NewJEasyUI\themes\black\tabs.css" />
-    <Content Include="NewJEasyUI\themes\black\tooltip.css" />
-    <Content Include="NewJEasyUI\themes\black\tree.css" />
-    <Content Include="NewJEasyUI\themes\black\validatebox.css" />
-    <Content Include="NewJEasyUI\themes\black\window.css" />
-    <Content Include="NewJEasyUI\themes\bootstrap\accordion.css" />
-    <Content Include="NewJEasyUI\themes\bootstrap\calendar.css" />
-    <Content Include="NewJEasyUI\themes\bootstrap\combo.css" />
-    <Content Include="NewJEasyUI\themes\bootstrap\combobox.css" />
-    <Content Include="NewJEasyUI\themes\bootstrap\datagrid.css" />
-    <Content Include="NewJEasyUI\themes\bootstrap\datebox.css" />
-    <Content Include="NewJEasyUI\themes\bootstrap\dialog.css" />
-    <Content Include="NewJEasyUI\themes\bootstrap\easyui.css" />
-    <Content Include="NewJEasyUI\themes\bootstrap\images\accordion_arrows.png" />
-    <Content Include="NewJEasyUI\themes\bootstrap\images\blank.gif" />
-    <Content Include="NewJEasyUI\themes\bootstrap\images\calendar_arrows.png" />
-    <Content Include="NewJEasyUI\themes\bootstrap\images\combo_arrow.png" />
-    <Content Include="NewJEasyUI\themes\bootstrap\images\datagrid_icons.png" />
-    <Content Include="NewJEasyUI\themes\bootstrap\images\datebox_arrow.png" />
-    <Content Include="NewJEasyUI\themes\bootstrap\images\layout_arrows.png" />
-    <Content Include="NewJEasyUI\themes\bootstrap\images\linkbutton_bg.png" />
-    <Content Include="NewJEasyUI\themes\bootstrap\images\loading.gif" />
-    <Content Include="NewJEasyUI\themes\bootstrap\images\menu_arrows.png" />
-    <Content Include="NewJEasyUI\themes\bootstrap\images\messager_icons.png" />
-    <Content Include="NewJEasyUI\themes\bootstrap\images\pagination_icons.png" />
-    <Content Include="NewJEasyUI\themes\bootstrap\images\panel_tools.png" />
-    <Content Include="NewJEasyUI\themes\bootstrap\images\searchbox_button.png" />
-    <Content Include="NewJEasyUI\themes\bootstrap\images\slider_handle.png" />
-    <Content Include="NewJEasyUI\themes\bootstrap\images\spinner_arrows.png" />
-    <Content Include="NewJEasyUI\themes\bootstrap\images\tabs_icons.png" />
-    <Content Include="NewJEasyUI\themes\bootstrap\images\tree_icons.png" />
-    <Content Include="NewJEasyUI\themes\bootstrap\images\validatebox_warning.png" />
-    <Content Include="NewJEasyUI\themes\bootstrap\layout.css" />
-    <Content Include="NewJEasyUI\themes\bootstrap\linkbutton.css" />
-    <Content Include="NewJEasyUI\themes\bootstrap\menu.css" />
-    <Content Include="NewJEasyUI\themes\bootstrap\menubutton.css" />
-    <Content Include="NewJEasyUI\themes\bootstrap\messager.css" />
-    <Content Include="NewJEasyUI\themes\bootstrap\pagination.css" />
-    <Content Include="NewJEasyUI\themes\bootstrap\panel.css" />
-    <Content Include="NewJEasyUI\themes\bootstrap\progressbar.css" />
-    <Content Include="NewJEasyUI\themes\bootstrap\propertygrid.css" />
-    <Content Include="NewJEasyUI\themes\bootstrap\searchbox.css" />
-    <Content Include="NewJEasyUI\themes\bootstrap\slider.css" />
-    <Content Include="NewJEasyUI\themes\bootstrap\spinner.css" />
-    <Content Include="NewJEasyUI\themes\bootstrap\splitbutton.css" />
-    <Content Include="NewJEasyUI\themes\bootstrap\tabs.css" />
-    <Content Include="NewJEasyUI\themes\bootstrap\tooltip.css" />
-    <Content Include="NewJEasyUI\themes\bootstrap\tree.css" />
-    <Content Include="NewJEasyUI\themes\bootstrap\validatebox.css" />
-    <Content Include="NewJEasyUI\themes\bootstrap\window.css" />
-    <Content Include="NewJEasyUI\themes\default\accordion.css" />
-    <Content Include="NewJEasyUI\themes\default\calendar.css" />
-    <Content Include="NewJEasyUI\themes\default\combo.css" />
-    <Content Include="NewJEasyUI\themes\default\combobox.css" />
-    <Content Include="NewJEasyUI\themes\default\datagrid.css" />
-    <Content Include="NewJEasyUI\themes\default\datebox.css" />
-    <Content Include="NewJEasyUI\themes\default\dialog.css" />
-    <Content Include="NewJEasyUI\themes\default\easyui.css" />
-    <Content Include="NewJEasyUI\themes\default\images\accordion_arrows.png" />
-    <Content Include="NewJEasyUI\themes\default\images\blank.gif" />
-    <Content Include="NewJEasyUI\themes\default\images\calendar_arrows.png" />
-    <Content Include="NewJEasyUI\themes\default\images\combo_arrow.png" />
-    <Content Include="NewJEasyUI\themes\default\images\datagrid_icons.png" />
-    <Content Include="NewJEasyUI\themes\default\images\datebox_arrow.png" />
-    <Content Include="NewJEasyUI\themes\default\images\layout_arrows.png" />
-    <Content Include="NewJEasyUI\themes\default\images\linkbutton_bg.png" />
-    <Content Include="NewJEasyUI\themes\default\images\loading.gif" />
-    <Content Include="NewJEasyUI\themes\default\images\menu_arrows.png" />
-    <Content Include="NewJEasyUI\themes\default\images\messager_icons.png" />
-    <Content Include="NewJEasyUI\themes\default\images\pagination_icons.png" />
-    <Content Include="NewJEasyUI\themes\default\images\panel_tools.png" />
-    <Content Include="NewJEasyUI\themes\default\images\searchbox_button.png" />
-    <Content Include="NewJEasyUI\themes\default\images\slider_handle.png" />
-    <Content Include="NewJEasyUI\themes\default\images\spinner_arrows.png" />
-    <Content Include="NewJEasyUI\themes\default\images\tabs_icons.png" />
-    <Content Include="NewJEasyUI\themes\default\images\tree_icons.png" />
-    <Content Include="NewJEasyUI\themes\default\images\validatebox_warning.png" />
-    <Content Include="NewJEasyUI\themes\default\layout.css" />
-    <Content Include="NewJEasyUI\themes\default\linkbutton.css" />
-    <Content Include="NewJEasyUI\themes\default\menu.css" />
-    <Content Include="NewJEasyUI\themes\default\menubutton.css" />
-    <Content Include="NewJEasyUI\themes\default\messager.css" />
-    <Content Include="NewJEasyUI\themes\default\pagination.css" />
-    <Content Include="NewJEasyUI\themes\default\panel.css" />
-    <Content Include="NewJEasyUI\themes\default\progressbar.css" />
-    <Content Include="NewJEasyUI\themes\default\propertygrid.css" />
-    <Content Include="NewJEasyUI\themes\default\searchbox.css" />
-    <Content Include="NewJEasyUI\themes\default\slider.css" />
-    <Content Include="NewJEasyUI\themes\default\spinner.css" />
-    <Content Include="NewJEasyUI\themes\default\splitbutton.css" />
-    <Content Include="NewJEasyUI\themes\default\tabs.css" />
-    <Content Include="NewJEasyUI\themes\default\tooltip.css" />
-    <Content Include="NewJEasyUI\themes\default\tree.css" />
-    <Content Include="NewJEasyUI\themes\default\validatebox.css" />
-    <Content Include="NewJEasyUI\themes\default\window.css" />
-    <Content Include="NewJEasyUI\themes\gray\accordion.css" />
-    <Content Include="NewJEasyUI\themes\gray\calendar.css" />
-    <Content Include="NewJEasyUI\themes\gray\combo.css" />
-    <Content Include="NewJEasyUI\themes\gray\combobox.css" />
-    <Content Include="NewJEasyUI\themes\gray\datagrid.css" />
-    <Content Include="NewJEasyUI\themes\gray\datebox.css" />
-    <Content Include="NewJEasyUI\themes\gray\dialog.css" />
-    <Content Include="NewJEasyUI\themes\gray\easyui.css" />
-    <Content Include="NewJEasyUI\themes\gray\images\accordion_arrows.png" />
-    <Content Include="NewJEasyUI\themes\gray\images\blank.gif" />
-    <Content Include="NewJEasyUI\themes\gray\images\calendar_arrows.png" />
-    <Content Include="NewJEasyUI\themes\gray\images\combo_arrow.png" />
-    <Content Include="NewJEasyUI\themes\gray\images\datagrid_icons.png" />
-    <Content Include="NewJEasyUI\themes\gray\images\datebox_arrow.png" />
-    <Content Include="NewJEasyUI\themes\gray\images\layout_arrows.png" />
-    <Content Include="NewJEasyUI\themes\gray\images\linkbutton_bg.png" />
-    <Content Include="NewJEasyUI\themes\gray\images\loading.gif" />
-    <Content Include="NewJEasyUI\themes\gray\images\menu_arrows.png" />
-    <Content Include="NewJEasyUI\themes\gray\images\messager_icons.png" />
-    <Content Include="NewJEasyUI\themes\gray\images\pagination_icons.png" />
-    <Content Include="NewJEasyUI\themes\gray\images\panel_tools.png" />
-    <Content Include="NewJEasyUI\themes\gray\images\searchbox_button.png" />
-    <Content Include="NewJEasyUI\themes\gray\images\slider_handle.png" />
-    <Content Include="NewJEasyUI\themes\gray\images\spinner_arrows.png" />
-    <Content Include="NewJEasyUI\themes\gray\images\tabs_icons.png" />
-    <Content Include="NewJEasyUI\themes\gray\images\tree_icons.png" />
-    <Content Include="NewJEasyUI\themes\gray\images\validatebox_warning.png" />
-    <Content Include="NewJEasyUI\themes\gray\layout.css" />
-    <Content Include="NewJEasyUI\themes\gray\linkbutton.css" />
-    <Content Include="NewJEasyUI\themes\gray\menu.css" />
-    <Content Include="NewJEasyUI\themes\gray\menubutton.css" />
-    <Content Include="NewJEasyUI\themes\gray\messager.css" />
-    <Content Include="NewJEasyUI\themes\gray\pagination.css" />
-    <Content Include="NewJEasyUI\themes\gray\panel.css" />
-    <Content Include="NewJEasyUI\themes\gray\progressbar.css" />
-    <Content Include="NewJEasyUI\themes\gray\propertygrid.css" />
-    <Content Include="NewJEasyUI\themes\gray\searchbox.css" />
-    <Content Include="NewJEasyUI\themes\gray\slider.css" />
-    <Content Include="NewJEasyUI\themes\gray\spinner.css" />
-    <Content Include="NewJEasyUI\themes\gray\splitbutton.css" />
-    <Content Include="NewJEasyUI\themes\gray\tabs.css" />
-    <Content Include="NewJEasyUI\themes\gray\tooltip.css" />
-    <Content Include="NewJEasyUI\themes\gray\tree.css" />
-    <Content Include="NewJEasyUI\themes\gray\validatebox.css" />
-    <Content Include="NewJEasyUI\themes\gray\window.css" />
-    <Content Include="NewJEasyUI\themes\icon.css" />
-    <Content Include="NewJEasyUI\themes\icons\back.png" />
-    <Content Include="NewJEasyUI\themes\icons\blank.gif" />
-    <Content Include="NewJEasyUI\themes\icons\cancel.png" />
-    <Content Include="NewJEasyUI\themes\icons\cut.png" />
-    <Content Include="NewJEasyUI\themes\icons\edit_add.png" />
-    <Content Include="NewJEasyUI\themes\icons\edit_remove.png" />
-    <Content Include="NewJEasyUI\themes\icons\filesave.png" />
-    <Content Include="NewJEasyUI\themes\icons\help.png" />
-    <Content Include="NewJEasyUI\themes\icons\mini_add.png" />
-    <Content Include="NewJEasyUI\themes\icons\mini_edit.png" />
-    <Content Include="NewJEasyUI\themes\icons\mini_refresh.png" />
-    <Content Include="NewJEasyUI\themes\icons\no.png" />
-    <Content Include="NewJEasyUI\themes\icons\ok.png" />
-    <Content Include="NewJEasyUI\themes\icons\pencil.png" />
-    <Content Include="NewJEasyUI\themes\icons\print.png" />
-    <Content Include="NewJEasyUI\themes\icons\redo.png" />
-    <Content Include="NewJEasyUI\themes\icons\reload.png" />
-    <Content Include="NewJEasyUI\themes\icons\search.png" />
-    <Content Include="NewJEasyUI\themes\icons\sum.png" />
-    <Content Include="NewJEasyUI\themes\icons\tip.png" />
-    <Content Include="NewJEasyUI\themes\icons\undo.png" />
-    <Content Include="NewJEasyUI\themes\metro\accordion.css" />
-    <Content Include="NewJEasyUI\themes\metro\calendar.css" />
-    <Content Include="NewJEasyUI\themes\metro\combo.css" />
-    <Content Include="NewJEasyUI\themes\metro\combobox.css" />
-    <Content Include="NewJEasyUI\themes\metro\datagrid.css" />
-    <Content Include="NewJEasyUI\themes\metro\datebox.css" />
-    <Content Include="NewJEasyUI\themes\metro\dialog.css" />
-    <Content Include="NewJEasyUI\themes\metro\easyui.css" />
-    <Content Include="NewJEasyUI\themes\metro\images\accordion_arrows.png" />
-    <Content Include="NewJEasyUI\themes\metro\images\blank.gif" />
-    <Content Include="NewJEasyUI\themes\metro\images\calendar_arrows.png" />
-    <Content Include="NewJEasyUI\themes\metro\images\combo_arrow.png" />
-    <Content Include="NewJEasyUI\themes\metro\images\datagrid_icons.png" />
-    <Content Include="NewJEasyUI\themes\metro\images\datebox_arrow.png" />
-    <Content Include="NewJEasyUI\themes\metro\images\layout_arrows.png" />
-    <Content Include="NewJEasyUI\themes\metro\images\linkbutton_bg.png" />
-    <Content Include="NewJEasyUI\themes\metro\images\loading.gif" />
-    <Content Include="NewJEasyUI\themes\metro\images\menu_arrows.png" />
-    <Content Include="NewJEasyUI\themes\metro\images\messager_icons.png" />
-    <Content Include="NewJEasyUI\themes\metro\images\pagination_icons.png" />
-    <Content Include="NewJEasyUI\themes\metro\images\panel_tools.png" />
-    <Content Include="NewJEasyUI\themes\metro\images\searchbox_button.png" />
-    <Content Include="NewJEasyUI\themes\metro\images\slider_handle.png" />
-    <Content Include="NewJEasyUI\themes\metro\images\spinner_arrows.png" />
-    <Content Include="NewJEasyUI\themes\metro\images\tabs_icons.png" />
-    <Content Include="NewJEasyUI\themes\metro\images\tree_icons.png" />
-    <Content Include="NewJEasyUI\themes\metro\images\validatebox_warning.png" />
-    <Content Include="NewJEasyUI\themes\metro\layout.css" />
-    <Content Include="NewJEasyUI\themes\metro\linkbutton.css" />
-    <Content Include="NewJEasyUI\themes\metro\menu.css" />
-    <Content Include="NewJEasyUI\themes\metro\menubutton.css" />
-    <Content Include="NewJEasyUI\themes\metro\messager.css" />
-    <Content Include="NewJEasyUI\themes\metro\pagination.css" />
-    <Content Include="NewJEasyUI\themes\metro\panel.css" />
-    <Content Include="NewJEasyUI\themes\metro\progressbar.css" />
-    <Content Include="NewJEasyUI\themes\metro\propertygrid.css" />
-    <Content Include="NewJEasyUI\themes\metro\searchbox.css" />
-    <Content Include="NewJEasyUI\themes\metro\slider.css" />
-    <Content Include="NewJEasyUI\themes\metro\spinner.css" />
-    <Content Include="NewJEasyUI\themes\metro\splitbutton.css" />
-    <Content Include="NewJEasyUI\themes\metro\tabs.css" />
-    <Content Include="NewJEasyUI\themes\metro\tooltip.css" />
-    <Content Include="NewJEasyUI\themes\metro\tree.css" />
-    <Content Include="NewJEasyUI\themes\metro\validatebox.css" />
-    <Content Include="NewJEasyUI\themes\metro\window.css" />
-    <Content Include="PopNews.aspx" />
     <Content Include="scripts\Ajax.js" />
     <Content Include="scripts\jquery.anythingslider.fx.js" />
     <Content Include="scripts\jquery.anythingslider.fx.min.js" />
@@ -1490,7 +1182,6 @@
     <Content Include="User\LandingDefault.aspx" />
     <Content Include="User\PageException.aspx" />
     <Content Include="User\right.htm" />
-    <Content Include="User\Request Demo\In2InRequestDemo.aspx" />
     <Content Include="User\TPMLanding.aspx" />
     <Content Include="User\login.aspx" />
     <Content Include="scripts\garagedoorjQuery.js" />
@@ -1661,7 +1352,6 @@
     <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\Signup.png" />
     <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\social_icons.png" />
     <Content Include="scripts\jquery\jQpop\themes\agapa\assets\js\script.js" />
-    <Content Include="Test.html" />
     <Content Include="scripts\ErrorMessage.js" />
     <Content Include="scripts\gu-util.js" />
     <Content Include="scripts\HighCharts\gfx\vml-radial-gradient.png" />
@@ -1961,12 +1651,7 @@
     <Content Include="scripts\risktree-script.js" />
     <Content Include="scripts\ToolTip.js" />
     <Content Include="scripts\Validation.js" />
-    <Content Include="User\tpm\articles.aspx" />
-    <Content Include="User\tpm\mom.aspx" />
-    <Content Include="User\tpm\projects.aspx" />
-    <Content Include="User\tpm\qans.aspx" />
-    <Content Include="User\tpm\UploadDocument.aspx" />
-    <Content Include="User\tpm\task.aspx" />
+    <Content Include="User\tpmsignup.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1985,12 +1670,12 @@
     <Compile Include="admin\AdminAnalytics.aspx.designer.cs">
       <DependentUpon>AdminAnalytics.aspx</DependentUpon>
     </Compile>
-    <Compile Include="admin\AdminFileManagement.aspx.cs">
-      <DependentUpon>AdminFileManagement.aspx</DependentUpon>
+    <Compile Include="admin\FileManagement.aspx.cs">
+      <DependentUpon>FileManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="admin\AdminFileManagement.aspx.designer.cs">
-      <DependentUpon>AdminFileManagement.aspx</DependentUpon>
+    <Compile Include="admin\FileManagement.aspx.designer.cs">
+      <DependentUpon>FileManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
@@ -2013,41 +1698,6 @@
     <Compile Include="admin\UserAnalytics.aspx.designer.cs">
       <DependentUpon>UserAnalytics.aspx</DependentUpon>
     </Compile>
-    <Compile Include="admin\UserFileManagement.aspx.cs">
-      <DependentUpon>UserFileManagement.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="admin\UserFileManagement.aspx.designer.cs">
-      <DependentUpon>UserFileManagement.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="articles\ArticleOnJava.aspx.cs">
-      <DependentUpon>ArticleOnJava.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="articles\ArticleOnJava.aspx.designer.cs">
-      <DependentUpon>ArticleOnJava.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="articles\ArticleOnDotNet.aspx.cs">
-      <DependentUpon>ArticleOnDotNet.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="articles\ArticleOnDotNet.aspx.designer.cs">
-      <DependentUpon>ArticleOnDotNet.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="articles\ArticleOnJQuery.aspx.cs">
-      <DependentUpon>ArticleOnJQuery.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="articles\ArticleOnJQuery.aspx.designer.cs">
-      <DependentUpon>ArticleOnJQuery.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="articles\ArticleOnPHP.aspx.cs">
-      <DependentUpon>ArticleOnPHP.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="articles\ArticleOnPHP.aspx.designer.cs">
-      <DependentUpon>ArticleOnPHP.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2065,26 +1715,12 @@
     <Compile Include="InternalLanding.aspx.designer.cs">
       <DependentUpon>InternalLanding.aspx</DependentUpon>
     </Compile>
-    <Compile Include="RANews.aspx.cs">
-      <DependentUpon>RANews.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="RANews.aspx.designer.cs">
-      <DependentUpon>RANews.aspx</DependentUpon>
-    </Compile>
     <Compile Include="jqdashboard\RADashboard.aspx.cs">
       <DependentUpon>RADashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="jqdashboard\RADashboard.aspx.designer.cs">
       <DependentUpon>RADashboard.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="PopNews.aspx.cs">
-      <DependentUpon>PopNews.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="PopNews.aspx.designer.cs">
-      <DependentUpon>PopNews.aspx</DependentUpon>
     </Compile>
     <Compile Include="Tools\Common.cs" />
     <Compile Include="Tools\Cryptograpymanager.cs" />
@@ -2122,13 +1758,6 @@
     <Compile Include="User\PageException.aspx.designer.cs">
       <DependentUpon>PageException.aspx</DependentUpon>
     </Compile>
-    <Compile Include="User\Request Demo\In2InRequestDemo.aspx.cs">
-      <DependentUpon>In2InRequestDemo.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="User\Request Demo\In2InRequestDemo.aspx.designer.cs">
-      <DependentUpon>In2InRequestDemo.aspx</DependentUpon>
-    </Compile>
     <Compile Include="User\TPMLanding.aspx.cs">
       <DependentUpon>TPMLanding.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2151,47 +1780,12 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
-    <Compile Include="User\tpm\articles.aspx.cs">
-      <DependentUpon>articles.aspx</DependentUpon>
+    <Compile Include="User\tpmsignup.aspx.cs">
+      <DependentUpon>tpmsignup.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="User\tpm\articles.aspx.designer.cs">
-      <DependentUpon>articles.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="User\tpm\mom.aspx.cs">
-      <DependentUpon>mom.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="User\tpm\mom.aspx.designer.cs">
-      <DependentUpon>mom.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="User\tpm\projects.aspx.cs">
-      <DependentUpon>projects.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="User\tpm\projects.aspx.designer.cs">
-      <DependentUpon>projects.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="User\tpm\qans.aspx.cs">
-      <DependentUpon>qans.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="User\tpm\qans.aspx.designer.cs">
-      <DependentUpon>qans.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="User\tpm\UploadDocument.aspx.cs">
-      <DependentUpon>UploadDocument.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="User\tpm\UploadDocument.aspx.designer.cs">
-      <DependentUpon>UploadDocument.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="User\tpm\task.aspx.cs">
-      <DependentUpon>task.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="User\tpm\task.aspx.designer.cs">
-      <DependentUpon>task.aspx</DependentUpon>
+    <Compile Include="User\tpmsignup.aspx.designer.cs">
+      <DependentUpon>tpmsignup.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -2199,7 +1793,6 @@
     <Folder Include="scripts\jquery\jqMenu\css\" />
     <Folder Include="scripts\jquery\jqMenu\images\" />
     <Folder Include="scripts\jquery\jqMenu\js\" />
-    <Folder Include="Technology\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Site.Master" />
@@ -2250,12 +1843,6 @@
     <None Include="jquery\jqdashboard\datagrid_data.json" />
     <None Include="jquery\jqdashboard\themes\default\images\Thumbs.db" />
     <None Include="jquery\jqdashboard\themes\gray\images\Thumbs.db" />
-    <None Include="json-data\loc.json" />
-    <None Include="NewJEasyUI\themes\black\images\Thumbs.db" />
-    <None Include="NewJEasyUI\themes\bootstrap\images\Thumbs.db" />
-    <None Include="NewJEasyUI\themes\default\images\Thumbs.db" />
-    <None Include="NewJEasyUI\themes\gray\images\Thumbs.db" />
-    <None Include="NewJEasyUI\themes\metro\images\Thumbs.db" />
     <None Include="Properties\PublishProfiles\ITTPM.pubxml" />
     <None Include="scripts\jquery\eHelp\loginPaths.json" />
     <None Include="scripts\jquery\eHelp\RAAssetPaths.json" />

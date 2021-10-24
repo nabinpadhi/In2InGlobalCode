@@ -8,10 +8,11 @@
      <script>document.getElementsByTagName("html")[0].className += " js";</script>
     <link rel="stylesheet" href="assets/css/style.css" />
 </head>
-<body>
+<body style="background-color:azure;">
+    <center><h4><i>My Profile</i></h4></center>
     <form status="1" id="form1" runat="server">      
       <center>
-          <div style="position:relative;padding:100px 30px 30px 30px;">
+          <div style="position:relative;padding:50px 30px 30px 30px;">
           <table style="width:90%;">
               <tr style="padding:10px">
                   <td style="padding:10px">User Name  :</td>                  

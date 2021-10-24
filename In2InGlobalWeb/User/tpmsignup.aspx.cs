@@ -4,17 +4,17 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using kss.ittpm.BusinessLogic;
+
 namespace kss.ittpm.presentation
 {
     public partial class tpmsignup : System.Web.UI.Page
     {
 
-        XSSValidator _validatorObject = new XSSValidator("");
+        //XSSValidator _validatorObject = new XSSValidator("");
         protected void Page_Load(object sender, EventArgs e)
         {
         }
-        protected void cmdSignup_Click(object sender, EventArgs e)
+       /* protected void cmdSignup_Click(object sender, EventArgs e)
         {
             TPMUserBL _userObject = new TPMUserBL();
             MapObject(_userObject);
@@ -43,6 +43,6 @@ namespace kss.ittpm.presentation
             _userObject.ps_CompanyName = hdnCompanyName.Value;
             _userObject.pd_DOB = Convert.ToDateTime(txtDOB.Value);
             _userObject.ps_CompanyEmail = txtCompanyEmail.Value;
-        }
+        }*/
     }
 }

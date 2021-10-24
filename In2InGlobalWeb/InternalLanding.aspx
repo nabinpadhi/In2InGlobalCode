@@ -11,15 +11,15 @@
 </head>
 <body onload="loadIframe();">
     <form status="1" id="form1" runat="server">
-        <header class="cd-main-header js-cd-main-header" style="background-color: #03989e">
-
+        <header class="cd-main-header js-cd-main-header" style="background-color: #03989e;height:100px;">
+            <!--
             <div class="rounded-circle" style="cursor:pointer;">
                 
-                    <img alt="Logged In.." src="admin/assets/img/loggedInAvatar.jpg" />
+                    <img alt="Logged In.." src="../images/in2ingloballogo.png" />
                     <span id="spnUserName" style="color:white;text-transform:uppercase;font-size:medium;vertical-align:text-top;" runat="server"></span>
                 
-            </div>
-
+            </div>-->
+            <div style="position:fixed;left:10px;top:10px;color:yellow;"><img src="../images/in2ingloballogo.png" style="width:40%;" /></div>
             <ul class="cd-nav__list js-cd-nav__list">
 
                 <li class="cd-nav__item cd-nav__item--has-children cd-nav__item--account js-cd-item--has-children">
@@ -36,7 +36,7 @@
         </header>
         <!-- .cd-main-header -->
 
-        <main class="cd-main-content">
+        <main class="cd-main-content" style="100%;">
             <nav class="cd-side-nav js-cd-side-nav" style="padding-top: 100px;">
                 <ul class="cd-side__list js-cd-side__list">
                     <!-- <li class="cd-side__label"><span>Main</span></li>-->
@@ -54,11 +54,9 @@
                 </ul>
             </nav>
 
-            <div>
-                <div class="text-component text-center">
-                </div>
-                <iframe style="width: 100%; height: 98%" id="frmTarget" src=""></iframe>
-                <div style="position: sticky; bottom: 0px; margin-left: auto;">
+            <div style="margin-top:50px;">               
+                <iframe style="width: 100%; height: 84.8%" id="frmTarget" src=""></iframe>
+                <div style="position: sticky; margin-left: auto;">
                     <div style="background: #212121;padding: 30px 0;">
                     <center>
                         <footer style="font-size: small;color:#96a1b5"><i>Copyright © In2In Global 2021</i></footer>

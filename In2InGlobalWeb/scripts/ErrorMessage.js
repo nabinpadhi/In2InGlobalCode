@@ -1,20 +1,20 @@
-var TPM_1 = "Kindly provide the user name."
-var TPM_2 = "Kindly provide the password."
-var TPM_3 = "Full name cannot be blank."
-var TPM_4 = "Date of birth cannot be blank."
-var TPM_5 = "Company name cannot be blank."
-var TPM_6 = "Company email cannot be blank."
-var TPM_7 = "Your new password and confirmation password do not match."
-var TPM_8 = "Kindly provide the new password."
-var TPM_9 = "Non-acceptable data cannot be saved."
+var in2in1 = "Kindly provide the user name."
+var in2in2 = "Kindly provide the password."
+var in2in3 = "Full name cannot be blank."
+var in2in4 = "Date of birth cannot be blank."
+var in2in5 = "Company name cannot be blank."
+var in2in6 = "Company email cannot be blank."
+var in2in7 = "Your new password and confirmation password do not match."
+var in2in8 = "Kindly provide the new password."
+var in2in9 = "Non-acceptable data cannot be saved."
 var serverMessages = {
-    TPM_1: "Kindly provide the user name.",
-    TPM_2: "Kindly provide the password.",
-    TPM_3: "Full name cannot be blank.",
-    TPM_4: "Date of birth cannot be blank.",
-    TPM_5: "Company name cannot be blank.",
-    TPM_6: "Company email cannot be blank.",
-    TPM_7: "Your new password and confirmation password do not match.",
-    TPM_8: "Kindly provide the new password.",
-    TPM_9: "Non-acceptable data cannot be saved."
+    in2in1: "Kindly provide the user name.",
+    in2in2: "Kindly provide the password.",
+    in2in3: "Full name cannot be blank.",
+    in2in4: "Date of birth cannot be blank.",
+    in2in5: "Company name cannot be blank.",
+    in2in6: "Company email cannot be blank.",
+    in2in7: "Your new password and confirmation password do not match.",
+    in2in8: "Kindly provide the new password.",
+    in2in9: "Non-acceptable data cannot be saved."
 }

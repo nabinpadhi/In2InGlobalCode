@@ -39,17 +39,65 @@
                 <h1 class="sec-title">Welcome back!</h1>
               </div>
               <form class="user" id="loginForm">
-                <div class="form-group">
+               <!-- <div class="form-group">
                   <input type="email" class="form-control form-control-user validate" autocomplete="off" name="email" id="email" data-validate-msg="Email field is required"  placeholder="Enter Email Address">
                 </div>
                 <div class="form-group">
                   <input type="password" class="form-control form-control-user validate" autocomplete="off" id="password" name="password" data-validate-msg="Password field is required"  placeholder="Password">
                 </div>
+                   -->
+                   <table class="user" style="width:100%;">
+                      <tr>
+                          <td style="width:50%;text-align:center;color:white;font-weight:bold;">
+                              <div  style="background-color:#037f7f;width:80%;border-radius:3px;border:solid 1px #037f7f;">User Name</div></td>
+                          <td style="width:50%;">
+                              <div>
+                                  <input type="email" class="form-control validate" autocomplete="off" name="email" id="email" data-validate-msg="Email field is required" placeholder="Enter Email Address">
+                              </div>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td style="text-align:center;color:white;font-weight:bold;">
+                              <div style="background-color:#037f7f;width:80%;border-radius:3px;border:solid 1px #037f7f;">Company Name</div>
+                          </td>
+                          <td>
+                              <div>
+                                  <input type="text" class="form-control" readonly="readonly" autocomplete="off" name="companyname" id="companyname">
+                              </div>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td style="text-align:center;color:white;font-weight:bold;">
+                              <div style="background-color:#037f7f;width:80%;border-radius:3px;border:solid 1px #037f7f;">Password</div>
+                          </td>
+                          <td>
+                              <div>
+                                  <input type="password" class="form-control validate" autocomplete="off" id="password" name="password" data-validate-msg="Password field is required" placeholder="Password">
+                              </div>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td style="text-align:center;color:white;font-weight:bold;">
+                              <div class="form-group" style="background-color:#037f7f;width:80%;border-radius:3px;border:solid 1px #037f7f;">Activity</div>
+                          </td>
+                          <td>
+                              <div class="form-group">
+                                  <input type="text" class="form-control" readonly="readonly" autocomplete="off" name="activity" id="activity">
+                              </div>
+                          </td>
+                      </tr>
+                  </table>
+                
+                  
                 <div class="custom-checkbox mb-3">
                   <input type="checkbox" class="custom-input checkAll" id="remember" name="remember" checked>
                   <label class="custom-label" for="remember">Remember me</label>
+                    <button class="loginButton button"  type="button" style="margin-left:100px;">Login</button>
                 </div>
-                <button class="btn btn-primary btn-user btn-block loginButton"  type="button">Login</button>
+                
+                  
+
+
               </form>
               <hr>
               <div class="text-center">
