@@ -45,11 +45,14 @@
                     </li>
 
                     <li class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children">
-                        <a href="#" onclick="javascript:OpenPage('admin/MyProfile.aspx');" id="ancFileMan" runat="server">File Management</a>
+                        <a href="#" id="ancFileMan" runat="server">File Management</a>
                     </li>
 
                     <li class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children">
-                        <a href="#" onclick="javascript:OpenPage('admin/MyProfile.aspx');" id="ancAnalytics" runat="server">Analytics</a>
+                        <a href="#" id="ancAnalytics" runat="server">Analytics</a>
+                    </li>
+                     <li class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children">
+                        <a href="#" id="usrMngmnt" runat="server">User Management</a>
                     </li>
                 </ul>
             </nav>

@@ -20,6 +20,7 @@
   <link href="css/admin.css" rel="stylesheet">
         <link href="css/login.css" rel="stylesheet">
    <!-- <link href="css/admin.css" rel="stylesheet">-->
+
 </head> 
 <body class="bg-gradient-primary">
     <div style="position:fixed;left:10px;top:10px;color:yellow;"><img src="../images/in2ingloballogo.png" style="width:50%;" /></div>
@@ -38,7 +39,7 @@
               <div class="text-center">
                 <h1 class="sec-title">Welcome back!</h1>
               </div>
-              <form class="user" id="loginForm">
+              <form class="user" id="loginForm" autocomplete="off">
                <!-- <div class="form-group">
                   <input type="email" class="form-control form-control-user validate" autocomplete="off" name="email" id="email" data-validate-msg="Email field is required"  placeholder="Enter Email Address">
                 </div>
@@ -68,21 +69,22 @@
                       </tr>
                       <tr>
                           <td style="text-align:center;color:white;font-weight:bold;">
-                              <div style="background-color:#037f7f;width:80%;border-radius:3px;border:solid 1px #037f7f;">Password</div>
+                              <div style="background-color:#037f7f;width:80%;border-radius:3px;border:solid 1px #037f7f;">Activity</div>                              
                           </td>
                           <td>
-                              <div>
-                                  <input type="password" class="form-control validate" autocomplete="off" id="password" name="password" data-validate-msg="Password field is required" placeholder="Password">
+                               <div>
+                                  <input type="text" class="form-control" readonly="readonly" autocomplete="off" name="activity" id="activity">
                               </div>
                           </td>
                       </tr>
                       <tr>
                           <td style="text-align:center;color:white;font-weight:bold;">
-                              <div class="form-group" style="background-color:#037f7f;width:80%;border-radius:3px;border:solid 1px #037f7f;">Activity</div>
+                              <div style="background-color:#037f7f;width:80%;border-radius:3px;border:solid 1px #037f7f;">Password</div>
                           </td>
                           <td>
-                              <div class="form-group">
-                                  <input type="text" class="form-control" readonly="readonly" autocomplete="off" name="activity" id="activity">
+                            
+                               <div>
+                                  <input type="password" class="form-control validate" autocomplete="off" id="password" name="password" data-validate-msg="Password field is required" placeholder="Password">
                               </div>
                           </td>
                       </tr>
@@ -90,14 +92,10 @@
                 
                   
                 <div class="custom-checkbox mb-3">
-                  <input type="checkbox" class="custom-input checkAll" id="remember" name="remember" checked>
+                  <input type="checkbox" class="custom-input checkAll" checked style="width:0%;" id="remember" name="remember">
                   <label class="custom-label" for="remember">Remember me</label>
-                    <button class="loginButton button"  type="button" style="margin-left:100px;">Login</button>
+                    <button class="custom-button loginButton button"  type="button" style="margin-left:100px;">Login</button>
                 </div>
-                
-                  
-
-
               </form>
               <hr>
               <div class="text-center">
@@ -110,7 +108,7 @@
               </div>
               <form class="user" id="forgotForm">
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-user validate_fp" name="email" data-validate-msg="Email field is required"  autocomplete="off" placeholder="Enter Email Address">
+                  <input type="email" class="form-control form-control-user validate_fp email" name="email" data-validate-msg="Email field is required"  autocomplete="off" placeholder="Enter Email Address">
                 </div>
                 <button class="btn btn-primary btn-user btn-block forgotButton" type="button">Send</button>
               </form>
@@ -174,7 +172,21 @@
 
 
 <script type="text/javascript">
-    var BASE_URL = 'login.aspx';
+    var BASE_URL = 'login.aspx'; 
+    $(document).ready(function () {
+       
+            $("#email").focusout(function () {
+                if ($('#email').val().indexOf('admin') > -1) {
+                    $('#companyname').val('In2In Global');
+                    $('#activity').val('admin');
+                }
+                else {
+
+                    $('#companyname').val('My Company');
+                    $('#activity').val('Client');
+                }
+            });
+        });
 </script>
 <script src="js/login.js"></script>
 <script src="js/jquery.cookie.js"></script>

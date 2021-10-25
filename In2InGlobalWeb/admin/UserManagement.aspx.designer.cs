@@ -7,20 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace InGlobal.presentation {
-    
-    
-    public partial class In2InGlobalLogin {
-        
-        /// <summary>
-        /// Head1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlHead Head1;
-        
+namespace In2InGlobal.presentation.admin
+{
+
+
+    public partial class UserManagement
+    {
+
         /// <summary>
         /// form1 control.
         /// </summary>
@@ -29,34 +22,52 @@ namespace InGlobal.presentation {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-        
+
         /// <summary>
-        /// srptMgrLogin control.
+        /// txtFName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager srptMgrLogin;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtFName;
+
         /// <summary>
-        /// updtPnlLogin control.
+        /// txtLName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updtPnlLogin;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtLName;
+
         /// <summary>
-        /// txtUserName control.
+        /// txtCompanyName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtUserName;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtCompanyName;
+
+        /// <summary>
+        /// txtRole control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtRole;
+
+        /// <summary>
+        /// txtEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtEmail;
+
         /// <summary>
         /// txtPassword control.
         /// </summary>
@@ -64,24 +75,15 @@ namespace InGlobal.presentation {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPassword;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword txtPassword;
+
         /// <summary>
-        /// cmdLogin control.
+        /// grdUsers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button cmdLogin;
-        
-        /// <summary>
-        /// hdnServerResponse control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden hdnServerResponse;
+        protected global::System.Web.UI.WebControls.GridView grdUsers;
     }
 }

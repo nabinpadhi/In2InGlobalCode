@@ -6,7 +6,12 @@
 <head runat="server">
     <title></title>
      <script>document.getElementsByTagName("html")[0].className += " js";</script>
-    <link rel="stylesheet" href="assets/css/style.css" />
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />  
+     <style type="text/css">
+         body {
+            background-color: azure;
+        }
+        </style>
 </head>
 <body style="background-color:azure;">
     <center><h4><i>My Profile</i></h4></center>

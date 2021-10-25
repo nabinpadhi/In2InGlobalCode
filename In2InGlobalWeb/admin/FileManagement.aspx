@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="css/style.css" />
     <style type="text/css">
          body {
-            background-color: aliceblue;
+            background-color: azure;
         }
         
         .file_table {
@@ -56,10 +56,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />   
 </head>
 <body>
+     <center><h4><i>File Management</i></h4></center>
     <form id="form1" runat="server">
         <center>
             <div style="width:100%;">
-                <table style="width: 100%; background-color: aliceblue;">
+                <table style="width: 100%; background-color: azure;">
                     <tr>
                         <td style="width: 80%;">
                             <table style="width: 100%; margin-top: 25px;">

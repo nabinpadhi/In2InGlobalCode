@@ -16,12 +16,14 @@ namespace In2InGlobal.presentation.admin
             {
                 spnUserName.InnerText = "Ganeswar Sahoo";
                 ancFileMan.Attributes.Add("onclick", "javascript:OpenPage('admin/FileManagement.aspx?t=n');");
+                usrMngmnt.Visible = false;
                 ancAnalytics.Attributes.Add("onclick", "javascript:OpenPage('about:blank');");
             }
             else
             {
                 spnUserName.InnerText = "Sujay Mondal";
                 ancFileMan.Attributes.Add("onclick","javascript:OpenPage('admin/FileManagement.aspx?t=a');");
+                usrMngmnt.Attributes.Add("onclick", "javascript:OpenPage('admin/UserManagement.aspx?t=a');");
                 ancAnalytics.Attributes.Add("onclick", "javascript:OpenPage('about:blank');");
             }
         }

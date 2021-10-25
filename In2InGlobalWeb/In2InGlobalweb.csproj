@@ -59,6 +59,9 @@
     <Reference Include="HtmlAgilityPack">
       <HintPath>kss-ref\HtmlAgilityPack.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -78,6 +81,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="admin\AdminAnalytics.aspx" />
+    <Content Include="admin\css\gridview.css" />
+    <Content Include="admin\UserManagement.aspx" />
     <Content Include="admin\FileManagement.aspx" />
     <Content Include="admin\assets\css\style.css" />
     <Content Include="admin\assets\img\cd-arrow.svg" />
@@ -1138,52 +1143,6 @@
     <Content Include="themes\ksstheme\MultiseletedDropDown.css" />
     <Content Include="themes\ksstheme\ui.jqgrid.css" />
     <Content Include="themes\ksstheme\ui.jqtreeview.css" />
-    <Content Include="User\ChangePwd.aspx" />
-    <Content Include="User\Circle Menu\Half Circle Navigation\lrtb_all.htm" />
-    <Content Include="User\Circle Menu\Half Circle Navigation\right.htm" />
-    <Content Include="User\Circle Menu\Half Circle Navigation\top.htm" />
-    <Content Include="User\Circle Menu\Half Circle Navigation\bottom.htm" />
-    <Content Include="User\Circle Menu\testCircle.htm" />
-    <Content Include="User\Circle Menu\Half Circle Navigation.htm" />
-    <Content Include="User\Circle Menu\Half Circle Navigation\conversion.js" />
-    <Content Include="User\Circle Menu\Half Circle Navigation\full_screen_preview-2dff58760ddd3fb5acb3540e65f6ef43.css" />
-    <Content Include="User\Circle Menu\Half Circle Navigation\full_screen_preview-66e03710e3770ad30c192e56f9e890f6.js" />
-    <Content Include="User\Circle Menu\Half Circle Navigation\ga.js" />
-    <Content Include="User\Circle Menu\Half Circle Navigation\jquery.min.js" />
-    <Content Include="User\Circle Menu\Half Circle Navigation\nr-100.js" />
-    <Content Include="User\Circle Menu\Half Circle Navigation\left.htm" />
-    <Content Include="User\Circle Menu\Half Circle Navigation\webtrends-5a2a0b3d9f0eeafea3f60e4831cf4958.js" />
-    <Content Include="User\Circle Menu\Half Circle Navigation\webtrends.hm.js" />
-    <Content Include="User\Circle Menu\Half Circle Navigation\_nil.css" />
-    <Content Include="User\ServerMessage.aspx" />
-    <Content Include="User\Dock Menu\core\dockmenu.css" />
-    <Content Include="User\Dock Menu\core\dockmenu.min.js" />
-    <Content Include="User\Dock Menu\core\jquery-1.10.2.min.js" />
-    <Content Include="User\Dock Menu\Dock-Menu.html" />
-    <Content Include="User\Dock Menu\icons\AppStore.png" />
-    <Content Include="User\Dock Menu\icons\Camera.png" />
-    <Content Include="User\Dock Menu\icons\Games.png" />
-    <Content Include="User\Dock Menu\icons\grey_wash_wall.png" />
-    <Content Include="User\Dock Menu\icons\Mail.png" />
-    <Content Include="User\Dock Menu\icons\Music.png" />
-    <Content Include="User\Dock Menu\icons\Photos.png" />
-    <Content Include="User\Dock Menu\icons\Safari.png" />
-    <Content Include="User\Dock Menu\icons\Settings.png" />
-    <Content Include="User\Dock Menu\icons\span.png" />
-    <Content Include="User\images\Functions\articles.png" />
-    <Content Include="User\images\Functions\mom.png" />
-    <Content Include="User\images\Functions\qans.png" />
-    <Content Include="User\images\Functions\sitemap-projects.png" />
-    <Content Include="User\images\Functions\tasks.png" />
-    <Content Include="User\images\MessageBoxIcon\background.png" />
-    <Content Include="User\images\MessageBoxIcon\info.png" />
-    <Content Include="User\images\MessageBoxIcon\msgBoxBackGround.png" />
-    <Content Include="User\images\welcomeTPM_new.png" />
-    <Content Include="User\LandingDefault.aspx" />
-    <Content Include="User\PageException.aspx" />
-    <Content Include="User\right.htm" />
-    <Content Include="User\TPMLanding.aspx" />
-    <Content Include="User\login.aspx" />
     <Content Include="scripts\garagedoorjQuery.js" />
     <Content Include="scripts\jquery-1.3.2.min.js" />
     <Content Include="scripts\jquery\jQpop\data\highlighter\css\shCore.css" />
@@ -1651,7 +1610,6 @@
     <Content Include="scripts\risktree-script.js" />
     <Content Include="scripts\ToolTip.js" />
     <Content Include="scripts\Validation.js" />
-    <Content Include="User\tpmsignup.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1669,6 +1627,13 @@
     </Compile>
     <Compile Include="admin\AdminAnalytics.aspx.designer.cs">
       <DependentUpon>AdminAnalytics.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\UserManagement.aspx.cs">
+      <DependentUpon>UserManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\UserManagement.aspx.designer.cs">
+      <DependentUpon>UserManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\FileManagement.aspx.cs">
       <DependentUpon>FileManagement.aspx</DependentUpon>
@@ -1730,48 +1695,6 @@
     <Compile Include="Tools\Password.cs" />
     <Compile Include="Tools\DataSecurity.cs" />
     <Compile Include="Tools\XSSValidator.cs" />
-    <Compile Include="User\ChangePwd.aspx.cs">
-      <DependentUpon>ChangePwd.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="User\ChangePwd.aspx.designer.cs">
-      <DependentUpon>ChangePwd.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="User\ServerMessage.aspx.cs">
-      <DependentUpon>ServerMessage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="User\ServerMessage.aspx.designer.cs">
-      <DependentUpon>ServerMessage.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="User\LandingDefault.aspx.cs">
-      <DependentUpon>LandingDefault.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="User\LandingDefault.aspx.designer.cs">
-      <DependentUpon>LandingDefault.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="User\PageException.aspx.cs">
-      <DependentUpon>PageException.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="User\PageException.aspx.designer.cs">
-      <DependentUpon>PageException.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="User\TPMLanding.aspx.cs">
-      <DependentUpon>TPMLanding.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="User\TPMLanding.aspx.designer.cs">
-      <DependentUpon>TPMLanding.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="User\login.aspx.cs">
-      <DependentUpon>login.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="User\login.aspx.designer.cs">
-      <DependentUpon>login.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -1779,13 +1702,6 @@
     </Compile>
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
-    </Compile>
-    <Compile Include="User\tpmsignup.aspx.cs">
-      <DependentUpon>tpmsignup.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="User\tpmsignup.aspx.designer.cs">
-      <DependentUpon>tpmsignup.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -1823,6 +1739,7 @@
     <Content Include="admin\scss\style.scss" />
     <Content Include="admin\scss\_nice-select-prefixed.scss" />
     <Content Include="admin\scss\_prism.scss" />
+    <Content Include="admin\Users.json" />
     <None Include="font\fontawesome-webfont.ttf" />
     <None Include="font\fontawesome-webfont.woff" />
     <None Include="GoogleFont\2UX7WLTfW3W8TclTUvlFyQ.woff" />
@@ -1843,6 +1760,7 @@
     <None Include="jquery\jqdashboard\datagrid_data.json" />
     <None Include="jquery\jqdashboard\themes\default\images\Thumbs.db" />
     <None Include="jquery\jqdashboard\themes\gray\images\Thumbs.db" />
+    <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\ITTPM.pubxml" />
     <None Include="scripts\jquery\eHelp\loginPaths.json" />
     <None Include="scripts\jquery\eHelp\RAAssetPaths.json" />
@@ -1856,7 +1774,6 @@
     <None Include="scripts\jquery\jquery.min.map" />
     <None Include="themes\black\images\Thumbs.db" />
     <None Include="themes\kss-metro\images\Thumbs.db" />
-    <None Include="User\Circle Menu\Half Circle Navigation\fcf8d519de" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\In2InGlobalBL\In2InGlobalBL.csproj">
