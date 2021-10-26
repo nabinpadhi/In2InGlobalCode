@@ -178,12 +178,13 @@
             $("#email").change(function () {
                 if ($('#email').val().indexOf('admin') > -1) {
                     $('#companyname').val('In2In Global');
-                    $('#ddlActivity').val('Admin');
+                    $('#ddlActivity').val('All');
                 }
-                else {
+                else
+                {
 
                     $('#companyname').val('My Company');
-                    $('#ddlActivity').val('Others');
+                    $('#ddlActivity').val('File Management');
                 }
             });
         });
