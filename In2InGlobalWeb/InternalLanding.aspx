@@ -25,12 +25,12 @@
                 <li class="cd-nav__item cd-nav__item--has-children cd-nav__item--account js-cd-item--has-children">
                     <div class="rounded-circle" style="cursor: pointer;">
                         <img alt="Logged In.." src="admin/assets/img/loggedInAvatar.jpg" />
+                        <a style="margin-left:-10px;" href="admin/login.aspx">Logout</a>
                     </div>
-
-                    <ul class="cd-nav__sub-list">
-                        <li class="cd-nav__sub-item"><a href="admin/MyProfile.aspx">My Profile</a></li>
+                    <%--<ul class="cd-nav__sub-list" style="padding-top:-10px;">
+                        <li class="cd-nav__sub-item"><a href="#" onclick="javascript:OpenPage('admin/MyProfile.aspx');">My Profile</a></li>
                         <li class="cd-nav__sub-item"><a href="admin/login.aspx">Logout</a></li>
-                    </ul>
+                    </ul>--%>
                 </li>
             </ul>
         </header>

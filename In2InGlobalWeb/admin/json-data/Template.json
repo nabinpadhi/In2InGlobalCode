@@ -1,9 +1,31 @@
 [
-  { "TemplateName": "Template 1" },
-  { "TemplateName": "Template 2" },
-  { "TemplateName": "Template 3" },
-  { "TemplateName": "Template 4" },
-  { "TemplateName": "Template 5" },
-  { "TemplateName": "Template 6" },
-  { "TemplateName": "Template 7" }
+  {
+    "TemplateName": "Analytic Template 001",
+    "Date Added": "10/10/2021"
+  },
+  {
+
+    "TemplateName": "Template 1",
+    "Date Added": "10/10/2020"
+  },
+  {
+    "TemplateName": "Template 2",
+    "Date Added": "09/10/2020"
+  },
+  {
+    "TemplateName": "Template 3",
+    "Date Added": "08/11/2020"
+  },
+  {
+    "TemplateName": "Template 4",
+    "Date Added": "19/10/2019"
+  },
+  {
+    "TemplateName": "Template 5",
+    "Date Added": "11/09/2019"
+  },
+  {
+    "TemplateName": "Template 7",
+    "Date Added": "10/10/2020"
+  }
 ]
