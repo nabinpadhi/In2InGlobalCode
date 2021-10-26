@@ -42,22 +42,22 @@ namespace In2InGlobal.presentation.admin
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtLName;
 
         /// <summary>
-        /// txtCompanyName control.
+        /// ddlCompanyName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtCompanyName;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCompanyName;
 
         /// <summary>
-        /// txtRole control.
+        /// ddlRoleName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtRole;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRoleName;
 
         /// <summary>
         /// txtEmail control.

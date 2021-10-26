@@ -39,7 +39,7 @@
               <div class="text-center">
                 <h1 class="sec-title">Welcome back!</h1>
               </div>
-              <form class="user" id="loginForm" autocomplete="off">
+              <form class="user" id="loginForm" autocomplete="off" runat="server">
                <!-- <div class="form-group">
                   <input type="email" class="form-control form-control-user validate" autocomplete="off" name="email" id="email" data-validate-msg="Email field is required"  placeholder="Enter Email Address">
                 </div>
@@ -73,7 +73,7 @@
                           </td>
                           <td>
                                <div>
-                                  <input type="text" class="form-control" readonly="readonly" autocomplete="off" name="activity" id="activity">
+                                  <asp:DropDownList ID="ddlActivity" Width="100%" runat="server" DataTextField="ActivityName"></asp:DropDownList>
                               </div>
                           </td>
                       </tr>
@@ -175,15 +175,15 @@
     var BASE_URL = 'login.aspx'; 
     $(document).ready(function () {
        
-            $("#email").focusout(function () {
+            $("#email").change(function () {
                 if ($('#email').val().indexOf('admin') > -1) {
                     $('#companyname').val('In2In Global');
-                    $('#activity').val('admin');
+                    $('#ddlActivity').val('Admin');
                 }
                 else {
 
                     $('#companyname').val('My Company');
-                    $('#activity').val('Client');
+                    $('#ddlActivity').val('Others');
                 }
             });
         });

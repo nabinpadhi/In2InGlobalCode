@@ -13,10 +13,12 @@
 
     <link rel="stylesheet" href="css/style.css" />
     <style type="text/css">
-         body {
+        body {
             background-color: azure;
         }
-        
+        .GridViewImageAlignment{
+            text-align:center;
+        }
         .file_table {
             width: 100%;
         }
@@ -24,18 +26,18 @@
         .file_table_header {
             border-bottom: 1px solid #ffb215;
             padding: 8px;
-            
         }
 
             .file_table_header th {
-               background-color: #4472c4;
-                color:white;
+                background-color: #4472c4;
+                color: white;
                 border-bottom: 1px solid black;
             }
 
         .file_table tr td {
             border-bottom: 1px solid #ccc;
         }
+
         ul {
             list-style: none;
             padding: 0;
@@ -52,17 +54,20 @@
                 margin-left: -1.3em; /* same as padding-left set on li */
                 width: 1.3em; /* same as padding-left set on li */
             }
+            
     </style>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/gridview.css" />
 </head>
 <body>
-     <center><h4><i>File Management</i></h4></center>
+   
     <form id="form1" runat="server">
         <center>
-            <div style="width:100%;">
+            <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 30px;">
+             <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px;">File Management</div>
                 <table style="width: 100%; background-color: azure;">
                     <tr>
-                        <td style="width: 80%;">
+                        <td style="width: 75%;">
                             <table style="width: 100%; margin-top: 25px;">
                                 <tr>
                                     <td style="width: 30%;">Project ID :</td>
@@ -95,32 +100,20 @@
                                                                     <button type="button" class="button" onclick="downloadFile();" value="Download" id="btnDownload" runat="server">Download</button></td>
                                                             </tr>
                                                             <tr>
-                                                                <td colspan="3">
-                                                                    <table style="width: 100%; border: 1px solid black; text-align: justify; margin-left: auto; margin-right: auto;" class="file_table">
-                                                                        <tr class="file_table_header">
-                                                                            <th style="width: 34%;">File Name</th>
-                                                                            <th style="width: 43%;">Date</th>
-                                                                            <th style="width: 23%;">Upload Status</th>
-                                                                        </tr>
-                                                                        <tr style="border: 1px solid black;">
-                                                                            <td>Internal-expenditure.pdf</td>
-                                                                            <td>22nd October 2021</td>
-                                                                            <td style="text-align: center;">
-                                                                                <img width="20%;" src="img/success-mark.png" /></td>
-                                                                        </tr>
-                                                                        <tr style="border-bottom: 1px solid black;">
-                                                                            <td>Machine_expenses.pdf</td>
-                                                                            <td>22nd September 2021</td>
-                                                                            <td style="text-align: center;">
-                                                                                <img width="20%;" src="img/success-mark.png" /></td>
-                                                                        </tr>
-                                                                        <tr style="border-bottom: 1px solid black;">
-                                                                            <td>Total-Fooding.pdf</td>
-                                                                            <td>22nd October 2021</td>
-                                                                            <td style="text-align: center;">
-                                                                                <img width="20%;" src="img/success-mark.png" /></td>
-                                                                        </tr>
-                                                                    </table>
+                                                                <td colspan="3">                                                                    
+                                                                    <center>
+                                                                        <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
+                                                                            <asp:GridView ID="grdUploadedFiles" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
+                                                                                AllowPaging="True" OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
+                                                                                <PagerStyle CssClass="pagination-ys" />
+                                                                                <Columns>
+                                                                                    <asp:BoundField HeaderText="File Name" DataField="FileName" />
+                                                                                    <asp:BoundField HeaderText="Date" DataField="Date" />
+                                                                                    <asp:ImageField ItemStyle-CssClass ="GridViewImageAlignment" HeaderText="Uploaded Status" ControlStyle-Height="25px" ControlStyle-Width="25px" DataImageUrlField="Uploaded Status"></asp:ImageField>
+                                                                                </Columns>
+                                                                            </asp:GridView>
+                                                                        </div>
+                                                                    </center>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -133,7 +126,7 @@
                                                         </table>
                                                     </td>
                                                     <td style="width: 40%;">
-                                                        <div style="width: 90%; text-align: left;margin-left:20px; height: 220px; overflow-y:auto; margin-top: 0px;">
+                                                        <div style="width: 90%; text-align: left; margin-left: 20px; height: 220px; overflow-y: auto; margin-top: 0px;">
                                                             <b>Template Instruction</b><br />
                                                             <p></p>
                                                             <ul>
@@ -142,7 +135,7 @@
                                                                 <li>Step 3. Explain the inputs and outputs</li>
                                                                 <li>Step 4. Write down each step</li>
                                                                 <li>Step 5. Order the steps</li>
-                                                               
+
                                                             </ul>
                                                         </div>
                                                     </td>
@@ -153,16 +146,16 @@
                                 </tr>
                             </table>
                         </td>
-                        <td style="width: 20%; vertical-align: top;">
-                            <div style="margin-top: 50px;margin-left:20px; border-left: 1px solid gray; height: 300px;">
-                                <span style="margin-left:10px;"><b>Search Project </b></span>
-                                <table style="width:100%; margin-left:10px;">                                   
+                        <td style="width: 25%; vertical-align: top;">
+                            <div style="margin-top: 50px; margin-left: 20px; border-left: 1px solid gray; height: 300px;">
+                                <span style="margin-left: 10px;"><b>Search Project </b></span>
+                                <table style="width: 100%; margin-left: 10px;">
                                     <tr id="usrEmailTR" runat="server">
-                                        <td style="width:40%">
+                                        <td style="width: 40%">
                                             <b><u>Email ID</u> : </b>
                                         </td>
-                                         <td style="width:60%;">
-                                            <input type="text" value="" id="usrEmailId" runat="server" style="width:100%;" />
+                                        <td style="width: 60%;">
+                                            <input type="text" value="" id="usrEmailId" runat="server" style="width: 80%;" />
                                         </td>
                                     </tr>
                                     <tr>
@@ -180,8 +173,8 @@
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            <div style="width:100%">
-                                                <table id="tblTemplateDetail" runat="server" style="width:100%;">
+                                            <div style="width: 100%">
+                                                <table id="tblTemplateDetail" runat="server" style="width: 100%;">
                                                     <tr>
                                                         <td>
                                                             <hr style="width: 80%; margin-left: 0px;" />
@@ -221,7 +214,7 @@
                         </td>
                     </tr>
                 </table>
-            </div>
+            </div>            
         </center>
     </form>
     <script src="js/jquery.js"></script>

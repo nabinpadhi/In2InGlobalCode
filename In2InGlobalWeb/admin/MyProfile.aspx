@@ -12,11 +12,15 @@
             background-color: azure;
         }
         </style>
+    <link rel="stylesheet" href="css/gridview.css" />
 </head>
 <body style="background-color:azure;">
-    <center><h4><i>My Profile</i></h4></center>
+    
     <form status="1" id="form1" runat="server">      
       <center>
+           <center>
+         <div style="width: 70%; border: 1px solid black; border-radius: 5px; margin-top: 30px;">
+             <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px;">My Profile</div>
           <div style="position:relative;padding:50px 30px 30px 30px;">
           <table style="width:90%;">
               <tr style="padding:10px">
@@ -39,6 +43,7 @@
               </tr>
           </table>
               </div>
+             </div>
       </center>
     </form>
 </body>

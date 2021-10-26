@@ -19,18 +19,16 @@
     <link rel="stylesheet" href="css/gridview.css" />
 
 </head>
-<body>
-    <center>
-        <h4><i>User Management</i></h4>
-    </center>
+<body>   
     <form id="form1" runat="server">
         <center>
-            <div style="width: 100%;">
+            <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 20px;">
+             <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px;">User Management</div>
                 <table style="width: 100%; background-color: azure;">
                     <tr>
                         <td style="width: 80%;">
                             <center>
-                                <div style="width: 50%; border: 1px solid black; border-radius: 5px;">
+                                <div style="width: 50%; border: 1px solid black; border-radius: 5px;margin-top:50px;">
                                     <table>
                                         <tr>
                                             <td>First Name</td>
@@ -42,11 +40,14 @@
                                         </tr>
                                         <tr>
                                             <td>Company Name</td>
-                                            <td>
-                                                <input type="text" id="txtCompanyName" runat="server" value="" /></td>
+                                            <td>                                                
+                                                <asp:DropDownList ID="ddlCompanyName" Width="100%" runat="server" DataTextField="CompanyName"></asp:DropDownList>
+                                            </td>
                                             <td>Role Name</td>
                                             <td>
-                                                <input type="text" id="txtRole" runat="server" value="" /></td>
+                                                 <asp:DropDownList ID="ddlRoleName" Width="100%" runat="server" DataTextField="RoleName"></asp:DropDownList>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>Email<br />
@@ -75,9 +76,9 @@
                     <tr>
                         <td>
                             <center>
-                            <div style="width: 50%; border: 1px solid black; border-radius: 5px;margin-top:30px;">
-                                <asp:GridView ID="grdUsers" runat="server" HeaderStyle-CssClass="pagination-ys"
-                                    AllowPaging="True" PageSize="5">
+                            <div style="width: 50%; border: 1px solid black; border-radius: 5px;margin-top:30px;margin-bottom:20px;">
+                                <asp:GridView ID="grdUsers" runat="server" OnPageIndexChanging="grdUsers_PageIndexChanging" Width="100%" HeaderStyle-CssClass="pagination-ys"
+                                    AllowPaging="True" PageSize="4">
                                     <PagerStyle CssClass="pagination-ys" />
                                 </asp:GridView>
                             </div>
@@ -99,9 +100,7 @@
         function ClearAll() {
 
             $('#txtFName').val('');
-            $('#txtLName').val('');
-            $('#txtCompanyName').val('');
-            $('#txtRole').val('');
+            $('#txtLName').val('');                        
             $('#txtEmail').val('');            
             $('input[type="password"]#txtPawword').val('');
         }

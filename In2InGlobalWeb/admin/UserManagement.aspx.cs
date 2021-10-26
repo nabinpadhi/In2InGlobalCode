@@ -23,17 +23,46 @@ namespace In2InGlobal.presentation.admin
             else
             {
                 BindUsers();
+                BindCompany();
+                BindRoles();
             }
           
         }
 
         private void BindUsers()
         {
-            //grdUsers.DataSource = GetUsers();
+            
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/users.json");           
+            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/users.json");           
             grdUsers.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
+            grdUsers.DataBind();
+        }
+        private void BindCompany()
+        {
+            
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Companies.json");
+            ddlCompanyName.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
+            ddlCompanyName.DataValueField = "CompanyName";
+            ddlCompanyName.DataBind();
+        }
+        private void BindRoles()
+        {
+
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Roles.json");
+            ddlRoleName.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
+            ddlRoleName.DataValueField = "RoleName";
+            ddlRoleName.DataBind();
+        }
+
+        protected void grdUsers_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            BindUsers();
+            grdUsers.PageIndex = e.NewPageIndex;
             grdUsers.DataBind();
         }
     }
