@@ -142,7 +142,7 @@ $.widget("ui.multiselect", {
 		return node;
 	},
 	// clones an item with associated data
-	// didn't find a smarter away around this
+	// didn't find a In2InGlobaler away around this
 	_cloneWithData: function(clonee) {
 		var clone = clonee.clone();
 		clone.data('optionLink', clonee.data('optionLink'));

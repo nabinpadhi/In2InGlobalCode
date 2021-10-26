@@ -8,7 +8,7 @@ using InGlobal.DataLink;
 
 namespace InGlobal.BusinessLogic
 {
-    public class TPMUserBL:IUser
+    public class In2InGlobalUserBL:IUser
     {
         #region "Private Members"
         int _id;
@@ -150,32 +150,32 @@ namespace InGlobal.BusinessLogic
         public DataSet IsValidLogin()
         {
             DataSet _result;
-            TPMUserDL _tpmuserDL = new TPMUserDL();
-            _result = _tpmuserDL.ValidateLogin(this);
+            In2InGlobalUserDL _In2InGlobalUserDL = new In2InGlobalUserDL();
+            _result = _In2InGlobalUserDL.ValidateLogin(this);
             return _result;
         }
         #endregion
 
-        public bool AddTPM()
+        public bool AddUser()
         {
             bool _result = true;
-            TPMUserDL _userDLObject = new TPMUserDL();
+            In2InGlobalUserDL _userDLObject = new In2InGlobalUserDL();
             if (_userDLObject.AddTPM(this) == 0)
             {
                 _result = false;
             }
             return _result;
         }
-        public TPMUserBL GetTPM()
-        {            
-            TPMUserDL _userDLObject = new TPMUserDL();
-            return (TPMUserBL)_userDLObject.GetTPM(this);
+        public In2InGlobalUserBL GetUser()
+        {
+            In2InGlobalUserDL _userDLObject = new In2InGlobalUserDL();
+            return (In2InGlobalUserBL)_userDLObject.GetTPM(this);
             
         }
 
         public int UpdatePwd()
         {
-            TPMUserDL _userDLObject = new TPMUserDL();
+            In2InGlobalUserDL _userDLObject = new In2InGlobalUserDL();
             return _userDLObject.UpdatePwd(this);
         }
     }

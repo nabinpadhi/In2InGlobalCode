@@ -13,29 +13,29 @@ namespace InGlobal.DataLink
         public DataSet AddMemberTask(IMemberTask _memberTask)
         {
             DataSet _result;
-            KSSITTPMDataAccessHelper dataAccessObject = new KSSITTPMDataAccessHelper();
+            In2InGlobalDataAccessHelper dataAccessObject = new In2InGlobalDataAccessHelper();
             dataAccessObject.UpdateObject(_memberTask, "sp_AddMemberTask");
             _result = (DataSet)dataAccessObject.GetDataSet("sp_GetMemberAndTasks", new SqlParameter[] { new SqlParameter("@UserID", _memberTask.pi_LastModifiedBy) });
             return _result;
         }
 
-        public DataSet GetTPMProjects(int _TPMID)
+        public DataSet GetIn2InGlobalProjects(int _TPMID)
         {
             DataSet _result;
-            KSSITTPMDataAccessHelper dataAccessObject = new KSSITTPMDataAccessHelper();
-            _result = (DataSet)dataAccessObject.GetDataSet("sp_GetTPMProjects", new SqlParameter[] { new SqlParameter("@UserID", _TPMID) });
+            In2InGlobalDataAccessHelper dataAccessObject = new In2InGlobalDataAccessHelper();
+            _result = (DataSet)dataAccessObject.GetDataSet("sp_GetIn2InGlobalProjects", new SqlParameter[] { new SqlParameter("@UserID", _TPMID) });
             return _result;
         }
 
         public void UpdateMemberTask(IMemberTask _memberTaskObject)
         {
-            KSSITTPMDataAccessHelper dataAccessObject = new KSSITTPMDataAccessHelper();
+            In2InGlobalDataAccessHelper dataAccessObject = new In2InGlobalDataAccessHelper();
             dataAccessObject.UpdateObject(_memberTaskObject, "sp_UpdateMemberTask");
         }
 
         public int DeleteTask(IMemberTask _memberTaskObject)
         {
-            KSSITTPMDataAccessHelper dataAccessObject = new KSSITTPMDataAccessHelper();
+            In2InGlobalDataAccessHelper dataAccessObject = new In2InGlobalDataAccessHelper();
             return dataAccessObject.ExecuteNonQuery("sp_DeleteTasks", new SqlParameter[] { new SqlParameter("@SelectedTasks", _memberTaskObject.ps_SelectedTasks) });
         }
     }

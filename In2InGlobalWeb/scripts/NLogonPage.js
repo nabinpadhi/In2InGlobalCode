@@ -40,7 +40,7 @@ function validateEmailinfo() {
     }
 }
 function OpenFile() {
-    var downloadFilePath = "./SMART_FactSheet/Datasheet SMART5.2.pdf";
+    var downloadFilePath = "./In2InGlobal_FactSheet/Datasheet In2InGlobal5.2.pdf";
     var windowWidth = "10px";
     var windowHeight = "10px";
     var winLeft = ((screen.width / 2) - 100);

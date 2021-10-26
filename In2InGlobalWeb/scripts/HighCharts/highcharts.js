@@ -321,7 +321,7 @@
         va = "year",
         wb = "stroke-width",
         Za, jb, kb, mb, Ma, Xa, Ya, Db, Eb, lb, Fb, Gb, $ = {};
-    L.Smartcharts = {};
+    L.In2InGlobalcharts = {};
     db = function (a, b, c) {
         if (!r(b) || isNaN(b)) return "Invalid date";
         var a = n(a, "%Y-%m-%d %H:%M:%S"),
@@ -393,7 +393,7 @@
         }
     };
     (function (a) {
-        L.SmartchartsAdapter = L.SmartchartsAdapter || a && {
+        L.In2InGlobalchartsAdapter = L.In2InGlobalchartsAdapter || a && {
             init: function (b) {
                 var c = a.fx,
                     d = c.step,
@@ -491,7 +491,7 @@
             }
         }
     })(L.jQuery);
-    var ea = L.SmartchartsAdapter,
+    var ea = L.In2InGlobalchartsAdapter,
         G = ea || {};
     ea && ea.init.call(ea, ub);
     var eb = G.adapterRun,
@@ -1337,7 +1337,7 @@
         g: function (a) {
             var b = this.createElement("g");
             return r(a) ? b.attr({
-                "class": "Smartcharts-" + a
+                "class": "In2InGlobalcharts-" + a
             }) : b
         },
         image: function (a, b, c, d, e) {
@@ -1419,7 +1419,7 @@
             }
         },
         clipRect: function (a, b, c, d) {
-            var e = "Smartcharts-" + tb++,
+            var e = "In2InGlobalcharts-" + tb++,
                 f = this.createElement("clipPath").attr({
                     id: e
                 }).add(this.defs),
@@ -1454,7 +1454,7 @@
                 for (m in c) m !== "id" && q.push(m, c[m]);
                 for (m in j) q.push(j[m]);
                 q = q.join(",");
-                h[q] ? a = h[q].id : (c.id = a = "Smartcharts-" + tb++, h[q] = i = d.createElement(g).attr(c).add(d.defs), i.stops = [], o(j, function (a) {
+                h[q] ? a = h[q].id : (c.id = a = "In2InGlobalcharts-" + tb++, h[q] = i = d.createElement(g).attr(c).add(d.defs), i.stops = [], o(j, function (a) {
                     f.test(a[1]) ? (e = qa(a[1]), k = e.get("rgb"), l = e.get("a")) : (k = a[1], l = 1);
                     a = d.createElement("stop").attr({
                         offset: a[0],
@@ -1800,7 +1800,7 @@
                     e = d.parentNode;
                 a ? (c = a.members, ta(c, b), c.push(b), b.destroyClip = function () {
                     ta(c, b)
-                }, e && e.className === "Smartcharts-tracker" && !Ra && I(d, {
+                }, e && e.className === "In2InGlobalcharts-tracker" && !Ra && I(d, {
                     visibility: "hidden"
                 }),
                 a = a.getCSS(b)) : (b.destroyClip && b.destroyClip(), a = {
@@ -1988,8 +1988,8 @@
             g: function (a) {
                 var b;
                 a && (b = {
-                    className: "Smartcharts-" + a,
-                    "class": "Smartcharts-" + a
+                    className: "In2InGlobalcharts-" + a,
+                    "class": "In2InGlobalcharts-" + a
                 });
                 return this.createElement(ga).attr(b)
             },
@@ -3729,7 +3729,7 @@
                 c = this.loadingDiv,
                 d = b.loading;
             if (!c) this.loadingDiv = c = T(ga, {
-                className: "Smartcharts-loading"
+                className: "In2InGlobalcharts-loading"
             },
             x(d.style, {
                 left: this.plotLeft + "px",
@@ -3883,7 +3883,7 @@
                 d && e && (c[b] = d = d.destroy());
                 a && a.text && !d && (c[b] = c.renderer.text(a.text, 0, 0, a.useHTML).attr({
                     align: a.align,
-                    "class": "Smartcharts-" + b,
+                    "class": "In2InGlobalcharts-" + b,
                     zIndex: a.zIndex || 4
                 }).css(a.style).add().align(a, !1, c.spacingBox))
             })
@@ -3909,19 +3909,19 @@
             var a, b = this.options.chart,
                 c, d, e;
             this.renderTo = a = b.renderTo;
-            e = "Smartcharts-" + tb++;
+            e = "In2InGlobalcharts-" + tb++;
             if (ja(a)) this.renderTo = a = C.getElementById(a);
             a || Oa(13, !0);
-            c = z(w(a, "data-Smartcharts-chart"));
+            c = z(w(a, "data-In2InGlobalcharts-chart"));
             !isNaN(c) && Ha[c] && Ha[c].destroy();
-            w(a, "data-Smartcharts-chart", this.index);
+            w(a, "data-In2InGlobalcharts-chart", this.index);
             a.innerHTML = "";
             a.offsetWidth || this.cloneRenderTo();
             this.getChartSize();
             c = this.chartWidth;
             d = this.chartHeight;
             this.container = a = T(ga, {
-                className: "Smartcharts-container" + (b.className ? " " + b.className : ""),
+                className: "In2InGlobalcharts-container" + (b.className ? " " + b.className : ""),
                 id: e
             }, x({
                 position: "relative",
@@ -4211,7 +4211,7 @@
                 e, f = d && d.parentNode;
             F(a, "destroy");
             Ha[a.index] = A;
-            a.renderTo.removeAttribute("data-Smartcharts-chart");
+            a.renderTo.removeAttribute("data-In2InGlobalcharts-chart");
             R(a);
             for (e = b.length; e--; ) b[e] = b[e].destroy();
             for (e = c.length; e--; ) c[e] = c[e].destroy();
@@ -4240,7 +4240,7 @@
             if (a.isReadyToRender()) {
                 a.getContainer();
                 F(a, "init");
-                if (Smartcharts.RangeSelector && b.rangeSelector.enabled) a.rangeSelector = new Smartcharts.RangeSelector(a);
+                if (In2InGlobalcharts.RangeSelector && b.rangeSelector.enabled) a.rangeSelector = new In2InGlobalcharts.RangeSelector(a);
                 a.resetMargins();
                 a.setChartSize();
                 a.propFromSeries();
@@ -4248,7 +4248,7 @@
                 o(b.series || [], function (b) {
                     a.initSeries(b)
                 });
-                if (Smartcharts.Scroller && (b.navigator.enabled || b.scrollbar.enabled)) a.scroller = new Smartcharts.Scroller(a);
+                if (In2InGlobalcharts.Scroller && (b.navigator.enabled || b.scrollbar.enabled)) a.scroller = new In2InGlobalcharts.Scroller(a);
                 a.tracker = new qb(a, b);
                 a.render();
                 a.renderer.draw();
@@ -5789,7 +5789,7 @@
     };
     pa = ba(P, pa);
     $.pie = pa;
-    x(Smartcharts, {
+    x(In2InGlobalcharts, {
         Axis: ob,
         CanVGRenderer: gb,
         Chart: sb,
@@ -5844,7 +5844,7 @@
         svg: ca,
         canvas: V,
         vml: !ca && !V,
-        product: "Smartcharts",
+        product: "In2InGlobalcharts",
         version: "2.3.5"
     })
 })();

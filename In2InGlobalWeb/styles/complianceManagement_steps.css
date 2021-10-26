@@ -1548,27 +1548,27 @@ border:1px solid #9ee8f1;
 	height:340px;
 }
 #Div_settingLanding1:hover     {background:url('../images/new_assessment_bg_hover.png') repeat-x}
-.SMARTButton
+.In2InGlobalButton
 {
 	color:White;
 	font-weight:bold;
 	font-family:Arial;
 	cursor:pointer;
 }
-.SMARTButton .btLeft
+.In2InGlobalButton .btLeft
 {
 	height:29px;
 	background-image:url(../images/buttonLeft.png);
 	background-repeat:no-repeat;
 	width:18px;
 }
-.SMARTButton .btMiddle
+.In2InGlobalButton .btMiddle
 {
 	height:29px;
 	background-image:url(../images/buttonMiddle.png);
 	background-repeat:repeat-x;
 }
-.SMARTButton .btRight
+.In2InGlobalButton .btRight
 {
 	height:29px;
 	width:18px;
@@ -1823,7 +1823,7 @@ div::-webkit-scrollbar-corner {
     	background-color:Red;
     }
     
-    /*Styles class for menuitem in smartrasettigs*/
+    /*Styles class for menuitem in In2InGlobalrasettigs*/
      .submenuitem
       {
       	  margin-top:0px; 
@@ -3759,27 +3759,27 @@ border:1px solid #9ee8f1;
 	height:340px;
 }
 #Div_settingLanding1:hover     {background:url('../images/new_assessment_bg_hover.png') repeat-x}
-.SMARTButton
+.In2InGlobalButton
 {
 	color:White;
 	font-weight:bold;
 	font-family:Arial;
 	cursor:pointer;
 }
-.SMARTButton .btLeft
+.In2InGlobalButton .btLeft
 {
 	height:29px;
 	background-image:url(../images/buttonLeft.png);
 	background-repeat:no-repeat;
 	width:18px;
 }
-.SMARTButton .btMiddle
+.In2InGlobalButton .btMiddle
 {
 	height:29px;
 	background-image:url(../images/buttonMiddle.png);
 	background-repeat:repeat-x;
 }
-.SMARTButton .btRight
+.In2InGlobalButton .btRight
 {
 	height:29px;
 	width:18px;
@@ -4114,7 +4114,7 @@ div::-webkit-scrollbar-corner {
     	background-color:Red;
     }
     
-    /*Styles class for menuitem in smartrasettigs*/
+    /*Styles class for menuitem in In2InGlobalrasettigs*/
      .submenuitem
       {
       	  margin-top:0px; 

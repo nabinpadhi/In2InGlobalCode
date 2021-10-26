@@ -35,8 +35,8 @@ var sh = {
 		/** Title to be displayed above the code block. */
 		'title' : null,
 		
-		/** Enables or disables smart tabs. */
-		'smart-tabs' : true,
+		/** Enables or disables In2InGlobal tabs. */
+		'In2InGlobal-tabs' : true,
 		
 		/** Gets or sets tab size. */
 		'tab-size' : 4,
@@ -842,13 +842,13 @@ function processTabs(code, tabSize)
 };
 
 /**
- * Replaces tabs with smart spaces.
+ * Replaces tabs with In2InGlobal spaces.
  * 
  * @param {String} code    Code to fix the tabs in.
  * @param {Number} tabSize Number of spaces in a column.
  * @return {String}        Returns code with all tabs replaces with roper amount of spaces.
  */
-function processSmartTabs(code, tabSize)
+function processIn2InGlobalTabs(code, tabSize)
 {
 	var lines = splitLines(code),
 		tab = '\t',
@@ -870,7 +870,7 @@ function processSmartTabs(code, tabSize)
 			;
 	};
 
-	// Go through all the lines and do the 'smart tabs' magic.
+	// Go through all the lines and do the 'In2InGlobal tabs' magic.
 	code = eachLine(code, function(line)
 	{
 		if (line.indexOf(tab) == -1) 
@@ -880,7 +880,7 @@ function processSmartTabs(code, tabSize)
 		
 		while ((pos = line.indexOf(tab)) != -1) 
 		{
-			// This is pretty much all there is to the 'smart tabs' logic.
+			// This is pretty much all there is to the 'In2InGlobal tabs' logic.
 			// Based on the position within the line and size of a tab,
 			// calculate the amount of spaces we need to insert.
 			var spaces = tabSize - pos % tabSize;
@@ -1570,8 +1570,8 @@ sh.Highlighter.prototype = {
 		tabSize = this.getParam('tab-size');
 
 		// replace tabs with spaces
-		code = this.getParam('smart-tabs') == true
-			? processSmartTabs(code, tabSize)
+		code = this.getParam('In2InGlobal-tabs') == true
+			? processIn2InGlobalTabs(code, tabSize)
 			: processTabs(code, tabSize)
 			;
 

@@ -160,12 +160,9 @@
                                             <b><u>Project ID</u> : </b>
                                         </td>
                                         <td>
-                                            <select name="projectids" id="projectids" runat="server">
-                                                <option value="P001">P001</option>
-                                                <option value="P002">P002</option>
-                                                <option value="P003">P003</option>
-                                                <option value="P004">P004</option>
-                                            </select>
+                                            <div>
+                                                <asp:DropDownList ID="ddlProjects" Width="100%" runat="server" DataTextField="ProjectName"></asp:DropDownList>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>

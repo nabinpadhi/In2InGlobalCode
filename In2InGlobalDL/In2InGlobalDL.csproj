@@ -44,8 +44,8 @@
     <Compile Include="MemberTaskDL.cs" />
     <Compile Include="TeamMemberDL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TPMProjectDL.cs" />
-    <Compile Include="TPMUserDL.cs" />
+    <Compile Include="In2InGlobalProjectDL.cs" />
+    <Compile Include="In2InGlobalUserDL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\In2InGlobalDataAccess\In2InGlobalDataAccess.csproj">

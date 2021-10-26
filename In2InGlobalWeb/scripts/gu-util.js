@@ -22,7 +22,7 @@ function _GU_getPlatform() {
 
 function _GU_getBrowserId() {
     if (window.google.update.a) return window.google.update.a;
-    window.google.update.a = 0; -1 != navigator.userAgent.indexOf("Opera") ? window.google.update.a = 0 : -1 != navigator.userAgent.indexOf("Firefox") ? window.google.update.a = 3 : -1 != navigator.userAgent.indexOf("MSIE") ? -1 != navigator.userAgent.indexOf("Windows CE") ? window.google.update.a = 0 : -1 == navigator.userAgent.indexOf("PPC") && -1 == navigator.userAgent.indexOf("Smartphone") && (window.google.update.a = 2) : -1 != navigator.userAgent.indexOf("Chrome") ?
+    window.google.update.a = 0; -1 != navigator.userAgent.indexOf("Opera") ? window.google.update.a = 0 : -1 != navigator.userAgent.indexOf("Firefox") ? window.google.update.a = 3 : -1 != navigator.userAgent.indexOf("MSIE") ? -1 != navigator.userAgent.indexOf("Windows CE") ? window.google.update.a = 0 : -1 == navigator.userAgent.indexOf("PPC") && -1 == navigator.userAgent.indexOf("In2InGlobalphone") && (window.google.update.a = 2) : -1 != navigator.userAgent.indexOf("Chrome") ?
         window.google.update.a = 4 : -1 != navigator.userAgent.indexOf("Safari") && (window.google.update.a = 0);
     return window.google.update.a
 }

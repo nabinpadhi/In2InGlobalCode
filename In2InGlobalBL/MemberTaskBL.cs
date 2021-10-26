@@ -144,10 +144,10 @@ namespace InGlobal.BusinessLogic
             return _memberTaskDL.AddMemberTask(this);
         }
 
-        public DataSet GetTPMProjects(int _TPMID)
+        public DataSet GetIn2InGlobalProjects(int _TPMID)
         {
             MemberTaskDL _memberTaskDL = new MemberTaskDL();
-            return _memberTaskDL.GetTPMProjects(_TPMID);
+            return _memberTaskDL.GetIn2InGlobalProjects(_TPMID);
         }
 
         public void UpdateMemberTask()

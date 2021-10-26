@@ -1,7 +1,7 @@
 jQuery(function ()
 {
-	// Register Smart skin.
-	speedo().popup.SmartSkin.register_skin('winter', function (overlay, container)
+	// Register In2InGlobal skin.
+	speedo().popup.In2InGlobalSkin.register_skin('winter', function (overlay, container)
 	{
 		// We don't want to brake anything if there is no overlay.
 		if (!overlay)

@@ -14,9 +14,9 @@ using Microsoft.Practices.EnterpriseLibrary.Security;
 using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 
 /*
-* Description : SMARTDataAccessHelper is user defined custom class - access point for database operations.
-* Author : KSS Pvt. Ltd.
-* Copyright : Copyright ©2014 by KSS ITTPM. All rights reserved
+* Description : In2InGlobalDataAccessHelper is user defined custom class - access point for database operations.
+* Author : .
+* Copyright : Copyright ©2014 . All rights reserved
 */
 namespace InGlobal.DataAccess
 {
@@ -25,7 +25,7 @@ namespace InGlobal.DataAccess
     /// User defined custom class - access point for database operations.
     /// </summary>
     /// 
-    public class KSSITTPMDataAccessHelper
+    public class In2InGlobalDataAccessHelper
     {
 
         private bool isADConnection;
@@ -34,11 +34,11 @@ namespace InGlobal.DataAccess
         /// <summary>
         /// Default Constructor
         /// </summary>
-        public KSSITTPMDataAccessHelper()
+        public In2InGlobalDataAccessHelper()
         {
             Singleton = Singleton.GetConnectionString();
         }
-        public KSSITTPMDataAccessHelper(bool rb_isADConnection)
+        public In2InGlobalDataAccessHelper(bool rb_isADConnection)
         {
             this.isADConnection = rb_isADConnection;
             Singleton = Singleton.GetConnectionString();

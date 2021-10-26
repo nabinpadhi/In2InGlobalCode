@@ -7,7 +7,7 @@ using InGlobal.Interface;
 using InGlobal.DataLink;
 namespace InGlobal.BusinessLogic
 {
-    public class TPMProjectBL:IProject
+    public class In2InGlobalProjectBL:IProject
     {
         #region "Private Members"
         private int _userID;
@@ -171,25 +171,25 @@ namespace InGlobal.BusinessLogic
 
         public DataSet GetProjects()
         {
-            TPMProjectDL tpmProjectDLObject = new TPMProjectDL();
-            return tpmProjectDLObject.GetProjects(this);
+            In2InGlobalProjectDL In2InGlobalProjectDLObject = new In2InGlobalProjectDL();
+            return In2InGlobalProjectDLObject.GetProjects(this);
         }
 
         public void AddProject()
         {
-            TPMProjectDL tpmProjectDLObject = new TPMProjectDL();
-            tpmProjectDLObject.AddProject(this);
+            In2InGlobalProjectDL In2InGlobalProjectDLObject = new In2InGlobalProjectDL();
+            In2InGlobalProjectDLObject.AddProject(this);
         }
         public void UpdateProject()
         {
-            TPMProjectDL tpmProjectDLObject = new TPMProjectDL();
-            tpmProjectDLObject.UpdateProject(this);
+            In2InGlobalProjectDL In2InGlobalProjectDLObject = new In2InGlobalProjectDL();
+            In2InGlobalProjectDLObject.UpdateProject(this);
         }
 
         public int DeleteProject()
         {
-            TPMProjectDL tpmProjectDLObject = new TPMProjectDL();
-            return tpmProjectDLObject.DeleteProject(this.ps_SelectedIDs);
+            In2InGlobalProjectDL In2InGlobalProjectDLObject = new In2InGlobalProjectDL();
+            return In2InGlobalProjectDLObject.DeleteProject(this.ps_SelectedIDs);
         }
     }
 }

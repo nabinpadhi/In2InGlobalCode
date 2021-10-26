@@ -61,7 +61,7 @@
                                             <td colspan="4">
                                                 <div style="margin-top: 30px;">
                                                     <center>
-                                                        <input type="button" class="button" value="Add New User" onclick="SaveUser();" />
+                                                        <input type="button" class="button" value="Save" onclick="SaveUser();" />
                                                         <input type="button" class="button" style="margin-left: 10px;" value="Cancel" onclick="ClearAll();" />
                                                     </center>
                                                 </div>

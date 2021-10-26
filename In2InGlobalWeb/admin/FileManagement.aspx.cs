@@ -10,19 +10,30 @@ namespace In2InGlobal.presentation.admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            BindFileGrid();
+            LoadTemplates();
+            BindProjects();
             string target = Request.QueryString.Get("t");
             if (target == "a")
             {
                 usrEmailTR.Visible = true;
                 tblTemplateDetail.Visible = true;
-                BindFileGrid();
-                LoadTemplates();
+               
             }
             else
             {
                 usrEmailTR.Visible = false;
                 tblTemplateDetail.Visible = false;
             }
+        }
+
+        private void BindProjects()
+        {
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Projects.json");
+            ddlTemplate.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
+            ddlTemplate.DataBind();
         }
 
         private void LoadTemplates()

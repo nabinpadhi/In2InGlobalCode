@@ -1,7 +1,7 @@
 $(function ()
 {
-	// Register Smart skin.
-	$.speedoPopup.registerSmartSkin('clouds', function (overlay, container)
+	// Register In2InGlobal skin.
+	$.speedoPopup.registerIn2InGlobalSkin('clouds', function (overlay, container)
 	{
 		// We don't want to brake anything if there is no overlay.
 		if (!overlay)

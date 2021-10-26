@@ -217,8 +217,8 @@ namespace InGlobal.BusinessLogic
         public void UpdateTeamMember()
         {
 
-            TeamMemberDL tpmProjectDLObject = new TeamMemberDL();
-            tpmProjectDLObject.UpdateTeamMember(this);
+            TeamMemberDL In2InGlobalProjectDLObject = new TeamMemberDL();
+            In2InGlobalProjectDLObject.UpdateTeamMember(this);
 
         }
 

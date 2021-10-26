@@ -43,7 +43,7 @@ function confirm(message, callback) {
 		}
 	});
 }
- function SMARTConfirm(message, callbackYes,callbackNo) 
+ function In2InGlobalConfirm(message, callbackYes,callbackNo) 
     {
 	    $('#confirm').modal({
 		    closeHTML: "<a href='#' title='Close' class='modal-close'>x</a>",

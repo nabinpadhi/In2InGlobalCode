@@ -47,7 +47,7 @@ namespace InGlobal.presentation
         {
             string DBKey = "s@m@41";
             string AppKey = "12$%";
-            string ServerKey = "it-tpm-kss";// File.ReadAllText("D:\\SMART-Ra\\file.txt");
+            string ServerKey = "it-tpm-kss";// File.ReadAllText("D:\\In2InGlobal-Ra\\file.txt");
             string key = DBKey + AppKey + ServerKey;
             int count = dataTable.Columns.Count;
             for (int i = 0; i < dataTable.Rows.Count; i++)
