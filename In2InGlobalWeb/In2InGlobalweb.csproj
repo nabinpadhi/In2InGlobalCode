@@ -1739,7 +1739,7 @@
     <Content Include="admin\scss\style.scss" />
     <Content Include="admin\scss\_nice-select-prefixed.scss" />
     <Content Include="admin\scss\_prism.scss" />
-    <Content Include="admin\Users.json" />
+    <Content Include="admin\json-data\Users.json" />
     <None Include="font\fontawesome-webfont.ttf" />
     <None Include="font\fontawesome-webfont.woff" />
     <None Include="GoogleFont\2UX7WLTfW3W8TclTUvlFyQ.woff" />
