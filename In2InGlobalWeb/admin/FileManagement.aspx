@@ -146,7 +146,7 @@
                         <td style="width: 25%; vertical-align: top;">
                             <div style="margin-top: 50px; margin-left: 20px; border-left: 1px solid gray; height: 300px;">
                                 <span style="margin-left: 10px;"><b>Search Project </b></span>
-                                <table style="width: 100%; margin-left: 10px;">
+                                <table style="width: 100%; margin-left: 5px;margin-right: 5px;">
                                     <tr id="usrEmailTR" runat="server">
                                         <td style="width: 40%">
                                             <b><u>Email ID</u> : </b>
@@ -161,7 +161,7 @@
                                         </td>
                                         <td>
                                             <div>
-                                                <asp:DropDownList ID="ddlProjects" Width="100%" runat="server" DataTextField="ProjectName"></asp:DropDownList>
+                                                <asp:DropDownList OnSelectedIndexChanged="ddlProjects_SelectedIndexChanged" AutoPostBack="true" ID="ddlProjects" Width="100%" runat="server" DataTextField="ProjectName"></asp:DropDownList>
                                             </div>
                                         </td>
                                     </tr>
@@ -179,24 +179,14 @@
                                                     </tr>
                                                     <tr>
                                                         <td style="margin-left: auto; margin-top: auto;">
-                                                            <table style="width: 100%; font-size: smaller; display: table;">
-                                                                <tr class="file_table_header">
-                                                                    <th>Template Details</th>
-                                                                    <th>Date Added</th>
-                                                                </tr>
-                                                                <tr style="display: table-row; border: 1px solid gray;">
-                                                                    <td style="display: table-cell; border: 1px solid gray;">Template 1</td>
-                                                                    <td style="border: 1px solid gray; display: table-cell;">09/06/2021</td>
-                                                                </tr>
-                                                                <tr style="display: table-row; border: 1px solid gray;">
-                                                                    <td style="display: table-cell; border: 1px solid gray;">Template 2</td>
-                                                                    <td style="border: 1px solid gray; display: table-cell;">19/06/2021</td>
-                                                                </tr>
-                                                                <tr style="display: table-row; border: 1px solid gray;">
-                                                                    <td style="display: table-cell; border: 1px solid gray;">Template 006</td>
-                                                                    <td style="border: 1px solid gray; display: table-cell;">09/08/2021</td>
-                                                                </tr>
-                                                            </table>
+                                                            <asp:GridView ID="grdTemplate" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
+                                                                AllowPaging="True" OnPageIndexChanging="grdTemplate_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
+                                                                <PagerStyle CssClass="pagination-ys" />
+                                                                <Columns>
+                                                                    <asp:BoundField HeaderText="Template Name" DataField="TemplateName" />
+                                                                    <asp:BoundField HeaderText="Date Added" DataField="DateAdded" />
+                                                                </Columns>
+                                                            </asp:GridView>
                                                         </td>
                                                     </tr>
                                                 </table>

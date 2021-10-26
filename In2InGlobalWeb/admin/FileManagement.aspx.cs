@@ -10,20 +10,25 @@ namespace In2InGlobal.presentation.admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            BindFileGrid();
-            LoadTemplates();
-            BindProjects();
-            string target = Request.QueryString.Get("t");
-            if (target == "a")
-            {
-                usrEmailTR.Visible = true;
-                tblTemplateDetail.Visible = true;
-               
-            }
-            else
-            {
-                usrEmailTR.Visible = false;
-                tblTemplateDetail.Visible = false;
+            if (!IsPostBack)
+                {
+                BindFileGrid();
+                LoadTemplates();
+                BindProjects();
+                string target = Request.QueryString.Get("t");
+                if (target == "a")
+                {
+                    usrEmailTR.Visible = true;
+                    tblTemplateDetail.Visible = true;
+                    BindTemplateGrid(ddlProjects.SelectedValue);
+
+
+                }
+                else
+                {
+                    usrEmailTR.Visible = false;
+                    tblTemplateDetail.Visible = false;
+                }
             }
         }
 
@@ -32,8 +37,8 @@ namespace In2InGlobal.presentation.admin
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Projects.json");
-            ddlTemplate.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
-            ddlTemplate.DataBind();
+            ddlProjects.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
+            ddlProjects.DataBind();
         }
 
         private void LoadTemplates()
@@ -42,6 +47,8 @@ namespace In2InGlobal.presentation.admin
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Template.json");
             ddlTemplate.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
+            ddlTemplate.DataTextField = "TemplateName";
+            ddlTemplate.DataValueField = "TemplateName";
             ddlTemplate.DataBind();
         }
 
@@ -54,13 +61,46 @@ namespace In2InGlobal.presentation.admin
             grdUploadedFiles.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
             grdUploadedFiles.DataBind();
         }
+        private void BindTemplateGrid(string _pid)
+        {
 
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Template.json");
+            DataTable tblTemplate = JsonConvert.DeserializeObject<DataTable>(json);
+            if (_pid != "")
+            {
+                _pid = "ProjectID = '" + _pid +"'";
+                if (tblTemplate.Select(_pid).Length > 0)
+                {
+                    tblTemplate = tblTemplate.Select(_pid).CopyToDataTable();
+                    grdTemplate.DataSource = tblTemplate;
+                    
+                }
+                else { grdTemplate.DataSource = null; }
+            }
+            grdTemplate.DataBind();
+
+
+        }
         protected void grdUploadedFiles_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             BindFileGrid();
             grdUploadedFiles.PageIndex = e.NewPageIndex;
             grdUploadedFiles.DataBind();
 
+        }
+        protected void grdTemplate_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            BindTemplateGrid("");
+            grdTemplate.PageIndex = e.NewPageIndex;
+            grdTemplate.DataBind();
+
+        }
+
+        protected void ddlProjects_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindTemplateGrid(ddlProjects.SelectedValue);
         }
     }
 }
