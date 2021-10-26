@@ -1744,6 +1744,7 @@
     <Content Include="admin\json-data\Roles.json" />
     <Content Include="admin\json-data\Activity.json" />
     <Content Include="admin\json-data\UploadedFiles.json" />
+    <Content Include="admin\json-data\Template.json" />
     <None Include="font\fontawesome-webfont.ttf" />
     <None Include="font\fontawesome-webfont.woff" />
     <None Include="GoogleFont\2UX7WLTfW3W8TclTUvlFyQ.woff" />

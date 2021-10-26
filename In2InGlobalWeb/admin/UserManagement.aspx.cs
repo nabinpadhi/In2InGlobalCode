@@ -1,11 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Net;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace In2InGlobal.presentation.admin
@@ -26,21 +22,21 @@ namespace In2InGlobal.presentation.admin
                 BindCompany();
                 BindRoles();
             }
-          
+
         }
 
         private void BindUsers()
         {
-            
+
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/users.json");           
+            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/users.json");
             grdUsers.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
             grdUsers.DataBind();
         }
         private void BindCompany()
         {
-            
+
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Companies.json");

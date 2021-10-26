@@ -33,13 +33,13 @@ namespace In2InGlobal.presentation.admin
         protected global::System.Web.UI.HtmlControls.HtmlInputText projectid;
 
         /// <summary>
-        /// templates control.
+        /// ddlTemplate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect templates;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTemplate;
 
         /// <summary>
         /// btnDownload control.

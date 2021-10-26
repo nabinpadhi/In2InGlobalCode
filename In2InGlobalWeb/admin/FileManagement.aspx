@@ -85,12 +85,9 @@
                                                                 <td style="width: 70%; text-align: right;">Select Template</td>
                                                                 <td style="width: 10%">: </td>
                                                                 <td style="width: 20%">
-                                                                    <select style="width: 100%;" name="templates" id="templates" runat="server">
-                                                                        <option value="Template1">Template 1</option>
-                                                                        <option value="Template2">Template 2</option>
-                                                                        <option value="Template3">Template 3</option>
-                                                                        <option value="Template4">Template 4</option>
-                                                                    </select>
+                                                                    <div>
+                                                                        <asp:DropDownList ID="ddlTemplate" Width="100%" runat="server" DataTextField="TemplateName"></asp:DropDownList>
+                                                                    </div>
                                                                 </td>
                                                             </tr>
                                                             <tr>

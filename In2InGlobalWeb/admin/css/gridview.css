@@ -7,13 +7,7 @@
     
     text-indent: 5px;    
     border-radius: 5px;
-}
-
-    .pagination-ys table > tbody > tr > td {
-        display: inline;
-        text-indent: 15px;
-    }
-
+}  
     .pagination-ys table > tbody > tr > td > a, .pagination-ys table > tbody > tr > td > span {
         position: relative;
         padding: 8px 12px;
@@ -59,3 +53,8 @@
             border-color: #dddddd;
             text-indent: 5px;
         }
+
+    .pagination-ys table > tbody > tr > td {
+        display: table-cell;
+        text-indent: -1px;
+    }

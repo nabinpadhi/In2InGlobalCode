@@ -1,13 +1,10 @@
-﻿    using System;
-    using System.Management;
-    using System.Security.Cryptography;
-    using System.Security;
-    using System.Collections;
-    using System.Text;
- /// <summary>
-        /// Generates a 16 byte Unique Identification code of a computer
-        /// Example: 4876-8DB5-EE85-69D3-FE52-8CF7-395D-2EA9
-        /// </summary>
+﻿using System;
+using System.Security.Cryptography;
+using System.Text;
+/// <summary>
+/// Generates a 16 byte Unique Identification code of a computer
+/// Example: 4876-8DB5-EE85-69D3-FE52-8CF7-395D-2EA9
+/// </summary>
 namespace InGlobal.presentation
 {
     public class FingerPrint
@@ -17,10 +14,10 @@ namespace InGlobal.presentation
         {
             if (string.IsNullOrEmpty(fingerPrint))
             {
-                fingerPrint = GetHash("CPU >> " + cpuId() + "\nBIOS >> " + 
-			biosId() + "\nBASE >> " + baseId() +
-                            //+"\nDISK >> "+ diskId() + "\nVIDEO >> " + 
-			videoId() +"\nMAC >> "+ macId()
+                fingerPrint = GetHash("CPU >> " + cpuId() + "\nBIOS >> " +
+            biosId() + "\nBASE >> " + baseId() +
+            //+"\nDISK >> "+ diskId() + "\nVIDEO >> " + 
+            videoId() + "\nMAC >> " + macId()
                                      );
             }
             return fingerPrint;

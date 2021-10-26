@@ -1,11 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Net;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace In2InGlobal.presentation.admin
@@ -20,6 +16,7 @@ namespace In2InGlobal.presentation.admin
                 usrEmailTR.Visible = true;
                 tblTemplateDetail.Visible = true;
                 BindFileGrid();
+                LoadTemplates();
             }
             else
             {
@@ -27,6 +24,16 @@ namespace In2InGlobal.presentation.admin
                 tblTemplateDetail.Visible = false;
             }
         }
+
+        private void LoadTemplates()
+        {
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Template.json");
+            ddlTemplate.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
+            ddlTemplate.DataBind();
+        }
+
         private void BindFileGrid()
         {
 
@@ -40,9 +47,9 @@ namespace In2InGlobal.presentation.admin
         protected void grdUploadedFiles_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             BindFileGrid();
-                grdUploadedFiles.PageIndex = e.NewPageIndex;
-                grdUploadedFiles.DataBind();
-            
+            grdUploadedFiles.PageIndex = e.NewPageIndex;
+            grdUploadedFiles.DataBind();
+
         }
     }
 }

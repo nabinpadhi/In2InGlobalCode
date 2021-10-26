@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using HtmlAgilityPack;
+using System;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using HtmlAgilityPack;
 
 namespace InGlobal.presentation
 {
@@ -38,7 +33,7 @@ namespace InGlobal.presentation
                 HtmlDocument doc = new HtmlDocument();
                 doc.LoadHtml(result);
                 result = doc.DocumentNode.SelectSingleNode("//div[@id='pane-content']").InnerHtml;
-                
+
             }
             catch (Exception)
             {

@@ -10,14 +10,13 @@
     <script type="text/javascript">
 </script>
 
-    <link rel="stylesheet" href="css/style.css" />
-    <style type="text/css">
-        body {
-            background-color: azure;
-        }
-    </style>
-    <link rel="stylesheet" href="css/gridview.css" />
+     <link href='https://fonts.googleapis.com/css?family=Work+Sans:300,400,600&Inconsolata:400,700' rel='stylesheet' type='text/css' />
 
+    <link rel="stylesheet" href="css/style.css" />
+   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/gridview.css" />
+    
 </head>
 <body>   
     <form id="form1" runat="server">
@@ -89,9 +88,15 @@
             </div>
         </center>
     </form>
+     <script src="js/jquery.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/fastclick.js"></script>
+    <script src="js/prism.js"></script>
+
     <script>
         $(document).ready(function () {
-
+            $('select:not(.ignore)').niceSelect();
+            FastClick.attach(document.body);            
         });
         function SaveUser() {
 
@@ -105,6 +110,31 @@
             $('input[type="password"]#txtPawword').val('');
         }
     </script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
+        ga('create', 'UA-64633646-1', 'auto');
+        ga('send', 'pageview');
+       // $(".nice-select.open").attr("max-height", "400px");
+    </script>
+     <style type="text/css">
+        body {
+            background-color: azure;
+        }    
+        /*.list{
+                max-height: 400px;
+           
+        }
+        .nice-select.open{
+             max-height: 400px; 
+            overflow-y: auto;
+        }*/
+        
+    </style>
 </body>
 </html>

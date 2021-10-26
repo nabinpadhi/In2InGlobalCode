@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Data;
-using System.Linq;
+using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace InGlobal.presentation
 {
@@ -203,7 +200,7 @@ namespace InGlobal.presentation
 
             return mb_Result;
         }
-        
+
         public static string SafeSqlLiteral(string theValue, int theLevel)
         {
             // intLevel represent how thorough the value will be checked for dangerous code

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace In2InGlobal.presentation.admin
 {
@@ -12,7 +7,7 @@ namespace In2InGlobal.presentation.admin
         protected void Page_Load(object sender, EventArgs e)
         {
             string target = Request.QueryString.Get("target");
-            if(target=="NormalUser")
+            if (target == "NormalUser")
             {
                 spnUserName.InnerText = "Ganeswar Sahoo";
                 ancFileMan.Attributes.Add("onclick", "javascript:OpenPage('admin/FileManagement.aspx?t=n');");
@@ -22,7 +17,7 @@ namespace In2InGlobal.presentation.admin
             else
             {
                 spnUserName.InnerText = "Sujay Mondal";
-                ancFileMan.Attributes.Add("onclick","javascript:OpenPage('admin/FileManagement.aspx?t=a');");
+                ancFileMan.Attributes.Add("onclick", "javascript:OpenPage('admin/FileManagement.aspx?t=a');");
                 usrMngmnt.Attributes.Add("onclick", "javascript:OpenPage('admin/UserManagement.aspx?t=a');");
                 ancAnalytics.Attributes.Add("onclick", "javascript:OpenPage('about:blank');");
             }
