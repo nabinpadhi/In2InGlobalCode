@@ -7,7 +7,7 @@
     <title></title>
     <script>document.getElementsByTagName("html")[0].className += " js";</script>
     <link rel="stylesheet" href="admin/assets/css/style.css" />
-
+    <link rel="stylesheet" href="./css/style.css" />
 </head>
 <body onload="loadIframe();">
     <form status="1" id="form1" runat="server">
@@ -26,22 +26,18 @@
                     <div class="rounded-circle" style="cursor: pointer;">
                         <img alt="Logged In.." src="admin/assets/img/loggedInAvatar.jpg" />
                         <a style="margin-left:-10px;" href="admin/login.aspx">Logout</a>
-                    </div>
-                    <%--<ul class="cd-nav__sub-list" style="padding-top:-10px;">
-                        <li class="cd-nav__sub-item"><a href="#" onclick="javascript:OpenPage('admin/MyProfile.aspx');">My Profile</a></li>
-                        <li class="cd-nav__sub-item"><a href="admin/login.aspx">Logout</a></li>
-                    </ul>--%>
+                    </div>                   
                 </li>
             </ul>
         </header>
         <!-- .cd-main-header -->
 
-        <main class="cd-main-content" style="100%;">
+        <main class="cd-main-content" style="width:100%;">
             <nav class="cd-side-nav js-cd-side-nav" style="padding-top: 70px;">
                 <ul class="cd-side__list js-cd-side__list">
                     <!-- <li class="cd-side__label"><span>Main</span></li>-->
-                    <li class="cd-side__item cd-side__item--has-children cd-side__item--overview js-cd-item--has-children">
-                        <a href="" onclick="javascript:OpenPage('admin/MyProfile.aspx');">My Profile</a>
+                    <li class="cd-side__item cd-side__item--has-children cd-side__item--user js-cd-item--has-children">
+                        <a href="#" onclick="javascript:OpenPage('admin/MyProfile.aspx');">My Profile</a>
                     </li>
 
                     <li class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children">
@@ -51,14 +47,19 @@
                     <li class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children">
                         <a href="#" id="ancAnalytics" runat="server">Analytics</a>
                     </li>
-                     <li class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children">
-                        <a href="#" id="usrMngmnt" runat="server">User Management</a>
+                    <li class="cd-side__item cd-side__item--has-children cd-side__item--overview js-cd-item--has-children">
+                         <a href="#" id="usrMngmnt" runat="server">User Management</a>                       
                     </li>
+                    <li class="cd-side__item cd-side__item--has-children cd-side__item--overview js-cd-item--has-children">
+                    <a href="#" id="comMngmnt" runat="server">Company Management</a>
+                    </li>
+                    
+                   
                 </ul>
             </nav>
 
-            <div style="margin-top:50px;">               
-                <iframe style="width: 100%; height: 84.8%" id="frmTarget" src=""></iframe>
+            <div style="padding-top:50px;background-color:azure;">               
+                <iframe style="width: 100%; height: 84.8%" id="frmTarget" src="#"></iframe>
                 <div style="position: sticky; margin-left: auto;">
                     <div style="background: #212121;padding: 30px 0;">
                     <center>
@@ -69,8 +70,9 @@
             </div>
             
             <!-- .content-wrapper -->
-        </main>
-        <!-- .cd-main-content -->
+        </main>       
+    </form>
+     <!-- .cd-main-content -->
         <script src="admin/assets/js/util.js"></script>
         <!-- util functions included in the CodyHouse framework -->
         <script src="admin/assets/js/menu-aim.js"></script>
@@ -88,7 +90,6 @@
                 var uri = "admin/MyProfile.aspx?target=" + myParam;
                 OpenPage(uri);
             }
-        </script>
-    </form>
+        </script>     
 </body>
 </html>

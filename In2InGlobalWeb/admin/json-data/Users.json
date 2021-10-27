@@ -1,7 +1,7 @@
 [
-{"First Name":"Sujay","Last Name":"Mondal","Country":"United States","Email":"sujaymondal@In2InGlobal.com","Role":"Others"},
-{"First Name":"Ganeswar","Last Name":"Sahoo","Country":"United States","Email":"ganeswarsahoo@gmail.com","Role":"Others"},
-{"First Name":"Sujay","Last Name":"Mondal","Country":"India","Email":"admin@In2InGlobal.com","Role":"Admin"},
-{"First Name":"Nabin","Last Name":"Padhi","Country":"India","Email":"nabinpadhi.com","Role":"Admin"},
-{"First Name":"Akash","Last Name":"Roy","Country":"Canada","Email":"akashroy@In2InGlobal.com","Role":"Others"}
+{"First Name":"Sujay","Last Name":"Mondal","Company":"In2In Global","Email":"sujaymondal@In2InGlobal.com","Role":"Others"},
+{"First Name":"Ganeswar","Last Name":"Sahoo","Company":"Free Lancer","Email":"ganeswarsahoo@gmail.com","Role":"Others"},
+{"First Name":"Sujay","Last Name":"Mondal","Company":"In2InGlobal","Email":"admin@In2InGlobal.com","Role":"Admin"},
+{"First Name":"Nabin","Last Name":"Padhi","Company":"Free Lancer","Email":"nabinpadhi.com","Role":"Admin"},
+{"First Name":"Akash","Last Name":"Roy","Company":"In2InGlobal","Email":"akashroy@In2InGlobal.com","Role":"Others"}
 ]

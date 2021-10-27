@@ -10,17 +10,20 @@ namespace In2InGlobal.presentation.admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string target = Request.QueryString.Get("t");
-            if (target != "a")
+            if (!IsPostBack)
             {
-                Response.Redirect("Login.aspx");
+                string target = Request.QueryString.Get("t");
+                if (target != "a")
+                {
+                    Response.Redirect("Login.aspx");
 
-            }
-            else
-            {
-                BindUsers();
-                BindCompany();
-                BindRoles();
+                }
+                else
+                {
+                    BindUsers();
+                    BindCompany();
+                    BindRoles();
+                }
             }
 
         }
@@ -61,5 +64,7 @@ namespace In2InGlobal.presentation.admin
             grdUsers.PageIndex = e.NewPageIndex;
             grdUsers.DataBind();
         }
+
+       
     }
 }

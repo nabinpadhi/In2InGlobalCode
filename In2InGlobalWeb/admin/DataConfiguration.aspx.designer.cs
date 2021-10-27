@@ -11,7 +11,7 @@ namespace In2InGlobal.presentation.admin
 {
 
 
-    public partial class InternalLanding
+    public partial class DataConfiguration
     {
 
         /// <summary>
@@ -24,48 +24,48 @@ namespace In2InGlobal.presentation.admin
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// spnUserName control.
+        /// txtCompanyName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl spnUserName;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtCompanyName;
 
         /// <summary>
-        /// ancFileMan control.
+        /// txtEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor ancFileMan;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtEmail;
 
         /// <summary>
-        /// ancAnalytics control.
+        /// txtAddess control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor ancAnalytics;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea txtAddess;
 
         /// <summary>
-        /// usrMngmnt control.
+        /// txtRemarks control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor usrMngmnt;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea txtRemarks;
 
         /// <summary>
-        /// comMngmnt control.
+        /// grdCompany control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor comMngmnt;
+        protected global::System.Web.UI.WebControls.GridView grdCompany;
     }
 }

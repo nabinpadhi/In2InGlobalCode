@@ -82,6 +82,7 @@
   <ItemGroup>
     <Content Include="admin\AdminAnalytics.aspx" />
     <Content Include="admin\css\gridview.css" />
+    <Content Include="admin\DataConfiguration.aspx" />
     <Content Include="admin\UserManagement.aspx" />
     <Content Include="admin\FileManagement.aspx" />
     <Content Include="admin\assets\css\style.css" />
@@ -1137,6 +1138,13 @@
     </Compile>
     <Compile Include="admin\AdminAnalytics.aspx.designer.cs">
       <DependentUpon>AdminAnalytics.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\DataConfiguration.aspx.cs">
+      <DependentUpon>DataConfiguration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\DataConfiguration.aspx.designer.cs">
+      <DependentUpon>DataConfiguration.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\UserManagement.aspx.cs">
       <DependentUpon>UserManagement.aspx</DependentUpon>

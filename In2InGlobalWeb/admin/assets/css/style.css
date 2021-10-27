@@ -3897,7 +3897,7 @@ a {
     width: 16px;
     right: 1.25em;
     right: var(--space-md);
-    background: url("../img/cd-arrow.svg")
+    background: url("../img/cd-nav-icons.svg")
 }
 
 @media (min-width: 64rem) {
