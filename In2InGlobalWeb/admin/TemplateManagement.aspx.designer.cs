@@ -11,7 +11,7 @@ namespace In2InGlobal.presentation.admin
 {
 
 
-    public partial class InternalLanding
+    public partial class TemplateManagement
     {
 
         /// <summary>
@@ -24,57 +24,48 @@ namespace In2InGlobal.presentation.admin
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// spnUserName control.
+        /// txtTemplateName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl spnUserName;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtTemplateName;
 
         /// <summary>
-        /// ancFileMan control.
+        /// ddlProjects control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor ancFileMan;
+        protected global::System.Web.UI.WebControls.DropDownList ddlProjects;
 
         /// <summary>
-        /// ancAnalytics control.
+        /// txtInstruction control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor ancAnalytics;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea txtInstruction;
 
         /// <summary>
-        /// usrMngmnt control.
+        /// upldTemplate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor usrMngmnt;
+        protected global::System.Web.UI.WebControls.FileUpload upldTemplate;
 
         /// <summary>
-        /// comMngmnt control.
+        /// grdTemplate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor comMngmnt;
-
-        /// <summary>
-        /// tmpltMngmnt control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor tmpltMngmnt;
+        protected global::System.Web.UI.WebControls.GridView grdTemplate;
     }
 }

@@ -11,7 +11,7 @@ namespace In2InGlobal.presentation.admin
 {
 
 
-    public partial class DataConfiguration
+    public partial class CompanyManagement
     {
 
         /// <summary>
@@ -42,22 +42,13 @@ namespace In2InGlobal.presentation.admin
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtEmail;
 
         /// <summary>
-        /// txtAddess control.
+        /// txtPhoneNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea txtAddess;
-
-        /// <summary>
-        /// txtRemarks control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea txtRemarks;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtPhoneNo;
 
         /// <summary>
         /// grdCompany control.

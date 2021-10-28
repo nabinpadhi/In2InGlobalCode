@@ -53,7 +53,9 @@
                     <li class="cd-side__item cd-side__item--has-children cd-side__item--overview js-cd-item--has-children">
                     <a href="#" id="comMngmnt" runat="server">Company Management</a>
                     </li>
-                    
+                    <li class="cd-side__item cd-side__item--has-children cd-side__item--overview js-cd-item--has-children">
+                    <a href="#" id="tmpltMngmnt" runat="server">Template Management</a>
+                    </li>
                    
                 </ul>
             </nav>

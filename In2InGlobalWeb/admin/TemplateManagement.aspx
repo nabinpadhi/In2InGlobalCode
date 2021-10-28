@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DataConfiguration.aspx.cs" Inherits="In2InGlobal.presentation.admin.DataConfiguration" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="TemplateManagement.aspx.cs" Inherits="In2InGlobal.presentation.admin.TemplateManagement" %>
 
 <!DOCTYPE html>
 
@@ -18,33 +18,35 @@
 <body>   
     <form id="form1" runat="server">
         <center>
-            <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 20px;">
-             <div class="pagination-ys" style="width:100%; border: 1px solid black; border-radius: 5px;">Company</div>
+            <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 1px;">
+             <div class="pagination-ys" style="width:100%; border: 1px solid black;padding-top:10px; border-radius: 5px;height:40px;">Templates</div>
                 <table style="width: 100%; background-color: azure;">
                     <tr>
                         <td>
                             <center>
-                                <div style="width: 50%; border: 1px solid black; border-radius: 5px;margin-top:10px;">
+                                <div style="width: 50%; border: 1px solid black; border-radius: 5px;margin-top:5px;">
                                     <table>
                                         <tr>
-                                            <td>Company Name</td>
+                                            <td>Template Name</td>
                                             <td>
-                                                <input type="text" id="txtCompanyName" runat="server" value="" /></td>
-                                            <td>Email</td>
-                                            <td>
-                                                <input type="text" id="txtEmail" runat="server" value="" /></td>
+                                                <input type="text" id="txtTemplateName" runat="server" value="" /></td>
+                                            <td>Project</td>
+                                            <td>                                               
+                                                <asp:DropDownList ID="ddlProjects" Width="100%" runat="server" DataTextField="ProjectName"></asp:DropDownList>
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td>Address</td>
-                                            <td>
-                                                <textarea id="txtAddess" style="width:97%;" runat="server"></textarea>
-                                                   
+                                            <td>Instruction</td>
+                                            <td colspan="3">
+                                                <textarea id="txtInstruction" style="width:97%;height:70px;" runat="server"></textarea>                                                   
                                             </td>
-                                            <td>Remarks</td>
-                                            <td>
-                                                <textarea id="txtRemarks" style="width:97%;" runat="server"></textarea>
-
-                                            </td>
+                                           
+                                        </tr>
+                                        <tr>
+                                            <td>Upload Template</td>
+                                            <td colspan="3">
+                                                <asp:FileUpload runat="server" ID="upldTemplate" Width="80%"/>
+                                            </td>                                           
                                         </tr>
                                         <tr>
                                             <td colspan="4">
@@ -65,8 +67,8 @@
                     <tr>
                          <td style="width:50%;">
                             <center>
-                            <div style="width: 90%; border: 1px solid black; border-radius: 5px;margin-top:30px;margin-bottom:20px;">
-                                <asp:GridView ID="grdCompany" OnPageIndexChanging="grdCompany_PageIndexChanging" OnRowDataBound="grdCompany_RowDataBound" runat="server" Width="90%" HeaderStyle-CssClass="pagination-ys"
+                            <div style="width: 90%; border: 1px solid black; border-radius: 5px;margin-top:10px;margin-bottom:20px;">
+                                <asp:GridView ID="grdTemplate" OnPageIndexChanging="grdTemplate_PageIndexChanging" runat="server" Width="90%" HeaderStyle-CssClass="pagination-ys"
                                     AllowPaging="True" PageSize="4">
                                     <PagerStyle CssClass="pagination-ys" />
                                 </asp:GridView>

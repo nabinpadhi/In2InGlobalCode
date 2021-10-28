@@ -43,8 +43,7 @@ namespace In2InGlobal.presentation.admin
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Companies.json");
-            ddlCompanyName.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
-            ddlCompanyName.DataValueField = "CompanyName";
+            ddlCompanyName.DataSource = JsonConvert.DeserializeObject<DataTable>(json);            
             ddlCompanyName.DataBind();
         }
         private void BindRoles()
