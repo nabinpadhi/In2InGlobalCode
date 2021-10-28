@@ -1,62 +1,62 @@
 [
   {
-    "CompanyName": "In2In Global Technology",
+    "Company ID": "COM-001",
+    "Company Name" : "In2In Global Technology",
     "Email": "sujaymondal@gmail.com",
-    "Address": "FLAT NO. 204, B BLOCK, \n JYOTHI GT ENCLAVE \n DODDAKANNELLI-CHIKKANAYAKANA HALLI RD, \n BENGALURU \n KA 560035 IN",
-    "Remarks": "Other computer related activities [for \n example maintenance of websites of \n other firms/ creation of multimedia \n presentations for other firms etc.],"
+    "Phone No": "+919876787644"
   },
   {
-    "CompanyName": "Free Lancer",
+    "Company ID": "COM-002",
+    "Company Name": "Free Lancer",
     "Email": "nabinpadhi@gmail.com",
-    "Address": "Kasakendu, \n Bhawanipatna \n Kalahandi, \n Odisha \n 766002 IN",
-    "Remarks": "Dedicatedly involved into free \n lancing since 2015. Happy \n to deliver my client requirement in-time."
+    "Phone No": "+917876787646"
   },
   {
-    "CompanyName": "My Company 2",
+    "Company ID": "COM-003",
+    "Company Name": "My Company 2",
     "Email": "test2@gmail.com",
-    "Address": "Address goes here.",
-    "Remarks":"Anything extra can be given here."
+    "Phone No": "+919823787644"
   },
   {
-    "CompanyName": "My Company 3",
+    "Company ID": "COM-004",
+    "Company Name": "My Company 3",
     "Email": "test3@gmail.com",
-    "Address": "Address goes here.",
-    "Remarks": "Anything extra can be given here."
+    "Phone No": "+917754787644"
   },
   {
-    "CompanyName": "My Company 4",
+    "Company ID": "COM-005",
+    "Company Name": "My Company 4",
     "Email": "test4@gmail.com",
-    "Address": "Address goes here.",
-    "Remarks": "Anything extra can be given here."
+    "Phone No": "+917790432644"
   },
   {
-    "CompanyName": "My Company 5",
+    "Company ID": "COM-006",
+    "Company Name": "My Company 5",
     "Email": "test5@gmail.com",
-    "Address": "Address goes here.",
-    "Remarks": "Anything extra can be given here."
+    "Phone No": "+918965462644"
   },
   {
-    "CompanyName": "My Company 6",
+    "Company ID": "COM-007",
+    "Company Name": "My Company 6",
     "Email": "test6@gmail.com",
-    "Address": "Address goes here.",
-    "Remarks": "Anything extra can be given here."
+    "Phone No": "+917765462644"
   },
   {
-    "CompanyName": "My Company 7",
+    "Company ID": "COM-008",
+    "Company Name": "My Company 7",
     "Email": "test7@gmail.com",
-    "Address": "Address goes here.",
-    "Remarks": "Anything extra can be given here."
+    "Phone No": "+918965489744"
   },
   {
-    "CompanyName": "My Company 8",
+    "Company ID": "COM-009",
+    "Company Name": "My Company 8",
     "Email": "test8@gmail.com",
-    "Address": "Address goes here.",
-    "Remarks": "Anything extra can be given here."
+    "Phone No": "+917065462644"
   },
   {
-    "CompanyName": "Free Lancer",
+    "Company ID": "COM-010",
+    "Company Name": "Free Lancer",
     "Email": "test111@gmail.com",
-    "Address": "Address goes here.",
-    "Remarks": "Anything extra can be given here."
+    "Phone No": "+919090808344"
   }
 ]

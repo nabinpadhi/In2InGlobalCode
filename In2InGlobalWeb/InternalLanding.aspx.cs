@@ -13,6 +13,7 @@ namespace In2InGlobal.presentation.admin
                 ancFileMan.Attributes.Add("onclick", "javascript:OpenPage('admin/FileManagement.aspx?t=n');");
                 usrMngmnt.Visible = false;
                 comMngmnt.Visible = false;
+                tmpltMngmnt.Visible = false;
                 ancAnalytics.Attributes.Add("onclick", "javascript:OpenPage('about:blank');");
             }
             else
@@ -20,7 +21,8 @@ namespace In2InGlobal.presentation.admin
                 spnUserName.InnerText = "Sujay Mondal";
                 ancFileMan.Attributes.Add("onclick", "javascript:OpenPage('admin/FileManagement.aspx?t=a');");
                 usrMngmnt.Attributes.Add("onclick", "javascript:OpenPage('admin/UserManagement.aspx?t=a');");
-                comMngmnt.Attributes.Add("onclick", "javascript:OpenPage('admin/DataConfiguration.aspx?t=a');");
+                comMngmnt.Attributes.Add("onclick", "javascript:OpenPage('admin/CompanyManagement.aspx?t=a');");
+                tmpltMngmnt.Attributes.Add("onclick", "javascript:OpenPage('admin/TemplateManagement.aspx?t=a');");
                 ancAnalytics.Attributes.Add("onclick", "javascript:OpenPage('about:blank');");
             }
         }

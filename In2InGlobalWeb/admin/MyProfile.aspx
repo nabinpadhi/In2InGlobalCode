@@ -20,7 +20,7 @@
       <center>
            <center>
          <div style="width: 70%; border: 1px solid black; border-radius: 5px; margin-top: 30px;">
-             <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px;">My Profile</div>
+             <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px;height:40px;padding-top:10px;">My Profile</div>
           <div style="position:relative;padding:50px 30px 30px 30px;">
           <table style="width:90%;">
               <tr style="padding:10px">

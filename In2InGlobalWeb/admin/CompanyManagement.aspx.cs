@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace In2InGlobal.presentation.admin
 {
-    public partial class DataConfiguration : System.Web.UI.Page
+    public partial class CompanyManagement : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -46,15 +46,15 @@ namespace In2InGlobal.presentation.admin
             GridViewRowEventArgs ea = e as GridViewRowEventArgs;
             if (ea.Row.RowType == DataControlRowType.DataRow)
             {
+                
                 DataRowView drv = ea.Row.DataItem as DataRowView;
-                Object ob = drv["Address"];
+                Object ob = drv["Phone No"];
                 if (!Convert.IsDBNull(ob))
-                {
-                    TableCell cell = ea.Row.Cells[1];
-                    TableCell cell2 = ea.Row.Cells[2];
-                    if (cell2.Text.Length > 49)
+                {                    
+                    TableCell cell2 = ea.Row.Cells[3];
+                    if (cell2.Text.Length > 1)
                     {
-                        cell2.Text = cell2.Text.Substring(0, 50) + "...."; // format cell as percentage
+                        cell2.Text = "<img src='assets/img/mobile.png' style='width:25px;height:20px;'></span>" + " " + cell2.Text; 
                     }
                 }
             }

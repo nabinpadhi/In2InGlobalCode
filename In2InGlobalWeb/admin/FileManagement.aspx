@@ -58,15 +58,14 @@
                 margin-left: -1.3em; /* same as padding-left set on li */
                 width: 1.3em; /* same as padding-left set on li */
             }          
-    </style>
-   
+    </style>   
 </head>
 <body style="background-color:azure;">
    
     <form id="form1" runat="server">
         <center>
-            <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 30px;">
-             <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height:40px;"><span style="vertical-align:middle;">File Management</span></div>
+            <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 20px;">
+             <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height:40px;padding-top:10px;">File Management</div>
                 <table style="width: 100%; background-color: azure;">
                     <tr>
                         <td style="width: 75%;">
