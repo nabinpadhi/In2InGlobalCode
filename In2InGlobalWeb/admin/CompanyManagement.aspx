@@ -37,7 +37,7 @@
                                         <tr>
                                             <td>Phone Number</td>
                                             <td>
-                                                <input type="text" id="txtPhoneNo" style="width:97%;" runat="server"></input>
+                                                <input type="text" id="txtPhoneNo" style="width:97%;" runat="server" />
                                                    
                                             </td>
                                             <td></td>

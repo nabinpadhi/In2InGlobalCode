@@ -110,8 +110,6 @@ $('#forgotForm input').keypress(function (e) {
         }
   });
 
-});
-
 $('body').on('click','#forget_ps',function(){
 	$('#sign_in_div').hide();
 	$('#forgot_ps_div').show();

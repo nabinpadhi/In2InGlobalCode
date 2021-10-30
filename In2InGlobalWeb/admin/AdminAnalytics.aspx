@@ -7,7 +7,7 @@
     <title></title>
         <link href='https://fonts.googleapis.com/css?family=Work+Sans:300,400,600&Inconsolata:400,700' rel='stylesheet' type='text/css' />
 
-    <link rel="stylesheet" href="css/style.css" />  
+    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">

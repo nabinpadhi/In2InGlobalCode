@@ -868,9 +868,9 @@ $.layout.backwardCompatibility = {
 
 
 
-/*	============================================================
+/*	====
  *	BEGIN WIDGET: $( selector ).layout( {options} );
- *	============================================================
+ *	====
  */
 $.fn.layout = function (opts) {
 	var
