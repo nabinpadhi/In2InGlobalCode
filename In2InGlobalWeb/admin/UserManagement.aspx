@@ -37,7 +37,7 @@
                                         <tr>
                                             <td>Company Name</td>
                                             <td>                                                
-                                                <asp:DropDownList ID="ddlCompanyName" Width="100%" runat="server" DataTextField="Company Name"></asp:DropDownList>
+                                                <asp:DropDownList ID="ddlCompanyName" Width="80%" runat="server" DataTextField="Company Name"></asp:DropDownList>
                                             </td>
                                             <td>Role Name</td>
                                             <td>
@@ -46,8 +46,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Email<br />
-                                                <span style="font-size: xx-small">( user name )</span></td>
+                                            <td>User Name</td>
                                             <td>
                                                 <input type="text" id="txtEmail" runat="server" value="" /></td>
                                             <td>Password</td>
