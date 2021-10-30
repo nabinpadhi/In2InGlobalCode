@@ -40,6 +40,7 @@
                                             <td colspan="3">
                                                 <textarea id="txtInstruction" style="width:97%;height:70px;" runat="server"></textarea>                                                   
                                             </td>
+                                           
                                         </tr>
                                         <tr>
                                             <td>Upload Template</td>
