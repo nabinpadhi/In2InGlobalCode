@@ -24,8 +24,8 @@
                     <tr>
                         <td style="width: 80%;">
                             <center>
-                                <div style="width: 50%; border: 1px solid black; border-radius: 5px;margin-top:30px;">
-                                    <table>
+                                <div style="width: 80%; border: 1px solid black; border-radius: 5px;margin-top:30px;">
+                                    <table style="width: 80%;">
                                         <tr>
                                             <td>First Name</td>
                                             <td>
@@ -46,12 +46,21 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>User Name</td>
+                                            <td>Email ID</td>
                                             <td>
                                                 <input type="text" id="txtEmail" runat="server" value="" /></td>
                                             <td>Password</td>
                                             <td>
                                                 <input type="password" id="txtPassword" autocomplete="off" runat="server" value="" /></td>
+                                        </tr>
+                                         <tr>
+                                            <td>User Name</td>
+                                            <td>
+                                                <input type="text" id="txtUserName" runat="server" value="" /></td>
+                                            <td style="display:none;">Project</td>
+                                            <td>
+                                            <asp:DropDownList ID="ddlProjects" Visible="false" Width="100%" runat="server" DataTextField="ProjectName"></asp:DropDownList>    
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td colspan="4">

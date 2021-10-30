@@ -151,7 +151,7 @@ function Login() {
 			
 		},
 		success: function (result) {
-			if ($('#email').val() == 'admin@in2inglobal.com') {
+			if ($('#email').val() == 'admin') {
 				target = '?target=admin';
 			}
 	

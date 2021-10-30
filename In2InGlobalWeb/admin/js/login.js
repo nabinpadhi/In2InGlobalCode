@@ -101,18 +101,18 @@ $('#forgotForm input').keypress(function (e) {
 
     $(".loginButton").click(function() {
         if ($('#remember').is(':checked')) {
-            var email = $('#email').val();
+            var username = $('#username').val();
             var password = $('#password').val();
 
             // set cookies to expire in 20*365 days
-            $.cookie('email', email, { expires: 20*365 });
+            $.cookie('username', email, { expires: 20*365 });
             $.cookie('password', password, { expires: 20*365 });
             $.cookie('remember', true, { expires: 20*365 });                
         }
         else
         {
             // reset cookies
-            $.cookie('email', null);
+            $.cookie('username', null);
             $.cookie('password', null);
             $.cookie('remember', null);
         }
@@ -151,17 +151,18 @@ function Login() {
 		type: "POST",
 		url: BASE_URL,
 		data: formData,
-		enctype:'multipart/form-data',
-		contentType : false,
-		processData : false,
-		beforeSend:function(){
+		enctype: 'multipart/form-data',
+		contentType: false,
+		processData: false,
+		beforeSend: function () {
 
-			$('.loginButton').prop('disabled',true);
+			$('.loginButton').prop('disabled', true);
 			$('.loginButton').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Logging...');
-			
+
 		},
 		success: function (result) {
-			if ($('#email').val() == 'admin@in2inglobal.com') {
+			
+			if ($('#username').val() == 'admin') {
 				target = '?target=admin';
 			}
 	

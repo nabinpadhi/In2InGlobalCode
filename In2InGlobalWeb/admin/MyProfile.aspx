@@ -77,12 +77,18 @@
                   <td><input type="text" readonly="true" value="sujaymondal@gmail.com" runat="server" id="email" /></td>
                   <td style="padding:10px">Activity Access  :</td>
                   <td><input type="text" readonly="true" value="Administrator" runat="server" id="activityaccess" /></td>                 
-              </tr>
+              </tr>              
                <tr>
                   <td style="padding:10px">Role  :</td>
                   <td><input type="text" readonly="true" value="Management" runat="server" id="role" /></td>
                   <td style="padding:10px">Status  :</td>                    
                   <td><input type="text" readonly="true" id="status" runat="server" value="Active" /></td>                 
+              </tr>
+               <tr>
+                  <td style="padding:10px">User Name  :</td>
+                  <td><input type="text" readonly="true" value="Management" runat="server" id="txtUserName" /></td>
+                  <td colspan="2" style="padding:10px"></td>                    
+                                 
               </tr>
           </table>
               </div>

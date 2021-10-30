@@ -23,11 +23,20 @@ namespace In2InGlobal.presentation.admin
                     BindUsers();
                     BindCompany();
                     BindRoles();
+                    BindProjects();
                 }
             }
 
         }
 
+        private void BindProjects()
+        {
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Projects.json");
+            ddlProjects.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
+            ddlProjects.DataBind();
+        }
         private void BindUsers()
         {
 

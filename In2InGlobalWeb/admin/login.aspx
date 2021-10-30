@@ -14,7 +14,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
- <title>Admin Login | In2inglobal</title>
+ <title>Login | In2inglobal</title>
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
   <link href="css/admin.css" rel="stylesheet">
@@ -53,7 +53,7 @@
                               <div  style="background-color:#037f7f;width:80%;border-radius:3px;border:solid 1px #037f7f;">User Name</div></td>
                           <td style="width:50%;">
                               <div>
-                                  <input type="email" class="form-control validate" autocomplete="off" name="email" id="email" data-validate-msg="User Name field is required" placeholder="Enter User Name">
+                                  <input type="text" class="form-control validate" autocomplete="off" name="username" id="username" data-validate-msg="User Name field is required" placeholder="Enter User Name">
                               </div>
                           </td>
                       </tr>
@@ -175,8 +175,8 @@
     var BASE_URL = 'login.aspx'; 
     $(document).ready(function () {
        
-            $("#email").change(function () {
-                if ($('#email').val().indexOf('admin') > -1) {
+            $("#username").change(function () {
+                if ($('#username').val().indexOf('admin') > -1) {
                     $('#companyname').val('In2In Global');
                     $('#ddlActivity').val('All');
                 }
