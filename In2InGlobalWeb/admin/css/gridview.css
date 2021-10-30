@@ -3,10 +3,10 @@
 .pagination-ys {
     color: white;
     background-color: #4472c4;
-    border: 1px solid #dddddd;
-    
+    border: 1px solid #dddddd;    
     text-indent: 5px;    
     border-radius: 5px;
+    
 }  
     .pagination-ys table > tbody > tr > td > a, .pagination-ys table > tbody > tr > td > span {
         position: relative;

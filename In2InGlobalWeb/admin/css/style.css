@@ -559,4 +559,7 @@ body {
 
 .list {
     max-height: 200px;
-} 
+}
+.menu_frame_title {
+    font-size: 20px;
+}

@@ -53,7 +53,7 @@
                               <div  style="background-color:#037f7f;width:80%;border-radius:3px;border:solid 1px #037f7f;">User Name</div></td>
                           <td style="width:50%;">
                               <div>
-                                  <input type="email" class="form-control validate" autocomplete="off" name="email" id="email" data-validate-msg="Email field is required" placeholder="Enter Email Address">
+                                  <input type="email" class="form-control validate" autocomplete="off" name="email" id="email" data-validate-msg="User Name field is required" placeholder="Enter User Name">
                               </div>
                           </td>
                       </tr>

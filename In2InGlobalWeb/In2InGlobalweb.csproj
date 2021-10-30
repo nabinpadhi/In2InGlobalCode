@@ -82,6 +82,7 @@
   <ItemGroup>
     <Content Include="admin\AdminAnalytics.aspx" />
     <Content Include="admin\assets\img\mobile.png" />
+    <Content Include="admin\js\User.js" />
     <Content Include="admin\TemplateManagement.aspx" />
     <Content Include="admin\css\gridview.css" />
     <Content Include="admin\CompanyManagement.aspx" />

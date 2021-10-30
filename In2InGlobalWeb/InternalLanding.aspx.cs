@@ -14,7 +14,7 @@ namespace In2InGlobal.presentation.admin
                 usrMngmnt.Visible = false;
                 comMngmnt.Visible = false;
                 tmpltMngmnt.Visible = false;
-                ancAnalytics.Attributes.Add("onclick", "javascript:OpenPage('about:blank');");
+                ancAnalytics.Attributes.Add("onclick", "javascript:OpenPage('https://analytics.zoho.in/open-view/210664000000009321');");
             }
             else
             {
@@ -23,7 +23,7 @@ namespace In2InGlobal.presentation.admin
                 usrMngmnt.Attributes.Add("onclick", "javascript:OpenPage('admin/UserManagement.aspx?t=a');");
                 comMngmnt.Attributes.Add("onclick", "javascript:OpenPage('admin/CompanyManagement.aspx?t=a');");
                 tmpltMngmnt.Attributes.Add("onclick", "javascript:OpenPage('admin/TemplateManagement.aspx?t=a');");
-                ancAnalytics.Attributes.Add("onclick", "javascript:OpenPage('about:blank');");
+                ancAnalytics.Attributes.Add("onclick", "javascript:OpenPage('https://analytics.zoho.in/workspace/210664000000004003');");
             }
         }
     }
