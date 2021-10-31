@@ -7,36 +7,33 @@
     <title></title>
     <script>document.getElementsByTagName("html")[0].className += " js";</script>
     <link rel="stylesheet" href="admin/assets/css/style.css" />
-    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 <body onload="loadIframe();">
     <form status="1" id="form1" runat="server">
+        <div class="new-container">
         <header class="cd-main-header js-cd-main-header" style="background-color: #03989e;height:83px;">           
             <div style="position:fixed;left:10px;top:10px;color:yellow;"><img src="../images/in2ingloballogo.png" style="width:40%;" /></div>
             <ul class="cd-nav__list js-cd-nav__list">
 
                 <li class="cd-nav__item cd-nav__item--has-children cd-nav__item--account js-cd-item--has-children">
-                    <div class="rounded-circle" style="cursor: pointer;">
-                        <img alt="Logged In.." src="admin/assets/img/loggedInAvatar.jpg" />
-                        <a style="margin-left:-10px;" href="admin/login.aspx">Logout</a>
+                    <div class="rounded-circle">
+                         <div style="position: sticky; margin-left: auto;">                             
+                        <img style="margin-left:15px;" alt="Logged In.." src="admin/assets/img/loggedInAvatar.jpg" /></div>
+                        <a href="admin/login.aspx"><span>Logout</span></a>
                     </div>                   
                 </li>
             </ul>
         </header>
-        <!-- .cd-main-header -->
-
-        <main class="cd-main-content" style="width:100%;">
-            <nav class="cd-side-nav js-cd-side-nav" style="padding-top: 70px;">
-                <ul class="cd-side__list js-cd-side__list">
-                    <!-- <li class="cd-side__label"><span>Main</span></li>-->
+        <main class="cd-main-content" style="width:100%; position:fixed;left:0px;top:10px;">
+            <nav class="cd-side-nav js-cd-side-nav" style="padding-top: 70px;height:100%;">
+                <ul class="cd-side__list js-cd-side__list">                    
                     <li class="cd-side__item cd-side__item--has-children cd-side__item--user js-cd-item--has-children">
                         <a href="#" onclick="javascript:OpenPage('admin/MyProfile.aspx');">My Profile</a>
                     </li>
-
                     <li class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children">
                         <a href="#" id="ancFileMan" runat="server">File Management</a>
                     </li>
-
                     <li class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children">
                         <a href="#" id="ancAnalytics" runat="server">Analytics</a>
                     </li>
@@ -53,7 +50,7 @@
                 </ul>
             </nav>
 
-            <div style="padding-top:50px;background-color:azure;">               
+            <div style="padding-top:50px;bottom:0px; background-color:azure;">               
                 <iframe style="width: 100%; height: 84.8%" id="frmTarget" src="#"></iframe>
                 <div style="position: sticky; margin-left: auto;">
                     <div style="background: #212121;padding: 30px 0;">
@@ -66,7 +63,8 @@
             
             <!-- .content-wrapper -->
         </main>       
-    </form>
+    </div>
+            </form>
      <!-- .cd-main-content -->
         <script src="admin/assets/js/util.js"></script>
         <!-- util functions included in the CodyHouse framework -->

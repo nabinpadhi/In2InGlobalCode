@@ -126,6 +126,11 @@ img, video, svg {
 	margin-right: auto
 }
 
+.new-container{
+	min-width:800px;
+	width: auto !important;
+	width:800px;
+}
 .max-width-xxs {
 	max-width: 32rem;
 	max-width: var(--max-width-xxs)
@@ -3564,7 +3569,7 @@ a {
 		display: grid;
 		grid-template-columns: 100% 1fr;
 		grid-template-columns: var(--cd-sidebar-width) 1fr;
-		min-height: 100vh
+		min-height: 100%;
 	}
 }
 
