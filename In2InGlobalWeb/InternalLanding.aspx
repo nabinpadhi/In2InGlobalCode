@@ -11,14 +11,7 @@
 </head>
 <body onload="loadIframe();">
     <form status="1" id="form1" runat="server">
-        <header class="cd-main-header js-cd-main-header" style="background-color: #03989e;height:83px;">
-            <!--
-            <div class="rounded-circle" style="cursor:pointer;">
-                
-                    <img alt="Logged In.." src="../images/in2ingloballogo.png" />
-                    <span id="spnUserName" style="color:white;text-transform:uppercase;font-size:medium;vertical-align:text-top;" runat="server"></span>
-                
-            </div>-->
+        <header class="cd-main-header js-cd-main-header" style="background-color: #03989e;height:83px;">           
             <div style="position:fixed;left:10px;top:10px;color:yellow;"><img src="../images/in2ingloballogo.png" style="width:40%;" /></div>
             <ul class="cd-nav__list js-cd-nav__list">
 

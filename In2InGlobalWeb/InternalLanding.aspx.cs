@@ -9,7 +9,7 @@ namespace In2InGlobal.presentation.admin
             string target = Request.QueryString.Get("target");
             if (target == "NormalUser")
             {
-                spnUserName.InnerText = "Ganeswar Sahoo";
+                
                 ancFileMan.Attributes.Add("onclick", "javascript:OpenPage('admin/FileManagement.aspx?t=n');");
                 usrMngmnt.Visible = false;
                 comMngmnt.Visible = false;
@@ -17,8 +17,7 @@ namespace In2InGlobal.presentation.admin
                 ancAnalytics.Attributes.Add("onclick", "javascript:OpenPage('https://analytics.zoho.in/open-view/210664000000009321');");
             }
             else
-            {
-                spnUserName.InnerText = "Sujay Mondal";
+            {                
                 ancFileMan.Attributes.Add("onclick", "javascript:OpenPage('admin/FileManagement.aspx?t=a');");
                 usrMngmnt.Attributes.Add("onclick", "javascript:OpenPage('admin/UserManagement.aspx?t=a');");
                 comMngmnt.Attributes.Add("onclick", "javascript:OpenPage('admin/CompanyManagement.aspx?t=a');");
