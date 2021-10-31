@@ -83,13 +83,7 @@
                   <td><input type="text" readonly="true" value="Management" runat="server" id="role" /></td>
                   <td style="padding:10px">Status  :</td>                    
                   <td><input type="text" readonly="true" id="status" runat="server" value="Active" /></td>                 
-              </tr>
-               <tr>
-                  <td style="padding:10px">User Name  :</td>
-                  <td><input type="text" readonly="true" value="Management" runat="server" id="txtUserName" /></td>
-                  <td colspan="2" style="padding:10px"></td>                    
-                                 
-              </tr>
+              </tr>              
           </table>
               </div>
              </div>

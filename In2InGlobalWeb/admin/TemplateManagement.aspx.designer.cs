@@ -24,13 +24,22 @@ namespace In2InGlobal.presentation.admin
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// txtTemplateName control.
+        /// ddlTemplates control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtTemplateName;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTemplates;
+
+        /// <summary>
+        /// ddlUsers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlUsers;
 
         /// <summary>
         /// ddlProjects control.
@@ -49,15 +58,6 @@ namespace In2InGlobal.presentation.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTextArea txtInstruction;
-
-        /// <summary>
-        /// upldTemplate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload upldTemplate;
 
         /// <summary>
         /// grdTemplate control.

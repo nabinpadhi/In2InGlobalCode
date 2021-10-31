@@ -26,6 +26,8 @@ namespace In2InGlobal.presentation.admin
                 {
                     BindProjects();
                     BindTemplate();
+                    BindTemplateName();
+                    BindUserNames();
                     // BindRoles();
                 }
             }
@@ -39,6 +41,24 @@ namespace In2InGlobal.presentation.admin
             string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Template.json");
             grdTemplate.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
             grdTemplate.DataBind();
+        }
+        private void BindUserNames()
+        {
+
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Users.json");
+            ddlUsers.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
+            ddlUsers.DataBind();
+        }
+        private void BindTemplateName()
+        {
+
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/TemplateRawFiles.json");
+            ddlTemplates.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
+            ddlTemplates.DataBind();
         }
         private void BindProjects()
         {

@@ -15,7 +15,6 @@ namespace In2InGlobal.presentation.admin
                 activityaccess.Value = "Normal User";
                 role.Value = "Customer";
                 status.Value = "Active";
-                txtUserName.Value = "ganesh";
             }
             else
             {
@@ -24,8 +23,7 @@ namespace In2InGlobal.presentation.admin
                 email.Value = "sujaymondal@gmail.com";
                 activityaccess.Value = "Administrator";
                 role.Value = "Management";
-                status.Value = "Active";
-                txtUserName.Value = "admin";
+                status.Value = "Active";                
             }
         }
     }
