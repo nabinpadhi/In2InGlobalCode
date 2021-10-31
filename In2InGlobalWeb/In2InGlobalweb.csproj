@@ -150,7 +150,6 @@
     <Content Include="images\LoginScreenImg1.png" />
     <Content Include="css\garagedoor.css" />
     <Content Include="css\style.css" />
-    <Content Include="Index.aspx" />
     <Content Include="InternalLanding.aspx" />
     <Content Include="jquery\eHelp\cursor.png" />
     <Content Include="jquery\eHelp\inlineJSon998913.html" />
@@ -1193,13 +1192,6 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Index.aspx.cs">
-      <DependentUpon>Index.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Index.aspx.designer.cs">
-      <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
     <Compile Include="InternalLanding.aspx.cs">
       <DependentUpon>InternalLanding.aspx</DependentUpon>
