@@ -47,18 +47,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ajax">
-      <HintPath>kss-ref\Ajax.dll</HintPath>
-    </Reference>
-    <Reference Include="AjaxControlToolkit">
-      <HintPath>kss-ref\AjaxControlToolkit\AjaxControlToolkit.dll</HintPath>
-    </Reference>
-    <Reference Include="AntiXSSLibrary">
-      <HintPath>kss-ref\AntiXSSLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="HtmlAgilityPack">
-      <HintPath>kss-ref\HtmlAgilityPack.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
