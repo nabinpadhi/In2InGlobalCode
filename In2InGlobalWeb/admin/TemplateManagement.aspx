@@ -42,7 +42,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Project Name</td>
+                                                        <td>ProjectName</td>
                                                         <td>
                                                             <asp:DropDownList ID="ddlProjects" Width="100%" runat="server" DataTextField="ProjectName"></asp:DropDownList>
                                                         </td>

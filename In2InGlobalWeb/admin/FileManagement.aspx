@@ -185,7 +185,7 @@
                                                                 <PagerStyle CssClass="pagination-ys" />
                                                                 <Columns>
                                                                     <asp:BoundField HeaderText="Template Name" DataField="TemplateName" />
-                                                                    <asp:BoundField HeaderText="Date Added" DataField="DateAdded" />
+                                                                    <asp:BoundField HeaderText="DateAdded" DataField="DateAdded" />
                                                                 </Columns>
                                                             </asp:GridView>
                                                         </td>

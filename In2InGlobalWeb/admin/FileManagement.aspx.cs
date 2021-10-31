@@ -70,17 +70,16 @@ namespace In2InGlobal.presentation.admin
             DataTable tblTemplate = JsonConvert.DeserializeObject<DataTable>(json);
             if (_pid != "")
             {
-                _pid = "ProjectID = '" + _pid +"'";
+                _pid = "ProjectName = '" + _pid +"'";
                 if (tblTemplate.Select(_pid).Length > 0)
                 {
                     tblTemplate = tblTemplate.Select(_pid).CopyToDataTable();
                     grdTemplate.DataSource = tblTemplate;
-                    
+                    grdTemplate.DataBind();
+
                 }
                 else { grdTemplate.DataSource = null; }
             }
-            grdTemplate.DataBind();
-
 
         }
         protected void grdUploadedFiles_PageIndexChanging(object sender, GridViewPageEventArgs e)

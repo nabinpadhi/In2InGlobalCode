@@ -1,38 +1,38 @@
 [
   {
-    "Template Name": "Analytic Template 001",
-    "Date Added": "10/10/2021",
-    "Project Name": "PRO - 0001"
+    "TemplateName": "Analytic Template 001",
+    "DateAdded": "10/10/2021",
+    "ProjectName": "PRO - 0001"
   },
   {
 
-    "Template Name": "Template 1",
-    "Date Added": "10/10/2020",
-    "Project Name": "PRO - 0001"
+    "TemplateName": "Template 1",
+    "DateAdded": "10/10/2020",
+    "ProjectName": "PRO - 0001"
   },
   {
-    "Template Name": "Template 2",
-    "Date Added": "09/10/2020",
-    "Project Name": "PRO - 0001"
+    "TemplateName": "Template 2",
+    "DateAdded": "09/10/2020",
+    "ProjectName": "PRO - 0001"
   },
   {
-    "Template Name": "Template 3",
-    "Date Added": "08/11/2020",
-    "Project Name": "PRO - 0005"
+    "TemplateName": "Template 3",
+    "DateAdded": "08/11/2020",
+    "ProjectName": "PRO - 0005"
   },
   {
-    "Template Name": "Template 4",
-    "Date Added": "19/10/2019",
-    "Project Name": "PRO - 0005"
+    "TemplateName": "Template 4",
+    "DateAdded": "19/10/2019",
+    "ProjectName": "PRO - 0005"
   },
   {
-    "Template Name": "Template 5",
-    "Date Added": "11/09/2019",
-    "Project Name": "PRO - 0007"
+    "TemplateName": "Template 5",
+    "DateAdded": "11/09/2019",
+    "ProjectName": "PRO - 0007"
   },
   {
-    "Template Name": "Template 7",
-    "Date Added": "10/10/2020",
-    "Project Name": "PRO - 0007"
+    "TemplateName": "Template 7",
+    "DateAdded": "10/10/2020",
+    "ProjectName": "PRO - 0007"
   }
 ]
