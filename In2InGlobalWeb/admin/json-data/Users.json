@@ -1,42 +1,44 @@
 [
   {
-    "UserName": "admin",
-    "First Name": "Sujay",
-    "Last Name": "Mondal",
-    "Company": "In2In Global",
-    "Email": "sujaymondal@In2InGlobal.com",
-    "Role": "Others"
-  },
-  {
-    "UserName": "ganesh",
-    "First Name": "Ganeswar",
-    "Last Name": "Sahoo",
-    "Company": "Free Lancer",
-    "Email": "ganeswarsahoo@gmail.com",
-    "Role": "Others"
-  },
-  {
-    "UserName": "rekha",
-    "First Name": "Rekha",
-    "Last Name": "Munmoon",
+    "FirstName": "Sujay",
+    "LastName": "Mondal",
     "Company": "In2InGlobal",
     "Email": "admin@In2InGlobal.com",
     "Role": "Admin"
   },
   {
-    "UserName": "nabin",
-    "First Name": "Nabin",
-    "Last Name": "Padhi",
+    "FirstName": "Ganeswar",
+    "LastName": "Sahoo",
     "Company": "Free Lancer",
-    "Email": "nabinpadhi.com",
+    "Email": "ganeswarsahoo@gmail.com",
+    "Role": "User"
+  },
+  {
+    "FirstName": "Nabin",
+    "LastName": "Padhi",
+    "Company": "Free Lancer",
+    "Email": "nabinpadhi.admin@gmail.com",
     "Role": "Admin"
   },
   {
-    "UserName": "akash",
-    "First Name": "Akash",
-    "Last Name": "Roy",
+    "FirstName": "Akash",
+    "LastName": "Roy",
     "Company": "In2InGlobal",
     "Email": "akashroy@In2InGlobal.com",
-    "Role": "Others"
+    "Role": "User"
+  },
+  {
+    "FirstName": "ABC",
+    "LastName": "EFG-updated",
+    "Company": "My Company 3",
+    "Email": "abcxyz@mycompany3.in",
+    "Role": "User"
+  },
+  {
+    "FirstName": "ABC",
+    "LastName": "EFO",
+    "Company": "My Company 3",
+    "Email": "abcefo@mycompany3.com",
+    "Role": "User"
   }
 ]

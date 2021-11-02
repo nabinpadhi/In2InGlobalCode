@@ -50,10 +50,10 @@
                    <table class="user" style="width:100%;">
                       <tr>
                           <td style="width:50%;text-align:center;color:white;font-weight:bold;">
-                              <div  style="background-color:#037f7f;width:80%;border-radius:3px;border:solid 1px #037f7f;">User Name</div></td>
+                              <div  style="background-color:#037f7f;width:80%;border-radius:3px;border:solid 1px #037f7f;">Email ID</div></td>
                           <td style="width:50%;">
                               <div>
-                                  <input type="text" class="form-control validate" autocomplete="off" name="username" id="username" data-validate-msg="User Name field is required" placeholder="Enter User Name">
+                                  <input type="email" class="form-control validate" autocomplete="off" name="email" id="email" data-validate-msg="Email ID field is required" placeholder="Enter Your Registered Email Id.">
                               </div>
                           </td>
                       </tr>
@@ -175,14 +175,15 @@
     var BASE_URL = 'login.aspx'; 
     $(document).ready(function () {
        
-            $("#username").change(function () {
-                if ($('#username').val().indexOf('admin') > -1) {
+            $("#email").change(function () {
+                if ($('#email').val().indexOf('admin') > -1) {
                     $('#companyname').val('In2In Global');
                     $('#ddlActivity').val('All');
+                    $('#ddlActivity').prop("disabled", true);
                 }
                 else
                 {
-
+                    $("#ddlActivity").removeAttr('disabled');
                     $('#companyname').val('My Company');
                     $('#ddlActivity').val('File Management');
                 }

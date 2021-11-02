@@ -105,14 +105,14 @@ $('#forgotForm input').keypress(function (e) {
             var password = $('#password').val();
 
             // set cookies to expire in 20*365 days
-            $.cookie('username', email, { expires: 20*365 });
+            $.cookie('email', email, { expires: 20*365 });
             $.cookie('password', password, { expires: 20*365 });
             $.cookie('remember', true, { expires: 20*365 });                
         }
         else
         {
             // reset cookies
-            $.cookie('username', null);
+            $.cookie('email', null);
             $.cookie('password', null);
             $.cookie('remember', null);
         }
@@ -162,7 +162,7 @@ function Login() {
 		},
 		success: function (result) {
 			
-			if ($('#username').val() == 'admin') {
+			if ($('#email').val().indexOf('admin') > -1) {
 				target = '?target=admin';
 			}
 	

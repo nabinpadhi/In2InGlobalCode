@@ -510,9 +510,9 @@ body {
     color: #fff;
     cursor: pointer;
     display: inline-block;
-    font-weight: 600;
-    height: 42px;
-    line-height: 42px;
+    font-weight: 400;
+    height: 32px;
+    line-height: 32px;
     outline: none;
     padding: 0 24px;
     text-align: center;
@@ -525,6 +525,7 @@ body {
 
     .button:hover, .button:focus {
         background-color: #4196fb;
+        color:blue;
     }
 
     .button:active, .button.nice-select.open {

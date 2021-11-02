@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Data;
+using System.IO;
 using System.Net;
+using System.Text;
 using System.Web.UI.WebControls;
 
 namespace In2InGlobal.presentation.admin
@@ -65,7 +67,7 @@ namespace In2InGlobal.presentation.admin
             ddlRoleName.DataValueField = "RoleName";
             ddlRoleName.DataBind();
         }
-
+      
         protected void grdUsers_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             BindUsers();
@@ -73,6 +75,83 @@ namespace In2InGlobal.presentation.admin
             grdUsers.DataBind();
         }
 
-       
+        protected void grdUsers_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            grdUsers.EditIndex = e.NewEditIndex;
+            BindUsers();
+        }
+
+        protected void grdUsers_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            string email = grdUsers.DataKeys[e.RowIndex].Value.ToString();
+            DeleteUser(email);
+            BindUsers();
+        }
+
+        protected void grdUsers_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            string useremailid = grdUsers.DataKeys[e.RowIndex].Value.ToString();
+            GridViewRow row = (GridViewRow)grdUsers.Rows[e.RowIndex];           
+           
+            TextBox textFirstName = (TextBox)row.Cells[0].Controls[0];
+            TextBox textLastName = (TextBox)row.Cells[1].Controls[0];
+            TextBox textCompany = (TextBox)row.Cells[2].Controls[0];
+            UpdateUser(textFirstName.Text,textLastName.Text,textCompany.Text,useremailid);
+            grdUsers.EditIndex = -1;
+           
+           BindUsers();
+        }
+
+        private void UpdateUser(string Fname, string Lname, string company,string email)
+        {
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Users.json");
+            DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
+            DataRow dr =  usrTable.Select("Email ='" + email + "'")[0];
+            dr[0] = Fname;
+            dr[1] = Lname;
+            dr[2] = company;
+            usrTable.AcceptChanges();
+            dr.SetModified();
+            string output = Newtonsoft.Json.JsonConvert.SerializeObject(usrTable, Newtonsoft.Json.Formatting.Indented);
+            File.WriteAllText(Server.MapPath("json-data/Users.json"), output);
+
+        }
+        private void DeleteUser(string email)
+        {
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Users.json");
+            DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
+            if (usrTable.Select("Email ='" + email + "'").Length > 0)
+            {
+                usrTable.Select("Email ='" + email + "'")[0].Delete();
+                usrTable.AcceptChanges();
+                string output = Newtonsoft.Json.JsonConvert.SerializeObject(usrTable, Newtonsoft.Json.Formatting.Indented);
+                File.WriteAllText(Server.MapPath("json-data/Users.json"), output);
+            }
+        }
+
+        protected void grdUsers_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            grdUsers.EditIndex = -1;
+            BindUsers();
+        }
+
+        protected void AddNewUser(object sender, EventArgs e)
+        {
+            
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Users.json");
+            DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
+            DataRow dr = usrTable.Rows.Add(txtFName.Value,txtLName.Value,ddlCompanyName.SelectedValue.ToString(),txtEmail.Value, ddlRoleName.SelectedValue.ToString()) ;
+            usrTable.AcceptChanges();
+            dr.SetModified();
+            string output = Newtonsoft.Json.JsonConvert.SerializeObject(usrTable, Newtonsoft.Json.Formatting.Indented);
+            File.WriteAllText(Server.MapPath("json-data/Users.json"), output);
+            BindUsers();
+        }
     }
 }
