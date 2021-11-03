@@ -32,17 +32,17 @@
                                                     <tr>
                                                         <td>Template Name</td>
                                                         <td>
-                                                            <asp:DropDownList ID="ddlTemplates" Width="100%" runat="server" DataTextField="Template Name"></asp:DropDownList>
+                                                            <asp:DropDownList ID="ddlTemplates" Width="100%" runat="server" DataTextField="TemplateName"></asp:DropDownList>
                                                         </td>
                                                     </tr>
                                                      <tr>
-                                                        <td>User Name</td>
+                                                        <td>Email Id</td>
                                                         <td>
-                                                            <asp:DropDownList ID="ddlUsers" Width="100%" runat="server" DataTextField="UserName"></asp:DropDownList>
+                                                            <asp:DropDownList ID="ddlUsers" Width="100%" runat="server" DataTextField="Email"></asp:DropDownList>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>ProjectName</td>
+                                                        <td>Project Name</td>
                                                         <td>
                                                             <asp:DropDownList ID="ddlProjects" Width="100%" runat="server" DataTextField="ProjectName"></asp:DropDownList>
                                                         </td>
