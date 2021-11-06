@@ -6,17 +6,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <script src="vendor/jquery/jquery.min.js"></script>
+
     <script type="text/javascript">
 </script>
 
     <link href='https://fonts.googleapis.com/css?family=Work+Sans:300,400,600&Inconsolata:400,700' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/gridview.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
-    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
+    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />   
+    <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/black/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/icon.css" />
+    <link href="../css/msgBoxLight.css" rel="stylesheet" type="text/css" />
+  
+   
 </head>
 <body>
-    <form id="form1" runat="server">
+    
+    <form id="form1" runat="server">         
         <center>
             <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 20px;">
                 <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height: 40px; padding-top: 10px;"><span class="menu_frame_title">User Management</span></div>
@@ -27,42 +33,39 @@
                                 <div style="width: 80%; border: 1px solid black; border-radius: 5px; margin-top: 30px;">
                                     <table style="width: 80%;">
                                         <tr>
-                                            <td>First Name</td>
+                                            <td>First Name(<span style="color:red">*</span>)</td>
                                             <td>
-                                                <input type="text" id="txtFName" runat="server" value="" /></td>
-                                            <td>Last Name</td>
+                                                <input type="text" id="txtFName" class="validate" data-validate-msg="First Name cannot be blank." runat="server" value="" /></td>
+                                            <td>Last Name(<span style="color:red">*</span>)</td>
                                             <td>
                                                 <input type="text" id="txtLName" runat="server" value="" /></td>
                                         </tr>
                                         <tr>
-                                            <td>Company Name</td>
+                                            <td>Company Name(<span style="color:red">*</span>)</td>
                                             <td>
-                                                <asp:DropDownList ID="ddlCompanyName" Width="80%" runat="server" DataTextField="Company Name"></asp:DropDownList>
+                                                <asp:DropDownList ID="ddlCompanyName" Width="80%" runat="server" DataTextField="Company Name">
+                                                   
+                                                </asp:DropDownList>
                                             </td>
-                                            <td>Role Name</td>
+                                            <td>Role Name(<span style="color:red">*</span>)</td>
                                             <td>
                                                 <asp:DropDownList ID="ddlRoleName" Width="100%" runat="server" DataTextField="RoleName"></asp:DropDownList>
 
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Email ID</td>
+                                            <td>Email ID(<span style="color:red">*</span>)</td>
                                             <td>
                                                 <input type="text" id="txtEmail" runat="server" value="" /></td>
-                                            <td>Password</td>
+                                            <td>Password(<span style="color:red">*</span>)</td>
                                             <td>
                                                 <input type="password" id="txtPassword" autocomplete="off" runat="server" value="" /></td>
-                                        </tr>
-                                        <tr>                                            
-                                            <td colspan="3">
-                                                <asp:DropDownList ID="ddlProjects" Visible="false" Width="100%" runat="server" DataTextField="ProjectName"></asp:DropDownList>
-                                            </td>
-                                        </tr>
+                                        </tr>                                       
                                         <tr>
                                             <td colspan="4">
                                                 <div style="margin-top: 10px;">
                                                     <center>
-                                                        <asp:Button runat="server" CssClass="button" Text="Save" OnClick="AddNewUser" />
+                                                        <asp:Button runat="server" CssClass="button" Text="Save" OnClientClick="return ValidateUser();" OnClick="AddNewUser" />
                                                         <input type="button" class="button" style="margin-left: 10px;" value="Cancel" onclick="ClearAll();" />
                                                     </center>
                                                 </div>
@@ -102,30 +105,71 @@
                 <br />
             </div>
         </center>
-    </form>
-    <script src="js/jquery.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/fastclick.js"></script>
-    <script src="js/prism.js"></script>
+    </form> 
+    <script src="../NewJEasyUI/jquery.min.js" type="text/javascript" language="javascript"></script>
+    <script src="../NewJEasyUI/jquery.easyui.min.js" type="text/javascript" language="javascript"></script>
+     <script src="../scripts/ErrorMessage.js" type="text/javascript" language="javascript"></script>
 
-    <script>
+    <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/Validation.js?"), DateTime.Now.Ticks) %>" type="text/javascript" language="javascript"></script>
+    <script src="js/jquery.nice-select.min.js" type="text/javascript" language="javascript"></script>
+    <script src="js/fastclick.js" type="text/javascript" language="javascript"></script>
+    <script src="js/prism.js" type="text/javascript" language="javascript"></script>
+    <script type="text/javascript">
+        /*var prm = Sys.WebForms.PageRequestManager.getInstance();
+        prm.add_initializeRequest(InitializeRequest);
+        prm.add_endRequest(EndRequest);
+        var postBackElement;
+        var xPos, yPos;
+        function ErrorWindowTopPosision(event) {
+            _ewTop = event.clientY;
+            _ewLeft = event.clientX - 200;
+            _ewTop = _ewTop - 25; //- 100;
+
+        }*/
+
         $(document).ready(function () {
             $('select:not(.ignore)').niceSelect();
             FastClick.attach(document.body);
+            ClearAll();
         });
-        function SaveUser() {
+        function ValidateUser() {
 
-            alert("A new user will be added using provided information.")
+            Error_Message = "";
+            Error_Count = 1;
+
+            CheckNull($("#txtFName").val(), in2in10);
+            CheckNull($("#txtLName").val(), in2in11);
+            CheckNullDropdown($("select[name='ddlCompanyName'] option:selected").index(), in2in5);
+            CheckNull($("select[name='ddlRoleName'] option:selected").index(), in2in12);
+            CheckNull($("#txtEmail").val(), in2in6);
+            CheckNull($('input[type="password"]').val(), in2in13);           
+            if (Error_Message != "") {
+                ShowError(Error_Message,80);
+                return false;
+            }
+            else {
+                return true;
+            }
         }
         function ClearAll() {
 
             $('#txtFName').val('');
             $('#txtLName').val('');
             $('#txtEmail').val('');
-            $('input[type="password"]#txtPawword').val('');
+            $('#ddlRoleName').prop('selectedIndex', 0);
+            $('#ddlCompanyName').prop('selectedIndex', 0);
+            ResetDropDowns();
+            $('input[type="password"]').val('');
         }
-    </script>
-    <script>
+        function ResetDropDowns() {
+            var companyddl = $('.nice-select')[0];
+            var roleddl = $('.nice-select')[1];
+            $(companyddl).find('.current').remove();
+            $(companyddl).append("<span class='current'>--Select a Company--</span>");
+            $(roleddl).find('.current').remove();
+            $(roleddl).append("<span class='current'>--Select a Role--</span>");
+        }
+        
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
                 (i[r].q = i[r].q || []).push(arguments)
@@ -136,6 +180,7 @@
         ga('create', 'UA-64633646-1', 'auto');
         ga('send', 'pageview');
 
+        function ShowHidden() { }
     </script>
     <style type="text/css">
         body {

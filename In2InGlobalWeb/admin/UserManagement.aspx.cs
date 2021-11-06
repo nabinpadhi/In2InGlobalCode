@@ -24,21 +24,12 @@ namespace In2InGlobal.presentation.admin
                 {
                     BindUsers();
                     BindCompany();
-                    BindRoles();
-                    BindProjects();
+                    BindRoles();                  
                 }
             }
 
         }
-
-        private void BindProjects()
-        {
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Projects.json");
-            ddlProjects.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
-            ddlProjects.DataBind();
-        }
+      
         private void BindUsers()
         {
 
@@ -51,11 +42,16 @@ namespace In2InGlobal.presentation.admin
         private void BindCompany()
         {
 
+           
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Companies.json");
             ddlCompanyName.DataSource = JsonConvert.DeserializeObject<DataTable>(json);            
             ddlCompanyName.DataBind();
+            ddlCompanyName.Items.Insert(0, "--Select Company--");
+//            ddlCompanyName.AppendDataBoundItems = true;
+            ddlCompanyName.SelectedIndex = 0;
+
         }
         private void BindRoles()
         {
@@ -66,6 +62,9 @@ namespace In2InGlobal.presentation.admin
             ddlRoleName.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
             ddlRoleName.DataValueField = "RoleName";
             ddlRoleName.DataBind();
+            ddlRoleName.Items.Insert(0, "--Select a Role--");
+            //            ddlCompanyName.AppendDataBoundItems = true;
+            ddlRoleName.SelectedIndex = 0;
         }
       
         protected void grdUsers_PageIndexChanging(object sender, GridViewPageEventArgs e)

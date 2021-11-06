@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Example Time!</title>
+    <link rel="Stylesheet" href="css/jquery.validity.css" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <style type="text/css">
+        
+        .formPad { padding:1em; }
+    </style>
+    <script type="text/javascript" src="../../jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.validity.min.js"></script>
+    <script>
+        $(function() {
+            $("form").validity(function() {
+                $("#quantity")
+                    .require()
+                    .match("decimal");
+            });
+        });
+    </script>
+</head>
+<body>
+    <form method="get" action="itworked.htm">
+        <div class="formPad">
+            <input type="text" id="quantity" name="val" />
+        </div>
+        <div class="formPad">
+            <input class="btn" type="submit" value="Submit" />
+        </div>
+    </form>
+</body>
+</html>

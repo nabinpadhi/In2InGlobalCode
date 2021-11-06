@@ -1,12 +1,5 @@
 [
   {
-    "FirstName": "Sujay",
-    "LastName": "Mondal",
-    "Company": "In2InGlobal",
-    "Email": "admin@In2InGlobal.com",
-    "Role": "Admin"
-  },
-  {
     "FirstName": "Ganeswar",
     "LastName": "Sahoo",
     "Company": "Free Lancer",
@@ -47,5 +40,12 @@
     "Company": "My Company 4",
     "Email": "test.match@mycom4.co.in",
     "Role": "User"
+  },
+  {
+    "FirstName": "Ram",
+    "LastName": "Bhagwan",
+    "Company": "Free Lancer",
+    "Email": "rambhagwan@freelancer.com",
+    "Role": "Admin"
   }
 ]
