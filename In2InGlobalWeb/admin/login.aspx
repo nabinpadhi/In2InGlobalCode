@@ -158,7 +158,7 @@
 </div> 
 		</div>
 	</div>
-
+    <input type="hidden" name="hdnPageAction" id="hdnPageAction" value="" runat="server" />
 	<!-- Bootstrap core JavaScript-->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

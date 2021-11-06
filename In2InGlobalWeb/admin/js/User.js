@@ -134,7 +134,8 @@ function IsEmail(email) {
   }
 }
 
-function Login() {	
+function Login() {
+	
 	var formData = new FormData($("#loginForm")[0]);
 	var target ='?target=NormalUser';
 	$.ajax({

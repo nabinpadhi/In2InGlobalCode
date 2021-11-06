@@ -111,6 +111,10 @@
     <Content Include="admin\vendor\fontawesome-free\webfonts\fa-solid-900.svg" />
     <Content Include="admin\vendor\jquery-easing\jquery.easing.min.js" />
     <Content Include="admin\vendor\jquery\jquery.min.js" />
+    <Content Include="AjaxOtherDLL\Ajax.dll" />
+    <Content Include="AjaxOtherDLL\AjaxControlToolkit.dll" />
+    <Content Include="AjaxOtherDLL\AntiXSSLibrary.dll" />
+    <Content Include="AjaxOtherDLL\HtmlAgilityPack.dll" />
     <Content Include="css\anythingslider-ie.css" />
     <Content Include="css\anythingslider.css" />
     <Content Include="css\landing-default-font-awesome.min.css" />

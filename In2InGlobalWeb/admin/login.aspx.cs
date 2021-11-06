@@ -11,9 +11,20 @@ namespace In2InGlobal.presentation.admin
         {
             if (!IsPostBack)
             {
-                BindActivity();
-            }
+                BindActivity();                
 
+            }
+            else
+            {
+                if (hdnPageAction.Value=="Login")
+                {
+                    string emailid = Request.Form["email"];
+                    string pwd = Request.Form["password"];
+                    string companyname = Request.Form["companyname"];
+                    string activity = ddlActivity.SelectedValue.ToString();
+                }
+            }
+            
         }
         private void BindActivity()
         {

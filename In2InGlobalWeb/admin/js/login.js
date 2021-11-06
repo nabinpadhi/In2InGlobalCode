@@ -40,7 +40,7 @@ $('#forgotForm input').keypress(function (e) {
 				return false;
 			}
 		});
-		if(enable){
+		if (enable) {			
 			Login();
 		}
 	});
@@ -144,9 +144,11 @@ function IsEmail(email) {
   }
 }
 
-function Login() {	
-	var formData = new FormData($("#loginForm")[0]);
-	var target ='?target=NormalUser';
+function Login() {
+	
+	var formData = new FormData($("#loginForm")[0]);	
+	//$('#hdnPageAction').val('Login');
+	var target ='?target=NormalUser&pl=true';
 	$.ajax({
 		type: "POST",
 		url: BASE_URL,
