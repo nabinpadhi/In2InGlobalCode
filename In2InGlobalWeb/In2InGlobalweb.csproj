@@ -69,6 +69,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="admin\assets\img\mobile.png" />
+    <Content Include="admin\js\jquery-3.6.0.js" />
+    <Content Include="admin\js\require.js" />
     <Content Include="admin\js\User.js" />
     <Content Include="admin\TemplateManagement.aspx" />
     <Content Include="admin\css\gridview.css" />
