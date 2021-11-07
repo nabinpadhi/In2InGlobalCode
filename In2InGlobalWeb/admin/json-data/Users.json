@@ -4,48 +4,55 @@
     "LastName": "Sahoo",
     "Company": "Free Lancer",
     "Email": "ganeswarsahoo@gmail.com",
-    "Role": "User"
+    "Role": "User",
+    "Password" : "test123"
   },
   {
     "FirstName": "Nabin",
     "LastName": "Padhi",
     "Company": "Free Lancer",
     "Email": "nabinpadhi.admin@gmail.com",
-    "Role": "Admin"
+    "Role": "Admin",
+    "Password": "test123"
   },
   {
     "FirstName": "Akash",
     "LastName": "Roy",
     "Company": "In2InGlobal",
     "Email": "akashroy@In2InGlobal.com",
-    "Role": "User"
+    "Role": "User",
+    "Password": "test123"
   },
   {
     "FirstName": "ABC",
     "LastName": "EFG-updated",
     "Company": "My Company 3",
     "Email": "abcxyz@mycompany3.in",
-    "Role": "User"
+    "Role": "User",
+    "Password": "test123"
   },
   {
     "FirstName": "ABC",
     "LastName": "EFO",
     "Company": "My Company 3",
     "Email": "abcefo@mycompany3.com",
-    "Role": "User"
+    "Role": "User",
+    "Password": "test123"
   },
   {
     "FirstName": "test",
     "LastName": "match",
     "Company": "My Company 4",
     "Email": "test.match@mycom4.co.in",
-    "Role": "User"
+    "Role": "User",
+    "Password": "test123"
   },
   {
     "FirstName": "Ram",
     "LastName": "Bhagwan",
     "Company": "Free Lancer",
     "Email": "rambhagwan@freelancer.com",
-    "Role": "Admin"
+    "Role": "Admin",
+    "Password": "test123"
   }
 ]

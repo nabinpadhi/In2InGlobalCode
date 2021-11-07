@@ -94,7 +94,7 @@
                 <div class="custom-checkbox mb-3">
                   <input type="checkbox" class="custom-input checkAll" checked style="width:0%;" id="remember" name="remember">
                   <label class="custom-label" for="remember">Remember me</label>
-                    <button class="custom-button loginButton button"  type="button" style="margin-left:100px;">Login</button>
+                    <button class="custom-button loginButton button" id="loginbtn" name="loginbtn" type="button" style="margin-left:100px;">Login</button>
                 </div>
               </form>
               <hr>
@@ -174,21 +174,92 @@
 <script type="text/javascript">
     var BASE_URL = 'login.aspx'; 
     $(document).ready(function () {
-       
-            $("#email").change(function () {
+
+        $("#email").change(function () {
+            $('.loginButton').prop('disabled', false);
+            var usercompanyname = FillCompany($("#email").val());
+            if (usercompanyname != "") {
                 if ($('#email').val().indexOf('admin') > -1) {
-                    $('#companyname').val('In2In Global');
+                    $('#companyname').val(FillCompany($("#email").val()));
                     $('#ddlActivity').val('All');
                     $('#ddlActivity').prop("disabled", true);
                 }
-                else
-                {
+                else {
                     $("#ddlActivity").removeAttr('disabled');
-                    $('#companyname').val('My Company');
+                    $('#companyname').val(FillCompany($("#email").val()));
                     $('#ddlActivity').val('File Management');
                 }
-            });
+            }
+            else {
+                $('#companyname').val("No Company");
+                $('.loginButton').prop('disabled', true);
+            }
         });
+    });
+    function FillCompany(email) {
+
+        var return_companyname = function () {
+            var tmp = null;
+            var dataValue = "{ emailid:'" + email + "'}";
+            $.ajax({
+                'async': false,
+                'type': "POST",
+                'global': false,
+                'dataType': 'json',
+                contentType: 'application/json; charset=utf-8',
+                'url': "login.aspx/GetUserDetails",
+                'data': dataValue,
+                'success': function (data) {
+                    tmp = data.d;
+                }
+            });
+            return tmp;
+        }();
+       return return_companyname;
+    }
+
+    function Login() {
+        var target = '?target=NormalUser&pl=true';
+        var return_status = function () {
+            var tmp = null;
+            var email = $('#email').val();
+            var password = $('#password').val();
+            var dataValue = "{ emailid:'" + email + "',password:'" + password+"'}";
+            $.ajax({
+                'async': false,
+                'type': "POST",
+                'global': false,
+                'dataType': 'json',
+                contentType: 'application/json; charset=utf-8',
+                'url': "login.aspx/Dologin",
+                'data': dataValue,
+                beforeSend: function () {
+
+                    $('.loginButton').prop('disabled', true);
+                    $('.loginButton').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Logging...');
+
+                },
+                'success': function (data) {
+                    tmp = data.d;
+                }
+            });
+            return tmp;
+        }();
+       
+        if (return_status == "Success") {
+
+            $('.loginButton').html('Logged In');
+
+            toastr.success('Logged In', 'Success', { timeOut: 1000, progressBar: true, onHidden: function () { window.location.href = BASE_URL; } });
+            location.href = '../InternalLanding.aspx' + target;
+        }
+        else {
+            $('.loginButton').prop('disabled', false);
+            $('.loginButton').html('Login');
+            toastr.error(return_status, 'Error', { timeOut: 2000, closeButton: true, progressBar: true });
+        }
+        
+    }
 </script>
 <script src="js/login.js"></script>
 <script src="js/jquery.cookie.js"></script>

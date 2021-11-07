@@ -144,14 +144,14 @@ function IsEmail(email) {
   }
 }
 
-function Login() {
+function Loginold() {
 	
 	var formData = new FormData($("#loginForm")[0]);	
 	//$('#hdnPageAction').val('Login');
 	var target ='?target=NormalUser&pl=true';
 	$.ajax({
 		type: "POST",
-		url: BASE_URL,
+		url: BASE_URL +"/DoLogin",
 		data: formData,
 		enctype: 'multipart/form-data',
 		contentType: false,

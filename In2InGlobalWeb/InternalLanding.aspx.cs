@@ -7,7 +7,10 @@ namespace In2InGlobal.presentation.admin
         protected void Page_Load(object sender, EventArgs e)
         {
             string target = Request.QueryString.Get("target");
-            if (target == "NormalUser")
+
+            string LoggedInUsrRole = Session["UserRole"].ToString();
+
+            if (LoggedInUsrRole == "User")
             {
                 
                 ancFileMan.Attributes.Add("onclick", "javascript:OpenPage('admin/FileManagement.aspx?t=n');");
@@ -16,7 +19,7 @@ namespace In2InGlobal.presentation.admin
                 tmpltMngmnt.Visible = false;
                 ancAnalytics.Attributes.Add("onclick", "javascript:OpenPage('https://analytics.zoho.in/open-view/210664000000009321');");
             }
-            else
+            else if(LoggedInUsrRole == "Admin")
             {                
                 ancFileMan.Attributes.Add("onclick", "javascript:OpenPage('admin/FileManagement.aspx?t=a');");
                 usrMngmnt.Attributes.Add("onclick", "javascript:OpenPage('admin/UserManagement.aspx?t=a');");
