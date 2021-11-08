@@ -41,7 +41,7 @@ namespace In2InGlobal.presentation.admin
         [WebMethod]
         public static string GetUserDetails(string emailid)
         {
-            string companyName = "";
+            string companyNameandrole = "";
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Users.json");
@@ -49,13 +49,13 @@ namespace In2InGlobal.presentation.admin
             if (usrTable.Select("Email ='" + emailid + "'").Length > 0)
             {
                 DataRow dr = usrTable.Select("Email ='" + emailid + "'")[0];
-                companyName = dr["Company"].ToString();                
+                companyNameandrole = dr["Company"].ToString()+","+dr["Role"].ToString();                
             }
             else
             {
-                companyName = "";                
+                companyNameandrole = "";                
             }
-            return companyName;
+            return companyNameandrole;
 
         }
         [WebMethod(EnableSession = true)]

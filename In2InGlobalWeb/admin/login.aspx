@@ -46,7 +46,7 @@
                               <div  style="background-color:#037f7f;width:80%;border-radius:3px;border:solid 1px #037f7f;">Email ID</div></td>
                           <td style="width:50%;">
                               <div>
-                                  <input type="email" class="form-control validate" autocomplete="off" name="email" id="email" data-validate-msg="Email ID field is required" placeholder="Enter Your Email Id">
+                                  <input type="email" class="form-control validate" autocomplete="off" name="email" id="email" data-validate-msg="Email ID field is required" placeholder="Enter Your Email Id" />
                               </div>
                           </td>
                       </tr>
@@ -56,7 +56,7 @@
                           </td>
                           <td>
                               <div>
-                                  <input type="text" class="form-control" readonly="readonly" autocomplete="off" name="companyname" id="companyname">
+                                  <input type="text" class="form-control" readonly="readonly" autocomplete="off" name="companyname" id="companyname" />
                               </div>
                           </td>
                       </tr>
@@ -77,7 +77,7 @@
                           <td>
                             
                                <div>
-                                  <input type="password" class="form-control validate" autocomplete="off" id="password" name="password" data-validate-msg="Password field is required" placeholder="Password">
+                                  <input type="password" class="form-control validate" autocomplete="off" id="password" name="password" data-validate-msg="Password field is required" placeholder="Password" />
                               </div>
                           </td>
                       </tr>
@@ -167,13 +167,15 @@
 <script type="text/javascript">
     var BASE_URL = 'login.aspx'; 
     $(document).ready(function () {
-
+        
         $("#email").change(function () {
             $('.loginButton').prop('disabled', false);
-            var usercompanyname = FillCompany($("#email").val());
+            var usercompanynameandrole = FillCompany($("#email").val());
+            var usercompanyname = usercompanynameandrole.split(",")[0];
+            var userrole = usercompanynameandrole.split(",")[1];
             if (usercompanyname != "") {
-                if ($('#email').val().indexOf('admin') > -1) {
-                    $('#companyname').val(FillCompany($("#email").val()));
+                if (userrole == "Admin") {
+                    $('#companyname').val(usercompanyname);
                     $('#ddlActivity').val('All');
                     $('#ddlActivity').prop("disabled", true);
                 }
@@ -191,7 +193,7 @@
     });
     function FillCompany(email) {
 
-        var return_companyname = function () {
+        var return_companynameandrole = function () {
             var tmp = null;
             var dataValue = "{ emailid:'" + email + "'}";
             $.ajax({
@@ -208,7 +210,7 @@
             });
             return tmp;
         }();
-       return return_companyname;
+        return return_companynameandrole;
     }
 
     function Login() {

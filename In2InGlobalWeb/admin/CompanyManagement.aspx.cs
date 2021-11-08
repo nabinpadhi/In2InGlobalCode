@@ -1,11 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
+using System.IO;
 using System.Net;
 using System.Web;
-using System.Web.UI;
+using System.Web.Services;
 using System.Web.UI.WebControls;
 
 namespace In2InGlobal.presentation.admin
@@ -46,7 +45,7 @@ namespace In2InGlobal.presentation.admin
             {
                 
                 DataRowView drv = ea.Row.DataItem as DataRowView;
-                Object ob = drv["Phone No"];
+                Object ob = drv["PhoneNo"];
                 if (!Convert.IsDBNull(ob))
                 {                    
                     TableCell cell2 = ea.Row.Cells[3];
@@ -66,6 +65,58 @@ namespace In2InGlobal.presentation.admin
                 grdCompany.DataBind();
             
 
+        }
+        [WebMethod(EnableSession = true)]
+        public static string AddNewCompany(string companyname,string email,string phoneno)
+        {
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Companies.json");
+            DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
+
+            int _newNumber = usrTable.Rows.Count + 1;
+            string _companyID = "COM-";
+            if (_newNumber > 9 && _newNumber < 99)
+            {
+                _companyID = _companyID + "0" + _newNumber.ToString();
+            }
+            else
+            {
+                _companyID = _companyID + _newNumber.ToString();
+            }
+
+            DataRow dr = usrTable.Rows.Add(_companyID, companyname, email, phoneno);
+            usrTable.AcceptChanges();
+            dr.SetModified();
+            string output = Newtonsoft.Json.JsonConvert.SerializeObject(usrTable, Newtonsoft.Json.Formatting.Indented);
+            File.WriteAllText(HttpContext.Current.Server.MapPath("json-data/Companies.json"), output);
+            return "Success";
+        }
+
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Companies.json");
+            DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
+
+            int _newNumber = usrTable.Rows.Count + 1;
+            string _companyID = "COM-";
+            if (_newNumber > 9 && _newNumber < 99)
+            {
+                _companyID = _companyID + "0" + _newNumber.ToString();
+            }
+            else
+            {
+                _companyID = _companyID + _newNumber.ToString();
+            }
+
+            DataRow dr = usrTable.Rows.Add(_companyID, txtCompanyName.Value, txtEmail.Value, txtPhoneNo.Value);
+            usrTable.AcceptChanges();
+            dr.SetModified();
+            string output = Newtonsoft.Json.JsonConvert.SerializeObject(usrTable, Newtonsoft.Json.Formatting.Indented);
+            File.WriteAllText(Server.MapPath("json-data/Companies.json"), output);
+            
         }
     }
 }

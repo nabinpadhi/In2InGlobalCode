@@ -43,7 +43,7 @@
                                         <tr>
                                             <td>Company Name(<span style="color:red">*</span>)</td>
                                             <td>
-                                                <asp:DropDownList ID="ddlCompanyName" Width="80%" runat="server" DataTextField="Company Name">
+                                                <asp:DropDownList ID="ddlCompanyName" Width="80%" runat="server" DataTextField="CompanyName">
                                                    
                                                 </asp:DropDownList>
                                             </td>

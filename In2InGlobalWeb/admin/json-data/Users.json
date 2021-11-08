@@ -13,7 +13,7 @@
     "FirstName": "Nabin",
     "LastName": "Padhi",
     "Company": "Free Lancer",
-    "Email": "nabinpadhi.admin@gmail.com",
+    "Email": "nabinpadhi@gmail.com",
     "Role": "Admin",
     "ActivityAccess": "Administator",
     "Status": "Active",
@@ -66,7 +66,7 @@
     "Email": "rambhagwan@freelancer.com",
     "Role": "Admin",
     "ActivityAccess": "Administator",
-    "Status" :  "Active",
+    "Status": "Active",
     "Password": "test123"
   }
 ]

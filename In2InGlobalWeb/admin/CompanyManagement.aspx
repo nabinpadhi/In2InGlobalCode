@@ -5,15 +5,14 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script type="text/javascript">
-</script>
-
-     <link href='https://fonts.googleapis.com/css?family=Work+Sans:300,400,600&Inconsolata:400,700' rel='stylesheet' type='text/css' />
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
-    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/gridview.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
-    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
+    <title></title>  
+     <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />--%>
+    <link href="css/gridview.css" rel="stylesheet" type="text/css" />
+   <!-- <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />-->
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/black/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/icon.css" />
+    <link href="../css/msgBoxLight.css" rel="stylesheet" type="text/css" />
 </head>
 <body>   
     <form id="form1" runat="server">
@@ -27,15 +26,15 @@
                                 <div style="width: 50%; border: 1px solid black; border-radius: 5px;margin-top:10px;">
                                     <table>
                                         <tr>
-                                            <td>Company Name</td>
+                                            <td>Company Name(<span style="color:red">*</span>)</td>
                                             <td>
                                                 <input type="text" id="txtCompanyName" runat="server" value="" /></td>
-                                            <td>Email</td>
+                                            <td>Email(<span style="color:red">*</span>)</td>
                                             <td>
                                                 <input type="text" id="txtEmail" runat="server" value="" /></td>
                                         </tr>
                                         <tr>
-                                            <td>Phone Number</td>
+                                            <td>Phone Number(<span style="color:red">*</span>)</td>
                                             <td>
                                                 <input type="text" id="txtPhoneNo" style="width:97%;" runat="server" />
                                                    
@@ -46,8 +45,8 @@
                                         <tr>
                                             <td colspan="4">
                                                 <div style="margin-top: 30px;">
-                                                    <center>
-                                                        <input type="button" class="button" value="Save" onclick="SaveUser();" />
+                                                    <center>                                                       
+                                                        <asp:Button runat="server" ID="btnSave" CssClass="button" Text="Save" OnClientClick="return ValidateCompany();" OnClick="btnSave_Click" />
                                                         <input type="button" class="button" style="margin-left: 10px;" value="Cancel" onclick="ClearAll();" />
                                                     </center>
                                                 </div>
@@ -62,8 +61,8 @@
                     <tr>
                          <td style="width:50%;">
                             <center>
-                            <div style="width: 90%; border: 1px solid black; border-radius: 5px;margin-top:30px;margin-bottom:20px;">
-                                <asp:GridView ID="grdCompany" OnPageIndexChanging="grdCompany_PageIndexChanging" OnRowDataBound="grdCompany_RowDataBound" runat="server" Width="90%" HeaderStyle-CssClass="pagination-ys"
+                            <div style="width: 60%; border: 1px solid black; border-radius: 5px;margin-top:30px;margin-bottom:20px;">
+                                <asp:GridView ID="grdCompany" OnPageIndexChanging="grdCompany_PageIndexChanging" OnRowDataBound="grdCompany_RowDataBound" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
                                     AllowPaging="True" PageSize="4">
                                     <PagerStyle CssClass="pagination-ys" />
                                 </asp:GridView>
@@ -75,39 +74,87 @@
             </div>
         </center>
     </form>
-     <script src="js/jquery.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/fastclick.js"></script>
-    <script src="js/prism.js"></script>
+    <script src="../NewJEasyUI/jquery.min.js" type="text/javascript" language="javascript"></script>
+    <script src="../NewJEasyUI/jquery.easyui.min.js" type="text/javascript" language="javascript"></script>
+     <script src="../scripts/ErrorMessage.js" type="text/javascript" language="javascript"></script>
+    <script src="../scripts/Validation.js" type="text/javascript" language="javascript"></script>
 
-    <script>
-        $(document).ready(function () {
-            $('select:not(.ignore)').niceSelect();
-            FastClick.attach(document.body);            
+
+    <script type="text/javascript">
+
+        var BASE_URL = "CompanyManagement.aspx";
+        $(document).ready(function ()
+        {   
+            ClearAll();
         });
-        function SaveUser() {
-
-           alert("A new user will be added using provided information.")
-        }
         function ClearAll() {
 
-            $('#txtFName').val('');
-            $('#txtLName').val('');                        
-            $('#txtEmail').val('');            
-            $('input[type="password"]#txtPawword').val('');
+            $('#txtCompanyName').val('');
+            $('#txtEmail').val('');
+            $('#txtPhoneNo').val('');           
         }
-    </script>
-    <script>
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date(); a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        function ValidateCompany() {
 
-        ga('create', 'UA-64633646-1', 'auto');
-        ga('send', 'pageview');
-       
+            Error_Message = "";
+            Error_Count = 1;
+
+            CheckNull($('#txtCompanyName').val(), in2in5);
+            CheckNull($('#txtPhoneNo').val(), in2in14);
+            CheckNull($('#txtEmail').val(), in2in6);            
+            if (Error_Message != "")
+            {
+                //ShowError(Error_Message, 80);
+                $.messager.show({
+                    title: 'In2In Global - Errors',
+                    msg: Error_Message,
+                    showType: 'slide',
+                    style: {
+                        right: '',
+                        top: '',
+                        bottom: -document.body.scrollTop - document.documentElement.scrollTop
+                    }
+                });
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        
+        function AddCompany()
+        {
+            var return_status = function () {
+                var tmp = null;
+                var email = $('#txtEmail').val();
+                var companyname = $('#txtCompanyName').val();
+                var phoneno = $('#txtPhoneNo').val();
+                var dataValue = "{ companyname:'" + companyname + "', emailid:'" + email + "',phoneno:'" + phoneno + "'}";
+                $.ajax({
+                    'async': false,
+                    'type': "POST",
+                    'global': false,
+                    'dataType': 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    'url': "CompanyManagement.aspx/AddNewCompany",
+                    'data': dataValue,
+                    data: "{ companyname:'" + $('#txtCompanyName').val() + "', emailid:'" + $('#txtEmail').val() + "',phoneno:'" + $('#txtPhoneNo').val() + "'}",
+                    success: function (data) {
+                        tmp = data.d;
+                    }
+                });
+                return tmp;
+            }();
+
+            if (return_status == "Success") {
+
+                toastr.success('New company created', 'Success', { timeOut: 1000, progressBar: true, onHidden: function () { window.location.href = BASE_URL; } });
+            }
+        }
+        function ShowHidden()
+        {
+
+        }
     </script>
      <style type="text/css">
         body {
