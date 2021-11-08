@@ -5,7 +5,9 @@
     "Company": "Free Lancer",
     "Email": "ganeswarsahoo@gmail.com",
     "Role": "User",
-    "Password" : "test123"
+    "ActivityAccess": "Limited",
+    "Status": "Active",
+    "Password": "test123"
   },
   {
     "FirstName": "Nabin",
@@ -13,6 +15,8 @@
     "Company": "Free Lancer",
     "Email": "nabinpadhi.admin@gmail.com",
     "Role": "Admin",
+    "ActivityAccess": "Administator",
+    "Status": "Active",
     "Password": "test123"
   },
   {
@@ -21,6 +25,8 @@
     "Company": "In2InGlobal",
     "Email": "akashroy@In2InGlobal.com",
     "Role": "User",
+    "ActivityAccess": "Limited",
+    "Status": "Active",
     "Password": "test123"
   },
   {
@@ -29,6 +35,8 @@
     "Company": "My Company 3",
     "Email": "abcxyz@mycompany3.in",
     "Role": "User",
+    "ActivityAccess": "Limited",
+    "Status": "Active",
     "Password": "test123"
   },
   {
@@ -37,6 +45,8 @@
     "Company": "My Company 3",
     "Email": "abcefo@mycompany3.com",
     "Role": "User",
+    "ActivityAccess": "Limited",
+    "Status": "Active",
     "Password": "test123"
   },
   {
@@ -45,6 +55,8 @@
     "Company": "My Company 4",
     "Email": "test.match@mycom4.co.in",
     "Role": "User",
+    "ActivityAccess": "Limited",
+    "Status": "Deactive",
     "Password": "test123"
   },
   {
@@ -53,6 +65,8 @@
     "Company": "Free Lancer",
     "Email": "rambhagwan@freelancer.com",
     "Role": "Admin",
+    "ActivityAccess": "Administator",
+    "Status" :  "Active",
     "Password": "test123"
   }
 ]

@@ -14,8 +14,8 @@ namespace In2InGlobal.presentation.admin
         {
             if (!IsPostBack)
             {
-                string target = Request.QueryString.Get("t");
-                if (target != "a")
+                string usrRole = Session["UserRole"].ToString();
+                if (usrRole != "Admin")
                 {
                     Response.Redirect("Login.aspx");
 

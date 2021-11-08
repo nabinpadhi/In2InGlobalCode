@@ -68,21 +68,21 @@
           <table style="width:90%;">
               <tr style="padding:10px">
                   <td style="padding:10px">User Name  :</td>                  
-                  <td><input type="text" readonly="true" value="Sujay Mondal" runat="server" id="username" /></td>
+                  <td><input type="text" readonly="true" value="" runat="server" id="username" /></td>
                   <td style="padding:10px">Company Name  :</td>
-                  <td><input type="text" readonly="true" value="In2In Global" runat="server" id="companyname" /></td>                 
+                  <td><input type="text" readonly="true" value="" runat="server" id="companyname" /></td>                 
               </tr>
                <tr>
                   <td style="padding:10px">Email Id  :</td>
-                  <td><input type="text" readonly="true" value="sujaymondal@gmail.com" runat="server" id="email" /></td>
+                  <td><input type="text" readonly="true" value="" runat="server" id="email" /></td>
                   <td style="padding:10px">Activity Access  :</td>
-                  <td><input type="text" readonly="true" value="Administrator" runat="server" id="activityaccess" /></td>                 
+                  <td><input type="text" readonly="true" value="" runat="server" id="activityaccess" /></td>                 
               </tr>              
                <tr>
                   <td style="padding:10px">Role  :</td>
-                  <td><input type="text" readonly="true" value="Management" runat="server" id="role" /></td>
+                  <td><input type="text" readonly="true" value="" runat="server" id="role" /></td>
                   <td style="padding:10px">Status  :</td>                    
-                  <td><input type="text" readonly="true" id="status" runat="server" value="Active" /></td>                 
+                  <td><input type="text" readonly="true" id="status" runat="server" value="" /></td>                 
               </tr>              
           </table>
               </div>

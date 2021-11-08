@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 
 namespace In2InGlobal.presentation.admin
 {
@@ -6,24 +7,25 @@ namespace In2InGlobal.presentation.admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string target = Request.QueryString.Get("target");
-            if (target == "NormalUser")
+            string usrRole = Session["UserRole"].ToString();
+            if (!IsPostBack)
             {
-                username.Value = "Ganeswar Sahoo";
-                companyname.Value = "Freelancer";
-                email.Value = "ganeswarsahoo@gmail.com";
-                activityaccess.Value = "Normal User";
-                role.Value = "Customer";
-                status.Value = "Active";
+                FillUserDetails();
+
             }
-            else
+        }
+
+        private void FillUserDetails()
+        {
+            if (Session["UserRow"] != null)
             {
-                username.Value = "Sujay Mondal";
-                companyname.Value = "In2In Global";
-                email.Value = "sujaymondal@gmail.com";
-                activityaccess.Value = "Administrator";
-                role.Value = "Management";
-                status.Value = "Active";                
+                DataRow usrDataRow = (DataRow)Session["UserRow"];
+                username.Value = usrDataRow["FirstName"].ToString() + "  " + usrDataRow["LastName"].ToString();
+                companyname.Value = usrDataRow["Company"].ToString();
+                email.Value = usrDataRow["Email"].ToString();
+                activityaccess.Value = usrDataRow["ActivityAccess"].ToString();
+                role.Value = usrDataRow["Role"].ToString();
+                status.Value = usrDataRow["Status"].ToString();
             }
         }
     }

@@ -39,21 +39,14 @@
               <div class="text-center">
                 <h1 class="sec-title">Welcome back!</h1>
               </div>
-              <form class="user" id="loginForm" autocomplete="off" runat="server">
-               <!-- <div class="form-group">
-                  <input type="email" class="form-control form-control-user validate" autocomplete="off" name="email" id="email" data-validate-msg="Email field is required"  placeholder="Enter Email Address">
-                </div>
-                <div class="form-group">
-                  <input type="password" class="form-control form-control-user validate" autocomplete="off" id="password" name="password" data-validate-msg="Password field is required"  placeholder="Password">
-                </div>
-                   -->
+              <form class="user" id="loginForm" autocomplete="off" runat="server">              
                    <table class="user" style="width:100%;">
                       <tr>
                           <td style="width:50%;text-align:center;color:white;font-weight:bold;">
                               <div  style="background-color:#037f7f;width:80%;border-radius:3px;border:solid 1px #037f7f;">Email ID</div></td>
                           <td style="width:50%;">
                               <div>
-                                  <input type="email" class="form-control validate" autocomplete="off" name="email" id="email" data-validate-msg="Email ID field is required" placeholder="Enter Your Registered Email Id.">
+                                  <input type="email" class="form-control validate" autocomplete="off" name="email" id="email" data-validate-msg="Email ID field is required" placeholder="Enter Your Email Id">
                               </div>
                           </td>
                       </tr>
@@ -219,7 +212,7 @@
     }
 
     function Login() {
-        var target = '?target=NormalUser&pl=true';
+       
         var return_status = function () {
             var tmp = null;
             var email = $('#email').val();
@@ -251,7 +244,7 @@
             $('.loginButton').html('Logged In');
 
             toastr.success('Logged In', 'Success', { timeOut: 1000, progressBar: true, onHidden: function () { window.location.href = BASE_URL; } });
-            location.href = '../InternalLanding.aspx' + target;
+            location.href = '../InternalLanding.aspx';
         }
         else {
             $('.loginButton').prop('disabled', false);

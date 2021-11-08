@@ -68,12 +68,16 @@ namespace In2InGlobal.presentation.admin
             DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
             if (usrTable.Select("Email ='" + emailid + "' and Password = '"+password+"'").Length > 0)
             {
+                DataRow userRow = usrTable.Select("Email ='" + emailid + "' and Password = '" + password + "'")[0];
                 result = "Success";
-                HttpContext.Current.Session["UserRole"] = usrTable.Select("Email ='" + emailid + "' and Password = '" + password + "'")[0]["Role"].ToString();
+                HttpContext.Current.Session["UserRole"] = userRow["Role"].ToString();
+                HttpContext.Current.Session["UserRow"] = userRow;
             }
             else
             {
                 result = "Invalid email / password";
+                HttpContext.Current.Session["UserRole"] = null;
+                HttpContext.Current.Session["UserRow"] = null;
             }
             return result;
 

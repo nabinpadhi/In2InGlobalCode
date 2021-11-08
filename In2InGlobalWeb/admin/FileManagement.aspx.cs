@@ -15,8 +15,8 @@ namespace In2InGlobal.presentation.admin
                 BindFileGrid();
                 LoadTemplates();
                 BindProjects();
-                string target = Request.QueryString.Get("t");
-                if (target == "a")
+                string usrRole = Session["UserRole"].ToString();
+                if (usrRole == "Admin")
                 {
                     usrEmailTR.Visible = true;
                     tblTemplateDetail.Visible = true;
