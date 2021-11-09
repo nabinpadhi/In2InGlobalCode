@@ -68,5 +68,15 @@
     "ActivityAccess": "Administator",
     "Status": "Active",
     "Password": "test123"
+  },
+  {
+    "FirstName": "test1",
+    "LastName": "test2",
+    "Company": "My Company 2",
+    "Email": "no@test2.in",
+    "Role": "User",
+    "ActivityAccess": null,
+    "Status": null,
+    "Password": null
   }
 ]

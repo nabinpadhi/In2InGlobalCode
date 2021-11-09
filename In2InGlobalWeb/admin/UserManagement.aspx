@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
 
@@ -26,83 +26,88 @@
         <center>
             <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 20px;">
                 <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height: 40px; padding-top: 10px;"><span class="menu_frame_title">User Management</span></div>
-                <table style="width: 100%; background-color: azure;">
-                    <tr>
-                        <td style="width: 80%;">
-                            <center>
-                                <div style="width: 80%; border: 1px solid black; border-radius: 5px; margin-top: 30px;">
-                                    <table style="width: 80%;">
-                                        <tr>
-                                            <td>First Name(<span style="color:red">*</span>)</td>
-                                            <td>
-                                                <input type="text" id="txtFName" class="validate" data-validate-msg="First Name cannot be blank." runat="server" value="" /></td>
-                                            <td>Last Name(<span style="color:red">*</span>)</td>
-                                            <td>
-                                                <input type="text" id="txtLName" runat="server" value="" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Company Name(<span style="color:red">*</span>)</td>
-                                            <td>
-                                                <asp:DropDownList ID="ddlCompanyName" Width="80%" runat="server" DataTextField="CompanyName">
-                                                   
-                                                </asp:DropDownList>
-                                            </td>
-                                            <td>Role Name(<span style="color:red">*</span>)</td>
-                                            <td>
-                                                <asp:DropDownList ID="ddlRoleName" Width="100%" runat="server" DataTextField="RoleName"></asp:DropDownList>
+                <asp:ScriptManager ID="scriptmanager1" runat="server">
+                </asp:ScriptManager>
+                <asp:UpdatePanel ID="pdnlCompany" runat="server">
+                    <ContentTemplate>
+                        <table style="width: 100%; background-color: azure;">
+                            <tr>
+                                <td style="width: 80%;">
+                                    <center>
+                                        <div style="width: 80%; border: 1px solid black; border-radius: 5px; margin-top: 30px;">
+                                            <table style="width: 80%;">
+                                                <tr>
+                                                    <td>First Name(<span style="color: red">*</span>)</td>
+                                                    <td>
+                                                        <input type="text" id="txtFName" class="validate" data-validate-msg="First Name cannot be blank." runat="server" value="" /></td>
+                                                    <td>Last Name(<span style="color: red">*</span>)</td>
+                                                    <td>
+                                                        <input type="text" id="txtLName" runat="server" value="" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Company Name(<span style="color: red">*</span>)</td>
+                                                    <td>
+                                                        <asp:DropDownList ID="ddlCompanyName" Width="80%" runat="server" DataTextField="CompanyName">
+                                                        </asp:DropDownList>
+                                                    </td>
+                                                    <td>Role Name(<span style="color: red">*</span>)</td>
+                                                    <td>
+                                                        <asp:DropDownList ID="ddlRoleName" Width="100%" runat="server" DataTextField="RoleName"></asp:DropDownList>
 
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Email ID(<span style="color:red">*</span>)</td>
-                                            <td>
-                                                <input type="text" id="txtEmail" runat="server" value="" /></td>
-                                            <td>Password(<span style="color:red">*</span>)</td>
-                                            <td>
-                                                <input type="password" id="txtPassword" autocomplete="off" runat="server" value="" /></td>
-                                        </tr>                                       
-                                        <tr>
-                                            <td colspan="4">
-                                                <div style="margin-top: 10px;">
-                                                    <center>
-                                                        <asp:Button runat="server" CssClass="button" Text="Save" OnClientClick="return ValidateUser();" OnClick="AddNewUser" />
-                                                        <input type="button" class="button" style="margin-left: 10px;" value="Cancel" onclick="ClearAll();" />
-                                                    </center>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </center>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <center>
-                                
-                                    <asp:GridView ID="grdUsers" runat="server" OnRowEditing="grdUsers_RowEditing" OnRowDeleting="grdUsers_RowDeleting"
-                                        OnPageIndexChanging="grdUsers_PageIndexChanging" Width="80%" HeaderStyle-CssClass="pagination-ys"
-                                        AllowPaging="True" DataKeyNames="Email" PageSize="4" OnRowUpdating="grdUsers_RowUpdating" 
-                                        OnRowCancelingEdit="grdUsers_RowCancelingEdit" AutoGenerateColumns="false">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Email ID(<span style="color: red">*</span>)</td>
+                                                    <td>
+                                                        <input type="text" id="txtEmail" runat="server" value="" /></td>
+                                                    <td>Password(<span style="color: red">*</span>)</td>
+                                                    <td>
+                                                        <input type="password" id="txtPassword" autocomplete="off" runat="server" value="" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <div style="margin-top: 10px;">
+                                                            <center>
+                                                                <asp:Button runat="server" CssClass="button" Text="Save" OnClientClick="return ValidateUser();" OnClick="AddNewUser" />
+                                                                <input type="button" class="button" style="margin-left: 10px;" value="Cancel" onclick="ClearAll();" />
+                                                            </center>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </center>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <center>
 
-                                        <Columns>
-                                            <asp:BoundField DataField="FirstName" ControlStyle-Width="94%" HeaderText="First Name" />
-                                            <asp:BoundField DataField="LastName" ControlStyle-Width="94%" HeaderText="Last Name" />
-                                            <asp:BoundField DataField="Company" ControlStyle-Width="94%" HeaderText="Company" />
-                                            <asp:BoundField DataField="Email" ReadOnly="true" ControlStyle-Width="94%" HeaderText="Email ID" />
-                                            <asp:BoundField DataField="Role" ReadOnly="true" ControlStyle-Width="94%" HeaderText="Role" />
-                                            <asp:CommandField ShowEditButton="true" />
-                                            <asp:CommandField ShowDeleteButton="true" />
-                                        </Columns>
-                                        <PagerStyle CssClass="pagination-ys" />
-                                    </asp:GridView>                              
-                            </center>
-                        </td>
-                    </tr>
-                </table>
-                <br />
-                <br />
-                <br />
+                                        <asp:GridView ID="grdUsers" runat="server" OnRowEditing="grdUsers_RowEditing" OnRowDeleting="grdUsers_RowDeleting"
+                                            OnPageIndexChanging="grdUsers_PageIndexChanging" Width="80%" HeaderStyle-CssClass="pagination-ys"
+                                            AllowPaging="True" DataKeyNames="Email" PageSize="4" OnRowUpdating="grdUsers_RowUpdating"
+                                            OnRowCancelingEdit="grdUsers_RowCancelingEdit" AutoGenerateColumns="false">
+
+                                            <columns>
+                                                <asp:BoundField DataField="FirstName" ControlStyle-Width="94%" HeaderText="First Name" />
+                                                <asp:BoundField DataField="LastName" ControlStyle-Width="94%" HeaderText="Last Name" />
+                                                <asp:BoundField DataField="Company" ControlStyle-Width="94%" HeaderText="Company" />
+                                                <asp:BoundField DataField="Email" ReadOnly="true" ControlStyle-Width="94%" HeaderText="Email ID" />
+                                                <asp:BoundField DataField="Role" ReadOnly="true" ControlStyle-Width="94%" HeaderText="Role" />
+                                                <asp:CommandField ShowEditButton="true" />
+                                                <asp:CommandField ShowDeleteButton="true" />
+                                            </columns>
+                                            <pagerstyle cssclass="pagination-ys" />
+                                        </asp:GridView>
+                                    </center>
+                                </td>
+                            </tr>
+                        </table>
+                    </ContentTemplate>                   
+                </asp:UpdatePanel>
+                 <br />
+                 <br />
+                 <br />
             </div>
         </center>
     </form> 
@@ -115,18 +120,6 @@
     <script src="js/fastclick.js" type="text/javascript" language="javascript"></script>
     <script src="js/prism.js" type="text/javascript" language="javascript"></script>
     <script type="text/javascript">
-        /*var prm = Sys.WebForms.PageRequestManager.getInstance();
-        prm.add_initializeRequest(InitializeRequest);
-        prm.add_endRequest(EndRequest);
-        var postBackElement;
-        var xPos, yPos;
-        function ErrorWindowTopPosision(event) {
-            _ewTop = event.clientY;
-            _ewLeft = event.clientX - 200;
-            _ewTop = _ewTop - 25; //- 100;
-
-        }*/
-
         $(document).ready(function () {
             $('select:not(.ignore)').niceSelect();
             FastClick.attach(document.body);

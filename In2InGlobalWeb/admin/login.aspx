@@ -5,9 +5,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
-<!-- Mirrored from in2inglobal.com/admin by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 19 Oct 2021 05:41:20 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
 <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
