@@ -71,7 +71,7 @@
                                                 DataKeyNames="CompanyID" PageSize="4" OnRowUpdating="grdCompany_RowUpdating"
                                                 OnRowCancelingEdit="grdCompany_RowCancelingEdit" OnRowDataBound="grdCompany_RowDataBound" AutoGenerateColumns="false">
                                                 <Columns>
-                                                    <asp:BoundField DataField="CompanyID" ControlStyle-Width="94%" HeaderText="Company ID" />
+                                                    <asp:BoundField DataField="CompanyID" ControlStyle-Width="94%" HeaderText="CompanyID" Visible="false" />
                                                     <asp:BoundField DataField="CompanyName" ControlStyle-Width="94%" HeaderText="Company Name" />
                                                     <asp:BoundField DataField="Email" ControlStyle-Width="94%" HeaderText="Email ID" />
                                                     <asp:BoundField DataField="PhoneNo" ControlStyle-Width="94%" HeaderText="Phone No" />
@@ -89,10 +89,10 @@
             </div>
         </center>
     </form>
-    <script src="../NewJEasyUI/jquery.min.js" type="text/javascript" language="javascript"></script>
-    <script src="../NewJEasyUI/jquery.easyui.min.js" type="text/javascript" language="javascript"></script>
-    <script src="../scripts/ErrorMessage.js" type="text/javascript" language="javascript"></script>
-    <script src="../scripts/Validation.js" type="text/javascript" language="javascript"></script>
+    <script src="../NewJEasyUI/jquery.min.js" type="text/javascript" lang="javascript"></script>
+    <script src="../NewJEasyUI/jquery.easyui.min.js" type="text/javascript" lang="javascript"></script>
+    <script src="../scripts/ErrorMessage.js" type="text/javascript" lang="javascript"></script>
+    <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/Validation.js?"), DateTime.Now.Ticks) %>" type="text/javascript" lang="javascript"></script>
 
 
     <script type="text/javascript">

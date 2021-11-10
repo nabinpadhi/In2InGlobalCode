@@ -32,7 +32,7 @@ namespace In2InGlobal.presentation.admin
         {
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Companies.json");
+            string json = (new WebClient()).DownloadString(Server.MapPath("json-data/Companies.json"));
             grdCompany.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
             grdCompany.DataBind();
         }
@@ -142,7 +142,7 @@ namespace In2InGlobal.presentation.admin
                 usrTable.Select("CompanyID ='" + companyID + "'")[0].Delete();
                 usrTable.AcceptChanges();
                 string output = Newtonsoft.Json.JsonConvert.SerializeObject(usrTable, Newtonsoft.Json.Formatting.Indented);
-                File.WriteAllText(Server.MapPath("json-data/Users.json"), output);
+                File.WriteAllText(Server.MapPath("json-data/Companies.json"), output);
             }
         }
 

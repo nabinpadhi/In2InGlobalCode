@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace In2InGlobal.presentation.admin
-{
-
-
-    public partial class UserManagement
-    {
-
+namespace In2InGlobal.presentation.admin {
+    
+    
+    public partial class UserManagement {
+        
         /// <summary>
         /// form1 control.
         /// </summary>
@@ -22,7 +20,7 @@ namespace In2InGlobal.presentation.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-
+        
         /// <summary>
         /// scriptmanager1 control.
         /// </summary>
@@ -31,7 +29,7 @@ namespace In2InGlobal.presentation.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager scriptmanager1;
-
+        
         /// <summary>
         /// pdnlCompany control.
         /// </summary>
@@ -40,7 +38,7 @@ namespace In2InGlobal.presentation.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel pdnlCompany;
-
+        
         /// <summary>
         /// txtFName control.
         /// </summary>
@@ -49,7 +47,7 @@ namespace In2InGlobal.presentation.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtFName;
-
+        
         /// <summary>
         /// txtLName control.
         /// </summary>
@@ -58,7 +56,7 @@ namespace In2InGlobal.presentation.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtLName;
-
+        
         /// <summary>
         /// ddlCompanyName control.
         /// </summary>
@@ -67,7 +65,7 @@ namespace In2InGlobal.presentation.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCompanyName;
-
+        
         /// <summary>
         /// ddlRoleName control.
         /// </summary>
@@ -76,7 +74,7 @@ namespace In2InGlobal.presentation.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlRoleName;
-
+        
         /// <summary>
         /// txtEmail control.
         /// </summary>
@@ -85,7 +83,7 @@ namespace In2InGlobal.presentation.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtEmail;
-
+        
         /// <summary>
         /// txtPassword control.
         /// </summary>
@@ -94,7 +92,7 @@ namespace In2InGlobal.presentation.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputPassword txtPassword;
-
+        
         /// <summary>
         /// grdUsers control.
         /// </summary>

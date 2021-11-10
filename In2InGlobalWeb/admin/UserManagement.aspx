@@ -64,7 +64,7 @@
                                                     <td>
                                                         <input type="password" id="txtPassword" autocomplete="off" runat="server" value="" /></td>
                                                 </tr>
-                                                <tr>
+                                                <tr>                                                    
                                                     <td colspan="4">
                                                         <div style="margin-top: 10px;">
                                                             <center>
@@ -87,7 +87,6 @@
                                             OnPageIndexChanging="grdUsers_PageIndexChanging" Width="80%" HeaderStyle-CssClass="pagination-ys"
                                             AllowPaging="True" DataKeyNames="Email" PageSize="4" OnRowUpdating="grdUsers_RowUpdating"
                                             OnRowCancelingEdit="grdUsers_RowCancelingEdit" AutoGenerateColumns="false">
-
                                             <columns>
                                                 <asp:BoundField DataField="FirstName" ControlStyle-Width="94%" HeaderText="First Name" />
                                                 <asp:BoundField DataField="LastName" ControlStyle-Width="94%" HeaderText="Last Name" />

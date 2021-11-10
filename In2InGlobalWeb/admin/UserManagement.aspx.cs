@@ -145,7 +145,7 @@ namespace In2InGlobal.presentation.admin
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Users.json");
             DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
-            DataRow dr = usrTable.Rows.Add(txtFName.Value,txtLName.Value,ddlCompanyName.SelectedValue.ToString(),txtEmail.Value, ddlRoleName.SelectedValue.ToString()) ;
+            DataRow dr = usrTable.Rows.Add(txtFName.Value,txtLName.Value,ddlCompanyName.SelectedValue.ToString(),txtEmail.Value, ddlRoleName.SelectedValue.ToString(),txtPassword.Value) ;
             usrTable.AcceptChanges();
             dr.SetModified();
             string output = Newtonsoft.Json.JsonConvert.SerializeObject(usrTable, Newtonsoft.Json.Formatting.Indented);

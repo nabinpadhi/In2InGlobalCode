@@ -1,13 +1,14 @@
 [
   {
-    "FirstName": "Ganeswar",
-    "LastName": "Sahoo",
-    "Company": "Free Lancer",
-    "Email": "ganeswarsahoo@gmail.com",
-    "Role": "User",
-    "ActivityAccess": "Limited",
+    "FirstName": "Sujay",
+    "LastName": "Mondal",
+    "Company": "In2In Global Technology",
+    "Email": "sujaymondal@gmail.com",
+    "Role": "Admin",
+    "Password": "test123",
+    "ActivityAccess": "All",
     "Status": "Active",
-    "Password": "test123"
+    "PhoneNo": null
   },
   {
     "FirstName": "Nabin",
@@ -15,68 +16,119 @@
     "Company": "Free Lancer",
     "Email": "nabinpadhi@gmail.com",
     "Role": "Admin",
-    "ActivityAccess": "Administator",
+    "Password": "test123",
+    "ActivityAccess": "All",
     "Status": "Active",
-    "Password": "test123"
+    "PhoneNo": null
+  },
+  {
+    "FirstName": "Nabin",
+    "LastName": "Padhi",
+    "Company": "My Company 2",
+    "Email": "test2@gmail.com",
+    "Role": "User",
+    "Password": "test123",
+    "ActivityAccess": "File Management",
+    "Status": "Active",
+    "PhoneNo": null
   },
   {
     "FirstName": "Akash",
     "LastName": "Roy",
-    "Company": "In2InGlobal",
-    "Email": "akashroy@In2InGlobal.com",
-    "Role": "User",
-    "ActivityAccess": "Limited",
-    "Status": "Active",
-    "Password": "test123"
-  },
-  {
-    "FirstName": "ABC",
-    "LastName": "EFG-updated",
-    "Company": "My Company 3",
-    "Email": "abcxyz@mycompany3.in",
-    "Role": "User",
-    "ActivityAccess": "Limited",
-    "Status": "Active",
-    "Password": "test123"
-  },
-  {
-    "FirstName": "ABC",
-    "LastName": "EFO",
-    "Company": "My Company 3",
-    "Email": "abcefo@mycompany3.com",
-    "Role": "User",
-    "ActivityAccess": "Limited",
-    "Status": "Active",
-    "Password": "test123"
-  },
-  {
-    "FirstName": "test",
-    "LastName": "match",
     "Company": "My Company 4",
-    "Email": "test.match@mycom4.co.in",
+    "Email": "akashroy@gmail.com",
     "Role": "User",
-    "ActivityAccess": "Limited",
-    "Status": "Deactive",
-    "Password": "test123"
-  },
-  {
-    "FirstName": "Ram",
-    "LastName": "Bhagwan",
-    "Company": "Free Lancer",
-    "Email": "rambhagwan@freelancer.com",
-    "Role": "Admin",
-    "ActivityAccess": "Administator",
+    "Password": "test123",
+    "ActivityAccess": "File Management",
     "Status": "Active",
-    "Password": "test123"
+    "PhoneNo": "+917790432644"
   },
   {
-    "FirstName": "test1",
-    "LastName": "test2",
-    "Company": "My Company 2",
-    "Email": "no@test2.in",
+    "FirstName": "Binay",
+    "LastName": "Pal",
+    "Company": "My Company 5",
+    "Email": "test5@gmail.com",
     "Role": "User",
-    "ActivityAccess": null,
-    "Status": null,
-    "Password": null
+    "Password": "test123",
+    "ActivityAccess": "Role Management",
+    "Status": "Active",
+    "PhoneNo": null
+  },
+  {
+    "FirstName": "Nab",
+    "LastName": "in",
+    "Company": "My Company 6",
+    "Email": "test6@gmail.com",
+    "Role": "User",
+    "Password": "test123",
+    "ActivityAccess": "Template Management",
+    "Status": "Active",
+    "PhoneNo": null
+  },
+  {
+    "FirstName": "Unknown",
+    "LastName": "Name",
+    "Company": "My Company 7",
+    "Email": "test7@gmail.com",
+    "Role": "User",
+    "Password": "test123",
+    "ActivityAccess": "User Management",
+    "Status": "Active",
+    "PhoneNo": null
+  },
+  {
+    "FirstName": "Abhiram",
+    "LastName": "Ghosal",
+    "Company": "My Company 8",
+    "Email": "abhighos@gmail.com",
+    "Role": "User",
+    "Password": "test123",
+    "ActivityAccess": "File Management,User Management",
+    "Status": "Active",
+    "PhoneNo": null
+  },
+  {
+    "FirstName": "Test",
+    "LastName": "User",
+    "Company": "Free Lancer",
+    "Email": "test111@gmail.com",
+    "Role": "User",
+    "Password": "test123",
+    "ActivityAccess": "File Management",
+    "Status": "Active",
+    "PhoneNo": null
+  },
+  {
+    "FirstName": "Test",
+    "LastName": "User",
+    "Company": "SomComNab",
+    "Email": "ss@scn.com",
+    "Role": "User",
+    "Password": "test123",
+    "ActivityAccess": "File Management",
+    "Status": "Active",
+    "PhoneNo": null
+  },
+  {
+    "FirstName": "Test",
+    "LastName": "User",
+    "Company": "test111",
+    "Email": "simple@test111.in",
+    "Role": "User",
+    "Password": "test123",
+    "ActivityAccess": "File Management",
+    "Status": "Deactive",
+    "PhoneNo": null
+  },
+  {
+    "FirstName": "Test",
+    "LastName": "User",
+    "Company": "test12",
+    "Email": "aaa@test12.in",
+    "Role": "User",
+    "Password": "test123",
+    "ActivityAccess": "File Management",
+    "Status": "Deactive",
+    "PhoneNo": null
   }
 ]
