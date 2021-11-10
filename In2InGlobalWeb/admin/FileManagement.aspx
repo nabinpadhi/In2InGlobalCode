@@ -108,8 +108,9 @@
                                                                                 <PagerStyle CssClass="pagination-ys" />
                                                                                 <Columns>
                                                                                     <asp:BoundField HeaderText="File Name" DataField="FileName" />
-                                                                                    <asp:BoundField HeaderText="Date" DataField="Date" />
-                                                                                    <asp:ImageField ItemStyle-CssClass ="GridViewImageAlignment" HeaderText="Uploaded Status" ControlStyle-Height="25px" ControlStyle-Width="25px" DataImageUrlField="Uploaded Status"></asp:ImageField>
+                                                                                    <asp:BoundField HeaderText="Uploaded By" DataField="UploadedBy" />
+                                                                                    <asp:BoundField HeaderText="Uploaded On" DataField="Date" />
+                                                                                    <asp:ImageField ItemStyle-CssClass ="GridViewImageAlignment" HeaderText="Uploaded Status" ControlStyle-Height="25px" ControlStyle-Width="25px" DataImageUrlField="UploadedStatus"></asp:ImageField>
                                                                                 </Columns>
                                                                             </asp:GridView>
                                                                         </div>

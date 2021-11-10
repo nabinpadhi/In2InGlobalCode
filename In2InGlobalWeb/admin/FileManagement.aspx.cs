@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Data;
+using System.IO;
 using System.Net;
 using System.Web.UI.WebControls;
 
@@ -106,11 +107,43 @@ namespace In2InGlobal.presentation.admin
         {
             string fileName = "";
             string filePath = Server.MapPath("uploadedfiles");
-            if (fileUploader.HasFile)
+            string uploadedBy = "";
+            string today = DateTime.Now.ToShortDateString();
+            if (Session["UserRow"] != null)
             {
-                fileName = fileUploader.FileName;
-                fileUploader.SaveAs(System.IO.Path.Combine(filePath, fileName));
+                DataRow usrDataRow = (DataRow)Session["UserRow"];
+                uploadedBy = usrDataRow["FirstName"].ToString() + "  " + usrDataRow["LastName"].ToString();
+                try
+                {
+                    if (fileUploader.HasFile)
+                    {
+                        fileName = fileUploader.FileName;
+                        fileUploader.SaveAs(System.IO.Path.Combine(filePath, fileName));
+                        SaveFileDetails(fileName,uploadedBy, today);
+                        //Response.Redirect(Request.RawUrl);
+                        Response.Redirect(Request.Url.AbsoluteUri, true);
+                    }
+                }
+                catch (System.IO.IOException ex)
+                {
+                    throw ex;
+                }
             }
+           
+        }
+
+        private void SaveFileDetails(string fileName, string uploadedBy, string uploadedOn)
+        {
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            string json = (new WebClient()).DownloadString(Server.MapPath("json-data/UploadedFiles.json"));
+            DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
+            DataRow dr = usrTable.Rows.Add(fileName,uploadedBy, uploadedOn, "img/success-mark.png");
+            usrTable.AcceptChanges();
+            dr.SetModified();
+            string output = Newtonsoft.Json.JsonConvert.SerializeObject(usrTable, Newtonsoft.Json.Formatting.Indented);
+            File.WriteAllText(Server.MapPath("json-data/UploadedFiles.json"), output);
+            BindFileGrid();
         }
     }
 }
