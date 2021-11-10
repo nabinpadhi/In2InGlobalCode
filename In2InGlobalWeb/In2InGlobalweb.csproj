@@ -91,6 +91,7 @@
     <Content Include="admin\dropzone\dropzone-amd-module.js" />
     <Content Include="admin\dropzone\dropzone.css" />
     <Content Include="admin\dropzone\dropzone.js" />
+    <Content Include="admin\img\success-mark.png" />
     <Content Include="admin\js\jquery-3.6.0.js" />
     <Content Include="admin\js\require.js" />
     <Content Include="admin\js\User.js" />
@@ -115,7 +116,7 @@
     <Content Include="admin\css\style.css" />
     <Content Include="admin\css\toastr.min.css" />
     <Content Include="admin\img\security.jpg" />
-    <Content Include="admin\img\success-mark.png" />
+    <Content Include="admin\img\success.png" />
     <Content Include="admin\img\uploadsuccess-old.png" />
     <Content Include="admin\js\fastclick.js" />
     <Content Include="admin\js\jquery.cookie.js" />

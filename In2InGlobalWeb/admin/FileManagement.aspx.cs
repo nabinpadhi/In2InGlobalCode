@@ -138,7 +138,7 @@ namespace In2InGlobal.presentation.admin
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             string json = (new WebClient()).DownloadString(Server.MapPath("json-data/UploadedFiles.json"));
             DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
-            DataRow dr = usrTable.Rows.Add(fileName,uploadedBy, uploadedOn, "img/success-mark.png");
+            DataRow dr = usrTable.Rows.Add(fileName,uploadedBy, uploadedOn, "img/success.png");
             usrTable.AcceptChanges();
             dr.SetModified();
             string output = Newtonsoft.Json.JsonConvert.SerializeObject(usrTable, Newtonsoft.Json.Formatting.Indented);
