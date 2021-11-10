@@ -101,5 +101,16 @@ namespace In2InGlobal.presentation.admin
         {
             BindTemplateGrid(ddlProjects.SelectedValue);
         }
+
+        protected void btnUploader_Click(object sender, EventArgs e)
+        {
+            string fileName = "";
+            string filePath = Server.MapPath("uploadedfiles");
+            if (fileUploader.HasFile)
+            {
+                fileName = fileUploader.FileName;
+                fileUploader.SaveAs(System.IO.Path.Combine(filePath, fileName));
+            }
+        }
     }
 }

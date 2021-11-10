@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace In2InGlobal.presentation.admin
-{
-
-
-    public partial class FileManagement
-    {
-
+namespace In2InGlobal.presentation.admin {
+    
+    
+    public partial class FileManagement {
+        
         /// <summary>
         /// form1 control.
         /// </summary>
@@ -22,7 +20,7 @@ namespace In2InGlobal.presentation.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-
+        
         /// <summary>
         /// projectid control.
         /// </summary>
@@ -31,7 +29,7 @@ namespace In2InGlobal.presentation.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText projectid;
-
+        
         /// <summary>
         /// ddlTemplate control.
         /// </summary>
@@ -40,7 +38,7 @@ namespace In2InGlobal.presentation.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlTemplate;
-
+        
         /// <summary>
         /// btnDownload control.
         /// </summary>
@@ -49,7 +47,7 @@ namespace In2InGlobal.presentation.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlButton btnDownload;
-
+        
         /// <summary>
         /// grdUploadedFiles control.
         /// </summary>
@@ -58,16 +56,25 @@ namespace In2InGlobal.presentation.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grdUploadedFiles;
-
+        
         /// <summary>
-        /// btnUpload control.
+        /// fileUploader control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btnUpload;
-
+        protected global::System.Web.UI.WebControls.FileUpload fileUploader;
+        
+        /// <summary>
+        /// btnUploader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUploader;
+        
         /// <summary>
         /// usrEmailTR control.
         /// </summary>
@@ -76,7 +83,7 @@ namespace In2InGlobal.presentation.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow usrEmailTR;
-
+        
         /// <summary>
         /// usrEmailId control.
         /// </summary>
@@ -85,7 +92,7 @@ namespace In2InGlobal.presentation.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText usrEmailId;
-
+        
         /// <summary>
         /// ddlProjects control.
         /// </summary>
@@ -94,7 +101,7 @@ namespace In2InGlobal.presentation.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlProjects;
-
+        
         /// <summary>
         /// tblTemplateDetail control.
         /// </summary>
@@ -103,7 +110,7 @@ namespace In2InGlobal.presentation.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTable tblTemplateDetail;
-
+        
         /// <summary>
         /// grdTemplate control.
         /// </summary>

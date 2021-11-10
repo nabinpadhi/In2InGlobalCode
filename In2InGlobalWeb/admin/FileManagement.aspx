@@ -58,7 +58,9 @@
                 margin-left: -1.3em; /* same as padding-left set on li */
                 width: 1.3em; /* same as padding-left set on li */
             }          
-    </style>   
+    </style> 
+
+
 </head>
 <body style="background-color:azure;">
    
@@ -116,9 +118,16 @@
                                                             </tr>
                                                             <tr>
                                                                 <td style="text-align: left;">
-                                                                    <button type="button" class="button" onclick="uploadFile();" value="Upload" id="btnUpload" runat="server">Upload</button></td>
-                                                                <td></td>
-                                                                <td></td>
+                                                                    <asp:FileUpload ID="fileUploader" runat="server" />                                                                    
+
+                                                                </td>
+                                                                <td>
+                                                                    <asp:Button ID="btnUploader" class="button"  runat="server" Text="Upload" OnClick="btnUploader_Click" />
+                                                                </td>
+                                                                
+                                                                <td>
+
+                                                                </td>
 
                                                             </tr>
                                                         </table>
@@ -214,12 +223,7 @@
             $("#projectids").change(function () {
                 $('#projectid').val($("#projectids").val());
             });
-           /* 
-            $("#ddlProjects").blur(function () {
-                console.log("opened");
-                $(".nice-select open .list").attr("max-height", "200px");
-            });*/
-            //alert("<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css"),DateTime.Now.Ticks) %>");
+
         });
         function downloadFile() {
 

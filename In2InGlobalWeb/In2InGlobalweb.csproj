@@ -87,6 +87,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="admin\assets\img\mobile.png" />
+    <Content Include="admin\dropzone\basic.css" />
+    <Content Include="admin\dropzone\dropzone-amd-module.js" />
+    <Content Include="admin\dropzone\dropzone.css" />
+    <Content Include="admin\dropzone\dropzone.js" />
     <Content Include="admin\js\jquery-3.6.0.js" />
     <Content Include="admin\js\require.js" />
     <Content Include="admin\js\User.js" />
@@ -1756,6 +1760,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="admin\uploadedfiles\" />
     <Folder Include="App_Data\" />
     <Folder Include="scripts\jquery\jqMenu\css\" />
     <Folder Include="scripts\jquery\jqMenu\images\" />
