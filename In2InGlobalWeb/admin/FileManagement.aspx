@@ -82,14 +82,14 @@
                                         <div style="border: 1px solid black; margin-left: auto; margin-right: auto; border-radius: 5px">
                                             <table style="width: 100%; margin-top: auto; margin-left: auto; margin-right: auto;">
                                                 <tr>
-                                                    <td style="width: 60%;">
+                                                    <td style="width: 65%;">
                                                         <table style="width: 100%;">
                                                             <tr>
-                                                                <td style="width: 70%; text-align: right;">Select Template</td>
+                                                                <td style="width: 50%; text-align: right;">Select Template</td>
                                                                 <td style="width: 10%">: </td>
-                                                                <td style="width: 20%">
-                                                                    <div>
-                                                                        <asp:DropDownList ID="ddlTemplate" Width="100%" runat="server" DataTextField="TemplateName"></asp:DropDownList>
+                                                                <td style="width: 40%">
+                                                                    <div style="width:150px;text-align:left;">
+                                                                        <asp:DropDownList  ID="ddlTemplate" runat="server" DataTextField="TemplateName"></asp:DropDownList>
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -103,14 +103,15 @@
                                                                 <td colspan="3">                                                                    
                                                                     <center>
                                                                         <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
-                                                                            <asp:GridView ID="grdUploadedFiles" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
-                                                                                AllowPaging="True" OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
+                                                                            <asp:GridView DataKeyNames="ID" ID="grdUploadedFiles" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
+                                                                                AllowPaging="True" OnRowDeleting="grdUploadedFiles_RowDeleting" OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
                                                                                 <PagerStyle CssClass="pagination-ys" />
                                                                                 <Columns>
                                                                                     <asp:BoundField HeaderText="File Name" DataField="FileName" />
                                                                                     <asp:BoundField HeaderText="Uploaded By" DataField="UploadedBy" />
                                                                                     <asp:BoundField HeaderText="Uploaded On" DataField="Date" />
                                                                                     <asp:ImageField ItemStyle-CssClass ="GridViewImageAlignment" HeaderText="Uploaded Status" ControlStyle-Height="25px" ControlStyle-Width="25px" DataImageUrlField="UploadedStatus"></asp:ImageField>
+                                                                                  <asp:CommandField ShowDeleteButton="true" />
                                                                                 </Columns>
                                                                             </asp:GridView>
                                                                         </div>
@@ -133,7 +134,7 @@
                                                             </tr>
                                                         </table>
                                                     </td>
-                                                    <td style="width: 40%;">
+                                                    <td style="width: 35%;">
                                                         <div style="width: 90%; text-align: left; margin-left: 20px; height: 220px; overflow-y: auto; margin-top: 0px;">
                                                             <b>Template Instruction</b><br />
                                                             <p></p>
@@ -163,7 +164,7 @@
                                             <b><u>Email ID</u> : </b>
                                         </td>
                                         <td style="width: 60%;">
-                                            <input type="text" value="" id="usrEmailId" runat="server" style="width: 80%;" />
+                                            <asp:TextBox Text="" ID="usrEmailId" AutoPostBack="true" OnTextChanged="usrEmailId_TextChanged" runat="server" style="width: 80%" ></asp:TextBox>                                            
                                         </td>
                                     </tr>
                                     <tr>
@@ -225,15 +226,11 @@
                 $('#projectid').val($("#projectids").val());
             });
 
-        });
+        });        
         function downloadFile() {
 
             alert("Your Template file will be downloaded.")
-        }
-        function uploadFile() {
-
-            alert("Your selected file will be uploaded.")
-        }
+        }        
     </script>
 
     <script>

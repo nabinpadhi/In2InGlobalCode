@@ -71,6 +71,7 @@ namespace In2InGlobal.presentation.admin
                 DataRow userRow = usrTable.Select("Email ='" + emailid + "' and Password = '" + password + "'")[0];
                 result = "Success";
                 HttpContext.Current.Session["UserRole"] = userRow["Role"].ToString();
+                HttpContext.Current.Session["UserEmail"] = userRow["Email"].ToString();
                 HttpContext.Current.Session["UserRow"] = userRow;
             }
             else
@@ -78,6 +79,7 @@ namespace In2InGlobal.presentation.admin
                 result = "Invalid email / password";
                 HttpContext.Current.Session["UserRole"] = null;
                 HttpContext.Current.Session["UserRow"] = null;
+                HttpContext.Current.Session["UserEmail"] = null;
             }
             return result;
 

@@ -21,7 +21,7 @@ namespace In2InGlobal.presentation.admin
                 {
                     usrEmailTR.Visible = true;
                     tblTemplateDetail.Visible = true;
-                    BindTemplateGrid(ddlProjects.SelectedValue);
+                    BindTemplateGrid(ddlProjects.SelectedValue,"");
 
 
                 }
@@ -62,19 +62,27 @@ namespace In2InGlobal.presentation.admin
             grdUploadedFiles.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
             grdUploadedFiles.DataBind();
         }
-        private void BindTemplateGrid(string _pid)
+        private void BindTemplateGrid(string _pid,string _email)
         {
 
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Template.json");
             DataTable tblTemplate = JsonConvert.DeserializeObject<DataTable>(json);
-            if (_pid != "")
+            if (_pid != "" || _email != "")
             {
-                _pid = "ProjectName = '" + _pid +"'";
-                if (tblTemplate.Select(_pid).Length > 0)
+                string _target = "";
+                if (_pid != "")
                 {
-                    tblTemplate = tblTemplate.Select(_pid).CopyToDataTable();
+                    _target = "ProjectName = '" + _pid + "'";
+                }
+                else if(_email != "")
+                {
+                    _target = "Email = '" + _email + "'";
+                }
+                if (tblTemplate.Select(_target).Length > 0)
+                {
+                    tblTemplate = tblTemplate.Select(_target).CopyToDataTable();
                     grdTemplate.DataSource = tblTemplate;
                     grdTemplate.DataBind();
 
@@ -92,7 +100,7 @@ namespace In2InGlobal.presentation.admin
         }
         protected void grdTemplate_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            BindTemplateGrid("");
+            BindTemplateGrid("", Session["UserEmail"].ToString());
             grdTemplate.PageIndex = e.NewPageIndex;
             grdTemplate.DataBind();
 
@@ -100,7 +108,7 @@ namespace In2InGlobal.presentation.admin
 
         protected void ddlProjects_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BindTemplateGrid(ddlProjects.SelectedValue);
+            BindTemplateGrid(ddlProjects.SelectedValue,"");
         }
 
         protected void btnUploader_Click(object sender, EventArgs e)
@@ -144,6 +152,33 @@ namespace In2InGlobal.presentation.admin
             string output = Newtonsoft.Json.JsonConvert.SerializeObject(usrTable, Newtonsoft.Json.Formatting.Indented);
             File.WriteAllText(Server.MapPath("json-data/UploadedFiles.json"), output);
             BindFileGrid();
+        }
+
+        protected void grdUploadedFiles_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            string ID = grdUploadedFiles.DataKeys[e.RowIndex].Value.ToString();
+            DeleteUploadedFile(ID);
+            BindFileGrid();
+        }
+
+        private void DeleteUploadedFile(string iD)
+        {
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            string json = (new WebClient()).DownloadString(Server.MapPath("json-data/UploadedFiles.json"));
+            DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
+            if (usrTable.Select("ID ='" + iD + "'").Length > 0)
+            {
+                usrTable.Select("ID ='" + iD + "'")[0].Delete();
+                usrTable.AcceptChanges();
+                string output = Newtonsoft.Json.JsonConvert.SerializeObject(usrTable, Newtonsoft.Json.Formatting.Indented);
+                File.WriteAllText(Server.MapPath("json-data/UploadedFiles.json"), output);
+            }
+        }
+     
+        protected void usrEmailId_TextChanged(object sender, EventArgs e)
+        {
+            BindTemplateGrid("", usrEmailId.Text);
         }
     }
 }
