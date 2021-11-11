@@ -12,6 +12,10 @@ var in2in11 = "Last Name cannot be blank."
 var in2in12 = "Kindly select a role."
 var in2in13 = "Password cannot be empty."
 var in2in14 = "Phone Number cannot be empty."
+var in2in15 = "Kindly select a Template."
+var in2in16 = "Kindly select an User."
+var in2in17 = "Kindly select a Project."
+var in2in18 = "Instruction cannot be blank."
 
 var serverMessages = {
     in2in1: "Kindly provide the user name.",

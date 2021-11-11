@@ -132,7 +132,7 @@
             CheckNull($("#txtFName").val(), in2in10);
             CheckNull($("#txtLName").val(), in2in11);
             CheckNullDropdown($("select[name='ddlCompanyName'] option:selected").index(), in2in5);
-            CheckNull($("select[name='ddlRoleName'] option:selected").index(), in2in12);
+            CheckNullDropdown($("select[name='ddlRoleName'] option:selected").index(), in2in12);
             CheckNull($("#txtEmail").val(), in2in6);
             CheckNull($('input[type="password"]').val(), in2in13);           
             if (Error_Message != "") {

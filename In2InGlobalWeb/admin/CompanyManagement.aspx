@@ -106,6 +106,7 @@
             $('#txtCompanyName').val('');
             $('#txtEmail').val('');
             $('#txtPhoneNo').val('');
+
         }
         function ValidateCompany() {
 
