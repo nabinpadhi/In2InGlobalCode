@@ -5,10 +5,10 @@
     "Company": "In2In Global Technology",
     "Email": "sujaymondal@gmail.com",
     "Role": "Admin",
-    "Password": "test123",
+    "Password": "gE+++Guwy/oZXAaFOLDdNg==",
     "ActivityAccess": "All",
     "Status": "Active",
-    "PhoneNo": null
+    "PhoneNo": null, "ProjectID": "PRO - 0002"
   },
   {
     "FirstName": "Nabin",
@@ -16,21 +16,21 @@
     "Company": "Free Lancer",
     "Email": "nabinpadhi@gmail.com",
     "Role": "Admin",
-    "Password": "test123",
+    "Password": "gE+++Guwy/oZXAaFOLDdNg==",
     "ActivityAccess": "All",
     "Status": "Active",
-    "PhoneNo": null
+    "PhoneNo": null, "ProjectID": "PRO - 0001"
   },
   {
-    "FirstName": "Nabin",
-    "LastName": "Padhi",
+    "FirstName": "Ganeshswar",
+    "LastName": "Sahoo",
     "Company": "My Company 2",
-    "Email": "test2@gmail.com",
+    "Email": "ganeswarsahoo@gmail.com",
     "Role": "User",
-    "Password": "test123",
+    "Password": "gE+++Guwy/oZXAaFOLDdNg==",
     "ActivityAccess": "File Management",
     "Status": "Active",
-    "PhoneNo": null
+    "PhoneNo": null, "ProjectID": "PRO - 0003"
   },
   {
     "FirstName": "Akash",
@@ -38,21 +38,22 @@
     "Company": "My Company 4",
     "Email": "akashroy@gmail.com",
     "Role": "User",
-    "Password": "test123",
+    "Password": "gE+++Guwy/oZXAaFOLDdNg==",
     "ActivityAccess": "File Management",
     "Status": "Active",
-    "PhoneNo": "+917790432644"
+    "PhoneNo": "+917790432644",
+    "ProjectID": "PRO - 0004"
   },
   {
     "FirstName": "Binay",
     "LastName": "Pal",
     "Company": "My Company 5",
-    "Email": "test5@gmail.com",
+    "Email": "binpal@gmail.com",
     "Role": "User",
-    "Password": "test123",
+    "Password": "gE+++Guwy/oZXAaFOLDdNg==",
     "ActivityAccess": "Role Management",
     "Status": "Active",
-    "PhoneNo": null
+    "PhoneNo": 6789009876, "ProjectID": "PRO - 0005"
   },
   {
     "FirstName": "Nab",
@@ -60,21 +61,10 @@
     "Company": "My Company 6",
     "Email": "test6@gmail.com",
     "Role": "User",
-    "Password": "test123",
+    "Password": "gE+++Guwy/oZXAaFOLDdNg==",
     "ActivityAccess": "Template Management",
     "Status": "Active",
-    "PhoneNo": null
-  },
-  {
-    "FirstName": "Unknown",
-    "LastName": "Name",
-    "Company": "My Company 7",
-    "Email": "test7@gmail.com",
-    "Role": "User",
-    "Password": "test123",
-    "ActivityAccess": "User Management",
-    "Status": "Active",
-    "PhoneNo": null
+    "PhoneNo": 1234554321, "ProjectID": "PRO - 0006"
   },
   {
     "FirstName": "Abhiram",
@@ -82,53 +72,9 @@
     "Company": "My Company 8",
     "Email": "abhighos@gmail.com",
     "Role": "User",
-    "Password": "test123",
+    "Password": "gE+++Guwy/oZXAaFOLDdNg==",
     "ActivityAccess": "File Management,User Management",
     "Status": "Active",
-    "PhoneNo": null
-  },
-  {
-    "FirstName": "Test",
-    "LastName": "User",
-    "Company": "Free Lancer",
-    "Email": "test111@gmail.com",
-    "Role": "User",
-    "Password": "test123",
-    "ActivityAccess": "File Management",
-    "Status": "Active",
-    "PhoneNo": null
-  },
-  {
-    "FirstName": "Test",
-    "LastName": "User",
-    "Company": "SomComNab",
-    "Email": "ss@scn.com",
-    "Role": "User",
-    "Password": "test123",
-    "ActivityAccess": "File Management",
-    "Status": "Active",
-    "PhoneNo": null
-  },
-  {
-    "FirstName": "Test",
-    "LastName": "User",
-    "Company": "test111",
-    "Email": "simple@test111.in",
-    "Role": "User",
-    "Password": "test123",
-    "ActivityAccess": "File Management",
-    "Status": "Deactive",
-    "PhoneNo": null
-  },
-  {
-    "FirstName": "Test",
-    "LastName": "User",
-    "Company": "test12",
-    "Email": "aaa@test12.in",
-    "Role": "User",
-    "Password": "test123",
-    "ActivityAccess": "File Management",
-    "Status": "Deactive",
-    "PhoneNo": null
+    "PhoneNo": 1234323451, "ProjectID": "PRO - 0007"
   }
 ]

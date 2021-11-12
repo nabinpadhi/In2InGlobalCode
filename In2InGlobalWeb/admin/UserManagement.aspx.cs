@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using InGlobal.presentation;
+using Newtonsoft.Json;
 using System;
 using System.Data;
 using System.IO;
@@ -143,14 +144,24 @@ namespace In2InGlobal.presentation.admin
             
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Users.json");
+            string json = (new WebClient()).DownloadString(Server.MapPath("json-data/Users.json"));
             DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
-            DataRow dr = usrTable.Rows.Add(txtFName.Value,txtLName.Value,ddlCompanyName.SelectedValue.ToString(),txtEmail.Value, ddlRoleName.SelectedValue.ToString(),txtPassword.Value) ;
+            string encPwd = new EncryptField().Encrypt(txtPassword.Value);
+            string projectname = "PRO - 0001"; //Project for creating user need to created and assigned the same to user
+            string activityAccess = "Role Management"; //dropdown field required
+            string status = "Active"; // dropdown field required.
+            string phoneNo = "6789009876"; // extra field need to included
+            DataRow dr = usrTable.Rows.Add(
+                txtFName.Value,txtLName.Value,ddlCompanyName.SelectedValue.ToString(),
+                txtEmail.Value, ddlRoleName.SelectedValue.ToString(),encPwd,activityAccess,status,phoneNo, projectname) ;
             usrTable.AcceptChanges();
             dr.SetModified();
             string output = Newtonsoft.Json.JsonConvert.SerializeObject(usrTable, Newtonsoft.Json.Formatting.Indented);
             File.WriteAllText(Server.MapPath("json-data/Users.json"), output);
+
             BindUsers();
         }
+
+       
     }
 }

@@ -13,22 +13,29 @@ namespace In2InGlobal.presentation.admin
         {
             if (!IsPostBack)
                 {
-                BindFileGrid();
-                LoadTemplates();
-                BindProjects();
-                string usrRole = Session["UserRole"].ToString();
-                if (usrRole == "Admin")
+                if (Session["UserRole"] != null)
                 {
-                    usrEmailTR.Visible = true;
-                    tblTemplateDetail.Visible = true;
-                    BindTemplateGrid(ddlProjects.SelectedValue,"");
+                    BindFileGrid();
+                    LoadTemplates();
+                    BindProjects();
+                    projectid.InnerText = Session["ProjectID"].ToString();
+                    string usrRole = Session["UserRole"].ToString();
+                    if (usrRole == "Admin")
+                    {
+                        usrEmailTR.Visible = true;
+                        tblTemplateDetail.Visible = true;
+                        BindTemplateGrid(ddlProjects.SelectedValue, "");
 
 
+                    }
+                    else
+                    {
+                        usrEmailTR.Visible = false;
+                        tblTemplateDetail.Visible = false;
+                    }
                 }
-                else
-                {
-                    usrEmailTR.Visible = false;
-                    tblTemplateDetail.Visible = false;
+                else{
+                    Response.Redirect("login.aspx");
                 }
             }
         }

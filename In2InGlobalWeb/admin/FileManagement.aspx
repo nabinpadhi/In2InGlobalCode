@@ -74,8 +74,9 @@
                             <table style="width: 100%; margin-top: 25px;">
                                 <tr>
                                     <td style="width: 30%;">Project ID :</td>
-                                    <td style="width: 70%;">
-                                        <input readonly="true" value="P001" type="text" id="projectid" runat="server" /></td>
+                                    <td style="width: 70%;">                                        
+                                        <span fieldtype="readonly" style="width:100px"  runat="server" id="projectid"></span>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td colspan="2" style="text-align: center;">

@@ -20,12 +20,12 @@ namespace In2InGlobal.presentation.admin
             if (Session["UserRow"] != null)
             {
                 DataRow usrDataRow = (DataRow)Session["UserRow"];
-                username.Value = usrDataRow["FirstName"].ToString() + "  " + usrDataRow["LastName"].ToString();
-                companyname.Value = usrDataRow["Company"].ToString();
-                email.Value = usrDataRow["Email"].ToString();
-                activityaccess.Value = usrDataRow["ActivityAccess"].ToString();
-                role.Value = usrDataRow["Role"].ToString();
-                status.Value = usrDataRow["Status"].ToString();
+                username.InnerText = usrDataRow["FirstName"].ToString() + "  " + usrDataRow["LastName"].ToString();
+                companyname.InnerText = usrDataRow["Company"].ToString();
+                email.InnerText = usrDataRow["Email"].ToString();
+                activityaccess.InnerText = usrDataRow["ActivityAccess"].ToString();
+                role.InnerText = usrDataRow["Role"].ToString();
+                status.InnerText = usrDataRow["Status"].ToString();
             }
         }
     }

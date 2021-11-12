@@ -67,22 +67,22 @@
           <div style="position:relative;padding:50px 30px 30px 30px;">
           <table style="width:90%;">
               <tr style="padding:10px">
-                  <td style="padding:10px">User Name  :</td>                  
-                  <td><input type="text" readonly="true" value="" runat="server" id="username" /></td>
-                  <td style="padding:10px">Company Name  :</td>
-                  <td><input type="text" readonly="true" value="" runat="server" id="companyname" /></td>                 
+                  <td style="padding:10px;width:20%">User Name  :</td>                  
+                  <td style="width:30%"><span fieldtype="readonly" value="" runat="server" id="username"></span></td>
+                  <td style="padding:10px;width:22%">Company Name  :</td>
+                  <td style="width:28%"><span fieldtype="readonly"  runat="server" id="companyname"></span></td>                 
               </tr>
                <tr>
                   <td style="padding:10px">Email Id  :</td>
-                  <td><input type="text" readonly="true" value="" runat="server" id="email" /></td>
+                  <td><span value="" fieldtype="readonly"  runat="server" id="email" /></td>
                   <td style="padding:10px">Activity Access  :</td>
-                  <td><input type="text" readonly="true" value="" runat="server" id="activityaccess" /></td>                 
+                  <td><span value="" fieldtype="readonly"  runat="server"  id="activityaccess" /></td>                 
               </tr>              
                <tr>
                   <td style="padding:10px">Role  :</td>
-                  <td><input type="text" readonly="true" value="" runat="server" id="role" /></td>
+                  <td><span value="" fieldtype="readonly"  runat="server"  id="role" /></td>
                   <td style="padding:10px">Status  :</td>                    
-                  <td><input type="text" readonly="true" id="status" runat="server" value="" /></td>                 
+                  <td><span value="" fieldtype="readonly"  runat="server" id="status" /></td>                 
               </tr>              
           </table>
               </div>

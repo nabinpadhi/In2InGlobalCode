@@ -20,7 +20,7 @@
   
    
 </head>
-<body>
+<body style="overflow:hidden;">
     
     <form id="form1" runat="server">         
         <center>
@@ -82,7 +82,6 @@
                             <tr>
                                 <td>
                                     <center>
-
                                         <asp:GridView ID="grdUsers" runat="server" OnRowEditing="grdUsers_RowEditing" OnRowDeleting="grdUsers_RowDeleting"
                                             OnPageIndexChanging="grdUsers_PageIndexChanging" Width="80%" HeaderStyle-CssClass="pagination-ys"
                                             AllowPaging="True" DataKeyNames="Email" PageSize="4" OnRowUpdating="grdUsers_RowUpdating"
@@ -104,9 +103,6 @@
                         </table>
                     </ContentTemplate>                   
                 </asp:UpdatePanel>
-                 <br />
-                 <br />
-                 <br />
             </div>
         </center>
     </form> 

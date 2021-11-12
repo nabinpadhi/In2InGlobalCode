@@ -4,6 +4,8 @@ using System.Data;
 using System.Net;
 using System.Web;
 using System.Web.Services;
+using In2InGlobal.presentation;
+using InGlobal.presentation;
 
 namespace In2InGlobal.presentation.admin
 {
@@ -66,6 +68,7 @@ namespace In2InGlobal.presentation.admin
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Users.json");
             DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
+            password = new EncryptField().Encrypt(password);
             if (usrTable.Select("Email ='" + emailid + "' and Password = '"+password+"'").Length > 0)
             {
                 DataRow userRow = usrTable.Select("Email ='" + emailid + "' and Password = '" + password + "'")[0];
@@ -73,6 +76,12 @@ namespace In2InGlobal.presentation.admin
                 HttpContext.Current.Session["UserRole"] = userRow["Role"].ToString();
                 HttpContext.Current.Session["UserEmail"] = userRow["Email"].ToString();
                 HttpContext.Current.Session["UserRow"] = userRow;
+
+                string projson = (new WebClient()).DownloadString(HttpContext.Current.Server.MapPath("json-data/Projects.json"));
+                DataTable proTable = JsonConvert.DeserializeObject<DataTable>(projson);
+                DataRow dr = proTable.Select("Email ='" + userRow["Email"].ToString() + "'")[0];
+                HttpContext.Current.Session["ProjectID"] = dr[0].ToString(); ;
+
             }
             else
             {
@@ -83,7 +92,7 @@ namespace In2InGlobal.presentation.admin
             }
             return result;
 
-        }
+        }        
 
     }
 }

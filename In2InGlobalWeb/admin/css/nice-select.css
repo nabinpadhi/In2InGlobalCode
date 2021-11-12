@@ -25,11 +25,14 @@
       -ms-user-select: none;
           user-select: none;
   white-space: nowrap;
-  width: auto; }
+  width: auto; 
+}
   .nice-select:hover {
     border-color: #dbdbdb; }
   .nice-select:active, .nice-select.open, .nice-select:focus {
-    border-color: #999; }
+    border-color: #999;
+    width:auto;
+  }
   .nice-select:after {
     border-bottom: 2px solid #999;
     border-right: 2px solid #999;
@@ -136,3 +139,7 @@
 
 .no-csspointerevents .nice-select.open .list {
   display: block; }
+.nice-select {
+    width: auto;
+}
+}

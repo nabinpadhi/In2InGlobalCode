@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace In2InGlobal.presentation.admin
-{
-
-
-    public partial class MyProfile
-    {
-
+namespace In2InGlobal.presentation.admin {
+    
+    
+    public partial class MyProfile {
+        
         /// <summary>
         /// form1 control.
         /// </summary>
@@ -22,7 +20,7 @@ namespace In2InGlobal.presentation.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-
+        
         /// <summary>
         /// username control.
         /// </summary>
@@ -30,8 +28,8 @@ namespace In2InGlobal.presentation.admin
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText username;
-
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl username;
+        
         /// <summary>
         /// companyname control.
         /// </summary>
@@ -39,8 +37,8 @@ namespace In2InGlobal.presentation.admin
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText companyname;
-
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl companyname;
+        
         /// <summary>
         /// email control.
         /// </summary>
@@ -48,8 +46,8 @@ namespace In2InGlobal.presentation.admin
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText email;
-
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl email;
+        
         /// <summary>
         /// activityaccess control.
         /// </summary>
@@ -57,8 +55,8 @@ namespace In2InGlobal.presentation.admin
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText activityaccess;
-
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl activityaccess;
+        
         /// <summary>
         /// role control.
         /// </summary>
@@ -66,8 +64,8 @@ namespace In2InGlobal.presentation.admin
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText role;
-
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl role;
+        
         /// <summary>
         /// status control.
         /// </summary>
@@ -75,6 +73,6 @@ namespace In2InGlobal.presentation.admin
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText status;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl status;
     }
 }
