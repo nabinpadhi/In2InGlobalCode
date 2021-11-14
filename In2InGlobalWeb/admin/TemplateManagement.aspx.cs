@@ -100,6 +100,7 @@ namespace In2InGlobal.presentation.admin
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            UploadTemplateFile();
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             string json = (new WebClient()).DownloadString(Server.MapPath("json-data/Template.json"));
@@ -107,12 +108,25 @@ namespace In2InGlobal.presentation.admin
 
             int _templateID = usrTable.Rows.Count + 1;
             string today = DateTime.Now.ToShortDateString();
-
-            DataRow dr = usrTable.Rows.Add(_templateID, ddlTemplates.Text, today,ddlProjects.Text, ddlUsers.Text);
+            string templateFileName = templateFileUploader.FileName;
+            DataRow dr = usrTable.Rows.Add(_templateID, ddlTemplates.Text, today,ddlProjects.Text, ddlUsers.Text, templateFileName);
             usrTable.AcceptChanges();
             dr.SetModified();
             string output = Newtonsoft.Json.JsonConvert.SerializeObject(usrTable, Newtonsoft.Json.Formatting.Indented);
             File.WriteAllText(Server.MapPath("json-data/Template.json"), output);            
+        }
+
+        private void UploadTemplateFile()
+        {
+            string fileName = "";
+            string filePath = Server.MapPath("TemplateFiles");           
+            if (templateFileUploader.HasFile)
+            {
+                fileName = templateFileUploader.FileName;
+                templateFileUploader.SaveAs(System.IO.Path.Combine(filePath, fileName));
+            
+            }
+            
         }
     }
 }

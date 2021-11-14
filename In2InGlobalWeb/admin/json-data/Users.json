@@ -8,7 +8,8 @@
     "Password": "gE+++Guwy/oZXAaFOLDdNg==",
     "ActivityAccess": "All",
     "Status": "Active",
-    "PhoneNo": null, "ProjectID": "PRO - 0002"
+    "PhoneNo": null,
+    "ProjectID": "PRO - 0002"
   },
   {
     "FirstName": "Nabin",
@@ -19,7 +20,8 @@
     "Password": "gE+++Guwy/oZXAaFOLDdNg==",
     "ActivityAccess": "All",
     "Status": "Active",
-    "PhoneNo": null, "ProjectID": "PRO - 0001"
+    "PhoneNo": "",
+    "ProjectID": "PRO - 0001"
   },
   {
     "FirstName": "Ganeshswar",
@@ -30,7 +32,8 @@
     "Password": "gE+++Guwy/oZXAaFOLDdNg==",
     "ActivityAccess": "File Management",
     "Status": "Active",
-    "PhoneNo": null, "ProjectID": "PRO - 0003"
+    "PhoneNo": null,
+    "ProjectID": "PRO - 0003"
   },
   {
     "FirstName": "Akash",
@@ -53,7 +56,8 @@
     "Password": "gE+++Guwy/oZXAaFOLDdNg==",
     "ActivityAccess": "Role Management",
     "Status": "Active",
-    "PhoneNo": 6789009876, "ProjectID": "PRO - 0005"
+    "PhoneNo": "6789009876",
+    "ProjectID": "PRO - 0005"
   },
   {
     "FirstName": "Nab",
@@ -64,7 +68,8 @@
     "Password": "gE+++Guwy/oZXAaFOLDdNg==",
     "ActivityAccess": "Template Management",
     "Status": "Active",
-    "PhoneNo": 1234554321, "ProjectID": "PRO - 0006"
+    "PhoneNo": "1234554321",
+    "ProjectID": "PRO - 0006"
   },
   {
     "FirstName": "Abhiram",
@@ -75,6 +80,31 @@
     "Password": "gE+++Guwy/oZXAaFOLDdNg==",
     "ActivityAccess": "File Management,User Management",
     "Status": "Active",
-    "PhoneNo": 1234323451, "ProjectID": "PRO - 0007"
+    "PhoneNo": "1234323451",
+    "ProjectID": "PRO - 0007"
+  },
+  {
+    "FirstName": "Nabin",
+    "LastName": "Duplicate11",
+    "Company": "Free Lancer",
+    "Email": "nabinpadhi79@gmail.com",
+    "Role": "User",
+    "Password": "gE+++Guwy/oZXAaFOLDdNg==",
+    "ActivityAccess": "File Management",
+    "Status": "Active",
+    "PhoneNo": "",
+    "ProjectID": "PRO - 0001"
+  },
+  {
+    "FirstName": "Nabin",
+    "LastName": "Duplicate11",
+    "Company": "Free Lancer",
+    "Email": "nabinpadhi66@gmail.com",
+    "Role": "User",
+    "Password": "gE+++Guwy/oZXAaFOLDdNg==",
+    "ActivityAccess": "File Management",
+    "Status": "Active",
+    "PhoneNo": "1234567890",
+    "ProjectID": "PRO - 0001"
   }
 ]

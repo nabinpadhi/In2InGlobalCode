@@ -17,7 +17,10 @@
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/black/easyui.css" />
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/icon.css" />
     <link href="../css/msgBoxLight.css" rel="stylesheet" type="text/css" />
-  
+  <script lang="JavaScript">
+
+      
+  </script>
    
 </head>
 <body style="overflow:hidden;">
@@ -34,7 +37,7 @@
                             <tr>
                                 <td style="width: 80%;">
                                     <center>
-                                        <div style="width: 80%; border: 1px solid black; border-radius: 5px; margin-top: 30px;">
+                                        <div style="width: 70%; border: 1px solid black; border-radius: 5px; margin-top: 30px;">
                                             <table style="width: 80%;">
                                                 <tr>
                                                     <td>First Name(<span style="color: red">*</span>)</td>
@@ -47,13 +50,27 @@
                                                 <tr>
                                                     <td>Company Name(<span style="color: red">*</span>)</td>
                                                     <td>
-                                                        <asp:DropDownList ID="ddlCompanyName" Width="80%" runat="server" DataTextField="CompanyName">
+                                                        <asp:DropDownList ID="ddlCompanyName" runat="server" DataTextField="CompanyName">
                                                         </asp:DropDownList>
                                                     </td>
                                                     <td>Role Name(<span style="color: red">*</span>)</td>
                                                     <td>
-                                                        <asp:DropDownList ID="ddlRoleName" Width="100%" runat="server" DataTextField="RoleName"></asp:DropDownList>
+                                                        <asp:DropDownList ID="ddlRoleName" onchange="ModifyActivity(this.value);" style="width:auto" runat="server" DataTextField="RoleName"></asp:DropDownList>
 
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Activity Name(<span style="color: red">*</span>)</td>
+                                                    <td>
+                                                        <asp:DropDownList ID="ddlActivityAccess" runat="server" DataTextField="ActivityAccess">                                                            
+                                                            <asp:ListItem Text="All" Value="All" /> 
+                                                            <asp:ListItem Text="File Management" Value="File Management" />
+                                                            <asp:ListItem Text="Analytics" Value="Analytics" />  
+                                                        </asp:DropDownList>
+                                                    </td>
+                                                    <td>Phone Number</td>
+                                                    <td>
+                                                        <input type="text" id="txtPhoneNo" runat="server" value="" /></td>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -92,6 +109,8 @@
                                                 <asp:BoundField DataField="Company" ControlStyle-Width="94%" HeaderText="Company" />
                                                 <asp:BoundField DataField="Email" ReadOnly="true" ControlStyle-Width="94%" HeaderText="Email ID" />
                                                 <asp:BoundField DataField="Role" ReadOnly="true" ControlStyle-Width="94%" HeaderText="Role" />
+                                                <asp:BoundField DataField="ActivityAccess" ControlStyle-Width="94%" HeaderText="Activity Name" />
+                                                <asp:BoundField DataField="PhoneNo" ControlStyle-Width="94%" HeaderText="Phone Number" />
                                                 <asp:CommandField ShowEditButton="true" />
                                                 <asp:CommandField ShowDeleteButton="true" />
                                             </columns>
@@ -101,25 +120,48 @@
                                 </td>
                             </tr>
                         </table>
+                        <input type="hidden" runat="server" id="hdnServerMessage" />
                     </ContentTemplate>                   
                 </asp:UpdatePanel>
             </div>
         </center>
     </form> 
-    <script src="../NewJEasyUI/jquery.min.js" type="text/javascript" language="javascript"></script>
-    <script src="../NewJEasyUI/jquery.easyui.min.js" type="text/javascript" language="javascript"></script>
-     <script src="../scripts/ErrorMessage.js" type="text/javascript" language="javascript"></script>
+    <script src="../NewJEasyUI/jquery.min.js" type="text/javascript" lang="javascript"></script>
+    <script src="../NewJEasyUI/jquery.easyui.min.js" type="text/javascript" lang="javascript"></script>
+     <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/ErrorMessage.js?"), DateTime.Now.Ticks) %>" type="text/javascript" lang="javascript"></script>
 
-    <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/Validation.js?"), DateTime.Now.Ticks) %>" type="text/javascript" language="javascript"></script>
-    <script src="js/jquery.nice-select.min.js" type="text/javascript" language="javascript"></script>
-    <script src="js/fastclick.js" type="text/javascript" language="javascript"></script>
-    <script src="js/prism.js" type="text/javascript" language="javascript"></script>
+    <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/Validation.js?"), DateTime.Now.Ticks) %>" type="text/javascript" lang="javascript"></script>
+    <script src="js/jquery.nice-select.min.js" type="text/javascript" lang="javascript"></script>
+    <script src="js/fastclick.js" type="text/javascript" lang="javascript"></script>
+    <script src="js/prism.js" type="text/javascript" lang="javascript"></script>-->
     <script type="text/javascript">
         $(document).ready(function () {
             $('select:not(.ignore)').niceSelect();
             FastClick.attach(document.body);
             ClearAll();
         });
+        function ShowServerMessage(servermessage)
+        {
+            if (servermessage != "") {
+                $.messager.show({
+                    title: 'In2In Global',
+                    msg: servermessage,
+                    showType: 'slide',
+                    style: {
+                        right: '',
+                        top: '',
+                        bottom: -document.body.scrollTop - document.documentElement.scrollTop
+                    }
+                });
+            }
+        }
+        function isValidEmailAddress(thisString) {
+            if (thisString.match(/^([a-zA-Z0-9])+([.a-zA-Z0-9_-])*@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-]+)+/)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
         function ValidateUser() {
 
             Error_Message = "";
@@ -129,13 +171,27 @@
             CheckNull($("#txtLName").val(), in2in11);
             CheckNullDropdown($("select[name='ddlCompanyName'] option:selected").index(), in2in5);
             CheckNullDropdown($("select[name='ddlRoleName'] option:selected").index(), in2in12);
-            CheckNull($("#txtEmail").val(), in2in6);
+            CheckNullDropdown($("select[name='ddlActivityAccess'] option:selected").index(), in2in19);
+            if ($('txtPhoneNo').val() != "") {
+                ValidatePhoneNumber($('txtPhoneNo').val(), in2in20);
+            }
+            CheckNull($("#txtEmail").val(), in2in6)
+            
+            if ($("#txtEmail").val() != "") {
+                if (isValidEmailAddress($('#txtEmail').val()) == false) {
+
+                    Error_Message = Error_Message + Error_Count + " . " + InvalidEmail_err_msg + "<br>";
+                    Error_Count = Error_Count + 1;
+                }
+                
+            }
             CheckNull($('input[type="password"]').val(), in2in13);           
             if (Error_Message != "") {
-                ShowError(Error_Message,80);
+                ShowError(Error_Message,120);
                 return false;
             }
             else {
+                
                 return true;
             }
         }
@@ -144,20 +200,43 @@
             $('#txtFName').val('');
             $('#txtLName').val('');
             $('#txtEmail').val('');
+            $('#txtPhoneNo').val('');
             $('#ddlRoleName').prop('selectedIndex', 0);
             $('#ddlCompanyName').prop('selectedIndex', 0);
+            $('#ddlActivityAccess').prop('selectedIndex', 0);         
             ResetDropDowns();
             $('input[type="password"]').val('');
-        }
+        }       
         function ResetDropDowns() {
+            $('#ddlActivityAccess').prop("disabled", false).niceSelect('update');
             var companyddl = $('.nice-select')[0];
             var roleddl = $('.nice-select')[1];
+            var activityddl = $('.nice-select')[2];
             $(companyddl).find('.current').remove();
             $(companyddl).append("<span class='current'>--Select a Company--</span>");
             $(roleddl).find('.current').remove();
             $(roleddl).append("<span class='current'>--Select a Role--</span>");
+            $(activityddl).find('.current').remove();
+            $(activityddl).append("<span class='current'>--Select an Activity--</span>");
+            
         }
-        
+        function ModifyActivity(selectedRole) {
+            
+            if (selectedRole == "Admin") {
+
+                $('#ddlActivityAccess').val('All');
+                $('#ddlActivityAccess').prop("disabled", true).niceSelect('update');
+                //$('#ddlActivityAccess').prop('disabled', 'disabled');
+            }
+            else {
+
+                $('#ddlActivityAccess').prop("disabled", false).niceSelect('update');
+                var activityddl = $('.nice-select')[2];
+                $(activityddl).find('.current').remove();
+                $(activityddl).append("<span class='current'>--Select an Activity--</span>");
+               
+            }
+        }
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
                 (i[r].q = i[r].q || []).push(arguments)

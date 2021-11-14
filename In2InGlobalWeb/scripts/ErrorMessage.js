@@ -16,6 +16,9 @@ var in2in15 = "Kindly select a Template."
 var in2in16 = "Kindly select an User."
 var in2in17 = "Kindly select a Project."
 var in2in18 = "Instruction cannot be blank."
+var in2in19 = "Kindly select a Activity Name."
+var in2in20 = "Invalid phone number."
+var InvalidEmail_err_msg = "Kindly provide a valid email id."
 
 var serverMessages = {
     in2in1: "Kindly provide the user name.",

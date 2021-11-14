@@ -18,9 +18,12 @@
         <center>
             <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 20px;">
                 <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height: 40px; padding-top: 10px;"><span class="menu_frame_title">Template Management</span></div>
-                <asp:ScriptManager ID="scriptmanager1" runat="server">
+                <asp:ScriptManager ID="Templatescriptmanager" runat="server">
                 </asp:ScriptManager>
-                <asp:UpdatePanel ID="pdnlCompany" runat="server">
+                <asp:UpdatePanel ID="pdnlTemplate" runat="server">
+                    <Triggers>
+                            <asp:PostBackTrigger ControlID="btnSave" />
+                    </Triggers>
                     <ContentTemplate>
                 <table style="width: 100%; background-color: azure;">
                     <tr>
@@ -29,11 +32,11 @@
                                 <div style="width: 60%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
                                     <table>
                                         <tr>
-                                            <td>
-                                                <table>
+                                            <td style="width:60%;">
+                                                <table style="width:100%">
                                                     <tr>
-                                                        <td>Template Name</td>
-                                                        <td>
+                                                        <td style="width:60%">Template Name</td>
+                                                        <td style="width:40%">
                                                             <asp:DropDownList ID="ddlTemplates" Width="100%" runat="server" DataTextField="TemplateName"></asp:DropDownList>
                                                         </td>
                                                     </tr>
@@ -48,14 +51,20 @@
                                                         <td>
                                                             <asp:DropDownList ID="ddlProjects" Width="100%" runat="server" DataTextField="ProjectName"></asp:DropDownList>
                                                         </td>
-                                                    </tr>                                                   
+                                                    </tr>
+                                                    <tr>
+                                                         <td>Template File</td>
+                                                        <td style="text-align: left;">
+                                                            <asp:FileUpload runat ="server" ID="templateFileUploader" />
+                                                        </td>
+                                                    </tr>
                                                 </table>
                                             </td>
-                                            <td>
+                                            <td  style="width:40%;">
                                                 <table>
                                                     <tr>
-                                                        <td>Instruction</td>
                                                         <td>
+                                                            Instruction
                                                             <textarea id="txtInstruction" style="width: 97%; height: 70px;" runat="server"></textarea>
                                                         </td>
 
@@ -88,7 +97,7 @@
                                         <PagerStyle CssClass="pagination-ys" />
                                         <Columns>
                                             <asp:BoundField HeaderText="Template Name" DataField="TemplateName" />
-                                            <asp:BoundField HeaderText="Date Added" DataField="DateAdded" />
+                                            <asp:BoundField HeaderText="Assigned On" DataField="DateAdded" />
                                             <asp:BoundField HeaderText="Project Name" DataField="ProjectName" />
                                             <asp:BoundField HeaderText="User Email" DataField="Email" />
                                             <asp:CommandField ShowDeleteButton="true" />
@@ -104,14 +113,14 @@
             </div>
         </center>
     </form>
-   <script src="../NewJEasyUI/jquery.min.js" type="text/javascript" language="javascript"></script>
-    <script src="../NewJEasyUI/jquery.easyui.min.js" type="text/javascript" language="javascript"></script>
-     <script src="../scripts/ErrorMessage.js" type="text/javascript" language="javascript"></script>
+   <script src="../NewJEasyUI/jquery.min.js" type="text/javascript" lang="javascript"></script>
+    <script src="../NewJEasyUI/jquery.easyui.min.js" type="text/javascript" lang="javascript"></script>
+     <script src="../scripts/ErrorMessage.js" type="text/javascript" lang="javascript"></script>
 
-    <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/Validation.js?"), DateTime.Now.Ticks) %>" type="text/javascript" language="javascript"></script>
-    <script src="js/jquery.nice-select.min.js" type="text/javascript" language="javascript"></script>
-    <script src="js/fastclick.js" type="text/javascript" language="javascript"></script>
-    <script src="js/prism.js" type="text/javascript" language="javascript"></script>
+    <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/Validation.js?"), DateTime.Now.Ticks) %>" type="text/javascript" lang="javascript"></script>
+    <script src="js/jquery.nice-select.min.js" type="text/javascript" lang="javascript"></script>
+    <script src="js/fastclick.js" type="text/javascript" lang="javascript"></script>
+    <script src="js/prism.js" type="text/javascript" lang="javascript"></script>
     <script>
         $(document).ready(function () {
             $('select:not(.ignore)').niceSelect();
@@ -120,9 +129,15 @@
         });        
         function ClearAll() {
             
+            $('#ddlTemplates').prop('selectedIndex', 0);
+            $('#ddlUsers').prop('selectedIndex', 0);
+            $('#ddlProjects').prop('selectedIndex', 0);
+            $("#txtInstruction").val('');
+
             var templateddl = $('.nice-select')[0];
             var userddl = $('.nice-select')[1];
             var projectddl = $('.nice-select')[2];
+
 
             $(templateddl).find('.current').remove();
             $(templateddl).append("<span class='current'>--Select a Template--</span>");
@@ -130,10 +145,7 @@
             $(userddl).append("<span class='current'>--Select an User--</span>");
             $(projectddl).find('.current').remove();
             $(projectddl).append("<span class='current'>--Select a Project--</span>");
-            $('#ddlTemplates').prop('selectedIndex', 0);
-            $('#ddlUsers').prop('selectedIndex', 0);
-            $('#ddlProjects').prop('selectedIndex', 0);
-            $("#txtInstruction").val('');
+           
         }
         function ValidateTemplate() {
 

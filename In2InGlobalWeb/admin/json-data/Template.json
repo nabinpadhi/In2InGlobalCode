@@ -1,51 +1,34 @@
 [
   {
     "ID": "1",
-    "TemplateName": "Analytic Template 001",
-    "DateAdded": "10/10/2021",
-    "ProjectName": "PRO - 0001",
-    "Email": "nabinpadhi@gmail.com"
-  },
-  {
-    "ID": "2",
-    "TemplateName": "Template 1",
-    "DateAdded": "10/10/2020",
-    "ProjectName": "PRO - 0001",
-    "Email": "nabinpadhi@gmail.com"
-  },
-  {
-    "ID": "3",
-    "TemplateName": "Template 2",
-    "DateAdded": "09/10/2020",
-    "ProjectName": "PRO - 0001",
-    "Email": "nabinpadhi@gmail.com"
-  },
-  {
-    "ID": "4",
-    "TemplateName": "Template 3",
-    "DateAdded": "08/11/2020",
-    "ProjectName": "PRO - 0005",
-    "Email": "nabinpadhi@gmail.com"
-  },
-  {
-    "ID": "5",
-    "TemplateName": "Template 4",
-    "DateAdded": "19/10/2019",
-    "ProjectName": "PRO - 0005",
-    "Email": "nabinpadhi@gmail.com"
-  },
-  {
-    "ID": "6",
-    "TemplateName": "Template 5",
-    "DateAdded": "11/09/2019",
-    "ProjectName": "PRO - 0007",
-    "Email": "nabinpadhi@gmail.com"
-  },
-  {
-    "ID": "7",
     "TemplateName": "New Template File - N0002",
     "DateAdded": "11/11/2021",
     "ProjectName": "PRO - 0002",
-    "Email": "nabinpadhi@gmail.com"
+    "Email": "nabinpadhi@gmail.com",
+    "TemplateFileName": "test123.pdf"
+  },
+  {
+    "ID": "2",
+    "TemplateName": "New Template File - G0001",
+    "DateAdded": "11/14/2021",
+    "ProjectName": "PRO - 0003",
+    "Email": "nabinpadhi@gmail.com",
+    "TemplateFileName": "test1.pdf"
+  },
+  {
+    "ID": "3",
+    "TemplateName": "New Template File - N0002",
+    "DateAdded": "11/14/2021",
+    "ProjectName": "PRO - 0005",
+    "Email": "nabinpadhi@gmail.com",
+    "TemplateFileName": "Client-Data.xlsx"
+  },
+  {
+    "ID": "4",
+    "TemplateName": "New Template File - K0001",
+    "DateAdded": "11/14/2021",
+    "ProjectName": "PRO - 0002",
+    "Email": "nabinpadhi@gmail.com",
+    "TemplateFileName": "GTFile.txt"
   }
 ]

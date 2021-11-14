@@ -5,6 +5,7 @@ using System.Data;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace In2InGlobal.presentation.admin
@@ -148,9 +149,9 @@ namespace In2InGlobal.presentation.admin
             DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
             string encPwd = new EncryptField().Encrypt(txtPassword.Value);
             string projectname = "PRO - 0001"; //Project for creating user need to created and assigned the same to user
-            string activityAccess = "Role Management"; //dropdown field required
+            string activityAccess = ddlActivityAccess.SelectedValue; //dropdown field required
             string status = "Active"; // dropdown field required.
-            string phoneNo = "6789009876"; // extra field need to included
+            string phoneNo =txtPhoneNo.Value; // extra field need to included
             DataRow dr = usrTable.Rows.Add(
                 txtFName.Value,txtLName.Value,ddlCompanyName.SelectedValue.ToString(),
                 txtEmail.Value, ddlRoleName.SelectedValue.ToString(),encPwd,activityAccess,status,phoneNo, projectname) ;
@@ -160,8 +161,20 @@ namespace In2InGlobal.presentation.admin
             File.WriteAllText(Server.MapPath("json-data/Users.json"), output);
 
             BindUsers();
+            ClearAll();
+            string _message = "User Created Successfully)";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);
         }
 
-       
+        private void ClearAll()
+        {
+            txtFName.Value = "";
+            txtLName.Value = "";
+            ddlCompanyName.SelectedIndex = 0;
+            ddlActivityAccess.SelectedIndex = 0;
+            ddlRoleName.SelectedIndex = 0;
+            txtPhoneNo.Value = "";
+            txtPassword.Value = "";
+        }
     }
 }

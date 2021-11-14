@@ -22,22 +22,22 @@ namespace In2InGlobal.presentation.admin {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// scriptmanager1 control.
+        /// Templatescriptmanager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager scriptmanager1;
+        protected global::System.Web.UI.ScriptManager Templatescriptmanager;
         
         /// <summary>
-        /// pdnlCompany control.
+        /// pdnlTemplate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel pdnlCompany;
+        protected global::System.Web.UI.UpdatePanel pdnlTemplate;
         
         /// <summary>
         /// ddlTemplates control.
@@ -65,6 +65,15 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlProjects;
+        
+        /// <summary>
+        /// templateFileUploader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload templateFileUploader;
         
         /// <summary>
         /// txtInstruction control.

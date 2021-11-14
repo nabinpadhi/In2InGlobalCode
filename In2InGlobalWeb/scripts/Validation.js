@@ -697,6 +697,18 @@ var filter=/^([+]?\d{1,6}[-\s]?\d{2,15})*$/
 		return false;
     } 
 }
+function ValidatePhoneNumber(rs_ValueToValidate, ErrMsg) {
+
+    var filter = /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$/
+    if (filter.test(rs_ValueToValidate)) {
+        return true;
+    }
+    else {
+        Error_Message = Error_Message + Error_Count + " . " + ErrMsg + "<br>";
+        Error_Count = Error_Count + 1;
+        return false;
+    }
+}
 
 function ValidateZipcode(rs_ValueToValidate,ErrMsg)
 {

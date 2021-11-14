@@ -90,7 +90,7 @@
                                                                 <td style="width: 10%">: </td>
                                                                 <td style="width: 40%">
                                                                     <div style="width:150px;text-align:left;">
-                                                                        <asp:DropDownList  ID="ddlTemplate" runat="server" DataTextField="TemplateName"></asp:DropDownList>
+                                                                        <asp:DropDownList  ID="ddlTemplate" runat="server"></asp:DropDownList>
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -98,7 +98,7 @@
                                                                 <td></td>
                                                                 <td></td>
                                                                 <td style="text-align: right;">
-                                                                    <button type="button" class="button" onclick="downloadFile();" value="Download" id="btnDownload" runat="server">Download</button></td>
+                                                                    <asp:Button CssClass="button" OnClick="btnDownload_Click" Text="Download" ID="btnDownload" runat="server"></asp:Button></td>
                                                             </tr>
                                                             <tr>
                                                                 <td colspan="3">                                                                    
@@ -227,11 +227,7 @@
                 $('#projectid').val($("#projectids").val());
             });
 
-        });        
-        function downloadFile() {
-
-            alert("Your Template file will be downloaded.")
-        }        
+        });               
     </script>
 
     <script>
