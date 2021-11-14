@@ -133,7 +133,7 @@
     <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/Validation.js?"), DateTime.Now.Ticks) %>" type="text/javascript" lang="javascript"></script>
     <script src="js/jquery.nice-select.min.js" type="text/javascript" lang="javascript"></script>
     <script src="js/fastclick.js" type="text/javascript" lang="javascript"></script>
-    <script src="js/prism.js" type="text/javascript" lang="javascript"></script>-->
+    <script src="js/prism.js" type="text/javascript" lang="javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('select:not(.ignore)').niceSelect();
@@ -172,7 +172,7 @@
             CheckNullDropdown($("select[name='ddlCompanyName'] option:selected").index(), in2in5);
             CheckNullDropdown($("select[name='ddlRoleName'] option:selected").index(), in2in12);
             CheckNullDropdown($("select[name='ddlActivityAccess'] option:selected").index(), in2in19);
-            if ($('txtPhoneNo').val() != "") {
+            if ($('#txtPhoneNo').val() != "") {
                 ValidatePhoneNumber($('txtPhoneNo').val(), in2in20);
             }
             CheckNull($("#txtEmail").val(), in2in6)
