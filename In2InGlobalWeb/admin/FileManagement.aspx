@@ -60,22 +60,24 @@
             }          
     </style> 
 
-
+   
+  
 </head>
 <body style="background-color:azure;">
    
     <form id="form1" runat="server">
         <center>
             <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 20px;">
-             <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height:40px;padding-top:10px;"><span class="menu_frame_title">File Management</span></div>
-                <table style="width: 100%; background-color: azure;">
+                <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height:40px;padding-top:10px;"><span class="menu_frame_title">File Management</span></div>
+                    
+                            <table style="width: 100%; background-color: azure;">
                     <tr>
                         <td style="width: 75%;">
                             <table style="width: 100%; margin-top: 25px;">
                                 <tr>
-                                    <td style="width: 30%;">Project ID :</td>
-                                    <td style="width: 70%;">                                        
-                                        <span fieldtype="readonly" style="width:100px"  runat="server" id="projectid"></span>
+                                    <td style="width: 10%;">Project ID :</td>
+                                    <td style="width: 90%;">                                        
+                                        <span fieldtype="readonly" style="width:100px;align-items:flex-start;"  runat="server" id="projectid"></span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -211,23 +213,23 @@
                         </td>
                     </tr>
                 </table>
-            </div>            
+                        
+            </div>         
         </center>
     </form>
     <script src="js/jquery.js"></script>
     <script src="js/jquery.nice-select.min.js"></script>
     <script src="js/fastclick.js"></script>
-    <script src="js/prism.js"></script>
+    <script src="js/prism.js"></script>    
+ <script>
+    $(document).ready(function () {
+        $('select:not(.ignore)').niceSelect();
+        FastClick.attach(document.body);
+        $("#projectids").change(function () {
+            $('#projectid').val($("#projectids").val());
+        });
 
-    <script>
-        $(document).ready(function () {
-            $('select:not(.ignore)').niceSelect();
-            FastClick.attach(document.body);
-            $("#projectids").change(function () {
-                $('#projectid').val($("#projectids").val());
-            });
-
-        });               
+    });               
     </script>
 
     <script>

@@ -56,7 +56,7 @@ namespace In2InGlobal.presentation.admin
             string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Template.json");
             ddlTemplate.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
             ddlTemplate.DataTextField = "TemplateName";
-            ddlTemplate.DataValueField = "TemplateFileName";
+            ddlTemplate.DataValueField = "TemplateName";
             ddlTemplate.DataBind();
         }
 
@@ -191,11 +191,11 @@ namespace In2InGlobal.presentation.admin
         protected void btnDownload_Click(object sender, EventArgs e)
         {
             System.IO.FileStream fs = null;
-            fs = System.IO.File.Open(Server.MapPath("TemplateFiles/" +ddlTemplate.SelectedValue), System.IO.FileMode.Open);
+            fs = System.IO.File.Open(Server.MapPath("MasterTemplate/" +ddlTemplate.SelectedValue +".csv"), System.IO.FileMode.Open);
             byte[] btFile = new byte[fs.Length];
             fs.Read(btFile, 0, Convert.ToInt32(fs.Length));
             fs.Close();
-            Response.AddHeader("Content-disposition", "attachment; filename=" + ddlTemplate.SelectedValue);
+            Response.AddHeader("Content-disposition", "attachment; filename=" + ddlTemplate.SelectedValue +".csv");
             Response.ContentType = "application/octet-stream";
             Response.BinaryWrite(btFile);
             Response.End();

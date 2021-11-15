@@ -592,4 +592,33 @@ td > input[type=text]:focus {
     transition: all 0.30s ease-in-out;
     border: 1px solid #9999FF;
 }
-    
+
+.PanelTab {
+    -webkit-tap-highlight-color: transparent;
+    background-color: #2c3c59;
+    border-radius: 5px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: 1px solid gray;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 400;
+    height: 32px;
+    line-height: 32px;
+    outline: none;
+    padding: 0 24px;
+    text-align: center;
+    text-decoration: none;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    white-space: nowrap;
+    width: auto;
+    border-bottom:none;
+}
+
+    .PanelTab:hover, .PanelTab:focus {
+        background-color: azure;
+        color: blue;
+    }

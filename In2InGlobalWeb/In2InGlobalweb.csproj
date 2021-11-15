@@ -95,7 +95,6 @@
     <Content Include="admin\js\jquery-3.6.0.js" />
     <Content Include="admin\js\require.js" />
     <Content Include="admin\js\User.js" />
-    <Content Include="admin\TemplateFiles\GTFile.txt" />
     <Content Include="admin\TemplateManagement.aspx" />
     <Content Include="admin\css\gridview.css" />
     <Content Include="admin\CompanyManagement.aspx" />
@@ -1804,10 +1803,13 @@
     <Content Include="admin\json-data\UploadedFiles.json" />
     <Content Include="admin\json-data\Template.json" />
     <Content Include="admin\json-data\Projects.json" />
-    <Content Include="admin\json-data\TemplateRawFiles.json" />
-    <Content Include="admin\TemplateFiles\test1.pdf" />
-    <Content Include="admin\TemplateFiles\test123.pdf" />
-    <Content Include="admin\TemplateFiles\Client-Data.xlsx" />
+    <Content Include="admin\MasterTemplate\Template_001_23-11-22-P1.csv" />
+    <Content Include="admin\MasterTemplate\Template_044_03-11-22-K334.csv" />
+    <Content Include="admin\MasterTemplate\Template_044_03-11-22-M38.csv" />
+    <Content Include="admin\MasterTemplate\Template_044_12-09-22-K004.csv" />
+    <Content Include="admin\MasterTemplate\Template_067_02-05-23-K004.csv" />
+    <Content Include="admin\MasterTemplate\Template_123-KHJY-ABC.csv" />
+    <Content Include="admin\json-data\MasterTemplate.json" />
     <None Include="font\fontawesome-webfont.ttf" />
     <None Include="font\fontawesome-webfont.woff" />
     <None Include="GoogleFont\2UX7WLTfW3W8TclTUvlFyQ.woff" />

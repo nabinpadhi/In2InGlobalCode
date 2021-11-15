@@ -1,34 +1,23 @@
 [
   {
     "ID": "1",
-    "TemplateName": "New Template File - N0002",
+    "TemplateName": "Template_001_23-11-22-P1",
     "DateAdded": "11/11/2021",
     "ProjectName": "PRO - 0002",
-    "Email": "nabinpadhi@gmail.com",
-    "TemplateFileName": "test123.pdf"
+    "Email": "nabinpadhi@gmail.com"
   },
   {
     "ID": "2",
-    "TemplateName": "New Template File - G0001",
+    "TemplateName": "Template_044_03-11-22-K334",
     "DateAdded": "11/14/2021",
     "ProjectName": "PRO - 0003",
-    "Email": "nabinpadhi@gmail.com",
-    "TemplateFileName": "test1.pdf"
+    "Email": "nabinpadhi@gmail.com"
   },
   {
     "ID": "3",
-    "TemplateName": "New Template File - N0002",
-    "DateAdded": "11/14/2021",
+    "TemplateName": "Template_123-KHJY-ABC",
+    "DateAdded": "11/15/2021",
     "ProjectName": "PRO - 0005",
-    "Email": "nabinpadhi@gmail.com",
-    "TemplateFileName": "Client-Data.xlsx"
-  },
-  {
-    "ID": "4",
-    "TemplateName": "New Template File - K0001",
-    "DateAdded": "11/14/2021",
-    "ProjectName": "PRO - 0002",
-    "Email": "nabinpadhi@gmail.com",
-    "TemplateFileName": "GTFile.txt"
+    "Email": "ganeswarsahoo@gmail.com"
   }
 ]

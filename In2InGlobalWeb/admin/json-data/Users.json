@@ -106,5 +106,17 @@
     "Status": "Active",
     "PhoneNo": "1234567890",
     "ProjectID": "PRO - 0001"
+  },
+  {
+    "FirstName": "Nabin",
+    "LastName": "Duplicate11",
+    "Company": "My Company 3",
+    "Email": "nabinpadhi99@gmail.com",
+    "Role": "User",
+    "Password": "gE+++Guwy/oZXAaFOLDdNg==",
+    "ActivityAccess": "File Management",
+    "Status": "Active",
+    "PhoneNo": "",
+    "ProjectID": "PRO - 0001"
   }
 ]
