@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="TemplateManagement.aspx.cs" Inherits="In2InGlobal.presentation.admin.TemplateManagement" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" EnableEventValidation="false" CodeBehind="TemplateManagement.aspx.cs" Inherits="In2InGlobal.presentation.admin.TemplateManagement" %>
 
 <!DOCTYPE html>
 
@@ -13,6 +13,7 @@
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
      <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/Validation.js?"), DateTime.Now.Ticks) %>" type="text/javascript" lang="javascript"></script>
       <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" />
+   
 </head>
 <body>
     <form id="form1" runat="server">
@@ -21,7 +22,7 @@
                 <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height: 40px; padding-top: 10px;"><span class="menu_frame_title">Template Management</span></div>
                 <asp:ScriptManager ID="Templatescriptmanager" runat="server">                    
                 </asp:ScriptManager>
-                <asp:UpdatePanel ID="pdnlTemplate" runat="server">                              
+                <asp:UpdatePanel  ID="pdnlTemplate" runat="server">                              
                     <ContentTemplate>
                         <div name="pnlTemplate" id="pnlTemplate" style="width:auto;height:auto;color:black">
                         <div style="border-bottom:0 solid gray;display:flex;padding:2px;width:auto;">
@@ -90,8 +91,7 @@
                                                     <PagerStyle CssClass="pagination-ys" />
                                                     <Columns>
                                                         <asp:BoundField HeaderText="Template Name" DataField="TemplateName" />
-                                                        <asp:BoundField HeaderText="Created By" DataField="CreatedBy" />
-                                                        <asp:BoundField HeaderText="Instruction" DataField="Instruction" />                                                        
+                                                        <asp:BoundField HeaderText="Created By" DataField="CreatedBy" />                                                      
                                                         <asp:CommandField ShowDeleteButton="true" />
                                                     </Columns>
                                                 </asp:GridView>
@@ -111,19 +111,19 @@
                                                         <tr>
                                                             <td style="width:40%;text-align:right;">Template Name</td>
                                                             <td style="width:60%;padding-right:20%;">
-                                                                <asp:DropDownList ID="ddlTemplates" Width="100%" runat="server" DataTextField="TemplateName"></asp:DropDownList>
+                                                                <asp:DropDownList ID="ddlTemplates" style="width:auto;" runat="server" DataTextField="TemplateName"></asp:DropDownList>
                                                             </td>
                                                         </tr>
                                                          <tr>
                                                             <td style="text-align:right;">Email Id</td>
                                                             <td style="padding-right:20%;">
-                                                                <asp:DropDownList ID="ddlUsers" Width="100%" runat="server" DataTextField="Email"></asp:DropDownList>
+                                                                <input type="text" id="txtUserEmail" style="Width:auto" runat="server"  readonly fieldtype="readonly" value="" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td style="text-align:right;">Project Name</td>
                                                             <td style="padding-right:20%;">
-                                                                <asp:DropDownList ID="ddlProjects" Width="100%" runat="server" DataTextField="ProjectName"></asp:DropDownList>
+                                                                <asp:DropDownList ID="ddlProjects" style="width:auto;" runat="server" DataTextField="ProjectName"></asp:DropDownList>
                                                             </td>
                                                         </tr>    
                                                          <tr>
@@ -174,7 +174,7 @@
      <script src="../scripts/ErrorMessage.js" type="text/javascript" lang="javascript"></script>
 
     <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/Validation.js?"), DateTime.Now.Ticks) %>" type="text/javascript" lang="javascript"></script>
-    <script src="js/jquery.nice-select.min.js" type="text/javascript" lang="javascript"></script>
+     <script src="js/jquery.nice-select.min.js" type="text/javascript" lang="javascript"></script>
     <script src="js/fastclick.js" type="text/javascript" lang="javascript"></script>
     <script src="js/prism.js" type="text/javascript" lang="javascript"></script>
      
@@ -188,17 +188,15 @@
         });        
         function ClearAll() {
             
-            $('#ddlTemplates').prop('selectedIndex', 0);
-            $('#ddlUsers').prop('selectedIndex', 0);
+          
+            $('#ddlTemplates').prop('selectedIndex', 0);            
             $('#ddlProjects').prop('selectedIndex', 0);
             $('#ddlMasterTemplate').prop('selectedIndex', 0);
             $("#txtInstruction").val('');
 
             var crttemplateddl = $('.nice-select')[0];
-            var assigntemplateddl = $('.nice-select')[1];
-            var usrdll = $('.nice-select')[2];
-            var projectddl = $('.nice-select')[3];
-
+            var assigntemplateddl = $('.nice-select')[1];            
+            var projectddl = $('.nice-select')[2];
 
             $(crttemplateddl).find('.current').remove();
             $(crttemplateddl).append("<span class='current'>--Select a Template--</span>");
@@ -206,10 +204,6 @@
             $(assigntemplateddl).find('.current').remove();
             $(assigntemplateddl).append("<span class='current'>--Select a Template--</span>");
             
-
-            $(usrdll).find('.current').remove();
-            $(usrdll).append("<span class='current'>--Select an User--</span>");
-
             $(projectddl).find('.current').remove();
             $(projectddl).append("<span class='current'>--Select a Project--</span>");
            
@@ -219,6 +213,7 @@
           Error_Message = "";
           Error_Count = 1;  
           CheckNull($("#txtInstruction").val(), in2in18);
+          CheckNullDropdown($("select[name='ddlMasterTemplates'] option:selected").index(), in2in15); 
           if (Error_Message != "") {
               ShowError(Error_Message, 80);
               return false;
@@ -231,8 +226,7 @@
 
             Error_Message = "";
             Error_Count = 1;            
-            CheckNullDropdown($("select[name='ddlTemplates'] option:selected").index(), in2in15);
-            CheckNullDropdown($("select[name='ddlUsers'] option:selected").index(), in2in16);
+            CheckNullDropdown($("select[name='ddlTemplates'] option:selected").index(), in2in15);            
             CheckNullDropdown($("select[name='ddlProjects'] option:selected").index(), in2in17);
            
             if (Error_Message != "") {
@@ -262,9 +256,27 @@
 
       function ShowHidden() {
 
+         
       } 
 
-      function ShowServerMessage(servermessage) {
+      function ShowServerMessage(servermessage) {          
+
+          var myOption = "<option>--Select a Template--</option>";
+          var index = 1;
+          $(myOption).insertBefore("#ddlTemplates option:nth-child(" + index + ")");
+          $('#ddlTemplates').prop('selectedIndex', 0);
+
+          myOption = "<option>--Select a Project--</option>";
+          $(myOption).insertBefore("#ddlProjects option:nth-child(" + index + ")");
+          $('#ddlProjects').prop('selectedIndex', 0);
+
+          myOption = "<option>--Select a Template--</option>";
+          $(myOption).insertBefore("#ddlMasterTemplate option:nth-child(" + index + ")");
+          $('#ddlMasterTemplate').prop('selectedIndex', 0);
+
+          $("#txtInstruction").val('');
+          
+
             if (servermessage != "") {
                 $.messager.show({
                     title: 'In2In Global',
@@ -296,22 +308,23 @@
       function ShowAssignTemplate() {
 
           $('.Asgnpnl').visible();
-          $('#btnAssignTemplate').css("background-color", "azure")
-          $('#btnAssignTemplate').css("color", "blue")
-          $('#btnCreateTemplate').css("background-color", "#2c3c59")
-          $('#btnCreateTemplate').css("color", "white")
           $('.crtpnl').invisible();
-          recentnl = "#btnAssignTemplate";
+          $('#btnAssignTemplate').css("background-color", "azure");
+          $('#btnAssignTemplate').css("color", "blue");
+          $('#btnCreateTemplate').css("background-color", "#2c3c59");
+          $('#btnCreateTemplate').css("color", "white");
+          ClearAll();
       }
       function ShowCreateTemplate() {
 
           $('.Asgnpnl').invisible();
           $('.crtpnl').visible();
-          $('#btnCreateTemplate').css("background-color", "azure")
-          $('#btnCreateTemplate').css("color", "blue")
-          $('#btnAssignTemplate').css("background-color", "#2c3c59")
-          $('#btnAssignTemplate').css("color", "#fff")
-          recentnl = "btnCreateTemplate";
+          $('#btnCreateTemplate').css("background-color", "azure");
+          $('#btnCreateTemplate').css("color", "blue");
+          $('#btnAssignTemplate').css("background-color", "#2c3c59");
+          $('#btnAssignTemplate').css("color", "#fff");
+          
+          ClearAll();
       }
       function sleep(milliseconds) {
           var start = new Date().getTime();

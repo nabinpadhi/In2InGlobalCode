@@ -28,8 +28,9 @@ namespace In2InGlobal.presentation.admin
                         BindMasterTemplate();
                         BindMasterTemplateGrid();
                         BindTemplateToAssign();
-                        BindUserNames();
+                       
                         txtcreatedBy.Value = Session["UserEmail"].ToString();
+                        txtUserEmail.Value = Session["UserEmail"].ToString();
                     }
                     else
                     {
@@ -64,16 +65,7 @@ namespace In2InGlobal.presentation.admin
             grdTemplate.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
             grdTemplate.DataBind();
         }
-        private void BindUserNames()
-        {
-
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Users.json");
-            ddlUsers.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
-            ddlUsers.DataBind();
-        }
-
+        
         /* Used to load the template name extracting from provided files a folder
            This will lod the template name on create template screen*/
         private void BindMasterTemplate()
@@ -106,18 +98,8 @@ namespace In2InGlobal.presentation.admin
         {
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string jsonMasterTemplate = (new WebClient()).DownloadString(Server.MapPath("json-data/MasterTemplate.json"));
-            string jsonAssinedTemplate = (new WebClient()).DownloadString(Server.MapPath("json-data/Template.json"));
-            DataTable dtMasterTemplate = JsonConvert.DeserializeObject<DataTable>(jsonMasterTemplate);
-            DataTable dtAssinedTemplate = JsonConvert.DeserializeObject<DataTable>(jsonAssinedTemplate);
-            foreach(DataRow dr in dtAssinedTemplate.Rows)
-            {
-                if (dtMasterTemplate.Select("TemplateName='" + dr["TemplateName"]+"'").Length>0)
-                {
-                    dtMasterTemplate.Select("TemplateName='" + dr["TemplateName"]+"'")[0].Delete();
-                }
-            }
-            dtMasterTemplate.AcceptChanges();
+            string jsonMasterTemplate = (new WebClient()).DownloadString(Server.MapPath("json-data/MasterTemplate.json"));            
+            DataTable dtMasterTemplate = JsonConvert.DeserializeObject<DataTable>(jsonMasterTemplate);           
             ddlTemplates.DataSource = dtMasterTemplate;
             ddlTemplates.DataBind();
         }
@@ -144,7 +126,8 @@ namespace In2InGlobal.presentation.admin
             DeleteTemplate(ID);
             BindTemplate();
             BindTemplateToAssign();
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), "ShowAssignTemplate();", true);
+            string _message = "Template assignment removed.";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowAssignTemplate();", _message), true);
         }
         
         protected void grdMasterTemplate_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -159,10 +142,12 @@ namespace In2InGlobal.presentation.admin
 
         protected void grdMasterTemplate_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            string ID = grdTemplate.DataKeys[e.RowIndex].Value.ToString();
+            string ID = grdMasterTemplate.DataKeys[e.RowIndex].Value.ToString();
             DeleteMasterTemplate(ID);
             BindMasterTemplateGrid();
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), "ShowCreateTemplate();", true);
+            BindMasterTemplate();
+            string _message = "Template removed successfully.";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", _message), true);
         }
         
         private void DeleteMasterTemplate(string iD)
@@ -205,7 +190,7 @@ namespace In2InGlobal.presentation.admin
 
             int _templateID = usrTable.Rows.Count + 1;
             string today = DateTime.Now.ToShortDateString();           
-            DataRow dr = usrTable.Rows.Add(_templateID, ddlTemplates.Text, today,ddlProjects.Text, ddlUsers.Text);
+            DataRow dr = usrTable.Rows.Add(_templateID, ddlTemplates.Text, today,ddlProjects.Text, txtUserEmail.Value);
             usrTable.AcceptChanges();
             dr.SetModified();
             string output = Newtonsoft.Json.JsonConvert.SerializeObject(usrTable, Newtonsoft.Json.Formatting.Indented);
@@ -222,21 +207,28 @@ namespace In2InGlobal.presentation.admin
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             string json = (new WebClient()).DownloadString(Server.MapPath("json-data/MasterTemplate.json"));
-            DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
-
-            int _templateID = usrTable.Rows.Count + 1;
+            DataTable masterTemplateTable = JsonConvert.DeserializeObject<DataTable>(json);
+            if(masterTemplateTable.Rows.Count == 0)
+            {
+                masterTemplateTable.Columns.Add("ID");
+                masterTemplateTable.Columns.Add("TemplateName");
+                masterTemplateTable.Columns.Add("CreatedBy");
+                masterTemplateTable.Columns.Add("Instruction");
+            }
+            int _templateID = masterTemplateTable.Rows.Count + 1;
             string createdBy = Session["UserEmail"].ToString();
-            string temaplateName = ddlMasterTemplate.Text;
+            string templateName = ddlMasterTemplate.Text;
             string instruction = txtInstruction.Value;
 
-            DataRow dr = usrTable.Rows.Add(_templateID, temaplateName, createdBy,instruction);
-            usrTable.AcceptChanges();
+            DataRow dr = masterTemplateTable.Rows.Add(_templateID, templateName, createdBy,instruction);
+            masterTemplateTable.AcceptChanges();
             dr.SetModified();
-            string output = Newtonsoft.Json.JsonConvert.SerializeObject(usrTable, Newtonsoft.Json.Formatting.Indented);
+            string output = Newtonsoft.Json.JsonConvert.SerializeObject(masterTemplateTable, Newtonsoft.Json.Formatting.Indented);
             File.WriteAllText(Server.MapPath("json-data/MasterTemplate.json"), output);
-
+            BindMasterTemplateGrid();
+            BindMasterTemplate();
             string _message = "Template Updated Successfully.)";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate(); ", _message), true);
         }
         
         /* private void UploadTemplateFile()
