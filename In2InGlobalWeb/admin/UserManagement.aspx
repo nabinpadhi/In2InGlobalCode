@@ -50,13 +50,13 @@
                                                 <tr>
                                                     <td>Company Name(<span style="color: red">*</span>)</td>
                                                     <td>
-                                                        <asp:DropDownList ID="ddlCompanyName" runat="server" AppendDataBoundItems="true" DataTextField="CompanyName">
+                                                        <asp:DropDownList style="width:95%;" ID="ddlCompanyName" runat="server" AppendDataBoundItems="true" DataTextField="CompanyName">
                                                             <asp:ListItem Text="-- Select a Company --"></asp:ListItem>
                                                         </asp:DropDownList>
                                                     </td>
                                                     <td>Role Name(<span style="color: red">*</span>)</td>
                                                     <td>
-                                                        <asp:DropDownList ID="ddlRoleName" AppendDataBoundItems="true" onchange="ModifyActivity(this.value);" style="width:auto" runat="server" DataTextField="RoleName">
+                                                        <asp:DropDownList ID="ddlRoleName" AppendDataBoundItems="true" onchange="ModifyActivity(this.value);" style="width:95%;" runat="server" DataTextField="RoleName">
                                                             <asp:ListItem Text="-- Select a Role --"></asp:ListItem>
                                                         </asp:DropDownList>
 
@@ -65,7 +65,7 @@
                                                 <tr>
                                                     <td>Activity Name(<span style="color: red">*</span>)</td>
                                                     <td>
-                                                        <asp:DropDownList ID="ddlActivityAccess" runat="server" DataTextField="ActivityAccess">                                                            
+                                                        <asp:DropDownList ID="ddlActivityAccess" style="width:95%;" runat="server" DataTextField="ActivityAccess">                                                            
                                                            <asp:ListItem Text="-- Select a Activity --"></asp:ListItem>
                                                             <asp:ListItem Text="All" Value="All" /> 
                                                             <asp:ListItem Text="File Management" Value="File Management" />

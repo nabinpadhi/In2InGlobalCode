@@ -43,7 +43,7 @@
                                                                     
                                                                     <td style="width:40%">
                                                                         Template Name(<span style="color: red">*</span>)<br />
-                                                                        <asp:DropDownList ID="ddlMasterTemplate" Width="90%" AppendDataBoundItems="true" runat="server" DataTextField="TemplateName">
+                                                                        <asp:DropDownList ID="ddlMasterTemplate" Width="92%" AppendDataBoundItems="true" runat="server" DataTextField="TemplateName">
                                                                             <asp:ListItem Text="--Select a Template--" ></asp:ListItem>
                                                                         </asp:DropDownList>
                                                                     </td>
@@ -121,13 +121,13 @@
                                                          <tr>
                                                             <td style="text-align:right;">Email Id(<span style="color: red">*</span>)</td>
                                                             <td style="padding-right:20%;">
-                                                                <input type="text" id="txtUserEmail" style="Width:auto" runat="server"  readonly fieldtype="readonly" value="" />
+                                                                <input type="text" id="txtUserEmail" style="Width:77%;" runat="server"  readonly fieldtype="readonly" value="" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td style="text-align:right;">Project Name(<span style="color: red">*</span>)</td>
                                                             <td style="padding-right:20%;">
-                                                                <asp:DropDownList ID="ddlProjects" AppendDataBoundItems="true" style="width:auto;" runat="server" DataTextField="ProjectName">
+                                                                <asp:DropDownList ID="ddlProjects" AppendDataBoundItems="true" style="width:80%;" runat="server" DataTextField="ProjectName">
                                                                     <asp:ListItem Text="--Select a Project--" ></asp:ListItem>
                                                                 </asp:DropDownList>
                                                             </td>

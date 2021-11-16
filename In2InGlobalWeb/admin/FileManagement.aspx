@@ -70,7 +70,11 @@
         <center>
             <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 20px;">
                 <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height:40px;padding-top:10px;"><span class="menu_frame_title">File Management</span></div>
-                    
+                    <asp:ScriptManager ID="scriptmanager1" runat="server">
+                </asp:ScriptManager>
+                <asp:UpdatePanel ID="pdnlFileMgnt" runat="server">
+                    <Triggers><asp:PostBackTrigger ControlID="btnDownload" /></Triggers>
+                    <ContentTemplate> 
                             <table style="width: 100%; background-color: azure;">
                     <tr>
                         <td style="width: 75%;">
@@ -179,7 +183,9 @@
                                         </td>
                                         <td>
                                             <div>
-                                                <asp:DropDownList OnSelectedIndexChanged="ddlProjects_SelectedIndexChanged" AutoPostBack="true" ID="ddlProjects" Width="100%" runat="server" DataTextField="ProjectName"></asp:DropDownList>
+                                                <asp:DropDownList OnSelectedIndexChanged="ddlProjects_SelectedIndexChanged" AppendDataBoundItems="true" AutoPostBack="true" ID="ddlProjects" Width="100%" runat="server" DataTextField="ProjectName">
+                                                        <asp:ListItem Text="--Select a Project--"></asp:ListItem>
+                                                </asp:DropDownList>
                                             </div>
                                         </td>
                                     </tr>
@@ -197,7 +203,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td style="margin-left: auto; margin-top: auto;">
-                                                            <asp:GridView ID="grdTemplate" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
+                                                            <asp:GridView ID="grdTemplate" EmptyDataText="No Template Found..." Visible="false" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
                                                                 AllowPaging="True" OnPageIndexChanging="grdTemplate_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
                                                                 <PagerStyle CssClass="pagination-ys" />
                                                                 <Columns>
@@ -216,6 +222,8 @@
                         </td>
                     </tr>
                 </table>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
                         
             </div>         
         </center>

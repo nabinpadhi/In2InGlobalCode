@@ -24,7 +24,7 @@ namespace In2InGlobal.presentation.admin
                     {
                         usrEmailTR.Visible = true;
                         tblTemplateDetail.Visible = true;
-                        BindTemplateGrid(ddlProjects.SelectedValue, "");
+                       // BindTemplateGrid(ddlProjects.SelectedValue, "");
 
 
                     }
@@ -51,12 +51,23 @@ namespace In2InGlobal.presentation.admin
 
         private void LoadTemplates()
         {
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Template.json");
-            ddlTemplate.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
+            DataTable dtTemplate = new DataTable();
+            dtTemplate.Columns.Add("TemplateName");
+            dtTemplate.Columns.Add("FilePath");
+
+            foreach (string s in System.IO.Directory.GetFiles(Server.MapPath("MasterTemplate")))
+            {
+                string fileName = System.IO.Path.GetFileName(s);
+                DataRow newRow = dtTemplate.NewRow();
+                newRow["TemplateName"] = fileName.Substring(0, fileName.Length - 4);
+                newRow["FilePath"] = fileName;
+
+                dtTemplate.Rows.Add(newRow);
+            }
+
+            ddlTemplate.DataSource = dtTemplate;
             ddlTemplate.DataTextField = "TemplateName";
-            ddlTemplate.DataValueField = "TemplateName";
+            ddlTemplate.DataValueField = "FilePath";
             ddlTemplate.DataBind();
         }
 
@@ -71,7 +82,7 @@ namespace In2InGlobal.presentation.admin
         }
         private void BindTemplateGrid(string _pid,string _email)
         {
-
+            grdTemplate.Visible = true;
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Template.json");
@@ -94,7 +105,11 @@ namespace In2InGlobal.presentation.admin
                     grdTemplate.DataBind();
 
                 }
-                else { grdTemplate.DataSource = null; }
+                else
+                {
+                    grdTemplate.DataSource = null;
+                    grdTemplate.DataBind();
+                }
             }
 
         }
@@ -191,11 +206,11 @@ namespace In2InGlobal.presentation.admin
         protected void btnDownload_Click(object sender, EventArgs e)
         {
             System.IO.FileStream fs = null;
-            fs = System.IO.File.Open(Server.MapPath("MasterTemplate/" +ddlTemplate.SelectedValue +".csv"), System.IO.FileMode.Open);
+            fs = System.IO.File.Open(Server.MapPath("MasterTemplate/" +ddlTemplate.SelectedValue), System.IO.FileMode.Open);
             byte[] btFile = new byte[fs.Length];
             fs.Read(btFile, 0, Convert.ToInt32(fs.Length));
             fs.Close();
-            Response.AddHeader("Content-disposition", "attachment; filename=" + ddlTemplate.SelectedValue +".csv");
+            Response.AddHeader("Content-disposition", "attachment; filename=" + ddlTemplate.SelectedValue);
             Response.ContentType = "application/octet-stream";
             Response.BinaryWrite(btFile);
             Response.End();
