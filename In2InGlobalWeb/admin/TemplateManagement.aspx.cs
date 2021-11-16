@@ -28,8 +28,9 @@ namespace In2InGlobal.presentation.admin
                         BindMasterTemplate();
                         BindMasterTemplateGrid();
                         BindTemplateToAssign();
-                       
-                        txtcreatedBy.Value = Session["UserEmail"].ToString();
+
+                        //txtcreatedBy = Session["UserEmail"].ToString();
+                        txtcreatedB.InnerText = Session["UserEmail"].ToString();
                         txtUserEmail.Value = Session["UserEmail"].ToString();
                     }
                     else
@@ -93,6 +94,7 @@ namespace In2InGlobal.presentation.admin
             }
             ddlMasterTemplate.DataSource = dtTemplate;
             ddlMasterTemplate.DataBind();
+            
         }
         private void BindTemplateToAssign()
         {

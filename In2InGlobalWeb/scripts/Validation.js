@@ -364,7 +364,7 @@ function CompareTwoDate(rs_FieldValueOne,rs_FieldValueTwo,ms_ErrMsg,type)
 
 function CheckNullDropdown(rs_FieldValueToValidate,ms_ErrMsg)
 {	
-	if(rs_FieldValueToValidate == 0 )
+	if(rs_FieldValueToValidate <= 0 )
 	{
 		Error_Message= Error_Message + Error_Count + " . " + ms_ErrMsg + "<br>";
 		Error_Count = Error_Count + 1;

@@ -42,14 +42,16 @@
                                                                 <tr>
                                                                     
                                                                     <td style="width:40%">
-                                                                        Template Name<br />
-                                                                        <asp:DropDownList ID="ddlMasterTemplate" Width="90%" runat="server" DataTextField="TemplateName"></asp:DropDownList>
+                                                                        Template Name(<span style="color: red">*</span>)<br />
+                                                                        <asp:DropDownList ID="ddlMasterTemplate" Width="90%" AppendDataBoundItems="true" runat="server" DataTextField="TemplateName">
+                                                                            <asp:ListItem Text="--Select a Template--" ></asp:ListItem>
+                                                                        </asp:DropDownList>
                                                                     </td>
                                                                 </tr>
                                                                  <tr>
                                                                     <td>
-                                                                        Created By
-                                                                        <input type="text" runat="server" readonly fieldtype="readonly" name="txtCreatedBy" id="txtcreatedBy" />
+                                                                        Created By(<span style="color: red">*</span>)                                                                        
+                                                                        <span fieldtype="readonly" value="" runat="server" id="txtcreatedB" />
                                                                     </td>
                                                                 </tr>                                                                                                         
                                                             </table>
@@ -58,7 +60,7 @@
                                                             <table>
                                                                 <tr>
                                                                     <td>
-                                                                        Instruction
+                                                                        Instruction(<span style="color: red">*</span>)
                                                                         <textarea rows="5" id="txtInstruction" class="txtInstruction" name="txtInstruction" style="resize:none; width: 97%; height: 70px;" runat="server"></textarea>
                                                                     </td>
 
@@ -71,7 +73,7 @@
                                                             <div style="margin-top: 15px;">
                                                                 <center>
                                                                     <asp:Button  ID="btnCreate" runat="server" OnClientClick="return ValidateMasterTemplate();" OnClick="btnCreate_Click"  CssClass="button" Text="Create" />
-                                                                    <input type="button" class="button" style="margin-left: 10px;" value="Cancel" />
+                                                                    <input type="button" class="button" style="margin-left: 10px;" value="Cancel" onclick="ClearAll();" />
                                                                 </center>
                                                             </div>
                                                         </td>
@@ -109,21 +111,25 @@
                                         <div style="width: 60%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
                                          <table style="width:100%">
                                                         <tr>
-                                                            <td style="width:40%;text-align:right;">Template Name</td>
+                                                            <td style="width:40%;text-align:right;">Template Name(<span style="color: red">*</span>)</td>
                                                             <td style="width:60%;padding-right:20%;">
-                                                                <asp:DropDownList ID="ddlTemplates" style="width:auto;" runat="server" DataTextField="TemplateName"></asp:DropDownList>
+                                                                <asp:DropDownList ID="ddlTemplates" style="width:auto;" AppendDataBoundItems="true" runat="server" DataTextField="TemplateName">
+                                                                    <asp:ListItem Text="--Select a Template--" ></asp:ListItem>
+                                                                </asp:DropDownList>
                                                             </td>
                                                         </tr>
                                                          <tr>
-                                                            <td style="text-align:right;">Email Id</td>
+                                                            <td style="text-align:right;">Email Id(<span style="color: red">*</span>)</td>
                                                             <td style="padding-right:20%;">
                                                                 <input type="text" id="txtUserEmail" style="Width:auto" runat="server"  readonly fieldtype="readonly" value="" />
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td style="text-align:right;">Project Name</td>
+                                                            <td style="text-align:right;">Project Name(<span style="color: red">*</span>)</td>
                                                             <td style="padding-right:20%;">
-                                                                <asp:DropDownList ID="ddlProjects" style="width:auto;" runat="server" DataTextField="ProjectName"></asp:DropDownList>
+                                                                <asp:DropDownList ID="ddlProjects" AppendDataBoundItems="true" style="width:auto;" runat="server" DataTextField="ProjectName">
+                                                                    <asp:ListItem Text="--Select a Project--" ></asp:ListItem>
+                                                                </asp:DropDownList>
                                                             </td>
                                                         </tr>    
                                                          <tr>
@@ -174,46 +180,33 @@
      <script src="../scripts/ErrorMessage.js" type="text/javascript" lang="javascript"></script>
 
     <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/Validation.js?"), DateTime.Now.Ticks) %>" type="text/javascript" lang="javascript"></script>
-     <script src="js/jquery.nice-select.min.js" type="text/javascript" lang="javascript"></script>
+    <%-- <script src="js/jquery.nice-select.min.js" type="text/javascript" lang="javascript"></script>--%>
     <script src="js/fastclick.js" type="text/javascript" lang="javascript"></script>
     <script src="js/prism.js" type="text/javascript" lang="javascript"></script>
      
   <script>   
       var recentnl = "btnCreateTemplate";
         $(document).ready(function () {
-            $('select:not(.ignore)').niceSelect();
+            //$('select:not(.ignore)').niceSelect();
             FastClick.attach(document.body);
             ClearAll();
             ShowCreateTemplate();
         });        
         function ClearAll() {
             
-          
             $('#ddlTemplates').prop('selectedIndex', 0);            
             $('#ddlProjects').prop('selectedIndex', 0);
             $('#ddlMasterTemplate').prop('selectedIndex', 0);
             $("#txtInstruction").val('');
-
-            var crttemplateddl = $('.nice-select')[0];
-            var assigntemplateddl = $('.nice-select')[1];            
-            var projectddl = $('.nice-select')[2];
-
-            $(crttemplateddl).find('.current').remove();
-            $(crttemplateddl).append("<span class='current'>--Select a Template--</span>");
-
-            $(assigntemplateddl).find('.current').remove();
-            $(assigntemplateddl).append("<span class='current'>--Select a Template--</span>");
-            
-            $(projectddl).find('.current').remove();
-            $(projectddl).append("<span class='current'>--Select a Project--</span>");
-           
       }
       function ValidateMasterTemplate() {
 
           Error_Message = "";
           Error_Count = 1;  
-          CheckNull($("#txtInstruction").val(), in2in18);
-          CheckNullDropdown($("select[name='ddlMasterTemplates'] option:selected").index(), in2in15); 
+
+          CheckNullDropdown($("select[name='ddlMasterTemplate'] option:selected").index(), in2in15);
+          CheckNull($("#txtInstruction").val(), in2in18);          
+
           if (Error_Message != "") {
               ShowError(Error_Message, 80);
               return false;
@@ -260,19 +253,6 @@
       } 
 
       function ShowServerMessage(servermessage) {          
-
-          var myOption = "<option>--Select a Template--</option>";
-          var index = 1;
-          $(myOption).insertBefore("#ddlTemplates option:nth-child(" + index + ")");
-          $('#ddlTemplates').prop('selectedIndex', 0);
-
-          myOption = "<option>--Select a Project--</option>";
-          $(myOption).insertBefore("#ddlProjects option:nth-child(" + index + ")");
-          $('#ddlProjects').prop('selectedIndex', 0);
-
-          myOption = "<option>--Select a Template--</option>";
-          $(myOption).insertBefore("#ddlMasterTemplate option:nth-child(" + index + ")");
-          $('#ddlMasterTemplate').prop('selectedIndex', 0);
 
           $("#txtInstruction").val('');
           
