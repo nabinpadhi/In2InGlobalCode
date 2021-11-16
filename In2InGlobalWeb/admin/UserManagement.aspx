@@ -50,12 +50,15 @@
                                                 <tr>
                                                     <td>Company Name(<span style="color: red">*</span>)</td>
                                                     <td>
-                                                        <asp:DropDownList ID="ddlCompanyName" runat="server" DataTextField="CompanyName">
+                                                        <asp:DropDownList ID="ddlCompanyName" runat="server" AppendDataBoundItems="true" DataTextField="CompanyName">
+                                                            <asp:ListItem Text="-- Select a Company --"></asp:ListItem>
                                                         </asp:DropDownList>
                                                     </td>
                                                     <td>Role Name(<span style="color: red">*</span>)</td>
                                                     <td>
-                                                        <asp:DropDownList ID="ddlRoleName" onchange="ModifyActivity(this.value);" style="width:auto" runat="server" DataTextField="RoleName"></asp:DropDownList>
+                                                        <asp:DropDownList ID="ddlRoleName" AppendDataBoundItems="true" onchange="ModifyActivity(this.value);" style="width:auto" runat="server" DataTextField="RoleName">
+                                                            <asp:ListItem Text="-- Select a Role --"></asp:ListItem>
+                                                        </asp:DropDownList>
 
                                                     </td>
                                                 </tr>
@@ -63,6 +66,7 @@
                                                     <td>Activity Name(<span style="color: red">*</span>)</td>
                                                     <td>
                                                         <asp:DropDownList ID="ddlActivityAccess" runat="server" DataTextField="ActivityAccess">                                                            
+                                                           <asp:ListItem Text="-- Select a Activity --"></asp:ListItem>
                                                             <asp:ListItem Text="All" Value="All" /> 
                                                             <asp:ListItem Text="File Management" Value="File Management" />
                                                             <asp:ListItem Text="Analytics" Value="Analytics" />  
@@ -70,7 +74,7 @@
                                                     </td>
                                                     <td>Phone Number</td>
                                                     <td>
-                                                        <input type="text" id="txtPhoneNo" runat="server" value="" /></td>
+                                                        <input type="text" id="txtPhoneNo" runat="server" value="" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -97,7 +101,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td style="padding-bottom:50px;padding-top:25px">
                                     <center>
                                         <asp:GridView ID="grdUsers" runat="server" OnRowEditing="grdUsers_RowEditing" OnRowDeleting="grdUsers_RowDeleting"
                                             OnPageIndexChanging="grdUsers_PageIndexChanging" Width="80%" HeaderStyle-CssClass="pagination-ys"
@@ -129,14 +133,11 @@
     <script src="../NewJEasyUI/jquery.min.js" type="text/javascript" lang="javascript"></script>
     <script src="../NewJEasyUI/jquery.easyui.min.js" type="text/javascript" lang="javascript"></script>
      <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/ErrorMessage.js?"), DateTime.Now.Ticks) %>" type="text/javascript" lang="javascript"></script>
-
     <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/Validation.js?"), DateTime.Now.Ticks) %>" type="text/javascript" lang="javascript"></script>
-    <script src="js/jquery.nice-select.min.js" type="text/javascript" lang="javascript"></script>
-    <script src="js/fastclick.js" type="text/javascript" lang="javascript"></script>
-    <script src="js/prism.js" type="text/javascript" lang="javascript"></script>
+   
     <script type="text/javascript">
         $(document).ready(function () {
-            $('select:not(.ignore)').niceSelect();
+            //$('select:not(.ignore)').niceSelect();
             FastClick.attach(document.body);
             ClearAll();
         });
@@ -155,13 +156,7 @@
                 });
             }
         }
-        function isValidEmailAddress(thisString) {
-            if (thisString.match(/^([a-zA-Z0-9])+([.a-zA-Z0-9_-])*@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-]+)+/)) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+       
         function ValidateUser() {
 
             Error_Message = "";
@@ -169,11 +164,11 @@
 
             CheckNull($("#txtFName").val(), in2in10);
             CheckNull($("#txtLName").val(), in2in11);
-            CheckNullDropdown($("select[name='ddlCompanyName'] option:selected").index(), in2in5);
+            CheckNullDropdown($("select[name='ddlCompanyName'] option:selected").index(), in2in21);
             CheckNullDropdown($("select[name='ddlRoleName'] option:selected").index(), in2in12);
             CheckNullDropdown($("select[name='ddlActivityAccess'] option:selected").index(), in2in19);
-            if ($('#txtPhoneNo').val() != "") {
-                ValidatePhoneNumber($('txtPhoneNo').val(), in2in20);
+            if ($('#txtPhoneNo').val() != "") {                
+                ValidatePhoneNumber($('#txtPhoneNo').val(), in2in20);
             }
             CheckNull($("#txtEmail").val(), in2in6)
             
@@ -203,37 +198,19 @@
             $('#txtPhoneNo').val('');
             $('#ddlRoleName').prop('selectedIndex', 0);
             $('#ddlCompanyName').prop('selectedIndex', 0);
-            $('#ddlActivityAccess').prop('selectedIndex', 0);         
-            ResetDropDowns();
+            $('#ddlActivityAccess').prop('selectedIndex', 0);                     
             $('input[type="password"]').val('');
-        }       
-        function ResetDropDowns() {
-            $('#ddlActivityAccess').prop("disabled", false).niceSelect('update');
-            var companyddl = $('.nice-select')[0];
-            var roleddl = $('.nice-select')[1];
-            var activityddl = $('.nice-select')[2];
-            $(companyddl).find('.current').remove();
-            $(companyddl).append("<span class='current'>--Select a Company--</span>");
-            $(roleddl).find('.current').remove();
-            $(roleddl).append("<span class='current'>--Select a Role--</span>");
-            $(activityddl).find('.current').remove();
-            $(activityddl).append("<span class='current'>--Select an Activity--</span>");
-            
         }
         function ModifyActivity(selectedRole) {
             
             if (selectedRole == "Admin") {
 
                 $('#ddlActivityAccess').val('All');
-                $('#ddlActivityAccess').prop("disabled", true).niceSelect('update');
-                //$('#ddlActivityAccess').prop('disabled', 'disabled');
+                $('#ddlActivityAccess').prop("disabled", true);
             }
             else {
 
-                $('#ddlActivityAccess').prop("disabled", false).niceSelect('update');
-                var activityddl = $('.nice-select')[2];
-                $(activityddl).find('.current').remove();
-                $(activityddl).append("<span class='current'>--Select an Activity--</span>");
+                $('#ddlActivityAccess').prop("disabled", false);
                
             }
         }

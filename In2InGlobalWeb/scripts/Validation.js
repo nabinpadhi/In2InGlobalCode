@@ -230,7 +230,13 @@ function CheckBoxSelected(rs_CheckBoxName,rs_gridName,ri_RowCount,rs_ExcludeChec
 		return true;
 	}
 }
-
+function isValidEmailAddress(thisString) {
+    if (thisString.match(/^([a-zA-Z0-9])+([.a-zA-Z0-9_-])*@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-]+)+/)) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 function CheckNull(rs_FieldValueToValidate,ms_ErrMsg)
 {	

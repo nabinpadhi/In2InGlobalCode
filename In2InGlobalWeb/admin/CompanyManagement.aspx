@@ -116,9 +116,20 @@
             CheckNull($('#txtCompanyName').val(), in2in5);
             CheckNull($('#txtPhoneNo').val(), in2in14);
             CheckNull($('#txtEmail').val(), in2in6);
+            if ($('#txtPhoneNo').val() != "") {
+                ValidatePhoneNumber($('#txtPhoneNo').val(), in2in20);
+            }           
+            if ($("#txtEmail").val() != "") {
+                if (isValidEmailAddress($('#txtEmail').val()) == false) {
+
+                    Error_Message = Error_Message + Error_Count + " . " + InvalidEmail_err_msg + "<br>";
+                    Error_Count = Error_Count + 1;
+                }
+
+            }
             if (Error_Message != "") {
-                //ShowError(Error_Message, 80);
-                $.messager.show({
+                ShowError(Error_Message, 80);
+                /*$.messager.show({
                     title: 'In2In Global - Errors',
                     msg: Error_Message,
                     showType: 'slide',
@@ -127,7 +138,7 @@
                         top: '',
                         bottom: -document.body.scrollTop - document.documentElement.scrollTop
                     }
-                });
+                });*/
                 return false;
             }
             else {

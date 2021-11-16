@@ -9,12 +9,13 @@
     <script src="vendor/jquery/jquery.min.js"></script>
     <script type="text/javascript">
 </script>
-    <link href='https://fonts.googleapis.com/css?family=Work+Sans:300,400,600&Inconsolata:400,700' rel='stylesheet' type='text/css' />
-
-    
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+   <link href='https://fonts.googleapis.com/css?family=Work+Sans:300,400,600&Inconsolata:400,700' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/gridview.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
-    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
+    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />   
+    <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/black/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/icon.css" />
+    <link href="../css/msgBoxLight.css" rel="stylesheet" type="text/css" />
 
     <style type="text/css">
         body {
@@ -92,7 +93,9 @@
                                                                 <td style="width: 10%">: </td>
                                                                 <td style="width: 40%">
                                                                     <div style="width:150px;text-align:left;">
-                                                                        <asp:DropDownList  ID="ddlTemplate" runat="server"></asp:DropDownList>
+                                                                        <asp:DropDownList  ID="ddlTemplate" AppendDataBoundItems="true" runat="server">
+                                                                            <asp:ListItem Text="--Select a Template--"></asp:ListItem>
+                                                                        </asp:DropDownList>
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -100,7 +103,7 @@
                                                                 <td></td>
                                                                 <td></td>
                                                                 <td style="text-align: right;">
-                                                                    <asp:Button CssClass="button" OnClick="btnDownload_Click" Text="Download" ID="btnDownload" runat="server"></asp:Button></td>
+                                                                    <asp:Button CssClass="button" OnClientClick="return ValidateDownload();" OnClick="btnDownload_Click" Text="Download" ID="btnDownload" runat="server"></asp:Button></td>
                                                             </tr>
                                                             <tr>
                                                                 <td colspan="3">                                                                    
@@ -216,23 +219,38 @@
                         
             </div>         
         </center>
-    </form>
-    <script src="js/jquery.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/fastclick.js"></script>
-    <script src="js/prism.js"></script>    
+    </form>    
+      <script src="../NewJEasyUI/jquery.min.js" type="text/javascript" lang="javascript"></script>
+    <script src="../NewJEasyUI/jquery.easyui.min.js" type="text/javascript" lang="javascript"></script>
+     <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/ErrorMessage.js?"), DateTime.Now.Ticks) %>" type="text/javascript" lang="javascript"></script>
+     <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/Validation.js?"), DateTime.Now.Ticks) %>" type="text/javascript" lang="javascript"></script>
  <script>
     $(document).ready(function () {
-        $('select:not(.ignore)').niceSelect();
-        FastClick.attach(document.body);
+       // $('select:not(.ignore)').niceSelect();
+        //FastClick.attach(document.body);
         $("#projectids").change(function () {
             $('#projectid').val($("#projectids").val());
         });
 
     });               
-    </script>
 
-    <script>
+     function ValidateDownload() {
+         Error_Message = "";
+         Error_Count = 1;
+
+         var value = document.getElementById("<%=ddlTemplate.ClientID%>");         
+         CheckNullDropdown(value.selectedIndex, in2in15);
+         
+         if (Error_Message != "") {
+             ShowError(Error_Message, 50);
+             return false;
+         }
+         else {
+
+             return true;
+         }
+     }
+     function ShowHidden() { }
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
                 (i[r].q = i[r].q || []).push(arguments)
