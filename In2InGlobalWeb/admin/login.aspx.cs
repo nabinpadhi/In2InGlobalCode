@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Services;
 using In2InGlobal.presentation;
 using InGlobal.presentation;
+using System.Net.Mail;
 
 namespace In2InGlobal.presentation.admin
 {
@@ -60,6 +61,47 @@ namespace In2InGlobal.presentation.admin
             return companyNameandrole;
 
         }
+        
+       [WebMethod(EnableSession = true)]
+        public static string SendPassword(string emailid)
+        {
+            string result = "";
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Users.json");
+            DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
+            DataRow[] userRows = usrTable.Select("Email ='" + emailid + "'");
+            if (userRows.Length > 0)
+            {
+                string password = userRows[0]["Password"].ToString();
+                password = new EncryptField().Decrypt(password);
+                string userName = userRows[0]["FirstName"].ToString();
+                string bodyText = "Dear " + userName + ",<br><p>As requested here we are sending your password to login In2In Global App.</p><br><b>Password :</b><i>" + password + "</i>";
+                try
+                {
+                    MailMessage message = new MailMessage("in2inglobalapp@gmail.com", emailid, "In2In Global Login Credential", bodyText);
+                    message.IsBodyHtml = true;
+                     SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+                    client.EnableSsl = true;
+                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new System.Net.NetworkCredential("in2inglobalapp@gmail.com", "%TGB6yhn^YHN5tgb");
+                    client.Send(message);
+                    result = "{\"msg\" : \"Password was sent successfully to your email ID.\",\"status\":\"1\"}";
+                }
+                catch (Exception ex)
+                {
+                    result = ex.StackTrace;
+                }
+            }
+            else
+            {
+                result = "Provided email not found.";               
+            }
+            return result;
+
+        }
+
         [WebMethod(EnableSession = true)]
         public static string DoLogin(string emailid,string password)
         {

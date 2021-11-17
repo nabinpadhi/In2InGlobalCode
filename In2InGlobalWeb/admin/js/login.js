@@ -45,8 +45,10 @@ $('#forgotForm input').keypress(function (e) {
 		}
 	});
 
-	$(".forgotButton").click(function(){
-		var enable = true;
+    $(".forgotButton").click(function () {
+       
+        var enable = true;
+        
 		$( ".validate_fp" ).each(function( index,element ) {
 			if($(element).attr('name') == 'email' && $(element).val() != '' && IsEmail($(element).val())==false){
 
@@ -55,8 +57,9 @@ $('#forgotForm input').keypress(function (e) {
 				return false;
 			}
 		});
-		if(enable){
-			sendotp();
+        if (enable) {
+            
+            sendotp();
 		}
 	});
 
@@ -144,75 +147,43 @@ function IsEmail(email) {
   }
 }
 
-function Loginold() {
-	
-	var formData = new FormData($("#loginForm")[0]);	
-	//$('#hdnPageAction').val('Login');
-	var target ='?target=NormalUser&pl=true';
-	$.ajax({
-		type: "POST",
-		url: BASE_URL +"/DoLogin",
-		data: formData,
-		enctype: 'multipart/form-data',
-		contentType: false,
-		processData: false,
-		beforeSend: function () {
+function sendotp() {   
+    var dataValue = "{ emailid:'" + $('#emailFP').val() + "'}";
+    
+    var return_status = function () {
+        var serverValue = null;
+        $.ajax({
+            type: "POST",
+            'async': false,
+            'global': false,
+            'url': "login.aspx/SendPassword",
+            'data': dataValue,
+            'dataType': 'json',
+            contentType: 'application/json; charset=utf-8',
+            beforeSend: function () {
+                $('.forgotButton').prop('disabled', true);
+                $('.forgotButton').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sending Password...');
+            },
+            success: function (data) {
 
-			$('.loginButton').prop('disabled', true);
-			$('.loginButton').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Logging...');
-
-		},
-		success: function (result) {
-			
-			if ($('#email').val().indexOf('admin') > -1) {
-				target = '?target=admin';
-			}
-	
-			var data = jQuery.parseJSON('{ "status": "1" }');
-			
-			if(data.status == 1){
-				$('.loginButton').html('Logged In');
-				
-				toastr.success(data.msg, 'Success', { timeOut: 1000, progressBar: true, onHidden: function () { window.location.href = BASE_URL; } });
-				location.href = '../InternalLanding.aspx' + target;
-			} else {
-				$('.loginButton').prop('disabled',false);
-				$('.loginButton').html('Login');
-				toastr.error(data.msg, 'Error', {timeOut: 2000,closeButton:true,progressBar:true});
-			}
-		}
-	});
-}
-
-function sendotp(){
-	var formData = new FormData($("#forgotForm")[0]);
-	$.ajax({
-		type: "POST",
-		url: BASE_URL +'admin/sendotp',
-		data: formData,
-		enctype:'multipart/form-data',
-		contentType : false,
-		processData : false,
-		beforeSend:function(){
-			$('.forgotButton').prop('disabled',true);
-			$('.forgotButton').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sending OTP...');
-		},
-		success:function(result){
-			var data = jQuery.parseJSON(result);
-			if(data.status == 1){
-				$('.forgotButton').prop('disabled',false);
-				$('.forgotButton').html('Send');
-				$('#forgot_ps_div').hide();
-				$('#otp_div').show();
-				$('#otp_user_id').val(data.data);
-				toastr.success(data.msg, 'Success', {timeOut: 1000,progressBar:true,progressBar:true});
-			} else {
-				$('.forgotButton').prop('disabled',false);
-				$('.forgotButton').html('Send');
-				toastr.error(data.msg, 'Error', {timeOut: 2000,closeButton:true,progressBar:true});
-			}
-		}
-	});
+                serverValue = data.d;               
+                var refdata = jQuery.parseJSON(serverValue);
+                
+                if (refdata.status == 1) {
+                    
+                    toastr.success(refdata.msg, 'Success', { timeOut: 3000, progressBar: true, progressBar: true });
+                } else {
+                   
+                    toastr.error(refdata.msg, 'Error', { timeOut: 2000, closeButton: true, progressBar: true });
+                }
+                $('.forgotButton').prop('disabled', false);
+                $('.forgotButton').html('Send');
+                $('#forgot_ps_div').hide();
+                $('#sign_in_div').show();
+            }
+        });       
+        return serverValue;
+    }();  
 }
 
 
@@ -252,7 +223,7 @@ function change_password(){
 	var formData = new FormData($("#passwordForm")[0]);
 	$.ajax({
 		type: "POST",
-		url: BASE_URL +'admin/change_pass',
+		url: BASE_URL +'/ChangePass',
 		data: formData,
 		enctype:'multipart/form-data',
 		contentType : false,

@@ -94,11 +94,11 @@
             </div>
             <div class="p-5" id="forgot_ps_div" style="display: none;">
               <div class="text-center">
-                <h1 class="sec-title">We will sent an OTP to your email account!</h1>
+                <h1 class="sec-title">We will sent your password to your email account!</h1>
               </div>
               <form class="user" id="forgotForm">
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-user validate_fp email" name="email" data-validate-msg="Email field is required"  autocomplete="off" placeholder="Enter Email Address">
+                  <input type="email" class="form-control form-control-user validate_fp email" name="emailFP" id="emailFP" data-validate-msg="Email field is required"  autocomplete="off" placeholder="Enter Email Address">
                 </div>
                 <button class="btn btn-primary btn-user btn-block forgotButton" type="button">Send</button>
               </form>
@@ -149,18 +149,12 @@
 		</div>
 	</div>
     <input type="hidden" name="hdnPageAction" id="hdnPageAction" value="" runat="server" />
-	<!-- Bootstrap core JavaScript-->
+	
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- Core plugin JavaScript-->
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-<!-- Custom scripts for all pages-->
-<!-- <script src="https://in2inglobal.com/assets/admin/js/admin.js"></script> -->
-
 <link rel="stylesheet" type="text/css" href="css/toastr.min.css">
 <script src="js/toastr.min.js"></script>
-
-
 <script type="text/javascript">
     var BASE_URL = 'login.aspx'; 
     $(document).ready(function () {
@@ -253,11 +247,8 @@
         
     }
 </script>
-<script src="js/login.js"></script>
+<script src="<%= String.Format("{0}dt={1}",ResolveUrl("js/login.js?"), DateTime.Now.Ticks) %>"></script>
 <script src="js/jquery.cookie.js"></script>
 
 </body>
-
-
-<!-- Mirrored from in2inglobal.com/admin by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 19 Oct 2021 05:41:25 GMT -->
 </html>
