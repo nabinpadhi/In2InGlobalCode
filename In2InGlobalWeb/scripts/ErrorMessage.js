@@ -19,6 +19,7 @@ var in2in18 = "Instruction cannot be blank."
 var in2in19 = "Kindly select a Activity Name."
 var in2in20 = "Invalid phone number."
 var in2in21 = "Kindly Select a Company Name."
+var in2in22 = "Kindly select an Email."
 var InvalidEmail_err_msg = "Kindly provide a valid email id."
 
 var serverMessages = {

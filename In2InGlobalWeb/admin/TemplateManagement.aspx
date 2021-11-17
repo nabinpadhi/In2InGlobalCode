@@ -120,8 +120,10 @@
                                                         </tr>
                                                          <tr>
                                                             <td style="text-align:right;">Email Id(<span style="color: red">*</span>)</td>
-                                                            <td style="padding-right:20%;">
-                                                                <input type="text" id="txtUserEmail" style="Width:77%;" runat="server"  readonly fieldtype="readonly" value="" />
+                                                            <td style="padding-right:20%;">                                                                
+                                                                <asp:DropDownList ID="ddlUserEmail" style="width:77%;" AppendDataBoundItems="true" runat="server" DataTextField="Email">
+                                                                    <asp:ListItem Text="--Select an Email--" ></asp:ListItem>
+                                                                </asp:DropDownList>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -177,7 +179,7 @@
   
    <script src="../NewJEasyUI/jquery.min.js" type="text/javascript" lang="javascript"></script>
     <script src="../NewJEasyUI/jquery.easyui.min.js" type="text/javascript" lang="javascript"></script>
-     <script src="../scripts/ErrorMessage.js" type="text/javascript" lang="javascript"></script>
+     <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/ErrorMessage.js?"), DateTime.Now.Ticks) %>" type="text/javascript" lang="javascript"></script>
 
     <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/Validation.js?"), DateTime.Now.Ticks) %>" type="text/javascript" lang="javascript"></script>
     <%-- <script src="js/jquery.nice-select.min.js" type="text/javascript" lang="javascript"></script>--%>
@@ -197,6 +199,7 @@
             $('#ddlTemplates').prop('selectedIndex', 0);            
             $('#ddlProjects').prop('selectedIndex', 0);
             $('#ddlMasterTemplate').prop('selectedIndex', 0);
+            $('#ddlUserEmail').prop('selectedIndex', 0);
             $("#txtInstruction").val('');
       }
       function ValidateMasterTemplate() {
@@ -221,7 +224,7 @@
             Error_Count = 1;            
             CheckNullDropdown($("select[name='ddlTemplates'] option:selected").index(), in2in15);            
             CheckNullDropdown($("select[name='ddlProjects'] option:selected").index(), in2in17);
-           
+            CheckNullDropdown($("select[name='ddlUserEmail'] option:selected").index(), in2in22);
             if (Error_Message != "") {
                 ShowError(Error_Message, 80);
                 return false;

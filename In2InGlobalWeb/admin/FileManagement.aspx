@@ -183,7 +183,7 @@
                                         </td>
                                         <td>
                                             <div>
-                                                <asp:DropDownList OnSelectedIndexChanged="ddlProjects_SelectedIndexChanged" AppendDataBoundItems="true" AutoPostBack="true" ID="ddlProjects" Width="100%" runat="server" DataTextField="ProjectName">
+                                                <asp:DropDownList OnSelectedIndexChanged="ddlProjects_SelectedIndexChanged" AppendDataBoundItems="true" AutoPostBack="true" ID="ddlProjects" Width="85%" runat="server" DataTextField="ProjectName">
                                                         <asp:ListItem Text="--Select a Project--"></asp:ListItem>
                                                 </asp:DropDownList>
                                             </div>

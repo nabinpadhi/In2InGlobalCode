@@ -24,6 +24,7 @@ namespace In2InGlobal.presentation.admin
                     {
 
                         BindProjects();
+                        BindUsers();
                         BindTemplate();
                         BindMasterTemplate();
                         BindMasterTemplateGrid();
@@ -31,7 +32,7 @@ namespace In2InGlobal.presentation.admin
 
                         //txtcreatedBy = Session["UserEmail"].ToString();
                         txtcreatedB.InnerText = Session["UserEmail"].ToString();
-                        txtUserEmail.Value = Session["UserEmail"].ToString();
+                        
                     }
                     else
                     {
@@ -113,6 +114,14 @@ namespace In2InGlobal.presentation.admin
             ddlProjects.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
             ddlProjects.DataBind();
         }
+        private void BindUsers()
+        {
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Users.json");
+            ddlUserEmail.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
+            ddlUserEmail.DataBind();
+        }
         protected void grdTemplate_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             BindTemplate();
@@ -192,7 +201,7 @@ namespace In2InGlobal.presentation.admin
 
             int _templateID = usrTable.Rows.Count + 1;
             string today = DateTime.Now.ToShortDateString();           
-            DataRow dr = usrTable.Rows.Add(_templateID, ddlTemplates.Text, today,ddlProjects.Text, txtUserEmail.Value);
+            DataRow dr = usrTable.Rows.Add(_templateID, ddlTemplates.Text, today,ddlProjects.Text, ddlUserEmail.SelectedItem.Text);
             usrTable.AcceptChanges();
             dr.SetModified();
             string output = Newtonsoft.Json.JsonConvert.SerializeObject(usrTable, Newtonsoft.Json.Formatting.Indented);

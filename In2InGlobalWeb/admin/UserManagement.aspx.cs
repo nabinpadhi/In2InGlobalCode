@@ -63,10 +63,7 @@ namespace In2InGlobal.presentation.admin
             string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Roles.json");
             ddlRoleName.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
             ddlRoleName.DataValueField = "RoleName";
-            ddlRoleName.DataBind();
-            ddlRoleName.Items.Insert(0, "--Select a Role--");
-            //            ddlCompanyName.AppendDataBoundItems = true;
-            ddlRoleName.SelectedIndex = 0;
+            ddlRoleName.DataBind();           
         }
       
         protected void grdUsers_PageIndexChanging(object sender, GridViewPageEventArgs e)

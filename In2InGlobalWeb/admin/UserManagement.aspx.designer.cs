@@ -76,15 +76,6 @@ namespace In2InGlobal.presentation.admin {
         protected global::System.Web.UI.WebControls.DropDownList ddlRoleName;
         
         /// <summary>
-        /// ddlActivityAccess control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlActivityAccess;
-        
-        /// <summary>
         /// txtPhoneNo control.
         /// </summary>
         /// <remarks>
@@ -92,6 +83,15 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtPhoneNo;
+        
+        /// <summary>
+        /// ddlActivityAccess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlActivityAccess;
         
         /// <summary>
         /// txtEmail control.

@@ -62,7 +62,11 @@
 
                                                     </td>
                                                 </tr>
-                                                <tr>
+                                                <tr>                                                    
+                                                    <td>Phone Number</td>
+                                                    <td>
+                                                        <input type="text" id="txtPhoneNo" runat="server" value="" />
+                                                    </td>
                                                     <td>Activity Name(<span style="color: red">*</span>)</td>
                                                     <td>
                                                         <asp:DropDownList ID="ddlActivityAccess" style="width:95%;" runat="server" DataTextField="ActivityAccess">                                                            
@@ -71,10 +75,6 @@
                                                             <asp:ListItem Text="File Management" Value="File Management" />
                                                             <asp:ListItem Text="Analytics" Value="Analytics" />  
                                                         </asp:DropDownList>
-                                                    </td>
-                                                    <td>Phone Number</td>
-                                                    <td>
-                                                        <input type="text" id="txtPhoneNo" runat="server" value="" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -200,6 +200,7 @@
             $('#ddlCompanyName').prop('selectedIndex', 0);
             $('#ddlActivityAccess').prop('selectedIndex', 0);                     
             $('input[type="password"]').val('');
+            $('#ddlActivityAccess').prop("disabled", false);
         }
         function ModifyActivity(selectedRole) {
             
