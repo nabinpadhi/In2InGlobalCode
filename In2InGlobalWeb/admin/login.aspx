@@ -101,30 +101,14 @@
                 <div class="form-group">
                   <input type="email" class="form-control form-control-user validate_fp email" name="emailFP" id="emailFP" data-validate-msg="Email field is required"  autocomplete="off" placeholder="Enter Email Address" style="width:60%">
                 </div>
-                <button class="btn btn-primary btn-user btn-block forgotButton" type="button" style="width:20%">Send</button>
+                <button class="btn btn-primary btn-user btn-block forgotButton" type="button" style="width:30%">Send</button>
                       </center>
               </form>
               <hr>
               <div class="text-center">
                 <a class="small" id="sign_in" href="javascript:void(0)">Sign In</a>
               </div>
-            </div>
-            <div class="p-5" id="otp_div" style="display: none;">
-              <div class="text-center">
-                <h1 class="sec-title">Enter the OTP here!</h1>
-              </div>
-              <form class="user" id="otpForm">
-                <div class="form-group">
-                  <input type="hidden" name="user_id" value="0" id="otp_user_id">
-                  <input type="password" class="form-control form-control-user validate_otp" name="otp" data-validate-msg="OTP field is required" autocomplete="off"  placeholder="Enter The OTP Here">
-                </div>
-                <div class="d-flex justify-content-center">
-									<button class="btn btn-primary btn-user btn-block otpButton m-0 mr-1" type="button">Submit</button>
-									<button class="btn btn-primary btn-user btn-block m-0 ml-1" id="otpresendButton" type="button">Re-Send</button>
-								</div>
-              </form>
-              <hr>
-            </div>
+            </div>           
             <div class="p-5" id="password_div" style="display: none;">
               <div class="text-center">
                 <h1 class="sec-title">Enter your new password!</h1>
