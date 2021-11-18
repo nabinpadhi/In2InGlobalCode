@@ -94,13 +94,15 @@
             </div>
             <div class="p-5" id="forgot_ps_div" style="display: none;">
               <div class="text-center">
-                <h1 class="sec-title">We will sent your password to your email account!</h1>
+                <h1 class="sec-title">We will send your password to your email account!</h1>
               </div>
               <form class="user" id="forgotForm">
+                  <center>
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-user validate_fp email" name="emailFP" id="emailFP" data-validate-msg="Email field is required"  autocomplete="off" placeholder="Enter Email Address">
+                  <input type="email" class="form-control form-control-user validate_fp email" name="emailFP" id="emailFP" data-validate-msg="Email field is required"  autocomplete="off" placeholder="Enter Email Address" style="width:60%">
                 </div>
-                <button class="btn btn-primary btn-user btn-block forgotButton" type="button">Send</button>
+                <button class="btn btn-primary btn-user btn-block forgotButton" type="button" style="width:20%">Send</button>
+                      </center>
               </form>
               <hr>
               <div class="text-center">

@@ -159,7 +159,7 @@ namespace In2InGlobal.presentation.admin
 
             BindUsers();
             ClearAll();
-            string _message = "User Created Successfully)";
+            string _message = "User Created Successfully";
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);
         }
 

@@ -140,6 +140,7 @@
     <Content Include="AjaxOtherDLL\AjaxControlToolkit.dll" />
     <Content Include="AjaxOtherDLL\AntiXSSLibrary.dll" />
     <Content Include="AjaxOtherDLL\HtmlAgilityPack.dll" />
+    <Content Include="css\resetpass.css" />
     <Content Include="css\anythingslider-ie.css" />
     <Content Include="css\anythingslider.css" />
     <Content Include="css\landing-default-font-awesome.min.css" />
@@ -165,6 +166,7 @@
     <Content Include="images\LoginScreenImg1.png" />
     <Content Include="css\garagedoor.css" />
     <Content Include="css\style.css" />
+    <Content Include="ResetPassword.aspx" />
     <Content Include="InternalLanding.aspx" />
     <Content Include="jqdashboard\images\chart-1.png" />
     <Content Include="jqdashboard\images\chart-2.png" />
@@ -1194,6 +1196,7 @@
     <Content Include="scripts\jquery\html5.js" />
     <Content Include="scripts\jquery\jQpop\data\speedo-popup\skins\dark\images\close-btn-old.png" />
     <Content Include="scripts\jquery\jQpop\themes\agapa\assets\images\new_signup.png" />
+    <Content Include="scripts\resetpass.js" />
     <Content Include="styles\anythingslider-ie.css" />
     <Content Include="styles\anythingslider.css" />
     <Content Include="styles\complianceManagement_steps.css" />
@@ -1673,6 +1676,7 @@
     <Content Include="scripts\risktree-script.js" />
     <Content Include="scripts\ToolTip.js" />
     <Content Include="scripts\Validation.js" />
+    <Content Include="Tools\fgpwdhtmlformat.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1728,6 +1732,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="ResetPassword.aspx.cs">
+      <DependentUpon>ResetPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ResetPassword.aspx.designer.cs">
+      <DependentUpon>ResetPassword.aspx</DependentUpon>
     </Compile>
     <Compile Include="InternalLanding.aspx.cs">
       <DependentUpon>InternalLanding.aspx</DependentUpon>

@@ -7,6 +7,10 @@ using System.Web.Services;
 using In2InGlobal.presentation;
 using InGlobal.presentation;
 using System.Net.Mail;
+using System.Net.Mime;
+using System.Drawing;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace In2InGlobal.presentation.admin
 {
@@ -76,7 +80,7 @@ namespace In2InGlobal.presentation.admin
                 string password = userRows[0]["Password"].ToString();
                 password = new EncryptField().Decrypt(password);
                 string userName = userRows[0]["FirstName"].ToString();
-                string bodyText = "Dear " + userName + ",<br><p>As requested here we are sending your password to login In2In Global App.</p><br><b>Password :</b><i>" + password + "</i>";
+                string bodyText = GetForgotPasswordHTMLBody(userName,emailid);// "Dear " + userName + ",<br><p>As requested here we are sending your password to login In2In Global App.</p><br><b>Password :</b><i>" + password + "</i>";
                 try
                 {
                     MailMessage message = new MailMessage("in2inglobalapp@gmail.com", emailid, "In2In Global Login Credential", bodyText);
@@ -101,6 +105,31 @@ namespace In2InGlobal.presentation.admin
             return result;
 
         }
+
+        private static string GetForgotPasswordHTMLBody(string userName,string emailid)
+        {
+           
+            string htmlBody="";
+
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            htmlBody = (new WebClient()).DownloadString("http://localhost:26677/tools/fgpwdhtmlformat.html");
+            htmlBody = htmlBody.Replace("${user-name}", userName);
+            htmlBody = htmlBody.Replace("${site-url}", "http://localhost:26677/admin/login.aspx");
+            htmlBody = htmlBody.Replace("${site-name}", "In2In Global pvt. ltd.");
+            htmlBody = htmlBody.Replace("${customer-service-email}", "in2inglobalapp@gmail.com");
+            htmlBody = htmlBody.Replace("${site-toll-free-number}", "1200-987654");
+            htmlBody = htmlBody.Replace("${site-logo}", "cid:MyImage");
+            htmlBody = htmlBody.Replace("${reset-password-url}",GetResetURL(emailid));
+            return htmlBody;
+        }
+
+        private static string GetResetURL(string emailid)
+        {            
+            string result = "http://localhost:26677/ResetPassword.aspx?fw=" + StringUtil.Crypt(emailid);
+            return result;
+        }
+       
 
         [WebMethod(EnableSession = true)]
         public static string DoLogin(string emailid,string password)
