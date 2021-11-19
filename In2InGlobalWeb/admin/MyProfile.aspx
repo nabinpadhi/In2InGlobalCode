@@ -67,16 +67,16 @@
          <div style="width: 70%; border: 1px solid black; border-radius: 5px; margin-top: 30px;">
              <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px;height:40px;padding-top:10px;"><span class="menu_frame_title">My Profile</span></div>
           <div style="position:relative;padding:50px 30px 30px 30px;">
-          <table style="width:90%;">
-              <tr style="padding:10px">
+          <table style="width:90%;vertical-align:top;">
+              <tr style="padding:10px;vertical-align:middle;">
                   <td style="padding:10px;width:20%">User Name  :</td>                  
                   <td style="width:30%"><span fieldtype="readonly" value="" runat="server" id="username"></span></td>
-                  <td style="padding:10px;width:22%">Company Name  :</td>
+                  <td style="padding:10px;width:23%">Company Name  :</td>
                   <td style="width:28%"><span fieldtype="readonly"  runat="server" id="companyname"></span></td>                 
               </tr>
                <tr>
                   <td style="padding:10px">Email Id  :</td>
-                  <td><span value="" fieldtype="readonly"  runat="server" id="email" /></td>
+                  <td><span value="" fieldtype="readonly" style="overflow-wrap:break-word;"  runat="server" id="email" /></td>
                   <td style="padding:10px">Activity Access  :</td>
                   <td><span value="" fieldtype="readonly"  runat="server"  id="activityaccess" /></td>                 
               </tr>              

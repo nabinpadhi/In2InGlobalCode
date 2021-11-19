@@ -50,8 +50,6 @@ namespace In2InGlobal.presentation.admin
             string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Companies.json");
             ddlCompanyName.DataSource = JsonConvert.DeserializeObject<DataTable>(json);            
             ddlCompanyName.DataBind();
-            ddlCompanyName.Items.Insert(0, "--Select Company--");
-//            ddlCompanyName.AppendDataBoundItems = true;
             ddlCompanyName.SelectedIndex = 0;
 
         }

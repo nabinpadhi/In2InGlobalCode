@@ -30,8 +30,11 @@ namespace In2InGlobal.presentation.admin
                     }
                     else
                     {
-                        usrEmailTR.Visible = false;
-                        tblTemplateDetail.Visible = false;
+                        usrEmailId.Text = Session["UserEmail"].ToString();
+                        usrEmailId.ReadOnly = true;
+                        ddlProjects.SelectedValue = Session["ProjectID"].ToString();
+                        tblTemplateDetail.Visible = true;
+                        BindTemplateGrid("", usrEmailId.Text);
                     }
                 }
                 else{
@@ -69,15 +72,26 @@ namespace In2InGlobal.presentation.admin
             ddlTemplate.DataTextField = "TemplateName";
             ddlTemplate.DataValueField = "FilePath";
             ddlTemplate.DataBind();
-        }
-
+        }      
         private void BindFileGrid()
         {
 
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/UploadedFiles.json");
-            grdUploadedFiles.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
+
+            DataTable tblUploadedFiles = JsonConvert.DeserializeObject<DataTable>(json);
+            DataRow _usrRow = (DataRow)Session["UserRow"];
+            string userName = _usrRow["FirstName"] + " " + _usrRow["LastName"];
+            if (tblUploadedFiles.Select("UploadedBy='" + userName + "'").Length > 0)
+            {
+                tblUploadedFiles = tblUploadedFiles.Select("UploadedBy='" + userName + "'").CopyToDataTable();
+            }
+            else
+            {
+                tblUploadedFiles = null;
+            }
+            grdUploadedFiles.DataSource = tblUploadedFiles;
             grdUploadedFiles.DataBind();
         }
         private void BindTemplateGrid(string _pid,string _email)
@@ -130,6 +144,7 @@ namespace In2InGlobal.presentation.admin
 
         protected void ddlProjects_SelectedIndexChanged(object sender, EventArgs e)
         {
+            usrEmailId.Text = "";
             BindTemplateGrid(ddlProjects.SelectedValue,"");
         }
 
@@ -201,6 +216,15 @@ namespace In2InGlobal.presentation.admin
         protected void usrEmailId_TextChanged(object sender, EventArgs e)
         {
             BindTemplateGrid("", usrEmailId.Text);
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            string json = (new WebClient()).DownloadString(Server.MapPath("json-data/Projects.json"));
+           DataTable tblProject = JsonConvert.DeserializeObject<DataTable>(json);
+            DataRow[] usrProjects = tblProject.Select("Email='"+usrEmailId.Text+"'");
+            if(usrProjects.Length > 0)
+            {
+                ddlProjects.SelectedValue = tblProject.Select("Email='" + usrEmailId.Text + "'")[0]["ProjectName"].ToString();
+            }
         }
 
         protected void btnDownload_Click(object sender, EventArgs e)
@@ -214,6 +238,32 @@ namespace In2InGlobal.presentation.admin
             Response.ContentType = "application/octet-stream";
             Response.BinaryWrite(btFile);
             Response.End();
+        }
+
+        protected void LoadInstruction(object sender, EventArgs e)
+        {
+            tplInstruction.InnerHtml = "";
+            string templateName = ddlTemplate.SelectedItem.Text;
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/MasterTemplate.json");
+
+            DataTable tblMasterTemple = JsonConvert.DeserializeObject<DataTable>(json);
+            if (tblMasterTemple.Rows.Count > 0)
+            {
+                if (tblMasterTemple.Select("TemplateName='" + templateName + "'").Length > 0)
+                {
+                    string instruction = tblMasterTemple.Select("TemplateName='" + templateName + "'")[0]["Instruction"].ToString();
+                    foreach (string li in instruction.Split('\n'))
+                    {
+                        tplInstruction.InnerHtml = tplInstruction.InnerHtml + "<li>" + li +"</li>";
+                    }
+                }
+            }
+            else
+            {
+                tplInstruction.InnerHtml = "<li>No Instruction Found.</li>";
+            }
         }
     }
 }

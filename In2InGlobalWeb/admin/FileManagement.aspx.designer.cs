@@ -94,6 +94,15 @@ namespace In2InGlobal.presentation.admin {
         protected global::System.Web.UI.WebControls.Button btnUploader;
         
         /// <summary>
+        /// tplInstruction control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tplInstruction;
+        
+        /// <summary>
         /// usrEmailTR control.
         /// </summary>
         /// <remarks>

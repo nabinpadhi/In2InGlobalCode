@@ -9,8 +9,8 @@
     <script src="vendor/jquery/jquery.min.js"></script>
     <script type="text/javascript">
 </script>
-   <link href='https://fonts.googleapis.com/css?family=Work+Sans:300,400,600&Inconsolata:400,700' rel='stylesheet' type='text/css' />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/gridview.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />   
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/black/easyui.css" />
@@ -52,13 +52,13 @@
             padding-left: 1.3em;
         }
 
-            li:before {
-                content: "\f00c"; /* FontAwesome Unicode */
-                font-family: FontAwesome;
-                display: inline-block;
-                margin-left: -1.3em; /* same as padding-left set on li */
-                width: 1.3em; /* same as padding-left set on li */
-            }          
+        li:before {
+            content: "\f00c"; /* FontAwesome Unicode */
+            font-family: FontAwesome;
+            display: inline-block;
+            margin-left: -1.3em; /* same as padding-left set on li */
+            width: 1.3em; /* same as padding-left set on li */
+        }          
     </style> 
 
    
@@ -90,14 +90,14 @@
                                         <div style="border: 1px solid black; margin-left: auto; margin-right: auto; border-radius: 5px">
                                             <table style="width: 100%; margin-top: auto; margin-left: auto; margin-right: auto;">
                                                 <tr>
-                                                    <td style="width: 65%;">
+                                                    <td style="width: 60%; vertical-align:top;">
                                                         <table style="width: 100%;">
                                                             <tr>
                                                                 <td style="width: 50%; text-align: right;">Select Template</td>
                                                                 <td style="width: 10%">: </td>
                                                                 <td style="width: 40%">
                                                                     <div style="width:150px;text-align:left;">
-                                                                        <asp:DropDownList  ID="ddlTemplate" AppendDataBoundItems="true" runat="server">
+                                                                        <asp:DropDownList OnSelectedIndexChanged="LoadInstruction" DataTextField="TemplateName" AutoPostBack="true" DataValueField="Path"  ID="ddlTemplate" AppendDataBoundItems="true" runat="server">
                                                                             <asp:ListItem Text="--Select a Template--"></asp:ListItem>
                                                                         </asp:DropDownList>
                                                                     </div>
@@ -114,7 +114,7 @@
                                                                     <center>
                                                                         <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
                                                                             <asp:GridView DataKeyNames="ID" ID="grdUploadedFiles" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
-                                                                                AllowPaging="True" OnRowDeleting="grdUploadedFiles_RowDeleting" OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
+                                                                                AllowPaging="True" EmptyDataText="No file found uploaded by you." OnRowDeleting="grdUploadedFiles_RowDeleting" OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
                                                                                 <PagerStyle CssClass="pagination-ys" />
                                                                                 <Columns>
                                                                                     <asp:BoundField HeaderText="File Name" DataField="FileName" />
@@ -134,7 +134,7 @@
 
                                                                 </td>
                                                                 <td>
-                                                                    <asp:Button ID="btnUploader" class="button"  runat="server" Text="Upload" OnClick="btnUploader_Click" />
+                                                                    <asp:Button ID="btnUploader" class="button" OnClientClick="return VerifyFile();"  runat="server" Text="Upload" OnClick="btnUploader_Click" />
                                                                 </td>
                                                                 
                                                                 <td>
@@ -145,15 +145,10 @@
                                                         </table>
                                                     </td>
                                                     <td style="width: 35%;">
-                                                        <div style="width: 90%; text-align: left; margin-left: 20px; height: 220px; overflow-y: auto; margin-top: 0px;">
+                                                        <div style="width: 95%; text-align: left; margin-left: 55px; height: 220px; overflow-y: auto; margin-top: 5px;">
                                                             <b>Template Instruction</b><br />
                                                             <p></p>
-                                                            <ul>
-                                                                <li>Step 1. Name the process or task</li>
-                                                                <li>Step 2. Define the scope of work</li>
-                                                                <li>Step 3. Explain the inputs and outputs</li>
-                                                                <li>Step 4. Write down each step</li>
-                                                                <li>Step 5. Order the steps</li>
+                                                            <ul runat="server" style="width:80%;word-wrap:break-word;" id="tplInstruction">                                                              
 
                                                             </ul>
                                                         </div>
@@ -165,15 +160,15 @@
                                 </tr>
                             </table>
                         </td>
-                        <td style="width: 25%; vertical-align: top;">
+                        <td style="width: 30%; vertical-align: top;">
                             <div style="margin-top: 50px; margin-left: 20px; border-left: 1px solid gray; height: 300px;">
-                                <span style="margin-left: 10px;"><b>Search Project </b></span>
+                                <span style="margin-left: 10px;"><b>Search Template </b></span>
                                 <table style="width: 100%; margin-left: 5px;margin-right: 5px;">
                                     <tr id="usrEmailTR" runat="server">
-                                        <td style="width: 40%">
+                                        <td style="width: 35%">
                                             <b><u>Email ID</u> : </b>
                                         </td>
-                                        <td style="width: 60%;">
+                                        <td style="width: 65%;">
                                             <asp:TextBox Text="" ID="usrEmailId" AutoPostBack="true" OnTextChanged="usrEmailId_TextChanged" runat="server" style="width: 80%" ></asp:TextBox>                                            
                                         </td>
                                     </tr>
@@ -193,17 +188,13 @@
                                         <td colspan="2">
                                             <div style="width: 100%">
                                                 <table id="tblTemplateDetail" runat="server" style="width: 100%;">
-                                                    <tr>
-                                                        <td>
-                                                            <hr style="width: 80%; margin-left: 0px;" />
-                                                        </td>
-                                                    </tr>
+                                                    
                                                     <tr>
                                                         <td><b><u>Template Details:</u></b></td>
                                                     </tr>
                                                     <tr>
                                                         <td style="margin-left: auto; margin-top: auto;">
-                                                            <asp:GridView ID="grdTemplate" EmptyDataText="No Template Found..." Visible="false" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
+                                                            <asp:GridView ID="grdTemplate" EmptyDataText="No Template Found..." Visible="false" runat="server" Width="95%" HeaderStyle-CssClass="pagination-ys"
                                                                 AllowPaging="True" OnPageIndexChanging="grdTemplate_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
                                                                 <PagerStyle CssClass="pagination-ys" />
                                                                 <Columns>
@@ -257,7 +248,7 @@
 
              return true;
          }
-     }
+     }     
      function ShowHidden() { }
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {

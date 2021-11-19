@@ -25,7 +25,7 @@
   },
   {
     "FirstName": "Ganeshswar",
-    "LastName": "Sahoo",
+    "LastName": "Sahoop",
     "Company": "My Company 2",
     "Email": "ganeswarsahoo@gmail.com",
     "Role": "User",
@@ -46,17 +46,5 @@
     "Status": "Active",
     "PhoneNo": "+917790432644",
     "ProjectID": "PRO - 0004"
-  },
-  {
-    "FirstName": "Nabin 12",
-    "LastName": "Padhi",
-    "Company": "Free Lancer",
-    "Email": "nabinpadhi@gmail.com",
-    "Role": "Admin",
-    "Password": "gE+++Guwy/oZXAaFOLDdNg==",
-    "ActivityAccess": "All",
-    "Status": "Active",
-    "PhoneNo": "9090808344",
-    "ProjectID": "PRO - 0001"
   }
 ]

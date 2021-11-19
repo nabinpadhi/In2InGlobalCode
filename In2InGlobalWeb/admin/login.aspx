@@ -158,7 +158,7 @@
                 }
                 else {
                     $("#ddlActivity").removeAttr('disabled');
-                    $('#companyname').val(FillCompany($("#email").val()));
+                    $('#companyname').val(usercompanyname);
                     $('#ddlActivity').val('File Management');
                 }
             }
