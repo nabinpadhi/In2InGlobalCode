@@ -85,13 +85,13 @@ namespace In2InGlobal.presentation.admin {
         protected global::System.Web.UI.WebControls.GridView grdMasterTemplate;
         
         /// <summary>
-        /// ddlTemplates control.
+        /// ddlProjects control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTemplates;
+        protected global::System.Web.UI.WebControls.DropDownList ddlProjects;
         
         /// <summary>
         /// ddlUserEmail control.
@@ -103,13 +103,13 @@ namespace In2InGlobal.presentation.admin {
         protected global::System.Web.UI.WebControls.DropDownList ddlUserEmail;
         
         /// <summary>
-        /// ddlProjects control.
+        /// ddlTemplates control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlProjects;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTemplates;
         
         /// <summary>
         /// btnSave control.

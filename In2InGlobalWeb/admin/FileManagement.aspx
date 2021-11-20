@@ -76,81 +76,129 @@
                     <Triggers><asp:PostBackTrigger ControlID="btnDownload" /></Triggers>
                     <ContentTemplate> 
                             <table style="width: 100%; background-color: azure;">
-                    <tr>
-                        <td style="width: 75%;">
-                            <table style="width: 100%; margin-top: 25px;">
                                 <tr>
-                                    <td style="width: 10%;">Project ID :</td>
-                                    <td style="width: 90%;">                                        
-                                        <span fieldtype="readonly" style="width:100px;align-items:flex-start;"  runat="server" id="projectid"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" style="text-align: center;">
-                                        <div style="border: 1px solid black; margin-left: auto; margin-right: auto; border-radius: 5px">
-                                            <table style="width: 100%; margin-top: auto; margin-left: auto; margin-right: auto;">
-                                                <tr>
-                                                    <td style="width: 60%; vertical-align:top;">
-                                                        <table style="width: 100%;">
+                                    <td style="width: 75%;">
+                                        <table style="width: 100%; margin-top: 25px;">                               
+                                            <tr>
+                                                <td colspan="2" style="text-align: center;">
+                                                    <div style="border: 1px solid black; margin-left: auto; margin-right: auto; border-radius: 5px">
+                                                        <table style="width: 100%; margin-top: auto; margin-left: auto; margin-right: auto;">
                                                             <tr>
-                                                                <td style="width: 50%; text-align: right;">Select Template</td>
-                                                                <td style="width: 10%">: </td>
-                                                                <td style="width: 40%">
-                                                                    <div style="width:150px;text-align:left;">
-                                                                        <asp:DropDownList OnSelectedIndexChanged="LoadInstruction" DataTextField="TemplateName" AutoPostBack="true" DataValueField="Path"  ID="ddlTemplate" AppendDataBoundItems="true" runat="server">
-                                                                            <asp:ListItem Text="--Select a Template--"></asp:ListItem>
-                                                                        </asp:DropDownList>
+                                                                <td style="width: 60%; vertical-align:top;">
+                                                                    <table style="width: 100%;">
+                                                                        <tr>
+                                                                            <td style="width: 50%; text-align: right;">Select Template</td>
+                                                                            <td style="width: 10%">: </td>
+                                                                            <td style="width: 40%">
+                                                                                <div style="width:150px;text-align:left;">
+                                                                                    <asp:DropDownList OnSelectedIndexChanged="LoadInstruction" DataTextField="TemplateName" AutoPostBack="true" DataValueField="Path"  ID="ddlTemplate" AppendDataBoundItems="true" runat="server">
+                                                                                        <asp:ListItem Text="--Select a Template--"></asp:ListItem>
+                                                                                    </asp:DropDownList>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td></td>
+                                                                            <td></td>
+                                                                            <td style="text-align: right;">
+                                                                                <asp:Button CssClass="button" OnClientClick="return ValidateDownload();" OnClick="btnDownload_Click" Text="Download" ID="btnDownload" runat="server"></asp:Button></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="3">                                                                    
+                                                                                <center>
+                                                                                    <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
+                                                                                        <asp:GridView DataKeyNames="ID" ID="grdUploadedFiles" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
+                                                                                            AllowPaging="True" EmptyDataText="No file found uploaded by you." OnRowDeleting="grdUploadedFiles_RowDeleting" OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
+                                                                                            <PagerStyle CssClass="pagination-ys" />
+                                                                                            <Columns>
+                                                                                                <asp:BoundField HeaderText="File Name" DataField="FileName" />
+                                                                                                <asp:BoundField HeaderText="Uploaded By" DataField="UploadedBy" />
+                                                                                                <asp:BoundField HeaderText="Uploaded On" DataField="Date" />
+                                                                                                <asp:ImageField ItemStyle-CssClass ="GridViewImageAlignment" HeaderText="Uploaded Status" ControlStyle-Height="25px" ControlStyle-Width="25px" DataImageUrlField="UploadedStatus"></asp:ImageField>
+                                                                                              <asp:CommandField ShowDeleteButton="true" />
+                                                                                            </Columns>
+                                                                                        </asp:GridView>
+                                                                                    </div>
+                                                                                </center>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td style="text-align: left;">
+                                                                                <asp:FileUpload ID="fileUploader" runat="server" />                                                                    
+
+                                                                            </td>
+                                                                            <td>
+                                                                                <asp:Button ID="btnUploader" class="button" OnClientClick="return VerifyFile();"  runat="server" Text="Upload" OnClick="btnUploader_Click" />
+                                                                            </td>
+                                                                
+                                                                            <td>
+
+                                                                            </td>
+
+                                                                        </tr>
+                                                                    </table>
+                                                                </td>
+                                                                <td style="width: 35%;">
+                                                                    <div style="width: 95%; text-align: left; margin-left: 55px; height: 220px; overflow-y: auto; margin-top: 5px;">
+                                                                        <b>Template Instruction</b><br />
+                                                                        <p></p>
+                                                                        <ul runat="server" style="width:80%;word-wrap:break-word;" id="tplInstruction">                                                              
+
+                                                                        </ul>
                                                                     </div>
                                                                 </td>
                                                             </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td style="text-align: right;">
-                                                                    <asp:Button CssClass="button" OnClientClick="return ValidateDownload();" OnClick="btnDownload_Click" Text="Download" ID="btnDownload" runat="server"></asp:Button></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td colspan="3">                                                                    
-                                                                    <center>
-                                                                        <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
-                                                                            <asp:GridView DataKeyNames="ID" ID="grdUploadedFiles" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
-                                                                                AllowPaging="True" EmptyDataText="No file found uploaded by you." OnRowDeleting="grdUploadedFiles_RowDeleting" OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
-                                                                                <PagerStyle CssClass="pagination-ys" />
-                                                                                <Columns>
-                                                                                    <asp:BoundField HeaderText="File Name" DataField="FileName" />
-                                                                                    <asp:BoundField HeaderText="Uploaded By" DataField="UploadedBy" />
-                                                                                    <asp:BoundField HeaderText="Uploaded On" DataField="Date" />
-                                                                                    <asp:ImageField ItemStyle-CssClass ="GridViewImageAlignment" HeaderText="Uploaded Status" ControlStyle-Height="25px" ControlStyle-Width="25px" DataImageUrlField="UploadedStatus"></asp:ImageField>
-                                                                                  <asp:CommandField ShowDeleteButton="true" />
-                                                                                </Columns>
-                                                                            </asp:GridView>
-                                                                        </div>
-                                                                    </center>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="text-align: left;">
-                                                                    <asp:FileUpload ID="fileUploader" runat="server" />                                                                    
-
-                                                                </td>
-                                                                <td>
-                                                                    <asp:Button ID="btnUploader" class="button" OnClientClick="return VerifyFile();"  runat="server" Text="Upload" OnClick="btnUploader_Click" />
-                                                                </td>
-                                                                
-                                                                <td>
-
-                                                                </td>
-
-                                                            </tr>
                                                         </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td style="width: 30%; vertical-align: top;">
+                                        <div style="margin-top: 10px; margin-left: 20px; border-left: 1px solid gray; height: 300px;">
+                                            <span style="margin-left: 10px;"><b>Search Template </b></span>
+                                            <table style="width: 100%; margin-left: 5px;margin-right: 5px;">
+                                                <tr id="usrEmailTR" runat="server">
+                                                    <td style="width: 35%">
+                                                        <b><u>Email ID</u> : </b>
                                                     </td>
-                                                    <td style="width: 35%;">
-                                                        <div style="width: 95%; text-align: left; margin-left: 55px; height: 220px; overflow-y: auto; margin-top: 5px;">
-                                                            <b>Template Instruction</b><br />
-                                                            <p></p>
-                                                            <ul runat="server" style="width:80%;word-wrap:break-word;" id="tplInstruction">                                                              
-
-                                                            </ul>
+                                                    <td style="width: 65%;">
+                                                        <asp:TextBox Text="" ID="usrEmailId" AutoPostBack="true" OnTextChanged="usrEmailId_TextChanged" runat="server" style="width: 80%" ></asp:TextBox>                                            
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <b><u>Project ID</u> : </b>
+                                                    </td>
+                                                    <td>
+                                                        <div>
+                                                            <asp:DropDownList OnSelectedIndexChanged="ddlProjects_SelectedIndexChanged" AppendDataBoundItems="true" AutoPostBack="true" ID="ddlProjects" Width="85%" runat="server" DataTextField="ProjectName">
+                                                                    <asp:ListItem Text="--Select a Project--"></asp:ListItem>
+                                                            </asp:DropDownList>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <div style="width: 100%">
+                                                            <table id="tblTemplateDetail" runat="server" style="width: 100%;">
+                                                    
+                                                                <tr>
+                                                                    <td><b><u>Template Details:</u></b></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="margin-left: auto; margin-top: auto;">
+                                                                        <asp:GridView ID="grdTemplate" EmptyDataText="No Template Found..." Visible="false" runat="server" Width="95%" HeaderStyle-CssClass="pagination-ys"
+                                                                            AllowPaging="True" OnPageIndexChanging="grdTemplate_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
+                                                                            <PagerStyle CssClass="pagination-ys" />
+                                                                            <Columns>
+                                                                                <asp:BoundField HeaderText="Template Name" DataField="TemplateName" />
+                                                                                <asp:BoundField HeaderText="DateAdded" DataField="DateAdded" />
+                                                                            </Columns>
+                                                                        </asp:GridView>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -159,71 +207,20 @@
                                     </td>
                                 </tr>
                             </table>
-                        </td>
-                        <td style="width: 30%; vertical-align: top;">
-                            <div style="margin-top: 50px; margin-left: 20px; border-left: 1px solid gray; height: 300px;">
-                                <span style="margin-left: 10px;"><b>Search Template </b></span>
-                                <table style="width: 100%; margin-left: 5px;margin-right: 5px;">
-                                    <tr id="usrEmailTR" runat="server">
-                                        <td style="width: 35%">
-                                            <b><u>Email ID</u> : </b>
-                                        </td>
-                                        <td style="width: 65%;">
-                                            <asp:TextBox Text="" ID="usrEmailId" AutoPostBack="true" OnTextChanged="usrEmailId_TextChanged" runat="server" style="width: 80%" ></asp:TextBox>                                            
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <b><u>Project ID</u> : </b>
-                                        </td>
-                                        <td>
-                                            <div>
-                                                <asp:DropDownList OnSelectedIndexChanged="ddlProjects_SelectedIndexChanged" AppendDataBoundItems="true" AutoPostBack="true" ID="ddlProjects" Width="85%" runat="server" DataTextField="ProjectName">
-                                                        <asp:ListItem Text="--Select a Project--"></asp:ListItem>
-                                                </asp:DropDownList>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            <div style="width: 100%">
-                                                <table id="tblTemplateDetail" runat="server" style="width: 100%;">
-                                                    
-                                                    <tr>
-                                                        <td><b><u>Template Details:</u></b></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="margin-left: auto; margin-top: auto;">
-                                                            <asp:GridView ID="grdTemplate" EmptyDataText="No Template Found..." Visible="false" runat="server" Width="95%" HeaderStyle-CssClass="pagination-ys"
-                                                                AllowPaging="True" OnPageIndexChanging="grdTemplate_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
-                                                                <PagerStyle CssClass="pagination-ys" />
-                                                                <Columns>
-                                                                    <asp:BoundField HeaderText="Template Name" DataField="TemplateName" />
-                                                                    <asp:BoundField HeaderText="DateAdded" DataField="DateAdded" />
-                                                                </Columns>
-                                                            </asp:GridView>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
                         </ContentTemplate>
                     </asp:UpdatePanel>
                         
             </div>         
         </center>
-    </form>    
+    </form>
+    
       <script src="../NewJEasyUI/jquery.min.js" type="text/javascript" lang="javascript"></script>
     <script src="../NewJEasyUI/jquery.easyui.min.js" type="text/javascript" lang="javascript"></script>
      <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/ErrorMessage.js?"), DateTime.Now.Ticks) %>" type="text/javascript" lang="javascript"></script>
      <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/Validation.js?"), DateTime.Now.Ticks) %>" type="text/javascript" lang="javascript"></script>
+    
  <script>
+    
     $(document).ready(function () {
        // $('select:not(.ignore)').niceSelect();
         //FastClick.attach(document.body);

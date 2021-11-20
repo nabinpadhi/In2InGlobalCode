@@ -18,7 +18,7 @@ namespace In2InGlobal.presentation.admin
                     BindFileGrid();
                     LoadTemplates();
                     BindProjects();
-                    projectid.InnerText = Session["ProjectID"].ToString();
+                    
                     string usrRole = Session["UserRole"].ToString();
                     if (usrRole == "Admin")
                     {
@@ -220,10 +220,13 @@ namespace In2InGlobal.presentation.admin
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             string json = (new WebClient()).DownloadString(Server.MapPath("json-data/Projects.json"));
            DataTable tblProject = JsonConvert.DeserializeObject<DataTable>(json);
-            DataRow[] usrProjects = tblProject.Select("Email='"+usrEmailId.Text+"'");
+            DataRow[] usrProjects = tblProject.Select("CreatedBy='"+usrEmailId.Text+"'");
             if(usrProjects.Length > 0)
             {
-                ddlProjects.SelectedValue = tblProject.Select("Email='" + usrEmailId.Text + "'")[0]["ProjectName"].ToString();
+                ddlProjects.Items.Clear();
+                ddlProjects.Items.Add(new ListItem("--Select a Project--"));
+                ddlProjects.DataSource = usrProjects.CopyToDataTable();
+                ddlProjects.DataBind();
             }
         }
 

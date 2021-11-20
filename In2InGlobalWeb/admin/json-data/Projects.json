@@ -6,7 +6,7 @@
   },
   {
     "ProjectName": "PRO - 0002",
-    "CreatedBy": "nabpad@gmail.com",
+    "CreatedBy": "nabinpadhi@gmail.com",
     "Description": "This is a test Project created for application."
   },
   {
@@ -31,37 +31,12 @@
   },
   {
     "ProjectName": "PRO - 0007",
-    "CreatedBy": "akashroy@gmail.com",
-    "Description": "This is a test Project created for application."
+    "CreatedBy": "nabinpadhi@gmail.com",
+    "Description": "testing"
   },
   {
     "ProjectName": "PRO - 0008",
     "CreatedBy": "nabinpadhi@gmail.com",
-    "Description": ""
-  },
-  {
-    "ProjectName": "PRO - 0009",
-    "CreatedBy": "nabinpadhi@gmail.com",
-    "Description": ""
-  },
-  {
-    "ProjectName": "PRO - 0010",
-    "CreatedBy": "nabinpadhi@gmail.com",
-    "Description": "aaaa"
-  },
-  {
-    "ProjectName": "PRO - 0011",
-    "CreatedBy": "nabinpadhi@gmail.com",
-    "Description": ""
-  },
-  {
-    "ProjectName": "PRO - 0012",
-    "CreatedBy": "nabinpadhi@gmail.com",
-    "Description": ""
-  },
-  {
-    "ProjectName": "PRO - 0013",
-    "CreatedBy": "nabinpadhi@gmail.com",
-    "Description": ""
+    "Description": "This project description, this project is created after multi project assignment functionality done for the user."
   }
 ]

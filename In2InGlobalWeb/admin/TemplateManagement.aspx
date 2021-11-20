@@ -112,13 +112,13 @@
                                         <div style="width: 60%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
                                          <table style="width:100%">
                                                         <tr>
-                                                            <td style="width:40%;text-align:right;">Template Name(<span style="color: red">*</span>)</td>
+                                                            <td style="width:40%;text-align:right;">Project Name(<span style="color: red">*</span>)</td>
                                                             <td style="width:60%;padding-right:20%;">
-                                                                <asp:DropDownList ID="ddlTemplates" style="width:auto;" AppendDataBoundItems="true" runat="server" DataTextField="TemplateName">
-                                                                    <asp:ListItem Text="--Select a Template--" ></asp:ListItem>
+                                                                <asp:DropDownList ID="ddlProjects" AppendDataBoundItems="true" style="width:80%;" runat="server" DataTextField="ProjectName">
+                                                                    <asp:ListItem Text="--Select a Project--" ></asp:ListItem>
                                                                 </asp:DropDownList>
                                                             </td>
-                                                        </tr>
+                                                        </tr> 
                                                          <tr>
                                                             <td style="text-align:right;">Email Id(<span style="color: red">*</span>)</td>
                                                             <td style="padding-right:20%;">                                                                
@@ -127,14 +127,15 @@
                                                                 </asp:DropDownList>
                                                             </td>
                                                         </tr>
-                                                        <tr>
-                                                            <td style="text-align:right;">Project Name(<span style="color: red">*</span>)</td>
+                                                          
+                                             <tr>
+                                                            <td style="text-align:right;">Template Name(<span style="color: red">*</span>)</td>
                                                             <td style="padding-right:20%;">
-                                                                <asp:DropDownList ID="ddlProjects" AppendDataBoundItems="true" style="width:80%;" runat="server" DataTextField="ProjectName">
-                                                                    <asp:ListItem Text="--Select a Project--" ></asp:ListItem>
+                                                                <asp:DropDownList ID="ddlTemplates" style="width:auto;" AppendDataBoundItems="true" runat="server" DataTextField="TemplateName">
+                                                                    <asp:ListItem Text="--Select a Template--" ></asp:ListItem>
                                                                 </asp:DropDownList>
                                                             </td>
-                                                        </tr>    
+                                                        </tr>
                                                          <tr>
                                                             <td colspan="2">
                                                                 <div style="margin-top: 15px;">
@@ -233,8 +234,8 @@
                                                     <PagerStyle CssClass="pagination-ys" />
                                                     <Columns>
                                                         <asp:BoundField HeaderText="Project Name" DataField="ProjectName" />
-                                                        <asp:BoundField HeaderText="Created By" DataField="CreatedBy" />                                                      
-                                                        <asp:CommandField ShowDeleteButton="true" />
+                                                        <asp:BoundField HeaderText="Created By" DataField="CreatedBy" /> 
+                                                        <asp:BoundField HeaderText="Description" DataField="Description" />                                                                                                              
                                                     </Columns>
                                                 </asp:GridView>
                                             </div>
@@ -253,19 +254,19 @@
    <script src="../NewJEasyUI/jquery.min.js" type="text/javascript" lang="javascript"></script>
     <script src="../NewJEasyUI/jquery.easyui.min.js" type="text/javascript" lang="javascript"></script>
      <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/ErrorMessage.js?"), DateTime.Now.Ticks) %>" type="text/javascript" lang="javascript"></script>
-
     <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/Validation.js?"), DateTime.Now.Ticks) %>" type="text/javascript" lang="javascript"></script>
-    <%-- <script src="js/jquery.nice-select.min.js" type="text/javascript" lang="javascript"></script>--%>
+    
     <script src="js/fastclick.js" type="text/javascript" lang="javascript"></script>
     <script src="js/prism.js" type="text/javascript" lang="javascript"></script>
-     
+    
   <script>   
-      var recentnl = "btnCreateTemplate";
+      var recentnl = "btnCreateTemplate";     
         $(document).ready(function () {
             //$('select:not(.ignore)').niceSelect();
             FastClick.attach(document.body);
             ClearAll();
             ShowCreateTemplate();
+           
         });        
         function ClearAll() {
             
@@ -273,7 +274,8 @@
             $('#ddlProjects').prop('selectedIndex', 0);
             $('#ddlMasterTemplate').prop('selectedIndex', 0);
             $('#ddlUserEmail').prop('selectedIndex', 0);
-            $("#txtInstruction").val('');
+            $("#txtInstruction").val('');                       
+           
       }
       function ClearProject() {
 
