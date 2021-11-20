@@ -309,17 +309,6 @@ namespace In2InGlobal.presentation.admin
             string _message = "Project Created Successfully.)";
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateProject(); ", _message), true);
         }
-        /* private void UploadTemplateFile()
-         {
-             string fileName = "";
-             string filePath = Server.MapPath("TemplateFiles");           
-             if (templateFileUploader.HasFile)
-             {
-                 fileName = templateFileUploader.FileName;
-                 templateFileUploader.SaveAs(System.IO.Path.Combine(filePath, fileName));
-
-             }
-
-         }*/
+       
     }
 }
