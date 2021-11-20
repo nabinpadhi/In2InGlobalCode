@@ -18,7 +18,7 @@ namespace In2InGlobal.presentation.admin
                     BindFileGrid();
                     LoadTemplates();
                     BindProjects();
-                    
+                    BindAssignedProjects();
                     string usrRole = Session["UserRole"].ToString();
                     if (usrRole == "Admin")
                     {
@@ -50,6 +50,16 @@ namespace In2InGlobal.presentation.admin
             string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Projects.json");
             ddlProjects.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
             ddlProjects.DataBind();
+        }
+
+        private void BindAssignedProjects()
+        {
+            string _email = Session["UserEmail"].ToString();
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Projects.json");
+            ddlAssignedProject.DataSource = JsonConvert.DeserializeObject<DataTable>(json).Select("CreatedBy='"+ _email+"'").CopyToDataTable();
+            ddlAssignedProject.DataBind();
         }
 
         private void LoadTemplates()
@@ -191,13 +201,7 @@ namespace In2InGlobal.presentation.admin
             BindFileGrid();
         }
 
-        protected void grdUploadedFiles_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            string ID = grdUploadedFiles.DataKeys[e.RowIndex].Value.ToString();
-            DeleteUploadedFile(ID);
-            BindFileGrid();
-        }
-
+      
         private void DeleteUploadedFile(string iD)
         {
             ServicePointManager.Expect100Continue = true;
@@ -266,6 +270,19 @@ namespace In2InGlobal.presentation.admin
             else
             {
                 tplInstruction.InnerHtml = "<li>No Instruction Found.</li>";
+            }
+        }
+
+        protected void ddlAssignedProject_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlAssignedProject.SelectedIndex > 0)
+            {
+                btnUploader.Enabled = true;
+                fileUploader.Enabled = true;
+            }
+            else {
+                btnUploader.Enabled = false;
+                fileUploader.Enabled = false;
             }
         }
     }

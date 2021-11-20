@@ -77,7 +77,7 @@
                     <ContentTemplate> 
                             <table style="width: 100%; background-color: azure;">
                                 <tr>
-                                    <td style="width: 75%;">
+                                    <td style="width: 70%;">
                                         <table style="width: 100%; margin-top: 25px;">                               
                                             <tr>
                                                 <td colspan="2" style="text-align: center;">
@@ -87,10 +87,18 @@
                                                                 <td style="width: 60%; vertical-align:top;">
                                                                     <table style="width: 100%;">
                                                                         <tr>
-                                                                            <td style="width: 50%; text-align: right;">Select Template</td>
-                                                                            <td style="width: 10%">: </td>
-                                                                            <td style="width: 40%">
-                                                                                <div style="width:150px;text-align:left;">
+                                                                            <td style="width: 50%;text-align:left;padding-left:25px;">
+                                                                                 <b>Select Project</b>
+                                                                                <div style="width:100px;text-align:left;">
+                                                                                    <asp:DropDownList AutoPostBack="true" OnSelectedIndexChanged="ddlAssignedProject_SelectedIndexChanged"  DataValueField="ProjectName" DataTextField="ProjectName"  ID="ddlAssignedProject" AppendDataBoundItems="true" runat="server">
+                                                                                        <asp:ListItem Text="--Select a Project--"></asp:ListItem>
+                                                                                    </asp:DropDownList>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td style="width: 5%"></td>
+                                                                            <td style="width: 45%;margin-left:0px;text-align:left;">
+                                                                                <b>Select Template</b>
+                                                                                <div style="text-align:left;">
                                                                                     <asp:DropDownList OnSelectedIndexChanged="LoadInstruction" DataTextField="TemplateName" AutoPostBack="true" DataValueField="Path"  ID="ddlTemplate" AppendDataBoundItems="true" runat="server">
                                                                                         <asp:ListItem Text="--Select a Template--"></asp:ListItem>
                                                                                     </asp:DropDownList>
@@ -108,14 +116,14 @@
                                                                                 <center>
                                                                                     <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
                                                                                         <asp:GridView DataKeyNames="ID" ID="grdUploadedFiles" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
-                                                                                            AllowPaging="True" EmptyDataText="No file found uploaded by you." OnRowDeleting="grdUploadedFiles_RowDeleting" OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
+                                                                                            AllowPaging="True" EmptyDataText="No file found uploaded by you." OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
                                                                                             <PagerStyle CssClass="pagination-ys" />
                                                                                             <Columns>
                                                                                                 <asp:BoundField HeaderText="File Name" DataField="FileName" />
+                                                                                                <asp:BoundField HeaderText="Project Name" DataField="ProjectName" />
                                                                                                 <asp:BoundField HeaderText="Uploaded By" DataField="UploadedBy" />
                                                                                                 <asp:BoundField HeaderText="Uploaded On" DataField="Date" />
-                                                                                                <asp:ImageField ItemStyle-CssClass ="GridViewImageAlignment" HeaderText="Uploaded Status" ControlStyle-Height="25px" ControlStyle-Width="25px" DataImageUrlField="UploadedStatus"></asp:ImageField>
-                                                                                              <asp:CommandField ShowDeleteButton="true" />
+                                                                                                <asp:ImageField ItemStyle-CssClass ="GridViewImageAlignment" HeaderText="Uploaded Status" ControlStyle-Height="20px" ControlStyle-Width="20px" DataImageUrlField="UploadedStatus"></asp:ImageField>                                                                                             
                                                                                             </Columns>
                                                                                         </asp:GridView>
                                                                                     </div>
@@ -124,11 +132,11 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <td style="text-align: left;">
-                                                                                <asp:FileUpload ID="fileUploader" runat="server" />                                                                    
+                                                                                <asp:FileUpload ID="fileUploader" accept=".csv" Enabled="false" runat="server" />                                                                    
 
                                                                             </td>
                                                                             <td>
-                                                                                <asp:Button ID="btnUploader" class="button" OnClientClick="return VerifyFile();"  runat="server" Text="Upload" OnClick="btnUploader_Click" />
+                                                                                <asp:Button ID="btnUploader" Enabled="false" class="button" OnClientClick="return VerifyFile();"  runat="server" Text="Upload" OnClick="btnUploader_Click" />
                                                                             </td>
                                                                 
                                                                             <td>
@@ -139,7 +147,7 @@
                                                                     </table>
                                                                 </td>
                                                                 <td style="width: 35%;">
-                                                                    <div style="width: 95%; text-align: left; margin-left: 55px; height: 220px; overflow-y: auto; margin-top: 5px;">
+                                                                    <div style="width: 95%; text-align: left; margin-left: 15px; height: 220px; overflow-y: auto;">
                                                                         <b>Template Instruction</b><br />
                                                                         <p></p>
                                                                         <ul runat="server" style="width:80%;word-wrap:break-word;" id="tplInstruction">                                                              
@@ -227,9 +235,9 @@
         $("#projectids").change(function () {
             $('#projectid').val($("#projectids").val());
         });
-
+       
     });               
-
+    
      function ValidateDownload() {
          Error_Message = "";
          Error_Count = 1;
@@ -245,7 +253,30 @@
 
              return true;
          }
-     }     
+     }  
+     function VerifyFile() {
+
+         Error_Message = "";
+         Error_Count = 1;
+         
+         var fileName = $('#fileUploader').val();
+         var idxDot = fileName.lastIndexOf(".") + 1;
+         var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+
+         if (CheckNull(fileName, in2in23)) {
+             CheckFileExtension(extFile, "csv", in2in24);
+         }
+         
+
+         if (Error_Message != "") {
+             ShowError(Error_Message, 50);
+             return false;
+         }
+         else {
+
+             return true;
+         }
+     }
      function ShowHidden() { }
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {

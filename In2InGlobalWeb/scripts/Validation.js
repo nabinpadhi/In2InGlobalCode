@@ -237,7 +237,17 @@ function isValidEmailAddress(thisString) {
         return false;
     }
 }
+function CheckFileExtension(rs_FieldValueToValidate, rs_WhatToValidate, ms_ErrMsg)
+{
+    if (rs_FieldValueToValidate != rs_WhatToValidate) {
 
+        Error_Message = Error_Message + Error_Count + " . " + ms_ErrMsg + "<br>";
+        Error_Count = Error_Count + 1;
+        return false;
+    }
+    else { return true;}
+
+}
 function CheckNull(rs_FieldValueToValidate,ms_ErrMsg)
 {	
     if(rs_FieldValueToValidate != null)
