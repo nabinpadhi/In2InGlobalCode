@@ -29,10 +29,12 @@ namespace In2InGlobal.presentation.admin
                         BindMasterTemplate();
                         BindMasterTemplateGrid();
                         BindTemplateToAssign();
-
+                        BindProjectGrid();
                         //txtcreatedBy = Session["UserEmail"].ToString();
                         txtcreatedB.InnerText = Session["UserEmail"].ToString();
-                        
+                        spnCreatedBy.InnerText = Session["UserEmail"].ToString();
+                        spnProjectName.InnerText = GenerateProjectName();
+
                     }
                     else
                     {
@@ -48,6 +50,16 @@ namespace In2InGlobal.presentation.admin
                 }
 
             }
+
+        private string GenerateProjectName()
+        {
+            string projson = (new WebClient()).DownloadString(HttpContext.Current.Server.MapPath("json-data/Projects.json"));
+            DataTable ProjectTable = JsonConvert.DeserializeObject<DataTable>(projson);
+
+            int _ProjectID = ProjectTable.Rows.Count + 1;
+            string ProjectName = "PRO - " + $"{_ProjectID:0000}";
+            return ProjectName;
+        }
 
         private void BindMasterTemplateGrid()
         {
@@ -67,7 +79,15 @@ namespace In2InGlobal.presentation.admin
             grdTemplate.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
             grdTemplate.DataBind();
         }
-        
+        private void BindProjectGrid()
+        {
+
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            string json = (new WebClient()).DownloadString(Server.MapPath("json-data/Projects.json"));
+            grdProject.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
+            grdProject.DataBind();
+        }
         /* Used to load the template name extracting from provided files a folder
            This will lod the template name on create template screen*/
         private void BindMasterTemplate()
@@ -160,7 +180,22 @@ namespace In2InGlobal.presentation.admin
             string _message = "Template removed successfully.";
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", _message), true);
         }
-        
+        protected void grdProject_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            BindProjectGrid();
+            grdProject.PageIndex = e.NewPageIndex;
+            grdProject.DataBind();
+            //
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), "ShowCreateProject();", true);
+
+        }
+
+        protected void grdProject_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            
+            string _message = "Template removed successfully.";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", _message), true);
+        }
         private void DeleteMasterTemplate(string iD)
         {
             ServicePointManager.Expect100Continue = true;
@@ -242,6 +277,38 @@ namespace In2InGlobal.presentation.admin
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate(); ", _message), true);
         }
         
+            protected void btnCreatePro_Click(object sender, EventArgs e)
+        {
+
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            string json = (new WebClient()).DownloadString(Server.MapPath("json-data/Projects.json"));
+            DataTable ProjectTable = JsonConvert.DeserializeObject<DataTable>(json);
+            if (ProjectTable.Rows.Count == 0)
+            {
+                ProjectTable.Columns.Add("ID");
+                ProjectTable.Columns.Add("TemplateName");
+                ProjectTable.Columns.Add("CreatedBy");
+                ProjectTable.Columns.Add("Instruction");
+            }
+            int _ProjectID = ProjectTable.Rows.Count + 1;
+            string ProjectName = "PRO - "+ $"{_ProjectID:0000}";
+            string createdBy = Session["UserEmail"].ToString();
+            string templateName = ddlMasterTemplate.Text;
+            string description = txtDescription.Value;
+
+            DataRow dr = ProjectTable.Rows.Add(ProjectName, createdBy, description);
+            ProjectTable.AcceptChanges();
+            dr.SetModified();
+            string output = Newtonsoft.Json.JsonConvert.SerializeObject(ProjectTable, Newtonsoft.Json.Formatting.Indented);
+            File.WriteAllText(Server.MapPath("json-data/Projects.json"), output);
+
+            BindProjectGrid();
+            grdProject.PageIndex = grdProject.PageCount - 1;
+            spnProjectName.InnerText = GenerateProjectName();
+            string _message = "Project Created Successfully.)";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateProject(); ", _message), true);
+        }
         /* private void UploadTemplateFile()
          {
              string fileName = "";

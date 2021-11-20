@@ -28,6 +28,7 @@
                         <div style="border-bottom:0 solid gray;display:flex;padding:2px;width:auto;">
                             <div id="btnCreateTemplate" onclick="ShowCreateTemplate();" class="PanelTab"> Create Template </div>
                             <div style="margin-left:4px;" onclick="ShowAssignTemplate();" class="PanelTab" id="btnAssignTemplate">Assign Template</div>
+                            <div style="margin-left:4px;" onclick="ShowCreateProject();" class="PanelTab" id="btnCreateProject">Create Project</div>
                         </div>
                         <div title="Create Template" class="crtpnl" style="background-color: azure;padding:10px">
                              <table style="width: 100%; background-color: azure;">
@@ -170,6 +171,78 @@
                       
                             </div>
                        
+                            <div title="Create Project" class="crtppnl" style="background-color: azure;padding:10px">
+                             <table style="width: 100%; background-color: azure;">
+                                <tr>
+                                    <td>
+                                        <center>
+                                            <div style="width: 60%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
+                                                <table>
+                                                    <tr>
+                                                        <td style="width:50%;">
+                                                            <table style="width:100%">
+                                                                <tr>
+                                                                    
+                                                                    <td style="width:40%">
+                                                                        Project Name(<span style="color: red">*</span>)<br />
+                                                                       <span fieldtype="readonly" value="" runat="server" id="spnProjectName" />
+                                                                    </td>
+                                                                </tr>
+                                                                 <tr>
+                                                                    <td>
+                                                                        Created By(<span style="color: red">*</span>)                                                                        
+                                                                        <span fieldtype="readonly" value="" runat="server" id="spnCreatedBy" />
+                                                                    </td>
+                                                                </tr>                                                                                                         
+                                                            </table>
+                                                        </td>
+                                                        <td  style="width:50%;">
+                                                            <table>
+                                                                <tr>
+                                                                    <td>
+                                                                        Description(<span style="color: red">*</span>)
+                                                                        <textarea rows="5" id="txtDescription" class="txtDescription" name="txtDescription" style="resize:none; width: 97%; height: 70px;" runat="server"></textarea>
+                                                                    </td>
+
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <div style="margin-top: 15px;">
+                                                                <center>
+                                                                    <asp:Button  ID="btnCreatePro" runat="server" OnClick="btnCreatePro_Click"  CssClass="button" Text="Create" />
+                                                                    <input type="button" class="button" style="margin-left: 10px;" value="Cancel" onclick="ClearAll();" />
+                                                                </center>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </center>
+                                    </td>
+                       
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%;">
+                                        <center>
+                                            <div style="width: 70%; border: 1px solid black; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;">                                    
+                                                <asp:GridView ID="grdProject" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
+                                                    AllowPaging="True"  OnRowDeleting="grdProject_RowDeleting" OnPageIndexChanging="grdProject_PageIndexChanging"  AutoGenerateColumns="false" PageSize="4">
+                                                    <PagerStyle CssClass="pagination-ys" />
+                                                    <Columns>
+                                                        <asp:BoundField HeaderText="Project Name" DataField="ProjectName" />
+                                                        <asp:BoundField HeaderText="Created By" DataField="CreatedBy" />                                                      
+                                                        <asp:CommandField ShowDeleteButton="true" />
+                                                    </Columns>
+                                                </asp:GridView>
+                                            </div>
+                                        </center>
+                                    </td>
+                                </tr>
+                        </table>
+                        </div>
                     </div>  
                      </ContentTemplate>
                 </asp:UpdatePanel>
@@ -201,6 +274,10 @@
             $('#ddlMasterTemplate').prop('selectedIndex', 0);
             $('#ddlUserEmail').prop('selectedIndex', 0);
             $("#txtInstruction").val('');
+      }
+      function ClearProject() {
+
+          $('#txtDescription').val('');
       }
       function ValidateMasterTemplate() {
 
@@ -258,7 +335,7 @@
       function ShowServerMessage(servermessage) {          
 
           $("#txtInstruction").val('');
-          
+          $("#txtDescription").val('');
 
             if (servermessage != "") {
                 $.messager.show({
@@ -292,22 +369,44 @@
 
           $('.Asgnpnl').visible();
           $('.crtpnl').invisible();
+          $('.crtppnl').invisible();
           $('#btnAssignTemplate').css("background-color", "azure");
           $('#btnAssignTemplate').css("color", "blue");
           $('#btnCreateTemplate').css("background-color", "#2c3c59");
           $('#btnCreateTemplate').css("color", "white");
+          $('#btnCreateProject').css("background-color", "#2c3c59");
+          $('#btnCreateProject').css("color", "white");
           ClearAll();
       }
       function ShowCreateTemplate() {
 
           $('.Asgnpnl').invisible();
+          $('.crtppnl').invisible();
           $('.crtpnl').visible();
           $('#btnCreateTemplate').css("background-color", "azure");
           $('#btnCreateTemplate').css("color", "blue");
           $('#btnAssignTemplate').css("background-color", "#2c3c59");
           $('#btnAssignTemplate').css("color", "#fff");
+          $('#btnCreateProject').css("background-color", "#2c3c59");
+          $('#btnCreateProject').css("color", "white");
+          
           
           ClearAll();
+      }
+      
+      function ShowCreateProject() {
+
+          $('.Asgnpnl').invisible();
+          $('.crtpnl').invisible();
+          $('.crtppnl').visible();
+          $('#btnCreateTemplate').css("background-color", "#2c3c59");
+          $('#btnCreateTemplate').css("color", "#fff");
+          $('#btnAssignTemplate').css("background-color", "#2c3c59");
+          $('#btnAssignTemplate').css("color", "#fff");
+          $('#btnCreateProject').css("background-color", "azure");
+          $('#btnCreateProject').css("color", "blue");
+
+          ClearProject();
       }
       function sleep(milliseconds) {
           var start = new Date().getTime();

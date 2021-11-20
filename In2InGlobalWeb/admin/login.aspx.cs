@@ -150,8 +150,8 @@ namespace In2InGlobal.presentation.admin
 
                 string projson = (new WebClient()).DownloadString(HttpContext.Current.Server.MapPath("json-data/Projects.json"));
                 DataTable proTable = JsonConvert.DeserializeObject<DataTable>(projson);
-                DataRow dr = proTable.Select("Email ='" + userRow["Email"].ToString() + "'")[0];
-                HttpContext.Current.Session["ProjectID"] = dr[0].ToString(); ;
+                DataRow[] UserProjects = proTable.Select("CreatedBy ='" + userRow["Email"].ToString() + "'");
+                HttpContext.Current.Session["ProjectTable"] = UserProjects;
 
             }
             else

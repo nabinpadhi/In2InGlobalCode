@@ -1821,6 +1821,7 @@
     <Content Include="admin\MasterTemplate\Template_067_02-05-23-K004.csv" />
     <Content Include="admin\MasterTemplate\Template_123-KHJY-ABC.csv" />
     <Content Include="admin\json-data\MasterTemplate.json" />
+    <Content Include="admin\json-data\UserProjects.json" />
     <None Include="font\fontawesome-webfont.ttf" />
     <None Include="font\fontawesome-webfont.woff" />
     <None Include="GoogleFont\2UX7WLTfW3W8TclTUvlFyQ.woff" />
