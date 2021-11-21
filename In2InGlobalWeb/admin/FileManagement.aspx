@@ -68,12 +68,13 @@
    
     <form id="form1" runat="server">
         <center>
-            <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 20px;">
+            <div id="fmPageDiv" style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 20px;display:block;">
                 <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height:40px;padding-top:10px;"><span class="menu_frame_title">File Management</span></div>
                     <asp:ScriptManager ID="scriptmanager1" runat="server">
                 </asp:ScriptManager>
                 <asp:UpdatePanel ID="pdnlFileMgnt" runat="server">
                     <Triggers><asp:PostBackTrigger ControlID="btnDownload" /></Triggers>
+                    <Triggers><asp:PostBackTrigger ControlID="btnUploader" /></Triggers>
                     <ContentTemplate> 
                             <table style="width: 100%; background-color: azure;">
                                 <tr>
@@ -99,7 +100,7 @@
                                                                             <td style="width: 45%;margin-left:0px;text-align:left;">
                                                                                 <b>Select Template</b>
                                                                                 <div style="text-align:left;">
-                                                                                    <asp:DropDownList OnSelectedIndexChanged="LoadInstruction" DataTextField="TemplateName" AutoPostBack="true" DataValueField="Path"  ID="ddlTemplate" AppendDataBoundItems="true" runat="server">
+                                                                                    <asp:DropDownList OnSelectedIndexChanged="LoadInstruction" Enabled="false" DataTextField="TemplateName" AutoPostBack="true" DataValueField="Path"  ID="ddlTemplate" AppendDataBoundItems="true" runat="server">
                                                                                         <asp:ListItem Text="--Select a Template--"></asp:ListItem>
                                                                                     </asp:DropDownList>
                                                                                 </div>
@@ -109,7 +110,7 @@
                                                                             <td></td>
                                                                             <td></td>
                                                                             <td style="text-align: right;">
-                                                                                <asp:Button CssClass="button" OnClientClick="return ValidateDownload();" OnClick="btnDownload_Click" Text="Download" ID="btnDownload" runat="server"></asp:Button></td>
+                                                                                <asp:Button CssClass="button" Enabled="false" OnClientClick="return ValidateDownload();" OnClick="btnDownload_Click" Text="Download" ID="btnDownload" runat="server"></asp:Button></td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td colspan="3">                                                                    
@@ -119,7 +120,13 @@
                                                                                             AllowPaging="True" EmptyDataText="No file found uploaded by you." OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
                                                                                             <PagerStyle CssClass="pagination-ys" />
                                                                                             <Columns>
-                                                                                                <asp:BoundField HeaderText="File Name" DataField="FileName" />
+                                                                                                    <asp:TemplateField HeaderText="File Name">
+                                                                                                        <ItemTemplate>
+                                                                                                            <a href='#' onclick="OpenCSV('<%# DataBinder.Eval(Container.DataItem, "FileName") %>');">
+                                                                                                                <%# DataBinder.Eval(Container.DataItem, "FileName")%>
+                                                                                                            </a>
+                                                                                                        </ItemTemplate>
+                                                                                                    </asp:TemplateField>                                                                                                
                                                                                                 <asp:BoundField HeaderText="Project Name" DataField="ProjectName" />
                                                                                                 <asp:BoundField HeaderText="Uploaded By" DataField="UploadedBy" />
                                                                                                 <asp:BoundField HeaderText="Uploaded On" DataField="Date" />
@@ -218,7 +225,11 @@
                         </ContentTemplate>
                     </asp:UpdatePanel>
                         
-            </div>         
+            </div>  
+              "
+            <div id="csvPageDiv" class="easyui-window" title="File Viewer" data-options="iconCls:'icon-readfile'" style="width:500px;height:500px;padding:10px;background-color:silver;">                
+                <iframe style="width: 100%;height:auto;" id="frmCSVPage" src="about:blank"></iframe>
+            </div>
         </center>
     </form>
     
@@ -234,8 +245,8 @@
         //FastClick.attach(document.body);
         $("#projectids").change(function () {
             $('#projectid').val($("#projectids").val());
-        });
-       
+        }); 
+        $('#csvPageDiv').window('close');
     });               
     
      function ValidateDownload() {
@@ -277,6 +288,22 @@
              return true;
          }
      }
+     function OpenCSV(fn) {
+
+        // $('#fmPageDiv').hide();
+         //$('#csvPageDiv').show();
+        var iframe = $("#frmCSVPage");
+        iframe.attr("src", "DisplayCSV.aspx?csvfp=" + fn);         
+         $('#csvPageDiv').window('open');
+     }
+     function CloseCSV() {
+
+         $('#fmPageDiv').show();
+         $('#csvPageDiv').hide();
+         var iframe = $("#frmCSVPage");
+         iframe.attr("src", "about:blank");
+         //window.open('DisplayCSV.aspx?csvfp=' + fn, 'popup_window', 'width=600,height=600,left=200,top=200,resizable=yes');
+     }    
      function ShowHidden() { }
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {

@@ -419,6 +419,7 @@ label {
         background-color: #2d8bfa;
     }
 
+
     .button.light {
         background-color: #fff;
         border: 1px solid #e0e7ee;
@@ -527,7 +528,11 @@ body {
         background-color: #4196fb;
         color:blue;
     }
-
+    .button:disabled:hover {
+        background-color: #e3e3e3;
+        color: #fff;
+        cursor: none;
+    }
     .button:active, .button.nice-select.open {
         background-color: #2d8bfa;
     }

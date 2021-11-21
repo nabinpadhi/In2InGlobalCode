@@ -88,6 +88,7 @@
   <ItemGroup>
     <Content Include="admin\assets\img\mobile.png" />
     <Content Include="admin\css\multi-styles.css" />
+    <Content Include="admin\DisplayCSV.aspx" />
     <Content Include="admin\dropzone\basic.css" />
     <Content Include="admin\dropzone\dropzone-amd-module.js" />
     <Content Include="admin\dropzone\dropzone.css" />
@@ -170,6 +171,9 @@
     <Content Include="images\LoginScreenImg1.png" />
     <Content Include="css\garagedoor.css" />
     <Content Include="css\style.css" />
+    <Content Include="jqdashboard\themes\icons\read_file.png" />
+    <Content Include="jquery\jqdashboard\themes\icons\read_file.png" />
+    <Content Include="NewJEasyUI\themes\icons\read_file.png" />
     <Content Include="ResetPassword.aspx" />
     <Content Include="InternalLanding.aspx" />
     <Content Include="jqdashboard\images\chart-1.png" />
@@ -1692,6 +1696,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="admin\DisplayCSV.aspx.cs">
+      <DependentUpon>DisplayCSV.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\DisplayCSV.aspx.designer.cs">
+      <DependentUpon>DisplayCSV.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\TemplateManagement.aspx.cs">
       <DependentUpon>TemplateManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -12,10 +12,10 @@ namespace In2InGlobal.presentation.admin
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-                {
+            {
                 if (Session["UserRole"] != null)
                 {
-                    BindFileGrid();
+                    BindFileGrid("");
                     LoadTemplates();
                     BindProjects();
                     BindAssignedProjects();
@@ -24,7 +24,7 @@ namespace In2InGlobal.presentation.admin
                     {
                         usrEmailTR.Visible = true;
                         tblTemplateDetail.Visible = true;
-                       // BindTemplateGrid(ddlProjects.SelectedValue, "");
+                        // BindTemplateGrid(ddlProjects.SelectedValue, "");
 
 
                     }
@@ -32,12 +32,16 @@ namespace In2InGlobal.presentation.admin
                     {
                         usrEmailId.Text = Session["UserEmail"].ToString();
                         usrEmailId.ReadOnly = true;
-                        ddlProjects.SelectedValue = Session["ProjectID"].ToString();
+                        if (Session["ProjectID"] != null)
+                        {
+                            ddlProjects.SelectedValue = Session["ProjectID"].ToString();
+                        }
                         tblTemplateDetail.Visible = true;
                         BindTemplateGrid("", usrEmailId.Text);
                     }
                 }
-                else{
+                else
+                {
                     Response.Redirect("login.aspx");
                 }
             }
@@ -58,7 +62,7 @@ namespace In2InGlobal.presentation.admin
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Projects.json");
-            ddlAssignedProject.DataSource = JsonConvert.DeserializeObject<DataTable>(json).Select("CreatedBy='"+ _email+"'").CopyToDataTable();
+            ddlAssignedProject.DataSource = JsonConvert.DeserializeObject<DataTable>(json).Select("CreatedBy='" + _email + "'").CopyToDataTable();
             ddlAssignedProject.DataBind();
         }
 
@@ -68,7 +72,7 @@ namespace In2InGlobal.presentation.admin
             dtTemplate.Columns.Add("TemplateName");
             dtTemplate.Columns.Add("FilePath");
 
-            foreach (string s in System.IO.Directory.GetFiles(Server.MapPath("MasterTemplate")))
+            /*foreach (string s in System.IO.Directory.GetFiles(Server.MapPath("MasterTemplate")))
             {
                 string fileName = System.IO.Path.GetFileName(s);
                 DataRow newRow = dtTemplate.NewRow();
@@ -76,14 +80,40 @@ namespace In2InGlobal.presentation.admin
                 newRow["FilePath"] = fileName;
 
                 dtTemplate.Rows.Add(newRow);
-            }
+            }*/
 
-            ddlTemplate.DataSource = dtTemplate;
+            DataTable tblAssignedTemplate = new DataTable();
+            string AssignedTemplateJson = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Template.json");
+
+            if (ddlAssignedProject.SelectedIndex > 0)
+            {
+                if (JsonConvert.DeserializeObject<DataTable>(AssignedTemplateJson).Select("ProjectName='" + ddlAssignedProject.SelectedValue + "'").Length > 0)
+                {
+                    tblAssignedTemplate = JsonConvert.DeserializeObject<DataTable>(AssignedTemplateJson).Select("ProjectName='" + ddlAssignedProject.SelectedValue + "'").CopyToDataTable();
+                }
+            }
+            else
+            {
+                if (JsonConvert.DeserializeObject<DataTable>(AssignedTemplateJson).Select("Email='" + Session["UserEmail"].ToString() + "'").Length > 0)
+                {
+                    tblAssignedTemplate = JsonConvert.DeserializeObject<DataTable>(AssignedTemplateJson).Select("Email='" + Session["UserEmail"].ToString() + "'").CopyToDataTable();
+                }
+            }
+            tblAssignedTemplate.Columns.Add("FilePath");
+            foreach(DataRow dr in tblAssignedTemplate.Rows)
+            {
+                dr.BeginEdit();
+                dr["FilePath"] = Server.MapPath("MasterTemplate") +"\\"+ dr["TemplateName"] + ".csv";
+                dr.EndEdit();
+                dr.AcceptChanges();
+            }
+            tblAssignedTemplate.AcceptChanges();
+            ddlTemplate.DataSource = tblAssignedTemplate;
             ddlTemplate.DataTextField = "TemplateName";
             ddlTemplate.DataValueField = "FilePath";
             ddlTemplate.DataBind();
-        }      
-        private void BindFileGrid()
+        }
+        private void BindFileGrid(string pid)
         {
 
             ServicePointManager.Expect100Continue = true;
@@ -93,18 +123,36 @@ namespace In2InGlobal.presentation.admin
             DataTable tblUploadedFiles = JsonConvert.DeserializeObject<DataTable>(json);
             DataRow _usrRow = (DataRow)Session["UserRow"];
             string userName = _usrRow["FirstName"] + " " + _usrRow["LastName"];
-            if (tblUploadedFiles.Select("UploadedBy='" + userName + "'").Length > 0)
+            if (pid != "")
             {
-                tblUploadedFiles = tblUploadedFiles.Select("UploadedBy='" + userName + "'").CopyToDataTable();
+
+                if (tblUploadedFiles.Select("ProjectName='" + pid + "'").Length > 0)
+                {
+                    tblUploadedFiles = tblUploadedFiles.Select("ProjectName='" + pid + "'").CopyToDataTable();
+                }
+                else
+                {
+                        tblUploadedFiles = null;
+                        grdTemplate.EmptyDataText = "No file(s) uploaded for selected project. ";                 
+                }
             }
             else
             {
-                tblUploadedFiles = null;
+                if (tblUploadedFiles.Select("UploadedBy='" + userName + "'").Length > 0)
+                {
+                    tblUploadedFiles = tblUploadedFiles.Select("UploadedBy='" + userName + "'").CopyToDataTable();
+
+                }
+                else
+                {
+                    tblUploadedFiles = null;
+                    grdTemplate.EmptyDataText = "No file(s) uploaded for selected project. ";
+                }
             }
             grdUploadedFiles.DataSource = tblUploadedFiles;
             grdUploadedFiles.DataBind();
         }
-        private void BindTemplateGrid(string _pid,string _email)
+        private void BindTemplateGrid(string _pid, string _email)
         {
             grdTemplate.Visible = true;
             ServicePointManager.Expect100Continue = true;
@@ -118,7 +166,7 @@ namespace In2InGlobal.presentation.admin
                 {
                     _target = "ProjectName = '" + _pid + "'";
                 }
-                else if(_email != "")
+                else if (_email != "")
                 {
                     _target = "Email = '" + _email + "'";
                 }
@@ -139,7 +187,8 @@ namespace In2InGlobal.presentation.admin
         }
         protected void grdUploadedFiles_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            BindFileGrid();
+
+            BindFileGrid(ddlAssignedProject.SelectedValue);
             grdUploadedFiles.PageIndex = e.NewPageIndex;
             grdUploadedFiles.DataBind();
 
@@ -155,7 +204,7 @@ namespace In2InGlobal.presentation.admin
         protected void ddlProjects_SelectedIndexChanged(object sender, EventArgs e)
         {
             usrEmailId.Text = "";
-            BindTemplateGrid(ddlProjects.SelectedValue,"");
+            BindTemplateGrid(ddlProjects.SelectedValue, "");
         }
 
         protected void btnUploader_Click(object sender, EventArgs e)
@@ -167,14 +216,14 @@ namespace In2InGlobal.presentation.admin
             if (Session["UserRow"] != null)
             {
                 DataRow usrDataRow = (DataRow)Session["UserRow"];
-                uploadedBy = usrDataRow["FirstName"].ToString() + "  " + usrDataRow["LastName"].ToString();
+                uploadedBy = usrDataRow["FirstName"].ToString() + " " + usrDataRow["LastName"].ToString();
                 try
                 {
                     if (fileUploader.HasFile)
                     {
                         fileName = fileUploader.FileName;
                         fileUploader.SaveAs(System.IO.Path.Combine(filePath, fileName));
-                        SaveFileDetails(fileName,uploadedBy, today);
+                        SaveFileDetails(fileName, uploadedBy, today);
                         //Response.Redirect(Request.RawUrl);
                         Response.Redirect(Request.Url.AbsoluteUri, true);
                     }
@@ -184,7 +233,7 @@ namespace In2InGlobal.presentation.admin
                     throw ex;
                 }
             }
-           
+
         }
 
         private void SaveFileDetails(string fileName, string uploadedBy, string uploadedOn)
@@ -192,16 +241,30 @@ namespace In2InGlobal.presentation.admin
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             string json = (new WebClient()).DownloadString(Server.MapPath("json-data/UploadedFiles.json"));
-            DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
-            DataRow dr = usrTable.Rows.Add(fileName,uploadedBy, uploadedOn, "img/success.png");
-            usrTable.AcceptChanges();
+            DataTable fileTable = JsonConvert.DeserializeObject<DataTable>(json);
+            int columnIDvalue = GetUniqueID(fileTable);
+            DataRow dr = fileTable.Rows.Add(columnIDvalue, fileName,ddlAssignedProject.SelectedValue, uploadedBy, uploadedOn, "img/success.png");
+            fileTable.AcceptChanges();
             dr.SetModified();
-            string output = Newtonsoft.Json.JsonConvert.SerializeObject(usrTable, Newtonsoft.Json.Formatting.Indented);
+            string output = Newtonsoft.Json.JsonConvert.SerializeObject(fileTable, Newtonsoft.Json.Formatting.Indented);
             File.WriteAllText(Server.MapPath("json-data/UploadedFiles.json"), output);
-            BindFileGrid();
+            BindFileGrid(ddlAssignedProject.SelectedValue);
         }
 
-      
+        private int GetUniqueID(DataTable fileTable)
+        {
+            int _localNewID = fileTable.Rows.Count;
+            _localNewID = _localNewID + 1;
+            if (_localNewID == 1)
+            {
+                if (fileTable.Select("ID ='" + _localNewID + "'").Length > 0)
+                {
+                    _localNewID = _localNewID + 1;
+                }
+            }
+            return _localNewID;
+        }
+
         private void DeleteUploadedFile(string iD)
         {
             ServicePointManager.Expect100Continue = true;
@@ -216,16 +279,16 @@ namespace In2InGlobal.presentation.admin
                 File.WriteAllText(Server.MapPath("json-data/UploadedFiles.json"), output);
             }
         }
-     
+
         protected void usrEmailId_TextChanged(object sender, EventArgs e)
         {
             BindTemplateGrid("", usrEmailId.Text);
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             string json = (new WebClient()).DownloadString(Server.MapPath("json-data/Projects.json"));
-           DataTable tblProject = JsonConvert.DeserializeObject<DataTable>(json);
-            DataRow[] usrProjects = tblProject.Select("CreatedBy='"+usrEmailId.Text+"'");
-            if(usrProjects.Length > 0)
+            DataTable tblProject = JsonConvert.DeserializeObject<DataTable>(json);
+            DataRow[] usrProjects = tblProject.Select("CreatedBy='" + usrEmailId.Text + "'");
+            if (usrProjects.Length > 0)
             {
                 ddlProjects.Items.Clear();
                 ddlProjects.Items.Add(new ListItem("--Select a Project--"));
@@ -237,7 +300,7 @@ namespace In2InGlobal.presentation.admin
         protected void btnDownload_Click(object sender, EventArgs e)
         {
             System.IO.FileStream fs = null;
-            fs = System.IO.File.Open(Server.MapPath("MasterTemplate/" +ddlTemplate.SelectedValue), System.IO.FileMode.Open);
+            fs = System.IO.File.Open(Server.MapPath("MasterTemplate/" + ddlTemplate.SelectedValue), System.IO.FileMode.Open);
             byte[] btFile = new byte[fs.Length];
             fs.Read(btFile, 0, Convert.ToInt32(fs.Length));
             fs.Close();
@@ -263,7 +326,7 @@ namespace In2InGlobal.presentation.admin
                     string instruction = tblMasterTemple.Select("TemplateName='" + templateName + "'")[0]["Instruction"].ToString();
                     foreach (string li in instruction.Split('\n'))
                     {
-                        tplInstruction.InnerHtml = tplInstruction.InnerHtml + "<li>" + li +"</li>";
+                        tplInstruction.InnerHtml = tplInstruction.InnerHtml + "<li>" + li + "</li>";
                     }
                 }
             }
@@ -279,11 +342,19 @@ namespace In2InGlobal.presentation.admin
             {
                 btnUploader.Enabled = true;
                 fileUploader.Enabled = true;
+                ddlTemplate.Enabled = true;
+                btnDownload.Enabled = true;
             }
-            else {
+            else
+            {
                 btnUploader.Enabled = false;
                 fileUploader.Enabled = false;
+                ddlTemplate.SelectedIndex = 0;
+                ddlTemplate.Enabled = false;
+                btnDownload.Enabled = false;
             }
+            BindFileGrid(ddlAssignedProject.SelectedValue);
+            
         }
     }
 }

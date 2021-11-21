@@ -52,7 +52,9 @@
 .icon-tip{
 	background:url('icons/tip.png') no-repeat;
 }
-
+.icon-readfile {
+    background: url('icons/read_file.png') no-repeat;
+}
 .icon-mini-add{
 	background:url('icons/mini_add.png') no-repeat 2px 2px;
 }

@@ -62,3 +62,6 @@
 .icon-mini-refresh{
 	background:url('icons/mini_refresh.png') no-repeat 3px 2px;
 }
+.icon-readfile {
+    background: url('icons/read_file.png') no-repeat;
+}
