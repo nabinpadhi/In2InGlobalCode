@@ -227,8 +227,8 @@
                         
             </div>  
               "
-            <div id="csvPageDiv" class="easyui-window" title="File Viewer" data-options="iconCls:'icon-readfile'" style="width:500px;height:500px;padding:10px;background-color:silver;">                
-                <iframe style="width: 100%;height:auto;" id="frmCSVPage" src="about:blank"></iframe>
+            <div id="csvPageDiv" class="easyui-window" title="File Viewer" data-options="iconCls:'icon-readfile'" style="width:600px;height:490px;padding:10px;background-color:silver;">                
+                <iframe style="width: 98%;height:97%;" id="frmCSVPage" src="about:blank"></iframe>
             </div>
         </center>
     </form>

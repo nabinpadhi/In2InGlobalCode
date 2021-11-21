@@ -47,8 +47,7 @@
 </head>
 <body>
      <center>
-    <form id="form1" runat="server"> 
-       
+    <form id="form1" runat="server">        
         <div style="width: 95%; border: 1px solid black; border-radius: 5px; margin-top: 20px;display:block;">
                 <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height:40px;padding-top:10px;"><span class="menu_frame_title">CSV File Viewer</span></div>
         <asp:GridView ID="grdCSVData" ShowHeaderWhenEmpty="true" EmptyDataText ="Uploaded file doesn't contain any data to display" runat="server">

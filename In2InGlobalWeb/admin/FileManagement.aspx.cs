@@ -1,8 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using In2InGlobal.presentation.Tools;
+using Newtonsoft.Json;
 using System;
 using System.Data;
 using System.IO;
 using System.Net;
+using System.Security.Cryptography;
 using System.Web.UI.WebControls;
 
 namespace In2InGlobal.presentation.admin
@@ -100,10 +102,10 @@ namespace In2InGlobal.presentation.admin
                 }
             }
             tblAssignedTemplate.Columns.Add("FilePath");
-            foreach(DataRow dr in tblAssignedTemplate.Rows)
+            foreach (DataRow dr in tblAssignedTemplate.Rows)
             {
                 dr.BeginEdit();
-                dr["FilePath"] = Server.MapPath("MasterTemplate") +"\\"+ dr["TemplateName"] + ".csv";
+                dr["FilePath"] = Server.MapPath("MasterTemplate") + "\\" + dr["TemplateName"] + ".csv";
                 dr.EndEdit();
                 dr.AcceptChanges();
             }
@@ -123,31 +125,41 @@ namespace In2InGlobal.presentation.admin
             DataTable tblUploadedFiles = JsonConvert.DeserializeObject<DataTable>(json);
             DataRow _usrRow = (DataRow)Session["UserRow"];
             string userName = _usrRow["FirstName"] + " " + _usrRow["LastName"];
-            if (pid != "")
+            if (tblUploadedFiles.Rows.Count > 0)
             {
-
-                if (tblUploadedFiles.Select("ProjectName='" + pid + "'").Length > 0)
+                if (pid != "")
                 {
-                    tblUploadedFiles = tblUploadedFiles.Select("ProjectName='" + pid + "'").CopyToDataTable();
+
+                    if (tblUploadedFiles.Select("ProjectName='" + pid + "'").Length > 0)
+                    {
+                        tblUploadedFiles = tblUploadedFiles.Select("ProjectName='" + pid + "'").CopyToDataTable();
+                    }
+                    else
+                    {
+                        tblUploadedFiles = null;
+                        grdTemplate.EmptyDataText = "No file(s) uploaded for selected project. ";
+                    }
                 }
                 else
                 {
+
+                    if (tblUploadedFiles.Select("UploadedBy='" + userName + "'").Length > 0)
+                    {
+                        tblUploadedFiles = tblUploadedFiles.Select("UploadedBy='" + userName + "'").CopyToDataTable();
+
+                    }
+                    else
+                    {
                         tblUploadedFiles = null;
-                        grdTemplate.EmptyDataText = "No file(s) uploaded for selected project. ";                 
+                        grdTemplate.EmptyDataText = "No file(s) uploaded for selected project. ";
+                    }
+
                 }
             }
             else
             {
-                if (tblUploadedFiles.Select("UploadedBy='" + userName + "'").Length > 0)
-                {
-                    tblUploadedFiles = tblUploadedFiles.Select("UploadedBy='" + userName + "'").CopyToDataTable();
-
-                }
-                else
-                {
-                    tblUploadedFiles = null;
-                    grdTemplate.EmptyDataText = "No file(s) uploaded for selected project. ";
-                }
+                tblUploadedFiles = null;
+                grdTemplate.EmptyDataText = "No file(s) uploaded for selected project. ";
             }
             grdUploadedFiles.DataSource = tblUploadedFiles;
             grdUploadedFiles.DataBind();
@@ -222,10 +234,14 @@ namespace In2InGlobal.presentation.admin
                     if (fileUploader.HasFile)
                     {
                         fileName = fileUploader.FileName;
-                        fileUploader.SaveAs(System.IO.Path.Combine(filePath, fileName));
-                        SaveFileDetails(fileName, uploadedBy, today);
-                        //Response.Redirect(Request.RawUrl);
-                        Response.Redirect(Request.Url.AbsoluteUri, true);
+                        fileName = fileName.Replace(".csv","~"+ usrDataRow["Email"] + ".csv");
+                        //if (ValidateUploadedFile(filePath, fileName))
+                        //{                            
+                            fileUploader.SaveAs(System.IO.Path.Combine(filePath, fileName));
+                            SaveFileDetails(fileName, uploadedBy, today);
+                            //Response.Redirect(Request.RawUrl);
+                            Response.Redirect(Request.Url.AbsoluteUri, true);
+                        //}
                     }
                 }
                 catch (System.IO.IOException ex)
@@ -236,14 +252,71 @@ namespace In2InGlobal.presentation.admin
 
         }
 
+        private bool ValidateUploadedFile(string filePath, string fileName)
+        {
+
+            bool _result = true;
+            string json = (new WebClient()).DownloadString(Server.MapPath("json-data/UploadedFiles.json"));
+            DataTable fileTable = JsonConvert.DeserializeObject<DataTable>(json);
+            if(fileTable.Select("FileName='"+fileName+"'").Length >0)
+            {
+                //write the uploaded file into temp folder
+                using (FileStream fsOld = File.OpenWrite(Server.MapPath(System.IO.Path.Combine("uploadedfiles/", fileName))))
+                {
+
+                    using (FileStream fs = File.OpenWrite(System.IO.Path.Combine(filePath, fileName)))
+                    {
+                        fileUploader.PostedFile.InputStream.CopyTo(fs);
+                        if (!CheckUploadedFileHaveOnlyHeader(fileUploader.FileName))
+                        {
+                            var uploadedfileHash = GetFileHash(fs);
+                            var existingFileHash = GetFileHash(fsOld);
+                            if(!uploadedfileHash.Equals(existingFileHash))
+                            {
+                                fileUploader.SaveAs(System.IO.Path.Combine("/uploadedfiles/", fileName.Replace(".csv", Session["UserEmail"] + ".csv")));
+                            }
+                            else
+                            {
+                                _result = false;
+                            }
+                        }
+                        else
+                        {
+                            _result = false;
+                        }
+                        fs.Flush();
+                    }
+                }
+            }
+            return _result;
+        }
+
+        private bool CheckUploadedFileHaveOnlyHeader(string fileName)
+        {
+            DataTable table = CSVReader.ReadCSVFile(fileName, true);
+            bool _result = true;
+            if (table.Rows.Count > 1)
+            {
+                _result = false;
+            }
+            return _result;
+        }
+
+        private static byte[] GetFileHash(FileStream fs)
+        {
+           
+                var md5Hasher = new MD5CryptoServiceProvider();
+                return md5Hasher.ComputeHash(fs);
+           
+        }
         private void SaveFileDetails(string fileName, string uploadedBy, string uploadedOn)
         {
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             string json = (new WebClient()).DownloadString(Server.MapPath("json-data/UploadedFiles.json"));
             DataTable fileTable = JsonConvert.DeserializeObject<DataTable>(json);
-            int columnIDvalue = GetUniqueID(fileTable);
-            DataRow dr = fileTable.Rows.Add(columnIDvalue, fileName,ddlAssignedProject.SelectedValue, uploadedBy, uploadedOn, "img/success.png");
+            int columnIDvalue = GetUniqueID(fileTable,"uploadedfiles");
+            DataRow dr = fileTable.Rows.Add(columnIDvalue, fileName, ddlAssignedProject.SelectedValue, uploadedBy, uploadedOn, "img/success.png");
             fileTable.AcceptChanges();
             dr.SetModified();
             string output = Newtonsoft.Json.JsonConvert.SerializeObject(fileTable, Newtonsoft.Json.Formatting.Indented);
@@ -251,9 +324,13 @@ namespace In2InGlobal.presentation.admin
             BindFileGrid(ddlAssignedProject.SelectedValue);
         }
 
-        private int GetUniqueID(DataTable fileTable)
+        private int GetUniqueID(DataTable fileTable,string uploadedfiles)
         {
             int _localNewID = fileTable.Rows.Count;
+            if(_localNewID ==0)
+            {
+                fileTable = AddColumnsToTargetTable(fileTable,uploadedfiles);
+            }
             _localNewID = _localNewID + 1;
             if (_localNewID == 1)
             {
@@ -263,6 +340,28 @@ namespace In2InGlobal.presentation.admin
                 }
             }
             return _localNewID;
+        }
+
+        private DataTable AddColumnsToTargetTable(DataTable fileTable, string targetTable)
+        {
+            string columns = "";
+            switch(targetTable)
+            {
+                case "uploadedfiles":
+                    columns = "ID:FileName:ProjectName:UploadedBy:Date:UploadedStatus";
+                   break;
+                default:
+                  columns = "";
+                    break;
+            }
+            foreach(string columnName in columns.Split(':'))
+            {
+                DataColumn dc = new DataColumn(columnName);
+                fileTable.Columns.Add(dc);
+            }
+            fileTable.AcceptChanges();
+            return fileTable;
+
         }
 
         private void DeleteUploadedFile(string iD)
@@ -354,7 +453,7 @@ namespace In2InGlobal.presentation.admin
                 btnDownload.Enabled = false;
             }
             BindFileGrid(ddlAssignedProject.SelectedValue);
-            
+
         }
     }
 }

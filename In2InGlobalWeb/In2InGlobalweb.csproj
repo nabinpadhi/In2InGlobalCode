@@ -1771,11 +1771,13 @@
     </Compile>
     <Compile Include="Tools\Common.cs" />
     <Compile Include="Tools\Cryptograpymanager.cs" />
+    <Compile Include="Tools\CSVReader.cs" />
     <Compile Include="Tools\EncryptField.cs" />
     <Compile Include="Tools\FingerPrint.cs" />
     <Compile Include="Tools\GridUtils.cs" />
     <Compile Include="Tools\Password.cs" />
     <Compile Include="Tools\DataSecurity.cs" />
+    <Compile Include="Tools\StringConverter.cs" />
     <Compile Include="Tools\XSSValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
@@ -1787,6 +1789,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="admin\Temp-template\" />
     <Folder Include="admin\uploadedfiles\" />
     <Folder Include="App_Data\" />
     <Folder Include="scripts\jquery\jqMenu\css\" />
@@ -1829,14 +1832,13 @@
     <Content Include="admin\json-data\UploadedFiles.json" />
     <Content Include="admin\json-data\Template.json" />
     <Content Include="admin\json-data\Projects.json" />
-    <Content Include="admin\MasterTemplate\Template_001_23-11-22-P1.csv" />
-    <Content Include="admin\MasterTemplate\Template_044_03-11-22-K334.csv" />
-    <Content Include="admin\MasterTemplate\Template_044_03-11-22-M38.csv" />
-    <Content Include="admin\MasterTemplate\Template_044_12-09-22-K004.csv" />
-    <Content Include="admin\MasterTemplate\Template_067_02-05-23-K004.csv" />
-    <Content Include="admin\MasterTemplate\Template_123-KHJY-ABC.csv" />
     <Content Include="admin\json-data\MasterTemplate.json" />
     <Content Include="admin\json-data\UserProjects.json" />
+    <Content Include="admin\MasterTemplate\Business_Travel_Air.csv" />
+    <Content Include="admin\MasterTemplate\Business_Travel_Hotel.csv" />
+    <Content Include="admin\MasterTemplate\Procurement.csv" />
+    <Content Include="admin\MasterTemplate\Purchasing.csv" />
+    <Content Include="admin\MasterTemplate\Spend_Analytics.csv" />
     <None Include="font\fontawesome-webfont.ttf" />
     <None Include="font\fontawesome-webfont.woff" />
     <None Include="GoogleFont\2UX7WLTfW3W8TclTUvlFyQ.woff" />

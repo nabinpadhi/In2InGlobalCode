@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using System.IO;
 using System.Data;
 using System.Text.RegularExpressions;
-
+using In2InGlobal.presentation.Tools;
 namespace In2InGlobal.presentation.admin
 {
     public partial class DisplayCSV : System.Web.UI.Page
@@ -15,7 +15,8 @@ namespace In2InGlobal.presentation.admin
         protected void Page_Load(object sender, EventArgs e)
         {
             string csvPath = Request.QueryString["csvfp"];
-           DataTable csvTable = ConvertCSVtoDataTable(csvPath);
+            //DataTable csvTable = ConvertCSVtoDataTable(csvPath);
+            DataTable csvTable = CSVReader.ReadCSVFile(HttpContext.Current.Server.MapPath("uploadedfiles\\" +csvPath), true);            
             grdCSVData.DataSource = csvTable;
             grdCSVData.DataBind();
 
