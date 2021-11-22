@@ -2,17 +2,25 @@
   {
     "ID": "1",
     "FileName": "Spend_Analytics.csv",
-    "ProjectName": "PRO - 0008",
+    "ProjectName": "PRO-0008",
     "UploadedBy": "Nabin Padhi",
     "Date": "11/21/2021",
     "UploadedStatus": "img/success.png"
   },
   {
     "ID": "2",
-    "FileName": "Spend_Analytics~nabinpadhi@gmail.com.csv",
-    "ProjectName": "PRO - 0008",
+    "FileName": "Spend_Analytics~NabinPadhi~PRO-0001.csv",
+    "ProjectName": "PRO-0001",
     "UploadedBy": "Nabin Padhi",
-    "Date": "11/21/2021",
+    "Date": "11/22/2021",
+    "UploadedStatus": "img/success.png"
+  },
+  {
+    "ID": "3",
+    "FileName": "V-2-Spend_Analytics~NabinPadhi~PRO-0001.csv",
+    "ProjectName": "PRO-0001",
+    "UploadedBy": "Nabin Padhi",
+    "Date": "11/22/2021",
     "UploadedStatus": "img/success.png"
   }
 ]

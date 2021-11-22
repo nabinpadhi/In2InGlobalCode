@@ -1,10 +1,14 @@
 ﻿using In2InGlobal.presentation.Tools;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
+using System.Text;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace In2InGlobal.presentation.admin
@@ -222,7 +226,7 @@ namespace In2InGlobal.presentation.admin
         protected void btnUploader_Click(object sender, EventArgs e)
         {
             string fileName = "";
-            string filePath = Server.MapPath("uploadedfiles");
+            string filePath = Server.MapPath("uploadedfiles\\");
             string uploadedBy = "";
             string today = DateTime.Now.ToShortDateString();
             if (Session["UserRow"] != null)
@@ -234,14 +238,67 @@ namespace In2InGlobal.presentation.admin
                     if (fileUploader.HasFile)
                     {
                         fileName = fileUploader.FileName;
-                        fileName = fileName.Replace(".csv","~"+ usrDataRow["Email"] + ".csv");
-                        //if (ValidateUploadedFile(filePath, fileName))
-                        //{                            
+                        fileName = fileName.Replace(".csv","~"+ uploadedBy.Replace(" ","")+"~"+ ddlAssignedProject.SelectedValue + ".csv");
+
+                        //check whether file exists,if no write the file into folder & database 
+                        //If yes 2nd validation uploaded file only contain header,if yes then exit with error message
+                        //if no then verify whether both the files contain same data if same then exit with warning message
+                        //if both files are having different data then write the file with different version name
+                        
+                        string pathToCheck = filePath + fileName;
+                        if (!System.IO.File.Exists(pathToCheck))
+                        {
                             fileUploader.SaveAs(System.IO.Path.Combine(filePath, fileName));
-                            SaveFileDetails(fileName, uploadedBy, today);
-                            //Response.Redirect(Request.RawUrl);
-                            Response.Redirect(Request.Url.AbsoluteUri, true);
-                        //}
+                            SaveFileDetails(fileName, uploadedBy, today);                           
+                            string _message = "File Uploaded Successfully.";
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');", _message), true);
+                        }
+                        else
+                        {
+                            using (StreamReader uploadedFS = new StreamReader(fileUploader.PostedFile.InputStream))
+                            {
+                                TextReader uploaderFileTextReader= new StreamReader(uploadedFS.BaseStream);
+
+                                if (CheckUploadedFileHaveOnlyHeader(uploaderFileTextReader))
+                                {
+                                    string _message = "Uploaded Template contains only header.";
+                                    ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("B"), string.Format("ShowServerMessage('{0}');", _message), true);
+                                }
+                                else
+                                {
+                                   
+                                    string _existingFilePath = System.IO.Path.Combine(filePath, fileName);
+                                    if (IsBothCSVFileDataAreSame(_existingFilePath))
+                                    {
+                                        //replace the file                                       
+                                        fileUploader.SaveAs(System.IO.Path.Combine(filePath, fileName));
+                                        //updating uploadedon field in JSON row data 
+                                        UpdateUploadedFile(fileName, uploadedBy, today);
+                                        string _message = "File uploaded Successfully.";
+                                        ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("P"), string.Format("ShowServerMessage('{0}');", _message), true);
+                                    }
+                                    else
+                                    {
+                                        
+                                        string tempfileName = "";
+                                        int counter = 2;
+                                        while (System.IO.File.Exists(pathToCheck))
+                                        {
+
+                                            tempfileName = "V-"+counter.ToString() +"-" + fileName;
+                                            pathToCheck = filePath + tempfileName;
+                                            counter++;
+                                        }
+                                        fileName = tempfileName;
+                                        fileUploader.SaveAs(Server.MapPath(System.IO.Path.Combine("/admin/uploadedfiles/", fileName)));
+                                        SaveFileDetails(fileName, uploadedBy, today);
+                                        string _message = "File uploaded Successfully.";
+                                        ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');", _message), true);
+                                    }
+                                }
+                                uploaderFileTextReader.Close();
+                            } 
+                        }
                     }
                 }
                 catch (System.IO.IOException ex)
@@ -252,62 +309,89 @@ namespace In2InGlobal.presentation.admin
 
         }
 
-        private bool ValidateUploadedFile(string filePath, string fileName)
+        private bool IsBothCSVFileDataAreSame(string fileName)
+        {
+            bool _result = true;
+            StreamReader fsOld = new StreamReader(fileName);
+            //StreamReader uploadedFS = new StreamReader(fileUploader.PostedFile.InputStream);
+            string _existingData = fsOld.ReadToEnd();
+            string _uploadedData = GetUploadedContent(); //uploadedFS.ReadToEnd();
+            if(_existingData !=null && _uploadedData != null)
+            {
+                if (_existingData == _uploadedData)
+                {
+                    _result = true;
+                }
+                else {
+                    _result = false;
+                }
+            }
+           
+            fsOld.Close();
+            return _result;
+        }
+
+        private string GetUploadedContent()
+        {
+            int BUFFER_SIZE = fileUploader.PostedFile.ContentLength;
+            int nBytesRead = 0;
+            Byte[] Buffer = new Byte[BUFFER_SIZE];
+            StringBuilder strUploadedContent = new StringBuilder("");
+            fileUploader.PostedFile.InputStream.Position = 0;
+            Stream theStream = fileUploader.PostedFile.InputStream;
+            nBytesRead = theStream.Read(Buffer, 0, BUFFER_SIZE);
+
+            while (0 != nBytesRead)
+            {
+                strUploadedContent.Append(Encoding.ASCII.GetString(Buffer, 0, nBytesRead));
+                nBytesRead = theStream.Read(Buffer, 0, BUFFER_SIZE);
+            }
+            return strUploadedContent.ToString();
+        }
+
+        private bool ValidateUploadedFileExists(string filePath, string fileName,ref int recordCount)
         {
 
-            bool _result = true;
+            bool _result = false;
             string json = (new WebClient()).DownloadString(Server.MapPath("json-data/UploadedFiles.json"));
             DataTable fileTable = JsonConvert.DeserializeObject<DataTable>(json);
-            if(fileTable.Select("FileName='"+fileName+"'").Length >0)
-            {
-                //write the uploaded file into temp folder
-                using (FileStream fsOld = File.OpenWrite(Server.MapPath(System.IO.Path.Combine("uploadedfiles/", fileName))))
-                {
+            recordCount = fileTable.Select("FileName='" + fileName + "'").Length;
+            if (recordCount > 0)
+            {  
+                _result = true;
+            }
+            return _result;
+        }
 
-                    using (FileStream fs = File.OpenWrite(System.IO.Path.Combine(filePath, fileName)))
-                    {
-                        fileUploader.PostedFile.InputStream.CopyTo(fs);
-                        if (!CheckUploadedFileHaveOnlyHeader(fileUploader.FileName))
-                        {
-                            var uploadedfileHash = GetFileHash(fs);
-                            var existingFileHash = GetFileHash(fsOld);
-                            if(!uploadedfileHash.Equals(existingFileHash))
-                            {
-                                fileUploader.SaveAs(System.IO.Path.Combine("/uploadedfiles/", fileName.Replace(".csv", Session["UserEmail"] + ".csv")));
-                            }
-                            else
-                            {
-                                _result = false;
-                            }
-                        }
-                        else
-                        {
-                            _result = false;
-                        }
-                        fs.Flush();
-                    }
+        private bool CheckUploadedFileHaveOnlyHeader(TextReader tr)
+        {
+            bool _result = true;
+            using (DataTable table = new CSVReader(tr).CreateDataTable(true))
+            {
+             
+                if (table.Rows.Count > 1)
+                {
+                    _result = false;
                 }
             }
             return _result;
         }
 
-        private bool CheckUploadedFileHaveOnlyHeader(string fileName)
+        private static byte[] GetFileHash(FileStream fs1)
         {
-            DataTable table = CSVReader.ReadCSVFile(fileName, true);
-            bool _result = true;
-            if (table.Rows.Count > 1)
-            {
-                _result = false;
+            using (var md5Hasher = new MD5CryptoServiceProvider())
+            {               
+                return md5Hasher.ComputeHash(fs1); 
             }
-            return _result;
-        }
 
-        private static byte[] GetFileHash(FileStream fs)
+
+        }
+        private static byte[] GetFileHash(StreamReader fs2)
         {
-           
-                var md5Hasher = new MD5CryptoServiceProvider();
-                return md5Hasher.ComputeHash(fs);
-           
+
+            var md5Hasher = new MD5CryptoServiceProvider();
+            return md5Hasher.ComputeHash(fs2.BaseStream);
+
         }
         private void SaveFileDetails(string fileName, string uploadedBy, string uploadedOn)
         {
@@ -323,7 +407,21 @@ namespace In2InGlobal.presentation.admin
             File.WriteAllText(Server.MapPath("json-data/UploadedFiles.json"), output);
             BindFileGrid(ddlAssignedProject.SelectedValue);
         }
-
+        private void UpdateUploadedFile(string fileName, string uploadedBy, string uploadedOn)
+        {
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            string json = (new WebClient()).DownloadString(Server.MapPath("json-data/UploadedFiles.json"));
+            DataTable fileTable = JsonConvert.DeserializeObject<DataTable>(json);
+            int columnIDvalue = GetUniqueID(fileTable, "uploadedfiles");
+            DataRow dr = fileTable.Select("FileName='" + fileName + "' AND ProjectName='" + ddlAssignedProject.SelectedValue + "' AND UploadedBy ='" + uploadedBy + "'")[0];
+            dr["Date"] = uploadedOn;
+            fileTable.AcceptChanges();
+            dr.SetModified();
+            string output = Newtonsoft.Json.JsonConvert.SerializeObject(fileTable, Newtonsoft.Json.Formatting.Indented);
+            File.WriteAllText(Server.MapPath("json-data/UploadedFiles.json"), output);
+            BindFileGrid(ddlAssignedProject.SelectedValue);
+        }
         private int GetUniqueID(DataTable fileTable,string uploadedfiles)
         {
             int _localNewID = fileTable.Rows.Count;

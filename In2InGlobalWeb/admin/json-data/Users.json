@@ -9,7 +9,7 @@
     "ActivityAccess": "All",
     "Status": "Active",
     "PhoneNo": null,
-    "ProjectID": "PRO - 0002"
+    "ProjectID": "PRO-0002"
   },
   {
     "FirstName": "Nabin",
@@ -21,7 +21,7 @@
     "ActivityAccess": "All",
     "Status": "Active",
     "PhoneNo": "",
-    "ProjectID": "PRO - 0001"
+    "ProjectID": "PRO-0001"
   },
   {
     "FirstName": "Ganeshswar",
@@ -33,7 +33,7 @@
     "ActivityAccess": "File Management",
     "Status": "Active",
     "PhoneNo": null,
-    "ProjectID": "PRO - 0003"
+    "ProjectID": "PRO-0003"
   },
   {
     "FirstName": "Akash",
@@ -45,6 +45,6 @@
     "ActivityAccess": "File Management",
     "Status": "Active",
     "PhoneNo": "+917790432644",
-    "ProjectID": "PRO - 0004"
+    "ProjectID": "PRO-0004"
   }
 ]

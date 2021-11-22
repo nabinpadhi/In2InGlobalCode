@@ -1790,7 +1790,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="admin\Temp-template\" />
-    <Folder Include="admin\uploadedfiles\" />
     <Folder Include="App_Data\" />
     <Folder Include="scripts\jquery\jqMenu\css\" />
     <Folder Include="scripts\jquery\jqMenu\images\" />
@@ -1839,6 +1838,9 @@
     <Content Include="admin\MasterTemplate\Procurement.csv" />
     <Content Include="admin\MasterTemplate\Purchasing.csv" />
     <Content Include="admin\MasterTemplate\Spend_Analytics.csv" />
+    <Content Include="admin\uploadedfiles\Spend_Analytics.csv" />
+    <Content Include="admin\uploadedfiles\Spend_Analytics~NabinPadhi~PRO-0001.csv" />
+    <Content Include="admin\uploadedfiles\V-2-Spend_Analytics~NabinPadhi~PRO-0001.csv" />
     <None Include="font\fontawesome-webfont.ttf" />
     <None Include="font\fontawesome-webfont.woff" />
     <None Include="GoogleFont\2UX7WLTfW3W8TclTUvlFyQ.woff" />

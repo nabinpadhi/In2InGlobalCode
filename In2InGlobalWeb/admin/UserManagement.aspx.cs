@@ -143,7 +143,7 @@ namespace In2InGlobal.presentation.admin
             string json = (new WebClient()).DownloadString(Server.MapPath("json-data/Users.json"));
             DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
             string encPwd = new EncryptField().Encrypt(txtPassword.Value);
-            string projectname = "PRO - 0001"; //Project for creating user need to created and assigned the same to user
+            string projectname = "PRO-0001"; //Project for creating user need to created and assigned the same to user
             string activityAccess = ddlActivityAccess.SelectedValue; //dropdown field required
             string status = "Active"; // dropdown field required.
             string phoneNo =txtPhoneNo.Value; // extra field need to included

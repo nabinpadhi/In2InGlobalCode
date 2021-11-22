@@ -14,11 +14,20 @@ namespace In2InGlobal.presentation.admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string csvPath = Request.QueryString["csvfp"];
+            string csvFName = Request.QueryString["csvfp"];
             //DataTable csvTable = ConvertCSVtoDataTable(csvPath);
-            DataTable csvTable = CSVReader.ReadCSVFile(HttpContext.Current.Server.MapPath("uploadedfiles\\" +csvPath), true);            
-            grdCSVData.DataSource = csvTable;
-            grdCSVData.DataBind();
+            try
+            {
+                DataTable csvTable = CSVReader.ReadCSVFile(HttpContext.Current.Server.MapPath("uploadedfiles\\" + csvFName), true);
+                grdCSVData.DataSource = csvTable;
+                grdCSVData.DataBind();
+            }
+            catch(ArgumentOutOfRangeException ex)
+            {
+                grdCSVData.EmptyDataText = "Requested file is invalid csv file.";
+                grdCSVData.DataSource = new DataTable();
+                grdCSVData.DataBind();
+            }
 
         }
         public DataTable ConvertCSVtoDataTable(string strFilePath)

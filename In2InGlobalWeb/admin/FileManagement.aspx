@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="FileManagement.aspx.cs" Inherits="In2InGlobal.presentation.admin.FileManagement" %>
+﻿<%@ Page Language="C#" EnableEventValidation="false"  AutoEventWireup="true" CodeBehind="FileManagement.aspx.cs" Inherits="In2InGlobal.presentation.admin.FileManagement" %>
 
 <!DOCTYPE html>
 
@@ -237,12 +237,14 @@
     <script src="../NewJEasyUI/jquery.easyui.min.js" type="text/javascript" lang="javascript"></script>
      <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/ErrorMessage.js?"), DateTime.Now.Ticks) %>" type="text/javascript" lang="javascript"></script>
      <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/Validation.js?"), DateTime.Now.Ticks) %>" type="text/javascript" lang="javascript"></script>
+     <script src="js/fastclick.js" type="text/javascript" lang="javascript"></script>
+    <script src="js/prism.js" type="text/javascript" lang="javascript"></script>
     
  <script>
     
     $(document).ready(function () {
        // $('select:not(.ignore)').niceSelect();
-        //FastClick.attach(document.body);
+        FastClick.attach(document.body);
         $("#projectids").change(function () {
             $('#projectid').val($("#projectids").val());
         }); 
@@ -304,6 +306,23 @@
          iframe.attr("src", "about:blank");
          //window.open('DisplayCSV.aspx?csvfp=' + fn, 'popup_window', 'width=600,height=600,left=200,top=200,resizable=yes');
      }    
+     function ShowServerMessage(servermessage) {
+
+         if (servermessage != "") {
+             $.messager.show({
+                 title: 'In2In Global',
+                 msg: servermessage,
+                 showType: 'slide',
+                 style: {
+                     right: '',
+                     top: '',
+                     bottom: -document.body.scrollTop - document.documentElement.scrollTop
+                 }
+             });
+         }
+
+
+     }
      function ShowHidden() { }
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
