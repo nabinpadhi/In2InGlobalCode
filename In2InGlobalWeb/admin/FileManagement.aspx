@@ -70,7 +70,7 @@
             <div id="fmPageDiv" style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 20px;display:block;">
                 <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height:40px;padding-top:10px;"><span class="menu_frame_title">File Management</span></div>
                     <asp:ScriptManager ID="scriptmanager1" runat="server">
-                </asp:ScriptManager>
+                </asp:ScriptManager>                
                 <asp:UpdatePanel ID="pdnlFileMgnt" runat="server">
                     <Triggers><asp:PostBackTrigger ControlID="btnDownload" /></Triggers>
                     <Triggers><asp:PostBackTrigger ControlID="btnUploader" /></Triggers>

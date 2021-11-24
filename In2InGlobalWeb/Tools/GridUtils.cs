@@ -1,4 +1,8 @@
+using System.Data;
+using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.UI.WebControls;
 
 /// <summary>
@@ -50,6 +54,37 @@ namespace InGlobal.presentation
             }
 
             return "";
+        }
+        public DataTable ConvertCSVtoDataTable(string strFilePath)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                StreamReader sr = new StreamReader(HttpContext.Current.Server.MapPath("uploadedfiles\\" + strFilePath));
+                string[] headers = sr.ReadLine().Split(',');
+
+                foreach (string header in headers)
+                {
+                    dt.Columns.Add(header);
+                }
+                while (!sr.EndOfStream)
+                {
+                    string[] rows = Regex.Split(sr.ReadLine(), ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+                    DataRow dr = dt.NewRow();
+                    for (int i = 0; i < headers.Length; i++)
+                    {
+                        dr[i] = rows[i];
+                    }
+                    dt.Rows.Add(dr);
+                }
+                dt.AcceptChanges();
+            }
+            catch (System.IO.FileNotFoundException ex)
+            {
+                throw (ex);
+            }
+
+            return dt;
         }
     }
 }

@@ -44,16 +44,64 @@
     font-size: 16px;
 }
     </style>
+   
 </head>
 <body>
      <center>
-    <form id="form1" runat="server">        
+    <form id="form1" runat="server">     
+         <asp:ScriptManager ID="Templatescriptmanager" runat="server">                    
+                </asp:ScriptManager>
+                <asp:UpdateProgress ID="UpdatePnlTemplate" runat="server" AssociatedUpdatePanelID="pdnlTemplate">
+                <ProgressTemplate>
+                        <img src="img/uploading.gif" alt="Uploading..." />
+                </ProgressTemplate>
+            </asp:UpdateProgress>
+                <asp:UpdatePanel  ID="pdnlTemplate" runat="server">  
+                      
+                    <ContentTemplate>
         <div style="width: 95%; border: 1px solid black; border-radius: 5px; margin-top: 20px;display:block;">
                 <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height:40px;padding-top:10px;"><span class="menu_frame_title">CSV File Viewer</span></div>
-        <asp:GridView ID="grdCSVData" ShowHeaderWhenEmpty="true" EmptyDataText ="Uploaded file doesn't contain any data to display" runat="server">
-        </asp:GridView>
-            </div>
+       <div class="blockMe">
+           <div style="position:absolute;left:100px;padding-top:5px;">
+               <asp:Label runat="server" Text="Record Count :100420" ID="lblRecordCnt"></asp:Label>
+           </div>
+           <div style="position:relative;padding-left:200px;padding-top:5px;">
+               <a  runat="server" id="ancDownload" href="#" name="ancDownload">Download</a>
+           </div>
+           
+            <div style="margin-top:20px"><asp:GridView ID="grdCSVData" ClientIDMode="Static"   ShowHeaderWhenEmpty="true" AllowPaging="true" PageSize="1000" OnPageIndexChanging="grdCSVData_PageIndexChanging" EmptyDataText ="Uploaded file doesn't contain any data to display" runat="server"></asp:GridView></div>
+       </div></div>
+                        </ContentTemplate>
+          </asp:UpdatePanel>
     </form>
           </center>
+    <script type="text/javascript">
+        function getQueryStringValue(uri, key) {
+            var regEx = new RegExp("[\\?&]" + key + "=([^&#]*)");
+            var matches = uri.match(regEx);
+            return matches == null ? null : matches[1];
+        }
+
+        function LoadCSVData() {
+
+            var return_companynameandrole = function () {
+                var tmp = null;               
+                $.ajax({
+                    'async': false,
+                    'type': "POST",
+                    'global': false,
+                    'dataType': 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    'url': "DisplayCSV.aspx/LoadCSVData",
+                    'data': '{}',
+                    'success': function (data) {
+                        tmp = data.d;
+                    }
+                });
+                return tmp;
+            }();
+            return return_companynameandrole;
+        }
+</script>
 </body>
 </html>

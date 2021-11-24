@@ -22,37 +22,49 @@
                 <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height: 40px; padding-top: 10px;"><span class="menu_frame_title">Template Management</span></div>
                 <asp:ScriptManager ID="Templatescriptmanager" runat="server">                    
                 </asp:ScriptManager>
+                <asp:UpdateProgress ID="UpdatePnlTemplate" runat="server" AssociatedUpdatePanelID="pdnlTemplate">
+                <ProgressTemplate>
+                        <img src="img/uploading.gif" alt="Uploading..." />
+                </ProgressTemplate>
+            </asp:UpdateProgress>
                 <asp:UpdatePanel  ID="pdnlTemplate" runat="server">   
                     <Triggers><asp:PostBackTrigger ControlID="btnUploader" /></Triggers>
                     <ContentTemplate>
-                        <div name="pnlTemplate" id="pnlTemplate" style="width:auto;height:auto;color:black">
+                        <div name="pnlTemplate" id="pnlTemplate" style="width:auto;height:auto;min-height:350px;color:black">
                         <div style="border-bottom:0 solid gray;display:flex;padding:2px;width:auto;">
+                            <div id="btnUploadMasterTemplate" onclick="ShowUploadMasterTemplate();" class="PanelTab"> Upload Master Template </div>
                             <div id="btnCreateTemplate" onclick="ShowCreateTemplate();" class="PanelTab"> Create Template </div>
                             <div style="margin-left:4px;" onclick="ShowAssignTemplate();" class="PanelTab" id="btnAssignTemplate">Assign Template</div>
                             <div style="margin-left:4px;" onclick="ShowCreateProject();" class="PanelTab" id="btnCreateProject">Create Project</div>
                         </div>
-                        <div title="Create Template" class="crtpnl" style="background-color: azure;padding:10px">
+                        <div title="Upload Master Template" class="upldmt" style="background-color: azure;padding:100px">
                              <table style="width: 100%; background-color: azure;">
-                                <tr>
-                                    <td style="width:15%;vertical-align:top;">
-                                        <div class="CreateTemplateUMT" onclick="ShowUploadMasterTemplate();" style="background-color: azure;color:blue"><p style="vertical-align: middle;text-align: center;" >Upload Master Template</p></div>
-                                        <div class="CreateTemplateIMT"  onclick="ShowImportMasterTemplate();"><p style="vertical-align: middle;text-align: center;">Import Master Template</p></div>
-                                    </td>
+                                <tr>                                   
                                     <td style="width:85%;">                                      
-                                        <center>
-                                            <div class="uploadtemplatepnl" style="width: 60%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
-                                            <table style="width:100%;">
-                                                <tr><td style="width:25%">Template Files</td>
-                                                    <td style="width:5%">:</td>
-                                                    <td style="width:70%"><asp:FileUpload accept=".csv" ID="templateFileUpload" runat="server" /></td>
-                                                    <td>
-                                                        <asp:Button ID="btnUploader" class="button" OnClientClick="return VerifyFile();" OnClick="btnUploader_Click"  runat="server" Text="Upload" />
-                                                        <asp:Button ID="hdnFake" Text="" EnableViewState="true" runat="server" Visible="false" OnClick="hdnFake_Click" />
-                                                    </td>
-                                                </tr>
-                                            </table>                                                
+                                        <center>                                           
+                                            <div style="width: 60%;border: 1px solid black; border-radius: 5px; margin-top: 5px;">
+                                                <table style="width:100%;">
+                                                    <tr><td style="width:25%">Template Files</td>
+                                                        <td style="width:5%">:</td>
+                                                        <td style="width:70%"><asp:FileUpload accept=".csv" ID="templateFileUpload" runat="server" /></td>
+                                                        <td>
+                                                            <asp:Button ID="btnUploader" class="button" OnClientClick="return VerifyFile();" OnClick="btnUploader_Click"  runat="server" Text="Upload" />
+                                                            <asp:Button ID="hdnFake" Text="" EnableViewState="true" runat="server" Visible="false" OnClick="hdnFake_Click" />
+                                                        </td>
+                                                    </tr>
+                                                </table>                                                                                    
                                             </div>
-                                            <div class="importtemplatepnl" style="width: 60%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
+                                            </center>
+                                        </td>
+                                    </tr>
+                                 </table>
+                            </div>
+                        <div title="Create Template" class="crtpnl" style="background-color: azure;padding:10px;display:none;">
+                             <table style="width: 100%; background-color: azure;">
+                                <tr>                                   
+                                    <td style="width:85%;">                                      
+                                        <center>                                           
+                                            <div style="width: 60%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
                                                 <table>
                                                     <tr>
                                                         <td style="width:50%;">
@@ -95,17 +107,16 @@
                                                                 </center>
                                                             </div>
                                                         </td>
-                                                    </tr>
+                                                    </tr>                                                    
                                                 </table>
                                             </div>                                          
                                         </center>
                                     </td>                       
                                 </tr>
-                                <tr>
-                                    <td></td>
+                                  <tr>
                                     <td>
                                         <center>
-                                            <div style="width: 70%; border: 1px solid black; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;">                                    
+                                            <div style="width:60%; border: 1px solid black; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;">                                    
                                                 <asp:GridView DataKeyNames="ID" ID="grdMasterTemplate" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
                                                     AllowPaging="True" OnRowDataBound="grdMasterTemplate_RowDataBound" OnRowDeleting="grdMasterTemplate_RowDeleting" OnPageIndexChanging="grdMasterTemplate_PageIndexChanging"  AutoGenerateColumns="false" PageSize="4">
                                                     <PagerStyle CssClass="pagination-ys" />
@@ -119,6 +130,7 @@
                                         </center>
                                     </td>
                                 </tr>
+                               
                         </table>
                         </div>
                         <div title="Assign Template" class="Asgnpnl" style="background-color: azure;padding:10px;display:none;">
@@ -185,11 +197,11 @@
                                                 </table>                                        
                                               </div>
                                     </center>
-                                     </td></tr></table>
+                                 </td>
+                                </tr></table>
                       
                             </div>
-                       
-                            <div title="Create Project" class="crtppnl" style="background-color: azure;padding:10px">
+                        <div title="Create Project" class="crtppnl" style="background-color: azure;padding:10px">
                              <table style="width: 100%; background-color: azure;">
                                 <tr>
                                     <td>
@@ -383,23 +395,6 @@
 
       function ShowHidden() { } 
 
-      function ShowImportMasterTemplate() {
-          $('.uploadtemplatepnl').invisible();
-          $('.importtemplatepnl').visible();
-          $('.CreateTemplateIMT').css("background-color", "azure");
-          $('.CreateTemplateIMT').css("color", "blue");
-          $('.CreateTemplateUMT').css("background-color", "black");
-          $('.CreateTemplateUMT').css("color", "white");
-      }
-      function ShowUploadMasterTemplate() {
-          $('.uploadtemplatepnl').visible();
-          $('.importtemplatepnl').invisible();
-          $('.CreateTemplateIMT').css("background-color", "black");
-          $('.CreateTemplateIMT').css("color", "white");
-          $('.CreateTemplateUMT').css("background-color", "azure");
-          $('.CreateTemplateUMT').css("color", "blue");
-      }
-
       function ShowServerMessage(servermessage) {          
           
           $("#txtInstruction").val('');
@@ -426,6 +421,9 @@
           $('.Asgnpnl').visible();
           $('.crtpnl').invisible();
           $('.crtppnl').invisible();
+          $('.upldmt').invisible();
+          $('#btnUploadMasterTemplate').css("background-color", "#2c3c59");
+          $('#btnUploadMasterTemplate').css("color", "#fff");
           $('#btnAssignTemplate').css("background-color", "azure");
           $('#btnAssignTemplate').css("color", "blue");
           $('#btnCreateTemplate').css("background-color", "#2c3c59");
@@ -439,6 +437,9 @@
           $('.Asgnpnl').invisible();
           $('.crtppnl').invisible();
           $('.crtpnl').visible();
+          $('.upldmt').invisible();
+          $('#btnUploadMasterTemplate').css("background-color", "#2c3c59");
+          $('#btnUploadMasterTemplate').css("color", "#fff");
           $('#btnCreateTemplate').css("background-color", "azure");
           $('#btnCreateTemplate').css("color", "blue");
           $('#btnAssignTemplate').css("background-color", "#2c3c59");
@@ -455,6 +456,9 @@
           $('.Asgnpnl').invisible();
           $('.crtpnl').invisible();
           $('.crtppnl').visible();
+          $('.upldmt').invisible();
+          $('#btnUploadMasterTemplate').css("background-color", "#2c3c59");
+          $('#btnUploadMasterTemplate').css("color", "#fff");
           $('#btnCreateTemplate').css("background-color", "#2c3c59");
           $('#btnCreateTemplate').css("color", "#fff");
           $('#btnAssignTemplate').css("background-color", "#2c3c59");
@@ -464,7 +468,22 @@
 
           ClearProject();
       }
-     
+      function ShowUploadMasterTemplate()
+      {          
+          $('.Asgnpnl').invisible();
+          $('.crtpnl').invisible();
+          $('.crtppnl').invisible();
+          $('.upldmt').visible();
+          $('#btnUploadMasterTemplate').css("background-color", "azure");
+          $('#btnUploadMasterTemplate').css("color", "blue");
+
+          $('#btnCreateTemplate').css("background-color", "#2c3c59");
+          $('#btnCreateTemplate').css("color", "#fff");
+          $('#btnAssignTemplate').css("background-color", "#2c3c59");
+          $('#btnAssignTemplate').css("color", "#fff");
+          $('#btnCreateProject').css("background-color", "#2c3c59");
+          $('#btnCreateProject').css("color", "#fff");
+      }
       function sleep(milliseconds) {
           var start = new Date().getTime();
           for (var i = 0; i < 1e7; i++) {

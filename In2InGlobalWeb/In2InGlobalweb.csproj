@@ -93,7 +93,9 @@
     <Content Include="admin\dropzone\dropzone-amd-module.js" />
     <Content Include="admin\dropzone\dropzone.css" />
     <Content Include="admin\dropzone\dropzone.js" />
+    <Content Include="admin\img\loading-36.gif" />
     <Content Include="admin\img\success-mark.png" />
+    <Content Include="admin\img\uploading.gif" />
     <Content Include="admin\js\jquery-2.2.4.min.js" />
     <Content Include="admin\js\jquery-3.6.0.js" />
     <Content Include="admin\js\jquery.multi-select.js" />

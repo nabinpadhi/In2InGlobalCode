@@ -8,58 +8,58 @@ using System.IO;
 using System.Data;
 using System.Text.RegularExpressions;
 using In2InGlobal.presentation.Tools;
+using System.Web.Services;
+
 namespace In2InGlobal.presentation.admin
 {
     public partial class DisplayCSV : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string csvFName = Request.QueryString["csvfp"];
+           
             //DataTable csvTable = ConvertCSVtoDataTable(csvPath);
-            try
+            if (!IsPostBack)
+            {               
+                string csvFName = Request.QueryString["csvfp"];
+                LoadCSVData(csvFName);
+            }
+        }
+      
+        public void LoadCSVData(string csvFName)
+        {
+            /*try
             {
                 DataTable csvTable = CSVReader.ReadCSVFile(HttpContext.Current.Server.MapPath("uploadedfiles\\" + csvFName), true);
+                HttpContext.Current.Session["csvTable"] = csvTable;
                 grdCSVData.DataSource = csvTable;
                 grdCSVData.DataBind();
+                lblRecordCnt.Text = "Record Count :- " + csvTable.Rows.Count;
+                ancDownload.HRef = "uploadedfiles\\" + csvFName;
             }
-            catch(ArgumentOutOfRangeException ex)
+            catch (ArgumentOutOfRangeException ex)
             {
                 grdCSVData.EmptyDataText = "Requested file is invalid csv file.";
                 grdCSVData.DataSource = new DataTable();
                 grdCSVData.DataBind();
-            }
+            }*/
+            DataTable csvTable = CSVReader.ReadCSVFile(HttpContext.Current.Server.MapPath("uploadedfiles\\" + csvFName), true);
+            HttpContext.Current.Session["csvTable"] = csvTable;
+            grdCSVData.DataSource = csvTable;
+            grdCSVData.DataBind();
+            lblRecordCnt.Text = "Record Count :- " + csvTable.Rows.Count;
+            ancDownload.HRef = "uploadedfiles\\" + csvFName;
 
         }
-        public DataTable ConvertCSVtoDataTable(string strFilePath)
+
+      
+
+        protected void grdCSVData_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            DataTable dt = new DataTable();
-            try
-            {
-                StreamReader sr = new StreamReader(HttpContext.Current.Server.MapPath("uploadedfiles\\" + strFilePath));
-                string[] headers = sr.ReadLine().Split(',');
-               
-                foreach (string header in headers)
-                {
-                    dt.Columns.Add(header);
-                }
-                while (!sr.EndOfStream)
-                {
-                    string[] rows = Regex.Split(sr.ReadLine(), ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-                    DataRow dr = dt.NewRow();
-                    for (int i = 0; i < headers.Length; i++)
-                    {
-                        dr[i] = rows[i];
-                    }
-                    dt.Rows.Add(dr);
-                }
-                dt.AcceptChanges();
-            }
-            catch(System.IO.FileNotFoundException ex)
-            {
-                grdCSVData.EmptyDataText = "Requested file not available or removed permanently.";
-            }
-            
-            return dt;
+            grdCSVData.PageIndex = e.NewPageIndex;
+            DataTable csvTable =(DataTable)Session["csvTable"];
+            grdCSVData.DataSource = csvTable;
+            grdCSVData.DataBind();
         }
+
     }
 }
