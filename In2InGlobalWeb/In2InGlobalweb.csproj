@@ -103,6 +103,7 @@
     <Content Include="admin\TemplateManagement.aspx" />
     <Content Include="admin\css\gridview.css" />
     <Content Include="admin\CompanyManagement.aspx" />
+    <Content Include="admin\Test.html" />
     <Content Include="admin\UserManagement.aspx" />
     <Content Include="admin\FileManagement.aspx" />
     <Content Include="admin\assets\css\style.css" />

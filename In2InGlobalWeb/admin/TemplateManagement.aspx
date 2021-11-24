@@ -15,14 +15,15 @@
       <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" />
    
 </head>
-<body>
+<body onload="ShowFullPostBackMessage();">
     <form id="form1" runat="server">
         <center>
             <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 10px;">
                 <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height: 40px; padding-top: 10px;"><span class="menu_frame_title">Template Management</span></div>
                 <asp:ScriptManager ID="Templatescriptmanager" runat="server">                    
                 </asp:ScriptManager>
-                <asp:UpdatePanel  ID="pdnlTemplate" runat="server">                              
+                <asp:UpdatePanel  ID="pdnlTemplate" runat="server">   
+                    <Triggers><asp:PostBackTrigger ControlID="btnUploader" /></Triggers>
                     <ContentTemplate>
                         <div name="pnlTemplate" id="pnlTemplate" style="width:auto;height:auto;color:black">
                         <div style="border-bottom:0 solid gray;display:flex;padding:2px;width:auto;">
@@ -33,9 +34,25 @@
                         <div title="Create Template" class="crtpnl" style="background-color: azure;padding:10px">
                              <table style="width: 100%; background-color: azure;">
                                 <tr>
-                                    <td>
+                                    <td style="width:15%;vertical-align:top;">
+                                        <div class="CreateTemplateUMT" onclick="ShowUploadMasterTemplate();" style="background-color: azure;color:blue"><p style="vertical-align: middle;text-align: center;" >Upload Master Template</p></div>
+                                        <div class="CreateTemplateIMT"  onclick="ShowImportMasterTemplate();"><p style="vertical-align: middle;text-align: center;">Import Master Template</p></div>
+                                    </td>
+                                    <td style="width:85%;">                                      
                                         <center>
-                                            <div style="width: 60%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
+                                            <div class="uploadtemplatepnl" style="width: 60%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
+                                            <table style="width:100%;">
+                                                <tr><td style="width:25%">Template Files</td>
+                                                    <td style="width:5%">:</td>
+                                                    <td style="width:70%"><asp:FileUpload accept=".csv" ID="templateFileUpload" runat="server" /></td>
+                                                    <td>
+                                                        <asp:Button ID="btnUploader" class="button" OnClientClick="return VerifyFile();" OnClick="btnUploader_Click"  runat="server" Text="Upload" />
+                                                        <asp:Button ID="hdnFake" Text="" EnableViewState="true" runat="server" Visible="false" OnClick="hdnFake_Click" />
+                                                    </td>
+                                                </tr>
+                                            </table>                                                
+                                            </div>
+                                            <div class="importtemplatepnl" style="width: 60%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
                                                 <table>
                                                     <tr>
                                                         <td style="width:50%;">
@@ -80,22 +97,22 @@
                                                         </td>
                                                     </tr>
                                                 </table>
-                                            </div>
+                                            </div>                                          
                                         </center>
-                                    </td>
-                       
+                                    </td>                       
                                 </tr>
                                 <tr>
-                                    <td style="width: 50%;">
+                                    <td></td>
+                                    <td>
                                         <center>
                                             <div style="width: 70%; border: 1px solid black; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;">                                    
                                                 <asp:GridView DataKeyNames="ID" ID="grdMasterTemplate" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
-                                                    AllowPaging="True"  OnRowDeleting="grdMasterTemplate_RowDeleting" OnPageIndexChanging="grdMasterTemplate_PageIndexChanging"  AutoGenerateColumns="false" PageSize="4">
+                                                    AllowPaging="True" OnRowDataBound="grdMasterTemplate_RowDataBound" OnRowDeleting="grdMasterTemplate_RowDeleting" OnPageIndexChanging="grdMasterTemplate_PageIndexChanging"  AutoGenerateColumns="false" PageSize="4">
                                                     <PagerStyle CssClass="pagination-ys" />
                                                     <Columns>
                                                         <asp:BoundField HeaderText="Template Name" DataField="TemplateName" />
                                                         <asp:BoundField HeaderText="Created By" DataField="CreatedBy" />                                                      
-                                                        <asp:CommandField ShowDeleteButton="true" />
+                                                        <asp:CommandField  ItemStyle-HorizontalAlign="Center" HeaderText="Action" ShowDeleteButton="true" />
                                                     </Columns>
                                                 </asp:GridView>
                                             </div>
@@ -151,14 +168,14 @@
                                                                 <center>
                                                                     <div style="width: 97%; border: 1px solid black; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;">                                    
                                                                         <asp:GridView DataKeyNames="ID" ID="grdTemplate" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
-                                                                            AllowPaging="True" OnRowDeleting="grdTemplate_RowDeleting" OnPageIndexChanging="grdTemplate_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
+                                                                            AllowPaging="True" OnRowDataBound="grdTemplate_RowDataBound" OnRowDeleting="grdTemplate_RowDeleting" OnPageIndexChanging="grdTemplate_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
                                                                             <PagerStyle CssClass="pagination-ys" />
                                                                             <Columns>
                                                                                 <asp:BoundField HeaderText="Template Name" DataField="TemplateName" />
                                                                                 <asp:BoundField HeaderText="Assigned On" DataField="DateAdded" />
                                                                                 <asp:BoundField HeaderText="Project Name" DataField="ProjectName" />
                                                                                 <asp:BoundField HeaderText="User Email" DataField="Email" />
-                                                                                <asp:CommandField ShowDeleteButton="true" />
+                                                                                <asp:CommandField ItemStyle-HorizontalAlign="Center" HeaderText="Action" ShowDeleteButton="true" />
                                                                             </Columns>
                                                                         </asp:GridView>
                                                                     </div>
@@ -230,12 +247,22 @@
                                         <center>
                                             <div style="width: 70%; border: 1px solid black; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;">                                    
                                                 <asp:GridView ID="grdProject" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
-                                                    AllowPaging="True"  OnRowDeleting="grdProject_RowDeleting" OnPageIndexChanging="grdProject_PageIndexChanging"  AutoGenerateColumns="false" PageSize="4">
+                                                    AllowPaging="True" AllowSorting="true" OnSorting="grdProject_Sorting" OnRowDeleting="grdProject_RowDeleting" 
+                                                    OnPageIndexChanging="grdProject_PageIndexChanging"  AutoGenerateColumns="false" PageSize="4">
                                                     <PagerStyle CssClass="pagination-ys" />
-                                                    <Columns>
-                                                        <asp:BoundField HeaderText="Project Name" DataField="ProjectName" />
-                                                        <asp:BoundField HeaderText="Created By" DataField="CreatedBy" /> 
-                                                        <asp:BoundField HeaderText="Description" DataField="Description" />                                                                                                              
+                                                    <AlternatingRowStyle BackColor="#CCCCCC" />
+                                                    <Columns>                                                      
+                                                         <asp:TemplateField HeaderStyle-Width="150px"  HeaderText="Project Name" SortExpression="ProjectName">                                                            
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblProjectName" runat="server" Text='<%# Bind("ProjectName") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>  
+                                                        <asp:TemplateField HeaderText="Created By" SortExpression="CreatedBy">                                                            
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblCreatedBy" runat="server" Text='<%# Bind("CreatedBy") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>                                                          
+                                                        <asp:BoundField ItemStyle-Wrap="true" HeaderText="Description"  DataField="Description" />                                                                                                              
                                                     </Columns>
                                                 </asp:GridView>
                                             </div>
@@ -244,10 +271,20 @@
                                 </tr>
                         </table>
                         </div>
-                    </div>  
+                    </div> 
+                        <div id="deletedialog" name="deletedialog">
+                            
+                        </div>
                      </ContentTemplate>
                 </asp:UpdatePanel>
             </div>
+            <%--<center>
+                                <div>
+                                    Are you sure you want to delete this Master Template ?
+                                    <p><input type="button" value="Yes" id="btnYes" name="btnYes" onclick="javascript: return true;" />&nbsp; </p>
+                                    <p><input type="button" value="No" id="btnNo" name="btnNo" onclick="javascript: return false;" />&nbsp; </p>
+                                </div>
+                            </center>--%>
         </center>
     </form>
   
@@ -258,14 +295,29 @@
     
     <script src="js/fastclick.js" type="text/javascript" lang="javascript"></script>
     <script src="js/prism.js" type="text/javascript" lang="javascript"></script>
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
   <script>   
       var recentnl = "btnCreateTemplate";     
-        $(document).ready(function () {
+      (function ($) {
+          $.fn.invisible = function () {
+              return this.each(function () {
+                  $(this).css("display", "none");
+              });
+          };
+          $.fn.visible = function () {
+              return this.each(function () {
+                  $(this).css("display", "block");
+              });
+          };
+      }(jQuery));
+
+      $(document).ready(function () {
             //$('select:not(.ignore)').niceSelect();
             FastClick.attach(document.body);
             ClearAll();
             ShowCreateTemplate();
+            ShowUploadMasterTemplate();
            
         });        
         function ClearAll() {
@@ -329,13 +381,27 @@
           }
       });
 
-      function ShowHidden() {
+      function ShowHidden() { } 
 
-         
-      } 
+      function ShowImportMasterTemplate() {
+          $('.uploadtemplatepnl').invisible();
+          $('.importtemplatepnl').visible();
+          $('.CreateTemplateIMT').css("background-color", "azure");
+          $('.CreateTemplateIMT').css("color", "blue");
+          $('.CreateTemplateUMT').css("background-color", "black");
+          $('.CreateTemplateUMT').css("color", "white");
+      }
+      function ShowUploadMasterTemplate() {
+          $('.uploadtemplatepnl').visible();
+          $('.importtemplatepnl').invisible();
+          $('.CreateTemplateIMT').css("background-color", "black");
+          $('.CreateTemplateIMT').css("color", "white");
+          $('.CreateTemplateUMT').css("background-color", "azure");
+          $('.CreateTemplateUMT').css("color", "blue");
+      }
 
       function ShowServerMessage(servermessage) {          
-
+          
           $("#txtInstruction").val('');
           $("#txtDescription").val('');
 
@@ -354,19 +420,7 @@
             
             
       }
-      (function ($) {
-          $.fn.invisible = function () {
-              return this.each(function () {
-                  $(this).css("display", "none");
-              });
-          };
-          $.fn.visible = function () {
-              return this.each(function () {
-                  $(this).css("display", "block");
-              });
-          };
-      }(jQuery));
-
+     
       function ShowAssignTemplate() {
 
           $('.Asgnpnl').visible();
@@ -410,6 +464,7 @@
 
           ClearProject();
       }
+     
       function sleep(milliseconds) {
           var start = new Date().getTime();
           for (var i = 0; i < 1e7; i++) {
@@ -418,8 +473,54 @@
               }
           }
       }
+      function VerifyFile() {
 
-    
+          Error_Message = "";
+          Error_Count = 1;
+
+          var fileName = $('#templateFileUpload').val();
+          var idxDot = fileName.lastIndexOf(".") + 1;
+          var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+
+          if (CheckNull(fileName, in2in23)) {
+              CheckFileExtension(extFile, "csv", in2in24);
+          }
+
+
+          if (Error_Message != "") {
+              ShowError(Error_Message, 50);
+              return false;
+          }
+          else {
+
+              return true;
+          }
+      }
+      function ShowFullPostBackMessage() {
+         // var sessionvalue = '<%=Session["servermessage"]%>';
+         /* if (sessionvalue != null) {
+              alert(sessionvalue)
+          }
+          if ($('#hdnFake').text() != "") {
+              __doPostBack('hdnFake', 'OnClick');
+          }*/
+      }
+      $('#deletedialog').hide();
+      function ConfirmDelete(item) {
+          $('#deletedialog').confirm({
+              title: 'Delete Confirmation',
+              content: '!',
+              buttons: {
+                  confirm: function () {
+                      return true;
+                  },
+                  cancel: function () {
+                      return false;
+                  }
+              }
+          });
+          
+      };
     </script>
     <style type="text/css">
         body {

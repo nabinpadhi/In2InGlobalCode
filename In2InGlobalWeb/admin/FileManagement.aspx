@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" EnableEventValidation="false"  AutoEventWireup="true" CodeBehind="FileManagement.aspx.cs" Inherits="In2InGlobal.presentation.admin.FileManagement" %>
 
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="ajaxToolkit" %>
+
 <!DOCTYPE html>
 
 
@@ -60,9 +62,6 @@
             width: 1.3em; /* same as padding-left set on li */
         }          
     </style> 
-
-   
-  
 </head>
 <body style="background-color:azure;">
    
@@ -139,15 +138,13 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <td style="text-align: left;">
-                                                                                <asp:FileUpload ID="fileUploader" accept=".csv" Enabled="false" runat="server" />                                                                    
-
+                                                                                <asp:FileUpload ID="fileUploader" accept=".csv" Enabled="false" runat="server" />                                                                                                                                                    
                                                                             </td>
                                                                             <td>
                                                                                 <asp:Button ID="btnUploader" Enabled="false" class="button" OnClientClick="return VerifyFile();"  runat="server" Text="Upload" OnClick="btnUploader_Click" />
                                                                             </td>
                                                                 
                                                                             <td>
-
                                                                             </td>
 
                                                                         </tr>
@@ -321,9 +318,9 @@
              });
          }
 
-
      }
      function ShowHidden() { }
+
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
                 (i[r].q = i[r].q || []).push(arguments)

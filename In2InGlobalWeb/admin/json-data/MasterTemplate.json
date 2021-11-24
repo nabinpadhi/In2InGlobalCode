@@ -1,38 +1,14 @@
 [
   {
-    "ID": "1",
-    "TemplateName": "Template_001_23-11-22-P1",
-    "CreatedBy": "nabinpadhi@gmail.com",
-    "Instruction": "ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ test1\nÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ test2"
-  },
-  {
     "ID": "2",
     "TemplateName": "Template_044_03-11-22-M38",
     "CreatedBy": "nabinpadhi@gmail.com",
     "Instruction": "Pt-1 Complete your task intime and early. \n Pt-2 Take early action on known mistake. \n ABC XYZ 123 Test"
   },
   {
-    "ID": "3",
-    "TemplateName": "Template_044_03-11-22-K334",
+    "ID": "2",
+    "TemplateName": "Business_Travel_Air",
     "CreatedBy": "nabinpadhi@gmail.com",
-    "Instruction": "Pt-a Complete your task intime and early. \n Pt-b Take early action on known mistake. \n Pt-c ABC XYZ 123 Test"
-  },
-  {
-    "ID": "4",
-    "TemplateName": "Template_044_12-09-22-K004",
-    "CreatedBy": "nabinpadhi@gmail.com",
-    "Instruction": "Test \n Test \n Test"
-  },
-  {
-    "ID": "5",
-    "TemplateName": "Template_123-KHJY-ABC",
-    "CreatedBy": "nabinpadhi@gmail.com",
-    "Instruction": "test\n test \n test123"
-  },
-  {
-    "ID": "6",
-    "TemplateName": "Template_067_02-05-23-K004",
-    "CreatedBy": "nabinpadhi@gmail.com",
-    "Instruction": "• test1\n• test2"
+    "Instruction": "test"
   }
 ]

@@ -627,3 +627,27 @@ td > input[type=text]:focus {
         background-color: azure;
         color: blue;
     }
+.CreateTemplateUMT {
+    width: 190px;
+    height: 30px;
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    border-bottom-right-radius: 25px;
+    border-top-right-radius: 25px;
+}
+    .CreateTemplateUMT:hover, .CreateTemplateIMT:hover, .CreateTemplateUMT[status="active"] {
+        background-color: azure;
+        color: blue;
+        cursor: pointer;
+    }
+.CreateTemplateIMT {
+    width: 190px;
+    height: 30px;
+    margin-top: 10px;
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    border-bottom-right-radius: 25px;
+    border-top-right-radius: 25px;
+}

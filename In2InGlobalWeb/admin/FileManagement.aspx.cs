@@ -249,9 +249,9 @@ namespace In2InGlobal.presentation.admin
                         if (!System.IO.File.Exists(pathToCheck))
                         {
                             fileUploader.SaveAs(System.IO.Path.Combine(filePath, fileName));
-                            SaveFileDetails(fileName, uploadedBy, today);                           
-                            string _message = "File Uploaded Successfully.";
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');", _message), true);
+                            SaveFileDetails(fileName, uploadedBy, today);
+                            string _message = "File uploaded Successfully.";
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("B"), string.Format("ShowServerMessage('{0}');", _message), true);
                         }
                         else
                         {
@@ -275,7 +275,7 @@ namespace In2InGlobal.presentation.admin
                                         //updating uploadedon field in JSON row data 
                                         UpdateUploadedFile(fileName, uploadedBy, today);
                                         string _message = "File uploaded Successfully.";
-                                        ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("P"), string.Format("ShowServerMessage('{0}');", _message), true);
+                                        ScriptManager.RegisterStartupScript(scriptmanager1, scriptmanager1.GetType(), "ShowServerMessage", string.Format("ShowServerMessage('{0}');", _message), true);
                                     }
                                     else
                                     {
@@ -293,7 +293,7 @@ namespace In2InGlobal.presentation.admin
                                         fileUploader.SaveAs(Server.MapPath(System.IO.Path.Combine("/admin/uploadedfiles/", fileName)));
                                         SaveFileDetails(fileName, uploadedBy, today);
                                         string _message = "File uploaded Successfully.";
-                                        ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');", _message), true);
+                                        ScriptManager.RegisterStartupScript(scriptmanager1, scriptmanager1.GetType(), "ShowServerMessage", string.Format("ShowServerMessage('{0}');", _message), true);
                                     }
                                 }
                                 uploaderFileTextReader.Close();
@@ -312,10 +312,9 @@ namespace In2InGlobal.presentation.admin
         private bool IsBothCSVFileDataAreSame(string fileName)
         {
             bool _result = true;
-            StreamReader fsOld = new StreamReader(fileName);
-            //StreamReader uploadedFS = new StreamReader(fileUploader.PostedFile.InputStream);
+            StreamReader fsOld = new StreamReader(fileName);            
             string _existingData = fsOld.ReadToEnd();
-            string _uploadedData = GetUploadedContent(); //uploadedFS.ReadToEnd();
+            string _uploadedData = GetUploadedContent();
             if(_existingData !=null && _uploadedData != null)
             {
                 if (_existingData == _uploadedData)

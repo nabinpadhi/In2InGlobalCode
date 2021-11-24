@@ -40,6 +40,33 @@ namespace In2InGlobal.presentation.admin {
         protected global::System.Web.UI.UpdatePanel pdnlTemplate;
         
         /// <summary>
+        /// templateFileUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload templateFileUpload;
+        
+        /// <summary>
+        /// btnUploader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUploader;
+        
+        /// <summary>
+        /// hdnFake control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button hdnFake;
+        
+        /// <summary>
         /// ddlMasterTemplate control.
         /// </summary>
         /// <remarks>
