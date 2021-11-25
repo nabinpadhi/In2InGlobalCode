@@ -360,7 +360,7 @@ namespace In2InGlobal.presentation.admin
             using (DataTable table = new CSVReader(tr).CreateDataTable(true))
             {
              
-                if (table.Rows.Count > 1)
+                if (table.Rows.Count > 0)
                 {
                     _result = false;
                 }

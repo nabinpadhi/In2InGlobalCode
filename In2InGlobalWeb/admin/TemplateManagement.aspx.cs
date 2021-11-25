@@ -395,8 +395,8 @@ namespace In2InGlobal.presentation.admin
 
 
                         string pathToCheck = filePath + fileName;
-                        if (!System.IO.File.Exists(pathToCheck))
-                        {
+                        //if (!System.IO.File.Exists(pathToCheck))
+                        //{
                             using (StreamReader uploadedFS = new StreamReader(templateFileUpload.PostedFile.InputStream))
                             {
                                 TextReader uploaderFileTextReader = new StreamReader(uploadedFS.BaseStream);
@@ -410,7 +410,7 @@ namespace In2InGlobal.presentation.admin
                                 }                               
                             }
 
-                        }
+                        //}
                     }
                     else
                     {
@@ -434,7 +434,7 @@ namespace In2InGlobal.presentation.admin
             using (DataTable table = new CSVReader(trold).CreateDataTable(true))
             {
 
-                if (table.Rows.Count > 1)
+                if (table.Rows.Count < 1)
                 {
                     return false;
                 }
