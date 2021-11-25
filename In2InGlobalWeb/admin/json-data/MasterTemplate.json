@@ -1,14 +1,20 @@
 [
   {
-    "ID": "2",
-    "TemplateName": "Template_044_03-11-22-M38",
+    "ID": "1",
+    "TemplateName": "Spend_Analytics",
     "CreatedBy": "nabinpadhi@gmail.com",
-    "Instruction": "Pt-1 Complete your task intime and early. \n Pt-2 Take early action on known mistake. \n ABC XYZ 123 Test"
+    "Instruction": "This is a Master Template\n Update this template and upload the same using file Management."
   },
   {
-    "ID": "2",
-    "TemplateName": "Business_Travel_Air",
+    "ID": "3",
+    "TemplateName": "Purchasing",
     "CreatedBy": "nabinpadhi@gmail.com",
-    "Instruction": "test"
+    "Instruction": "This is a Master Template Update this template and upload the same using file Management."
+  },
+  {
+    "ID": "3",
+    "TemplateName": "Procurement",
+    "CreatedBy": "nabinpadhi@gmail.com",
+    "Instruction": "This is a Master Template Update this template and upload the same using file Management.123"
   }
 ]

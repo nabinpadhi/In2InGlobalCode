@@ -1,17 +1,5 @@
 [
   {
-    "FirstName": "Sujay",
-    "LastName": "Mondal",
-    "Company": "In2In Global Technology",
-    "Email": "sujaymondal@gmail.com",
-    "Role": "Admin",
-    "Password": "gE+++Guwy/oZXAaFOLDdNg==",
-    "ActivityAccess": "All",
-    "Status": "Active",
-    "PhoneNo": null,
-    "ProjectID": "PRO-0002"
-  },
-  {
     "FirstName": "Nabin",
     "LastName": "Padhi",
     "Company": "Free Lancer",
@@ -24,6 +12,18 @@
     "ProjectID": "PRO-0001"
   },
   {
+    "FirstName": "Sujay",
+    "LastName": "Mondal",
+    "Company": "In2In Global Technology",
+    "Email": "sujaymondal@gmail.com",
+    "Role": "Admin",
+    "Password": "gE+++Guwy/oZXAaFOLDdNg==",
+    "ActivityAccess": "All",
+    "Status": "Active",
+    "PhoneNo": null,
+    "ProjectID": "PRO-0002"
+  },
+  {
     "FirstName": "Ganeshswar",
     "LastName": "Sahoo",
     "Company": "My Company 2",
@@ -34,17 +34,5 @@
     "Status": "Active",
     "PhoneNo": null,
     "ProjectID": "PRO-0003"
-  },
-  {
-    "FirstName": "Akash",
-    "LastName": "Roy",
-    "Company": "My Company 4",
-    "Email": "akashroy@gmail.com",
-    "Role": "User",
-    "Password": "gE+++Guwy/oZXAaFOLDdNg==",
-    "ActivityAccess": "File Management",
-    "Status": "Active",
-    "PhoneNo": "+917790432644",
-    "ProjectID": "PRO-0004"
   }
 ]

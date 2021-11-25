@@ -85,6 +85,15 @@ namespace In2InGlobal.presentation.admin {
         protected global::System.Web.UI.WebControls.DropDownList ddlMasterTemplate;
         
         /// <summary>
+        /// txtMasterTemplateName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMasterTemplateName;
+        
+        /// <summary>
         /// txtcreatedB control.
         /// </summary>
         /// <remarks>
@@ -101,6 +110,15 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTextArea txtInstruction;
+        
+        /// <summary>
+        /// hdnMTName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnMTName;
         
         /// <summary>
         /// btnCreate control.

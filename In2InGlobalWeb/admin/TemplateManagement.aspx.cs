@@ -118,6 +118,7 @@ namespace In2InGlobal.presentation.admin
 
                 dtTemplate.Rows.Add(newRow);
             }
+            
             foreach (DataRow dr in dtMasterTemplate.Rows)
             {
                 if (dtTemplate.Select("TemplateName='" + dr["TemplateName"] + "'").Length > 0)
@@ -126,6 +127,7 @@ namespace In2InGlobal.presentation.admin
                 }
             }
             ddlMasterTemplate.Items.Clear();
+            ddlMasterTemplate.Items.Add("--Select a Template--");
             ddlMasterTemplate.DataSource = dtTemplate;
             ddlMasterTemplate.DataBind();
 
@@ -136,6 +138,7 @@ namespace In2InGlobal.presentation.admin
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             string jsonMasterTemplate = (new WebClient()).DownloadString(Server.MapPath("json-data/MasterTemplate.json"));
             DataTable dtMasterTemplate = JsonConvert.DeserializeObject<DataTable>(jsonMasterTemplate);
+           
             ddlTemplates.DataSource = dtMasterTemplate;
             ddlTemplates.DataBind();
         }
@@ -152,6 +155,8 @@ namespace In2InGlobal.presentation.admin
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Users.json");
+            ddlUserEmail.Items.Clear();
+            ddlUserEmail.Items.Add("--Select an Email");
             ddlUserEmail.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
             ddlUserEmail.DataBind();
         }
@@ -169,6 +174,9 @@ namespace In2InGlobal.presentation.admin
             string ID = grdTemplate.DataKeys[e.RowIndex].Value.ToString();
             DeleteTemplate(ID);
             BindTemplate();
+            
+            ddlTemplates.Items.Clear();
+            ddlTemplates.Items.Add(new ListItem("--Select a Template--"));
             BindTemplateToAssign();
             string _message = "Template assignment removed.";
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowAssignTemplate();", _message), true);
@@ -262,17 +270,30 @@ namespace In2InGlobal.presentation.admin
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             string json = (new WebClient()).DownloadString(Server.MapPath("json-data/Template.json"));
-            DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
-
-            int _templateID = usrTable.Rows.Count + 1;
+            DataTable templateTable = JsonConvert.DeserializeObject<DataTable>(json);
+            if (templateTable.Rows.Count == 0)
+            {
+                templateTable.Columns.Add("ID");
+                templateTable.Columns.Add("TemplateName");
+                templateTable.Columns.Add("DateAdded");
+                templateTable.Columns.Add("ProjectName");
+                templateTable.Columns.Add("Email");
+            }
+            int _templateID = templateTable.Rows.Count + 1;
             string today = DateTime.Now.ToShortDateString();
-            DataRow dr = usrTable.Rows.Add(_templateID, ddlTemplates.Text, today, ddlProjects.Text, ddlUserEmail.SelectedItem.Text);
-            usrTable.AcceptChanges();
+            DataRow dr = templateTable.Rows.Add(_templateID, ddlTemplates.Text, today, ddlProjects.Text, ddlUserEmail.SelectedItem.Text);
+            templateTable.AcceptChanges();
             dr.SetModified();
-            string output = Newtonsoft.Json.JsonConvert.SerializeObject(usrTable, Newtonsoft.Json.Formatting.Indented);
+            string output = Newtonsoft.Json.JsonConvert.SerializeObject(templateTable, Newtonsoft.Json.Formatting.Indented);
             File.WriteAllText(Server.MapPath("json-data/Template.json"), output);
             string _message = "Selected Template Assigned Successfully)";
             BindTemplate();
+
+            BindUsers();
+
+            ddlTemplates.Items.Clear();
+            ddlTemplates.Items.Add(new ListItem("--Select a Template--"));
+
             BindTemplateToAssign();
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowAssignTemplate();", _message), true);
 
@@ -284,25 +305,37 @@ namespace In2InGlobal.presentation.admin
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             string json = (new WebClient()).DownloadString(Server.MapPath("json-data/MasterTemplate.json"));
             DataTable masterTemplateTable = JsonConvert.DeserializeObject<DataTable>(json);
-            if (masterTemplateTable.Rows.Count == 0)
+            if (hdnMTName.Value == "")
             {
-                masterTemplateTable.Columns.Add("ID");
-                masterTemplateTable.Columns.Add("TemplateName");
-                masterTemplateTable.Columns.Add("CreatedBy");
-                masterTemplateTable.Columns.Add("Instruction");
-            }
-            int _templateID = masterTemplateTable.Rows.Count + 1;
-            string createdBy = Session["UserEmail"].ToString();
-            string templateName = ddlMasterTemplate.Text;
-            string instruction = txtInstruction.Value;
+                if (masterTemplateTable.Rows.Count == 0)
+                {
+                    masterTemplateTable.Columns.Add("ID");
+                    masterTemplateTable.Columns.Add("TemplateName");
+                    masterTemplateTable.Columns.Add("CreatedBy");
+                    masterTemplateTable.Columns.Add("Instruction");
+                }
+                int _templateID = masterTemplateTable.Rows.Count + 1;
+                string createdBy = Session["UserEmail"].ToString();
+                string templateName = ddlMasterTemplate.Text;
+                string instruction = txtInstruction.Value;
 
-            DataRow dr = masterTemplateTable.Rows.Add(_templateID, templateName, createdBy, instruction);
-            masterTemplateTable.AcceptChanges();
-            dr.SetModified();
-            string output = Newtonsoft.Json.JsonConvert.SerializeObject(masterTemplateTable, Newtonsoft.Json.Formatting.Indented);
-            File.WriteAllText(Server.MapPath("json-data/MasterTemplate.json"), output);
+                DataRow dr = masterTemplateTable.Rows.Add(_templateID, templateName, createdBy, instruction);
+                masterTemplateTable.AcceptChanges();
+                dr.SetModified();
+                string output = Newtonsoft.Json.JsonConvert.SerializeObject(masterTemplateTable, Newtonsoft.Json.Formatting.Indented);
+                File.WriteAllText(Server.MapPath("json-data/MasterTemplate.json"), output);
+            }
+            else
+            {
+                DataRow masterTemplateRow = masterTemplateTable.Select("TemplateName='" + hdnMTName.Value + "'")[0];
+                masterTemplateRow["Instruction"] = txtInstruction.Value;                
+                masterTemplateTable.AcceptChanges();
+                string output = Newtonsoft.Json.JsonConvert.SerializeObject(masterTemplateTable, Newtonsoft.Json.Formatting.Indented);
+                File.WriteAllText(Server.MapPath("json-data/MasterTemplate.json"), output);
+            }
             BindMasterTemplateGrid();
             BindMasterTemplate();
+            BindTemplateToAssign();
             string _message = "Template Updated Successfully.)";
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate(); ", _message), true);
         }
@@ -382,14 +415,14 @@ namespace In2InGlobal.presentation.admin
                     else
                     {
                         string _message = "Please choose a file again.";
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();ShowUploadMasterTemplate(); ", _message), true);
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", _message), true);
                     }
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                     string _message = "Failed to upload choosed file.";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();ShowUploadMasterTemplate(); ", _message), true);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", _message), true);
                 }
             }
             else { Response.Redirect("Login.aspx"); }
@@ -415,7 +448,7 @@ namespace In2InGlobal.presentation.admin
             if (Session["servermessage"] != null)
             {
                 string servermessge = Session["servermessage"].ToString();
-                ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowCreateTemplate();ShowUploadMasterTemplate();ShowServerMessage('{0}'); ", servermessge), true);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowCreateTemplate();ShowServerMessage('{0}'); ", servermessge), true);
 
             }
             Session["servermessage"] = null;
@@ -451,17 +484,23 @@ namespace In2InGlobal.presentation.admin
         protected void grdMasterTemplate_RowDataBound(object sender, GridViewRowEventArgs e)
         {
            
-
+            
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 string item = e.Row.Cells[0].Text;
-                foreach (LinkButton button in e.Row.Cells[2].Controls.OfType<LinkButton>())
+                
+                string ID = grdMasterTemplate.DataKeys[e.Row.RowIndex].Value.ToString();
+                string instuction = e.Row.Cells[2].Text.Replace("\n", "\\#");
+                foreach (LinkButton button in e.Row.Cells[3].Controls.OfType<LinkButton>())
                 {
                     if (button.CommandName == "Delete")
                     {
-                        // string dialogScript = "return ConfirmDelete('"+item+"');";
-                        //button.Attributes["onclick"] = dialogScript;
                         button.Attributes["onclick"] = "if(!confirm('Do you want to delete " + item + "?')){ return false; };";
+                    }
+                    if(button.CommandName == "Edit")
+                    {
+                        button.Attributes["onclick"] = "PullDataToEdit('" + ID+"','"+ item + "','"+ instuction + "');";
+                        button.Attributes["href"] = "#";
                     }
                 }
             }
@@ -480,6 +519,22 @@ namespace In2InGlobal.presentation.admin
                     }
                 }
             }
+        }
+
+        protected void ddlProjects_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            string json = (new WebClient()).DownloadString(Server.MapPath("json-data/Users.json"));
+            DataTable userTable = JsonConvert.DeserializeObject<DataTable>(json);
+            DataRow[] userRows = userTable.Select("ProjectID='" + ddlProjects.SelectedValue + "'");
+            if (userRows.Length > 0)
+            {
+                ddlUserEmail.Items.Clear();
+                ddlUserEmail.DataSource = userRows.CopyToDataTable();
+                ddlUserEmail.DataBind();
+            }
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), "ShowAssignTemplate();", true);
         }
     }
     

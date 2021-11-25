@@ -76,6 +76,7 @@
                                                                         <asp:DropDownList ID="ddlMasterTemplate" Width="92%" AppendDataBoundItems="true" runat="server" DataTextField="TemplateName">
                                                                             <asp:ListItem Text="--Select a Template--" ></asp:ListItem>
                                                                         </asp:DropDownList>
+                                                                        <asp:TextBox ID="txtMasterTemplateName" runat="server" ReadOnly="true" Text="" style="display:none"></asp:TextBox>
                                                                     </td>
                                                                 </tr>
                                                                  <tr>
@@ -92,6 +93,7 @@
                                                                     <td>
                                                                         Instruction(<span style="color: red">*</span>)
                                                                         <textarea rows="5" id="txtInstruction" class="txtInstruction" name="txtInstruction" style="resize:none; width: 97%; height: 70px;" runat="server"></textarea>
+                                                                        <asp:HiddenField ID="hdnMTName" Value="" runat="server" />
                                                                     </td>
 
                                                                 </tr>
@@ -121,9 +123,10 @@
                                                     AllowPaging="True" OnRowDataBound="grdMasterTemplate_RowDataBound" OnRowDeleting="grdMasterTemplate_RowDeleting" OnPageIndexChanging="grdMasterTemplate_PageIndexChanging"  AutoGenerateColumns="false" PageSize="4">
                                                     <PagerStyle CssClass="pagination-ys" />
                                                     <Columns>
-                                                        <asp:BoundField HeaderText="Template Name" DataField="TemplateName" />
-                                                        <asp:BoundField HeaderText="Created By" DataField="CreatedBy" />                                                      
-                                                        <asp:CommandField  ItemStyle-HorizontalAlign="Center" HeaderText="Action" ShowDeleteButton="true" />
+                                                        <asp:BoundField HeaderText="Template Name" ItemStyle-Width="25%" DataField="TemplateName" />
+                                                        <asp:BoundField HeaderText="Created By" ItemStyle-Width="25%" DataField="CreatedBy" />                                                                                                              
+                                                        <asp:BoundField HeaderText ="Instruction" ItemStyle-Width="35%" DataField="Instruction"/>   
+                                                        <asp:CommandField ItemStyle-HorizontalAlign="Center" HeaderText="Action" ShowEditButton="true" ShowDeleteButton="true" />                                                                                                             
                                                     </Columns>
                                                 </asp:GridView>
                                             </div>
@@ -143,7 +146,7 @@
                                                         <tr>
                                                             <td style="width:40%;text-align:right;">Project Name(<span style="color: red">*</span>)</td>
                                                             <td style="width:60%;padding-right:20%;">
-                                                                <asp:DropDownList ID="ddlProjects" AppendDataBoundItems="true" style="width:80%;" runat="server" DataTextField="ProjectName">
+                                                                <asp:DropDownList ID="ddlProjects" OnSelectedIndexChanged="ddlProjects_SelectedIndexChanged" AppendDataBoundItems="true" style="width:80%;" runat="server" DataTextField="ProjectName">
                                                                     <asp:ListItem Text="--Select a Project--" ></asp:ListItem>
                                                                 </asp:DropDownList>
                                                             </td>
@@ -327,19 +330,33 @@
       $(document).ready(function () {
             //$('select:not(.ignore)').niceSelect();
             FastClick.attach(document.body);
-            ClearAll();
+            //ClearAll();
             ShowCreateTemplate();
             ShowUploadMasterTemplate();
            
-        });        
+      }); 
+      function PullDataToEdit(id,templatename,instruction) {
+          
+          $('#txtMasterTemplateName').val(templatename);
+          $('#txtInstruction').val(instruction);
+          document.getElementById("hdnMTName").value = templatename;
+          $('#btnCreate').val('Save');
+          $('#txtMasterTemplateName').visible();
+          $('#ddlMasterTemplate').invisible();
+      }
         function ClearAll() {
             
             $('#ddlTemplates').prop('selectedIndex', 0);            
             $('#ddlProjects').prop('selectedIndex', 0);
-            $('#ddlMasterTemplate').prop('selectedIndex', 0);
+            document.getElementById("hdnMTName").value = "";
             $('#ddlUserEmail').prop('selectedIndex', 0);
-            $("#txtInstruction").val('');                       
-           
+            $("#txtInstruction").val('');            
+            $('#btnCreate').val('Create');
+            $('#txtMasterTemplateName').invisible();
+            $('#ddlMasterTemplate').visible();
+            $('#ddlMasterTemplate').prop('selectedIndex', 0);
+
+            
       }
       function ClearProject() {
 
@@ -349,8 +366,9 @@
 
           Error_Message = "";
           Error_Count = 1;  
-
-          CheckNullDropdown($("select[name='ddlMasterTemplate'] option:selected").index(), in2in15);
+          if ($('#btnCreate').val() == 'Create') {
+              CheckNullDropdown($("select[name='ddlMasterTemplate'] option:selected").index(), in2in15);
+          }
           CheckNull($("#txtInstruction").val(), in2in18);          
 
           if (Error_Message != "") {

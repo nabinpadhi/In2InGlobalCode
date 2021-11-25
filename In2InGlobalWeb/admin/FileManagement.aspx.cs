@@ -77,32 +77,24 @@ namespace In2InGlobal.presentation.admin
             DataTable dtTemplate = new DataTable();
             dtTemplate.Columns.Add("TemplateName");
             dtTemplate.Columns.Add("FilePath");
-
-            /*foreach (string s in System.IO.Directory.GetFiles(Server.MapPath("MasterTemplate")))
-            {
-                string fileName = System.IO.Path.GetFileName(s);
-                DataRow newRow = dtTemplate.NewRow();
-                newRow["TemplateName"] = fileName.Substring(0, fileName.Length - 4);
-                newRow["FilePath"] = fileName;
-
-                dtTemplate.Rows.Add(newRow);
-            }*/
-
             DataTable tblAssignedTemplate = new DataTable();
             string AssignedTemplateJson = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Template.json");
-
-            if (ddlAssignedProject.SelectedIndex > 0)
+            tblAssignedTemplate = JsonConvert.DeserializeObject<DataTable>(AssignedTemplateJson);
+            if (tblAssignedTemplate.Rows.Count > 0)
             {
-                if (JsonConvert.DeserializeObject<DataTable>(AssignedTemplateJson).Select("ProjectName='" + ddlAssignedProject.SelectedValue + "'").Length > 0)
+                if (ddlAssignedProject.SelectedIndex > 0)
                 {
-                    tblAssignedTemplate = JsonConvert.DeserializeObject<DataTable>(AssignedTemplateJson).Select("ProjectName='" + ddlAssignedProject.SelectedValue + "'").CopyToDataTable();
+                    if (JsonConvert.DeserializeObject<DataTable>(AssignedTemplateJson).Select("ProjectName='" + ddlAssignedProject.SelectedValue + "'").Length > 0)
+                    {
+                        tblAssignedTemplate = tblAssignedTemplate.Select("ProjectName='" + ddlAssignedProject.SelectedValue + "'").CopyToDataTable();
+                    }
                 }
-            }
-            else
-            {
-                if (JsonConvert.DeserializeObject<DataTable>(AssignedTemplateJson).Select("Email='" + Session["UserEmail"].ToString() + "'").Length > 0)
+                else
                 {
-                    tblAssignedTemplate = JsonConvert.DeserializeObject<DataTable>(AssignedTemplateJson).Select("Email='" + Session["UserEmail"].ToString() + "'").CopyToDataTable();
+                    if (JsonConvert.DeserializeObject<DataTable>(AssignedTemplateJson).Select("Email='" + Session["UserEmail"].ToString() + "'").Length > 0)
+                    {
+                        tblAssignedTemplate = tblAssignedTemplate.Select("Email='" + Session["UserEmail"].ToString() + "'").CopyToDataTable();
+                    }
                 }
             }
             tblAssignedTemplate.Columns.Add("FilePath");
@@ -496,11 +488,11 @@ namespace In2InGlobal.presentation.admin
         protected void btnDownload_Click(object sender, EventArgs e)
         {
             System.IO.FileStream fs = null;
-            fs = System.IO.File.Open(Server.MapPath("MasterTemplate/" + ddlTemplate.SelectedValue), System.IO.FileMode.Open);
+            fs = System.IO.File.Open(ddlTemplate.SelectedValue, System.IO.FileMode.Open);
             byte[] btFile = new byte[fs.Length];
             fs.Read(btFile, 0, Convert.ToInt32(fs.Length));
             fs.Close();
-            Response.AddHeader("Content-disposition", "attachment; filename=" + ddlTemplate.SelectedValue);
+            Response.AddHeader("Content-disposition", "attachment; filename=" + ddlTemplate.SelectedItem.Text +".csv");
             Response.ContentType = "application/octet-stream";
             Response.BinaryWrite(btFile);
             Response.End();
@@ -549,6 +541,7 @@ namespace In2InGlobal.presentation.admin
                 ddlTemplate.Enabled = false;
                 btnDownload.Enabled = false;
             }
+            
             BindFileGrid(ddlAssignedProject.SelectedValue);
 
         }

@@ -33,8 +33,12 @@ namespace In2InGlobal.presentation.Tools
         {
             if (csvFileInfo == null)
                 throw new ArgumentNullException("Null FileInfo passed to CSVReader");
-
-            this.reader = new BinaryReader(File.OpenRead(csvFileInfo.FullName));
+            if (System.IO.File.Exists(csvFileInfo.FullName))
+            {
+                this.reader = new BinaryReader(File.OpenRead(csvFileInfo.FullName));
+            }
+            else
+                throw new ArgumentNullException("Null FileInfo passed to CSVReader");
         }
 
         /// <summary>
