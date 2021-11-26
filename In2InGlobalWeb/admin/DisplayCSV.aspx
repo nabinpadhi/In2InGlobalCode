@@ -6,7 +6,7 @@
     <title></title>
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/gridview.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
-    <style type="text/css">
+   <style type="text/css">
         body {
             font-family: Arial;
             font-size: 10pt;
@@ -71,72 +71,13 @@
                             <div style="width: 100%; margin-top: 20px">
                                 <asp:HiddenField runat="server" ClientIDMode="Static" ID="hdnQueryStringValue" />
                                 <asp:GridView Width="100%" ID="grdCSVData" ClientIDMode="Static" ShowHeaderWhenEmpty="true" AllowPaging="true" PageSize="1000" OnPageIndexChanging="grdCSVData_PageIndexChanging" EmptyDataText="Uploaded file doesn't contain any data to display" runat="server"></asp:GridView>
-                                <table id="tblDynamic" border="1">
-                                    <thead></thead>
-                                    <tbody></tbody> 
-                                </table>
+                               
                             </div>
                         </div>
                     </div>
                 </ContentTemplate>
             </asp:UpdatePanel>
         </form>
-    </center>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
-    
-    <script type="text/javascript">
-        
-        $(document).ready(function () {
-            LoadCSVData($('#hdnQueryStringValue').val());
-            
-        }); 
-        function getQueryStringValue(uri, key) {
-            var regEx = new RegExp("[\\?&]" + key + "=([^&#]*)");
-            var matches = uri.match(regEx);
-            return matches == null ? null : matches[1];
-        }
-
-        function LoadCSVData(csvfname) {
-
-            var dataValue = "{ csvFName:'" + csvfname + "'}";
-            $.ajax({
-                type: "POST",
-                url: "DisplayCSV.aspx/LoadCSVData",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                'data': dataValue,
-                success: function(response) {
-                    var json = JSON.parse(response.d);
-                    GenerateTable(json);
-                },
-            });
-        }
-        function GenerateTable(json) {
-            alert(json);
-            var $table = $('#tblDynamic');
-            $table.find('thead').empty()
-            $table.find('tbody').empty()
-            if (json && json.length > 0) {
-                var header = json[0];
-                var columns = [];
-                for (var col in header) {
-                    columns.push('<th>' + col + '</th>');
-                }
-                $table.find('thead').append('<tr>' + columns.join('') + '</tr>');
-                var rows = [];
-                for (var i = 0; i < json.length; i++) {
-                    var row = json[i];
-                    var tds = [];
-                    for (var col in row) {
-                        tds.push('<td>' + col + '</td>');
-                    }
-                    rows.push('<tr>' + tds.join() + '</tr>');
-                }
-                $table.find('tbody').append(rows.join(''));
-            }
-
-        }
-        
-    </script>
+    </center>    
 </body>
 </html>

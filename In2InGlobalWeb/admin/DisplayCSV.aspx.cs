@@ -23,32 +23,30 @@ namespace In2InGlobal.presentation.admin
             {
                 string csvFName = Request.QueryString["csvfp"];
                 hdnQueryStringValue.Value = csvFName;
-               // LoadCSVData(csvFName);
+                LoadCSVData(csvFName);
             }
         }
 
-        [WebMethod(EnableSession = true)]
-        public static string LoadCSVData(string csvFName)
+        private void LoadCSVData(string csvFName)
         {
+            DataTable csvTable = new DataTable();
             try
             {
-                DataTable csvTable = CSVReader.ReadCSVFile(HttpContext.Current.Server.MapPath("uploadedfiles\\" + csvFName), true);
+                csvTable = CSVReader.ReadCSVFile(HttpContext.Current.Server.MapPath("uploadedfiles\\" + csvFName), true);
                 //HttpContext.Current.Session["csvTable"] = csvTable;
-                /* grdCSVData.DataSource = csvTable;
-                 grdCSVData.DataBind();
-                 lblRecordCnt.Text = "Record Count :- " + csvTable.Rows.Count;
-                 ancDownload.HRef = "uploadedfiles\\" + csvFName;*/
-                string json = JsonConvert.SerializeObject(csvTable);
-                return json;
+                grdCSVData.DataSource = csvTable;
+                grdCSVData.DataBind();
+                lblRecordCnt.Text = "Record Count :- " + csvTable.Rows.Count;
+                ancDownload.HRef = "uploadedfiles\\" + csvFName;
             }
-            catch (Exception)
+            catch(Exception)
             {
-                //grdCSVData.EmptyDataText = "Requested file is invalid csv file.";
-                //grdCSVData.DataSource = new DataTable();
-                //grdCSVData.DataBind();
-                return "Requested file is invalid csv file.";
+                grdCSVData.DataSource = csvTable;
+                grdCSVData.DataBind();
+                lblRecordCnt.Text = "";
+                ancDownload.InnerText = "";
+              
             }
-            return "Done!";
             //DataTable csvTable = CSVReader.ReadCSVFile(HttpContext.Current.Server.MapPath("uploadedfiles\\" + csvFName), true);
             //HttpContext.Current.Session["csvTable"] = csvTable;
             //grdCSVData.DataSource = csvTable;
@@ -56,9 +54,9 @@ namespace In2InGlobal.presentation.admin
             //lblRecordCnt.Text = "Record Count :- " + csvTable.Rows.Count;
             //ancDownload.HRef = "uploadedfiles\\" + csvFName;
 
-        }
 
-      
+
+        }
 
         protected void grdCSVData_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
