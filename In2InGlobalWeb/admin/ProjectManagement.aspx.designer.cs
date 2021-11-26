@@ -10,7 +10,7 @@
 namespace In2InGlobal.presentation.admin {
     
     
-    public partial class DisplayCSV {
+    public partial class ProjectManagement {
         
         /// <summary>
         /// form1 control.
@@ -22,66 +22,93 @@ namespace In2InGlobal.presentation.admin {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// Templatescriptmanager control.
+        /// projectscriptmanager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager Templatescriptmanager;
+        protected global::System.Web.UI.ScriptManager projectscriptmanager;
         
         /// <summary>
-        /// UpdatePnlTemplate control.
+        /// UpdatePnlProject control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdateProgress UpdatePnlTemplate;
+        protected global::System.Web.UI.UpdateProgress UpdatePnlProject;
         
         /// <summary>
-        /// pdnlTemplate control.
+        /// pdnlProject control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel pdnlTemplate;
+        protected global::System.Web.UI.UpdatePanel pdnlProject;
         
         /// <summary>
-        /// lblRecordCnt control.
+        /// spnProjectName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRecordCnt;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl spnProjectName;
         
         /// <summary>
-        /// ancDownload control.
+        /// hdnPName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor ancDownload;
+        protected global::System.Web.UI.WebControls.HiddenField hdnPName;
         
         /// <summary>
-        /// hdnQueryStringValue control.
+        /// hdnProjectToEdit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnQueryStringValue;
+        protected global::System.Web.UI.WebControls.HiddenField hdnProjectToEdit;
         
         /// <summary>
-        /// grdCSVData control.
+        /// spnCreatedBy control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView grdCSVData;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl spnCreatedBy;
+        
+        /// <summary>
+        /// txtDescription control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea txtDescription;
+        
+        /// <summary>
+        /// btnCreateProject control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCreateProject;
+        
+        /// <summary>
+        /// grdProject control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grdProject;
     }
 }

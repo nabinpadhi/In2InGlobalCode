@@ -31,22 +31,25 @@
                     <li class="cd-side__item cd-side__item--has-children cd-side__item--user js-cd-item--has-children">
                         <a href="#" onclick="javascript:OpenPage('admin/MyProfile.aspx');">My Profile</a>
                     </li>
+                     <li class="cd-side__item cd-side__item--has-children cd-side__item--overview js-cd-item--has-children">
+                    <a href="#" id="comMngmnt" runat="server">Company Management</a>
+                    </li>
+                    
+                    <li class="cd-side__item cd-side__item--has-children cd-side__item--overview js-cd-item--has-children">
+                         <a href="#" id="usrMngmnt" runat="server">User Management</a>                       
+                    </li>
+                    <li class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children">
+                        <a href="#" id="projtMngmt" runat="server">Project Management</a>
+                    </li>
+                     <li class="cd-side__item cd-side__item--has-children cd-side__item--overview js-cd-item--has-children">
+                    <a href="#" id="tmpltMngmnt" runat="server">Template Management</a>
+                    </li>
                     <li class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children">
                         <a href="#" id="ancFileMan" runat="server">File Management</a>
                     </li>
                     <li class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children">
                         <a href="#" id="ancAnalytics" runat="server">Analytics</a>
                     </li>
-                    <li class="cd-side__item cd-side__item--has-children cd-side__item--overview js-cd-item--has-children">
-                         <a href="#" id="usrMngmnt" runat="server">User Management</a>                       
-                    </li>
-                    <li class="cd-side__item cd-side__item--has-children cd-side__item--overview js-cd-item--has-children">
-                    <a href="#" id="comMngmnt" runat="server">Company Management</a>
-                    </li>
-                    <li class="cd-side__item cd-side__item--has-children cd-side__item--overview js-cd-item--has-children">
-                    <a href="#" id="tmpltMngmnt" runat="server">Template Management</a>
-                    </li>
-                   
                 </ul>
             </nav>
 

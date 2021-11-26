@@ -1,9 +1,10 @@
 [
-  { "ActivityName": "All" },
-  { "ActivityName": "File Management" },
+  { "ActivityName": "All" }, 
   { "ActivityName": "Company Management" },
   { "ActivityName": "User Management" },
+   { "ActivityName": "Project Management" },
   { "ActivityName": "Template Management" },
-  { "ActivityName": "Analytic" }
+   { "ActivityName": "File Management" },
+  { "ActivityName": "Analytics" }
 
 ]

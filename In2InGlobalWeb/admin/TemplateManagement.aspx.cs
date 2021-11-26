@@ -31,12 +31,9 @@ namespace In2InGlobal.presentation.admin
                         BindTemplate();
                         BindMasterTemplate();
                         BindMasterTemplateGrid();
-                        BindTemplateToAssign();                       
-                        BindProjectGrid();
+                        BindTemplateToAssign();                                             
                         //txtcreatedBy = Session["UserEmail"].ToString();
-                        txtcreatedB.InnerText = Session["UserEmail"].ToString();
-                        spnCreatedBy.InnerText = Session["UserEmail"].ToString();
-                        spnProjectName.InnerText = GenerateProjectName();
+                        txtcreatedB.InnerText = Session["UserEmail"].ToString();                        
 
                         if (Session["servermessage"] != null && Session["servermessage"].ToString() != "")
                         {
@@ -61,16 +58,7 @@ namespace In2InGlobal.presentation.admin
 
         }
 
-        private string GenerateProjectName()
-        {
-            string projson = (new WebClient()).DownloadString(HttpContext.Current.Server.MapPath("json-data/Projects.json"));
-            DataTable ProjectTable = JsonConvert.DeserializeObject<DataTable>(projson);
-
-            int _ProjectID = ProjectTable.Rows.Count + 1;
-            string ProjectName = "PRO - " + $"{_ProjectID:0000}";
-            return ProjectName;
-        }
-
+      
         private void BindMasterTemplateGrid()
         {
 
@@ -88,18 +76,7 @@ namespace In2InGlobal.presentation.admin
             string json = (new WebClient()).DownloadString(Server.MapPath("json-data/Template.json"));
             grdTemplate.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
             grdTemplate.DataBind();
-        }
-        private void BindProjectGrid()
-        {
-
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString(Server.MapPath("json-data/Projects.json"));
-            DataTable tblProject = JsonConvert.DeserializeObject<DataTable>(json);
-            ViewState["dirProject"] = tblProject;
-            grdProject.DataSource = tblProject;
-            grdProject.DataBind();
-        }
+        }        
         /* Used to load the template name extracting from provided files a folder
            This will lod the template name on create template screen*/
         private void BindMasterTemplate()
@@ -201,39 +178,7 @@ namespace In2InGlobal.presentation.admin
             string _message = "Template removed successfully.";
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", _message), true);
         }
-        protected void grdProject_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            
-            grdProject.PageIndex = e.NewPageIndex;
-            if (ViewState["SortExpression"] == null)
-                ViewState["SortExpression"] = "ProjectName";
-                DataTable dtrslt = (DataTable)ViewState["dirProject"];
-                if (dtrslt.Rows.Count > 0)
-                {
-                    if (Convert.ToString(ViewState["cursortdr"]) == "Asc")
-                    {
-                        dtrslt.DefaultView.Sort = ViewState["SortExpression"] + " Desc";
-                        ViewState["sortdr"] = "Desc";
-                    }
-                    else
-                    {
-                        dtrslt.DefaultView.Sort = ViewState["SortExpression"] + " Asc";
-                        ViewState["sortdr"] = "Asc";
-                    }
-
-                    grdProject.DataSource = dtrslt; 
-                    grdProject.DataBind();
-                }            
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), "ShowCreateProject();", true);
-
-        }
-
-        protected void grdProject_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-
-            string _message = "Template removed successfully.";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", _message), true);
-        }
+       
         private void DeleteMasterTemplate(string iD)
         {
             ServicePointManager.Expect100Continue = true;
@@ -340,39 +285,7 @@ namespace In2InGlobal.presentation.admin
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate(); ", _message), true);
         }
 
-        protected void btnCreatePro_Click(object sender, EventArgs e)
-        {
-
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString(Server.MapPath("json-data/Projects.json"));
-            DataTable ProjectTable = JsonConvert.DeserializeObject<DataTable>(json);
-            if (ProjectTable.Rows.Count == 0)
-            {
-                ProjectTable.Columns.Add("ID");
-                ProjectTable.Columns.Add("TemplateName");
-                ProjectTable.Columns.Add("CreatedBy");
-                ProjectTable.Columns.Add("Instruction");
-            }
-            int _ProjectID = ProjectTable.Rows.Count + 1;
-            string ProjectName = "PRO - " + $"{_ProjectID:0000}";
-            string createdBy = Session["UserEmail"].ToString();
-            string templateName = ddlMasterTemplate.Text;
-            string description = txtDescription.Value;
-
-            DataRow dr = ProjectTable.Rows.Add(ProjectName, createdBy, description);
-            ProjectTable.AcceptChanges();
-            dr.SetModified();
-            string output = Newtonsoft.Json.JsonConvert.SerializeObject(ProjectTable, Newtonsoft.Json.Formatting.Indented);
-            File.WriteAllText(Server.MapPath("json-data/Projects.json"), output);
-
-            BindProjectGrid();
-            grdProject.PageIndex = grdProject.PageCount - 1;
-            spnProjectName.InnerText = GenerateProjectName();
-            string _message = "Project Created Successfully.)";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateProject(); ", _message), true);
-        }
-
+       
         protected void btnUploader_Click(object sender, EventArgs e)
         {
             string fileName = "";
@@ -454,32 +367,7 @@ namespace In2InGlobal.presentation.admin
             Session["servermessage"] = null;
             hdnFake.Text = "";
         }
-
-        protected void grdProject_Sorting(object sender, GridViewSortEventArgs e)
-        {
-            DataTable dtrslt = (DataTable)ViewState["dirProject"];
-            ViewState["SortExpression"] = e.SortExpression;
-            if (dtrslt.Rows.Count > 0)
-            {
-                if (Convert.ToString(ViewState["sortdr"]) == "Asc")
-                {
-                    dtrslt.DefaultView.Sort = e.SortExpression + " Desc";
-                    ViewState["sortdr"] = "Desc";
-                    ViewState["cursortdr"] = "Asc";
-                }
-                else
-                {
-                    dtrslt.DefaultView.Sort = e.SortExpression + " Asc";
-                    ViewState["sortdr"] = "Asc";
-                    ViewState["cursortdr"] = "Desc";
-                }
-                
-                grdProject.DataSource = dtrslt;
-                grdProject.DataBind();
-            }           
-           
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), "ShowCreateProject();", true);
-        }
+      
 
         protected void grdMasterTemplate_RowDataBound(object sender, GridViewRowEventArgs e)
         {

@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DisplayCSV.aspx.cs" Inherits="In2InGlobal.presentation.admin.DisplayCSV" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
@@ -57,20 +57,24 @@
                 </ProgressTemplate>
             </asp:UpdateProgress>
             <asp:UpdatePanel ID="pdnlTemplate" runat="server">
-
                 <ContentTemplate>
-                    <div style="margin-right: 30px;float:left; border: 1px solid black; border-radius: 5px; margin-top: 20px; display: block;">
-                        <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height: 40px; padding-top: 10px;"><span class="menu_frame_title">CSV File Viewer</span></div>
+                    <div style="margin-right: 30px;float:left; border: 1px solid black; border-radius: 5px; margin-top: 20px; display: block;min-width:500px;min-height:350px;">
+                        <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height: 40px; padding-top: 10px;"><span class="menu_frame_title">CSV Data Viewer</span></div>
                         <div class="blockMe">
                             <div style="position: absolute; left: 100px; padding-top: 5px;">
-                                <asp:Label runat="server" Text="Record Count :100420" ID="lblRecordCnt"></asp:Label>
+                                <asp:Label runat="server" Text="Record Count :[Loading Data...]" ID="lblRecordCnt"></asp:Label>
                             </div>
                             <div style="position: relative; padding-left: 200px;margin-right:30px; padding-top: 5px;float:right;">
                                 <a runat="server" id="ancDownload" href="#" name="ancDownload">Download</a>
                             </div>
 
                             <div style="width: 100%; margin-top: 20px">
+                                <asp:HiddenField runat="server" ClientIDMode="Static" ID="hdnQueryStringValue" />
                                 <asp:GridView Width="100%" ID="grdCSVData" ClientIDMode="Static" ShowHeaderWhenEmpty="true" AllowPaging="true" PageSize="1000" OnPageIndexChanging="grdCSVData_PageIndexChanging" EmptyDataText="Uploaded file doesn't contain any data to display" runat="server"></asp:GridView>
+                                <table id="tblDynamic" border="1">
+                                    <thead></thead>
+                                    <tbody></tbody> 
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -78,33 +82,61 @@
             </asp:UpdatePanel>
         </form>
     </center>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
+    
     <script type="text/javascript">
+        
+        $(document).ready(function () {
+            LoadCSVData($('#hdnQueryStringValue').val());
+            
+        }); 
         function getQueryStringValue(uri, key) {
             var regEx = new RegExp("[\\?&]" + key + "=([^&#]*)");
             var matches = uri.match(regEx);
             return matches == null ? null : matches[1];
         }
 
-        function LoadCSVData() {
+        function LoadCSVData(csvfname) {
 
-            var return_companynameandrole = function () {
-                var tmp = null;
-                $.ajax({
-                    'async': false,
-                    'type': "POST",
-                    'global': false,
-                    'dataType': 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    'url': "DisplayCSV.aspx/LoadCSVData",
-                    'data': '{}',
-                    'success': function (data) {
-                        tmp = data.d;
-                    }
-                });
-                return tmp;
-            }();
-            return return_companynameandrole;
+            var dataValue = "{ csvFName:'" + csvfname + "'}";
+            $.ajax({
+                type: "POST",
+                url: "DisplayCSV.aspx/LoadCSVData",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                'data': dataValue,
+                success: function(response) {
+                    var json = JSON.parse(response.d);
+                    GenerateTable(json);
+                },
+            });
         }
+        function GenerateTable(json) {
+            alert(json);
+            var $table = $('#tblDynamic');
+            $table.find('thead').empty()
+            $table.find('tbody').empty()
+            if (json && json.length > 0) {
+                var header = json[0];
+                var columns = [];
+                for (var col in header) {
+                    columns.push('<th>' + col + '</th>');
+                }
+                $table.find('thead').append('<tr>' + columns.join('') + '</tr>');
+                var rows = [];
+                for (var i = 0; i < json.length; i++) {
+                    var row = json[i];
+                    var tds = [];
+                    for (var col in row) {
+                        tds.push('<td>' + col + '</td>');
+                    }
+                    rows.push('<tr>' + tds.join() + '</tr>');
+                }
+                $table.find('tbody').append(rows.join(''));
+            }
+
+        }
+        
     </script>
 </body>
 </html>

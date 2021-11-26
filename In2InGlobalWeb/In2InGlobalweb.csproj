@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="admin\assets\img\mobile.png" />
+    <Content Include="admin\ProjectManagement.aspx" />
     <Content Include="admin\css\multi-styles.css" />
     <Content Include="admin\DisplayCSV.aspx" />
     <Content Include="admin\dropzone\basic.css" />
@@ -1196,6 +1197,7 @@
     <Content Include="NewJEasyUI\themes\metro\validatebox.css" />
     <Content Include="NewJEasyUI\themes\metro\window.css" />
     <Content Include="scripts\Ajax.js" />
+    <Content Include="scripts\jquery-3.6.0.js" />
     <Content Include="scripts\jquery.anythingslider.fx.js" />
     <Content Include="scripts\jquery.anythingslider.fx.min.js" />
     <Content Include="scripts\jquery.anythingslider.js" />
@@ -1699,6 +1701,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="admin\ProjectManagement.aspx.cs">
+      <DependentUpon>ProjectManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\ProjectManagement.aspx.designer.cs">
+      <DependentUpon>ProjectManagement.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\DisplayCSV.aspx.cs">
       <DependentUpon>DisplayCSV.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1792,7 +1801,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="admin\Temp-template\" />
     <Folder Include="admin\uploadedfiles\" />
     <Folder Include="App_Data\" />
     <Folder Include="scripts\jquery\jqMenu\css\" />
