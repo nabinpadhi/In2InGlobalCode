@@ -77,7 +77,7 @@
                                                         <td colspan="2">
                                                             <div style="margin-top: 15px;">
                                                                 <center>
-                                                                    <asp:Button  ID="btnCreateProject" runat="server" OnClick="btnCreateProject_Click"  CssClass="button" Text="Create" />
+                                                                    <asp:Button  ID="btnCreateProject" runat="server" OnClientClick="return ValidateProject();" OnClick="btnCreateProject_Click"  CssClass="button" Text="Create" />
                                                                     <input type="button" class="button" style="margin-left: 10px;" value="Cancel" onclick="ClearProject();" />
                                                                 </center>
                                                             </div>
@@ -142,12 +142,12 @@
             $('#spnProjectName').text($('#hdnPName').val())
             $('#btnCreateProject').val('Create');
         }
-        function ValidateCompany() {
+        function ValidateProject() {
 
             Error_Message = "";
             Error_Count = 1;
 
-            CheckNull($('#txtDescription').val(), in2in5);            
+            CheckNull($('#txtDescription').val(), in2in25);            
             if (Error_Message != "") {
                 ShowError(Error_Message, 80);                
                 return false;

@@ -87,6 +87,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="admin\assets\img\mobile.png" />
+    <Content Include="admin\img\loading.gif" />
+    <Content Include="admin\img\processing.gif" />
     <Content Include="admin\ProjectManagement.aspx" />
     <Content Include="admin\css\multi-styles.css" />
     <Content Include="admin\DisplayCSV.aspx" />
@@ -94,7 +96,6 @@
     <Content Include="admin\dropzone\dropzone-amd-module.js" />
     <Content Include="admin\dropzone\dropzone.css" />
     <Content Include="admin\dropzone\dropzone.js" />
-    <Content Include="admin\img\loading-36.gif" />
     <Content Include="admin\img\success-mark.png" />
     <Content Include="admin\img\uploading.gif" />
     <Content Include="admin\js\jquery-2.2.4.min.js" />
@@ -103,6 +104,9 @@
     <Content Include="admin\js\jquery.multi-select.min.js" />
     <Content Include="admin\js\require.js" />
     <Content Include="admin\js\User.js" />
+    <Content Include="admin\Styles\StaticHeader.css" />
+    <Content Include="admin\Styles\x.js" />
+    <Content Include="admin\Styles\xtableheaderfixed.js" />
     <Content Include="admin\TemplateManagement.aspx" />
     <Content Include="admin\css\gridview.css" />
     <Content Include="admin\CompanyManagement.aspx" />

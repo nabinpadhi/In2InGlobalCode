@@ -22,6 +22,7 @@ var in2in21 = "Kindly Select a Company Name."
 var in2in22 = "Kindly select an Email."
 var in2in23 = "Kindly choose a File."
 var in2in24 = "Kindly choose only .CSV File."
+var in2in25 = "Project description cannot be empty."
 var InvalidEmail_err_msg = "Kindly provide a valid email id."
 
 var serverMessages = {

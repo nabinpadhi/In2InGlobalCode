@@ -116,20 +116,20 @@
                                                                                 <center>
                                                                                     <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
                                                                                         <asp:GridView DataKeyNames="ID" ID="grdUploadedFiles" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
-                                                                                            AllowPaging="True" EmptyDataText="No file found uploaded by you." OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
+                                                                                            AllowPaging="True" RowStyle-Wrap="false" HeaderStyle-Wrap="false" EmptyDataText="No file found uploaded by you." OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
                                                                                             <PagerStyle CssClass="pagination-ys" />
                                                                                             <Columns>
-                                                                                                    <asp:TemplateField HeaderText="File Name">
+                                                                                                    <asp:TemplateField ItemStyle-Width="150px" HeaderStyle-Width="150px" HeaderText="File Name">
                                                                                                         <ItemTemplate>
                                                                                                             <a href='#' onclick="OpenCSV('<%# DataBinder.Eval(Container.DataItem, "FileName") %>');">
                                                                                                                 <%# DataBinder.Eval(Container.DataItem, "FileName")%>
                                                                                                             </a>
                                                                                                         </ItemTemplate>
                                                                                                     </asp:TemplateField>                                                                                                
-                                                                                                <asp:BoundField HeaderText="Project Name" DataField="ProjectName" />
-                                                                                                <asp:BoundField HeaderText="Uploaded By" DataField="UploadedBy" />
-                                                                                                <asp:BoundField HeaderText="Uploaded On" DataField="Date" />
-                                                                                                <asp:ImageField ItemStyle-CssClass ="GridViewImageAlignment" HeaderText="Uploaded Status" ControlStyle-Height="20px" ControlStyle-Width="20px" DataImageUrlField="UploadedStatus"></asp:ImageField>                                                                                             
+                                                                                                <asp:BoundField ItemStyle-Width="150px" HeaderStyle-Width="150px" HeaderText="Project Name" DataField="ProjectName" />
+                                                                                                <asp:BoundField ItemStyle-Width="150px" HeaderStyle-Width="150px" HeaderText="Uploaded By" DataField="UploadedBy" />
+                                                                                                <asp:BoundField ItemStyle-Width="150px" HeaderStyle-Width="150px" HeaderText="Uploaded On" DataField="Date" />
+                                                                                                <asp:ImageField ItemStyle-Width="50px" HeaderStyle-Width="50px" ItemStyle-CssClass ="GridViewImageAlignment" HeaderText="Status" ControlStyle-Height="20px" ControlStyle-Width="20px" DataImageUrlField="UploadedStatus"></asp:ImageField>                                                                                             
                                                                                             </Columns>
                                                                                         </asp:GridView>
                                                                                     </div>
@@ -222,11 +222,7 @@
                         </ContentTemplate>
                     </asp:UpdatePanel>
                         
-            </div>  
-              "
-            <div id="csvPageDiv" class="easyui-window" title="File Viewer" data-options="iconCls:'icon-readfile'" style="width:600px;height:490px;padding:10px;background-color:silver;">                
-                <iframe style="width: 98%;height:97%;" id="frmCSVPage" src="about:blank"></iframe>
-            </div>
+            </div>             
         </center>
     </form>
     
@@ -245,7 +241,7 @@
         $("#projectids").change(function () {
             $('#projectid').val($("#projectids").val());
         }); 
-        $('#csvPageDiv').window('close');
+        
     });               
     
      function ValidateDownload() {
@@ -287,22 +283,7 @@
              return true;
          }
      }
-     function OpenCSV(fn) {
-
-        // $('#fmPageDiv').hide();
-         //$('#csvPageDiv').show();
-        var iframe = $("#frmCSVPage");
-        iframe.attr("src", "DisplayCSV.aspx?csvfp=" + fn);         
-         $('#csvPageDiv').window('open');
-     }
-     function CloseCSV() {
-
-         $('#fmPageDiv').show();
-         $('#csvPageDiv').hide();
-         var iframe = $("#frmCSVPage");
-         iframe.attr("src", "about:blank");
-         //window.open('DisplayCSV.aspx?csvfp=' + fn, 'popup_window', 'width=600,height=600,left=200,top=200,resizable=yes');
-     }    
+         
      function ShowServerMessage(servermessage) {
 
          if (servermessage != "") {

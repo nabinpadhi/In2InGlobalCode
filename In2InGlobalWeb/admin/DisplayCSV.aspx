@@ -6,78 +6,87 @@
     <title></title>
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/gridview.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
-   <style type="text/css">
-        body {
-            font-family: Arial;
-            font-size: 10pt;
+    <link rel='stylesheet' type='text/css' href='Styles/StaticHeader.css' />
+  
+     <script src="../NewJEasyUI/jquery.min.js" type="text/javascript" lang="javascript"></script>
+    <script type='text/javascript' src='Styles/x.js'></script>
+
+    <script type='text/javascript' src='Styles/xtableheaderfixed.js'></script>
+
+    <script type='text/javascript'>
+        xAddEventListener(window, 'load',
+            function() { new xTableHeaderFixed('gvTheGrid', 'table-container', 0); }, false);
+    </script>
+    <style type="text/css">
+        .PageNavLink{
+            
+            vertical-align:middle;           
         }
-
-        table {
-            border: 1px solid #ccc;
-            border-collapse: collapse;
-            background-color: #fff;
-        }
-
-            table th {
-                background-color: #ff7f00;
-                color: #fff;
-                font-weight: bold;
-            }
-
-            table th, table td {
-                padding: 5px;
-                border: 1px solid #ccc;
-            }
-
-            table, table table td {
-                border: 0px solid #ccc;
-            }
-
-        .button {
-            background-color: #0094ff; /* Blue */
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-        }
+        .PageNavLink:link { COLOR: black; TEXT-DECORATION: none; font-weight: normal }
+        .PageNavLink:visited { COLOR: black; TEXT-DECORATION: none; font-weight: normal }
+        .PageNavLink:active { COLOR: black; TEXT-DECORATION: none }
+        .PageNavLink:hover { COLOR: yellow; TEXT-DECORATION: none; font-weight: none }
     </style>
-
 </head>
 <body>
     <center>
         <form id="form1" runat="server">
             <asp:ScriptManager ID="Templatescriptmanager" runat="server">
-            </asp:ScriptManager>
-            <asp:UpdateProgress ID="UpdatePnlTemplate" runat="server" AssociatedUpdatePanelID="pdnlTemplate">
-                <ProgressTemplate>
-                    <img src="img/uploading.gif" alt="Uploading..." />
-                </ProgressTemplate>
-            </asp:UpdateProgress>
+            </asp:ScriptManager>           
             <asp:UpdatePanel ID="pdnlTemplate" runat="server">
                 <ContentTemplate>
-                    <div style="margin-right: 30px;float:left; border: 1px solid black; border-radius: 5px; margin-top: 20px; display: block;min-width:500px;min-height:350px;">
-                        <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height: 40px; padding-top: 10px;"><span class="menu_frame_title">CSV Data Viewer</span></div>
-                        <div class="blockMe">
-                            <div style="position: absolute; left: 100px; padding-top: 5px;">
+                    <div style="position: absolute; left: 60px; padding-top: 5px;">
                                 <asp:Label runat="server" Text="Record Count :[Loading Data...]" ID="lblRecordCnt"></asp:Label>
                             </div>
                             <div style="position: relative; padding-left: 200px;margin-right:30px; padding-top: 5px;float:right;">
                                 <a runat="server" id="ancDownload" href="#" name="ancDownload">Download</a>
-                            </div>
-
-                            <div style="width: 100%; margin-top: 20px">
-                                <asp:HiddenField runat="server" ClientIDMode="Static" ID="hdnQueryStringValue" />
-                                <asp:GridView Width="100%" ID="grdCSVData" ClientIDMode="Static" ShowHeaderWhenEmpty="true" AllowPaging="true" PageSize="1000" OnPageIndexChanging="grdCSVData_PageIndexChanging" EmptyDataText="Uploaded file doesn't contain any data to display" runat="server"></asp:GridView>
+                            </div> 
+                    <div style="float:left; border: 1px solid black; border-radius: 5px; margin-top: 20px; display: block;width:100%;min-height:300px;">
+                            
+                        <center>
+                            <div id='table-container'>
+                                <asp:GridView ID="grdCSVData" runat="server" GridLines="Both" CellPadding="3" AutoGenerateColumns="false"
+                                    BackColor="WhiteSmoke" AlternatingRowStyle-BackColor="Silver" HeaderStyle-Font-Size="Medium"
+                                    OnPreRender="grdCSVData_PreRender" CssClass="gvTheGrid">
+                                        <Columns>
+                                            <asp:BoundField DataField="Date" HeaderText="Date" HeaderStyle-Width="60" ItemStyle-Width="60" />
+                                            <asp:BoundField DataField="Vendor" HeaderText="Vendor" HeaderStyle-Width="60" ItemStyle-Width="60" />
+                                            <asp:BoundField DataField="SpendCategory" HeaderText="Spend Category" HeaderStyle-Width="200" ItemStyle-Width="200" />
+                                            <asp:BoundField DataField="SpendAmount" HeaderText="Spend Amount" HeaderStyle-Width="200"
+                                                ItemStyle-Width="200" />
+                                        </Columns>
+                                    </asp:GridView>
+                        </center>
+                                    <table id="gridPageTable" style="font-size:12px;text-align:center;vertical-align:middle;"><tr></tr></table>
+                                </div>
                                
-                            </div>
-                        </div>
-                    </div>
                 </ContentTemplate>
             </asp:UpdatePanel>
         </form>
-    </center>    
+    </center>
+    <script >
+        $(document).ready(function () {
+
+            var recCnt = $('#lblRecordCnt').text().split('-')[1];          
+            var dynamicRequiredTD = "";           
+            var noTDRequired = parseFloat(recCnt / 1000);
+           
+            if (noTDRequired > 10) {
+                for (i = 1; i <= 10; i++) {
+                    dynamicRequiredTD = dynamicRequiredTD + "<td><div style=\"width:20px;height:20px;boder:1px solid black;border-radius:2px;background-color:gray;\"><a class=\"PageNavLink\" href='#' onclick=LoadGridPage(" + i + ")>[" + i + "]</a></div></td>";
+                }
+            }
+            var PageRow = "<tr cellpadding=\"5px\" style=\"color: black;height:50px;\">" + dynamicRequiredTD +"</tr>";
+             $('#gridPageTable tr:last').after(PageRow);
+            
+        });
+        function LoadGridPage(pageNo) {
+
+            var skip = (parseInt(pageNo) * 1000) - 1000;
+            var get =  1000;
+            alert("Skip:-" + skip + "  &&  Get:-" + get);
+        }
+
+    </script>
 </body>
 </html>

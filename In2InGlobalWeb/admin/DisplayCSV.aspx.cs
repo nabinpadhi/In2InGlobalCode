@@ -19,12 +19,7 @@ namespace In2InGlobal.presentation.admin
         {
            
             //DataTable csvTable = ConvertCSVtoDataTable(csvPath);
-            if (!IsPostBack)
-            {
-                string csvFName = Request.QueryString["csvfp"];
-                hdnQueryStringValue.Value = csvFName;
-                LoadCSVData(csvFName);
-            }
+            
         }
 
         private void LoadCSVData(string csvFName)
@@ -33,17 +28,22 @@ namespace In2InGlobal.presentation.admin
             try
             {
                 csvTable = CSVReader.ReadCSVFile(HttpContext.Current.Server.MapPath("uploadedfiles\\" + csvFName), true);
-                //HttpContext.Current.Session["csvTable"] = csvTable;
-                grdCSVData.DataSource = csvTable;
+                Session["csvTable"] = csvTable;
+                foreach (DataColumn dc in csvTable.Columns)
+                {
+                    dc.ColumnName = dc.ColumnName.Replace(" ", "");
+
+                }
+                csvTable.AcceptChanges();
+                grdCSVData.DataSource = csvTable.AsEnumerable().Skip(0).Take(1000).CopyToDataTable(); ;
                 grdCSVData.DataBind();
-                lblRecordCnt.Text = "Record Count :- " + csvTable.Rows.Count;
+                lblRecordCnt.Text = "Record Count :-" + csvTable.Rows.Count;
                 ancDownload.HRef = "uploadedfiles\\" + csvFName;
             }
-            catch(Exception)
+            catch(Exception ex)
             {
-                grdCSVData.DataSource = csvTable;
-                grdCSVData.DataBind();
-                lblRecordCnt.Text = "";
+               
+                lblRecordCnt.Text = ex.Message;
                 ancDownload.InnerText = "";
               
             }
@@ -53,6 +53,7 @@ namespace In2InGlobal.presentation.admin
             //grdCSVData.DataBind();
             //lblRecordCnt.Text = "Record Count :- " + csvTable.Rows.Count;
             //ancDownload.HRef = "uploadedfiles\\" + csvFName;
+            //dataTable.AsEnumerable().Skip(100).Take(25);
 
 
 
@@ -65,6 +66,31 @@ namespace In2InGlobal.presentation.admin
             grdCSVData.DataSource = csvTable;
             grdCSVData.DataBind();
         }
+        protected void grdCSVData_PreRender(object sender, EventArgs e)
+        {
 
+            // You only need the following 2 lines of code if you are not 
+            // using an ObjectDataSource of SqlDataSource
+            if (!IsPostBack)
+            {
+                string csvFName = Request.QueryString["csvfp"];
+
+                LoadCSVData(csvFName);
+            }
+
+            if (grdCSVData.Rows.Count > 0)
+            {
+                //This replaces <td> with <th> and adds the scope attribute
+                grdCSVData.UseAccessibleHeader = true;
+
+                //This will add the <thead> and <tbody> elements
+                grdCSVData.HeaderRow.TableSection = TableRowSection.TableHeader;
+
+                //This adds the <tfoot> element. 
+                //Remove if you don't have a footer row
+                //gvTheGrid.FooterRow.TableSection = TableRowSection.TableFooter;
+            }
+
+        }
     }
 }

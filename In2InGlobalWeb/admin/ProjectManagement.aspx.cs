@@ -56,7 +56,7 @@ namespace In2InGlobal.presentation.admin
             string json = (new WebClient()).DownloadString(Server.MapPath("json-data/Projects.json"));
             DataTable ProjectTable = JsonConvert.DeserializeObject<DataTable>(json);
             string _message = "Project Created Successfully.)";
-            if (spnProjectName.InnerText == hdnProjectToEdit.Value)
+            if (hdnProjectToEdit.Value =="")
             {
                 if (ProjectTable.Rows.Count == 0)
                 {
