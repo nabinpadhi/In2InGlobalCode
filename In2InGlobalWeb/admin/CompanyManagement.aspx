@@ -34,12 +34,12 @@
                                                     <td>Company Name(<span style="color: red">*</span>)</td>
                                                     <td>
                                                         <input type="text" id="txtCompanyName" runat="server" value="" /></td>
-                                                    <td>Email(<span style="color: red">*</span>)</td>
+                                                    <td>LOB</td>
                                                     <td>
-                                                        <input type="text" id="txtEmail" runat="server" value="" /></td>
+                                                        <input type="text" id="txtLOB" runat="server" value="" /></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Phone Number(<span style="color: red">*</span>)</td>
+                                                    <td>Phone Number</td>
                                                     <td>
                                                         <input type="text" id="txtPhoneNo" runat="server" />
 
@@ -73,7 +73,7 @@
                                                 <Columns>
                                                     <asp:BoundField DataField="CompanyID" ControlStyle-Width="94%" HeaderText="CompanyID" Visible="false" />
                                                     <asp:BoundField DataField="CompanyName" ControlStyle-Width="94%" HeaderText="Company Name" />
-                                                    <asp:BoundField DataField="Email" ControlStyle-Width="94%" HeaderText="Email ID" />
+                                                    <asp:BoundField DataField="LOB" ControlStyle-Width="94%" HeaderText="LOB" />
                                                     <asp:BoundField DataField="PhoneNo" ControlStyle-Width="94%" HeaderText="Phone No" />
                                                     <asp:CommandField ShowEditButton="true" />
                                                     <asp:CommandField ShowDeleteButton="true" />
@@ -114,31 +114,12 @@
             Error_Count = 1;
 
             CheckNull($('#txtCompanyName').val(), in2in5);
-            CheckNull($('#txtPhoneNo').val(), in2in14);
-            CheckNull($('#txtEmail').val(), in2in6);
+           
             if ($('#txtPhoneNo').val() != "") {
                 ValidatePhoneNumber($('#txtPhoneNo').val(), in2in20);
-            }           
-            if ($("#txtEmail").val() != "") {
-                if (isValidEmailAddress($('#txtEmail').val()) == false) {
-
-                    Error_Message = Error_Message + Error_Count + " . " + InvalidEmail_err_msg + "<br>";
-                    Error_Count = Error_Count + 1;
-                }
-
-            }
+            }                       
             if (Error_Message != "") {
                 ShowError(Error_Message, 80);
-                /*$.messager.show({
-                    title: 'In2In Global - Errors',
-                    msg: Error_Message,
-                    showType: 'slide',
-                    style: {
-                        right: '',
-                        top: '',
-                        bottom: -document.body.scrollTop - document.documentElement.scrollTop
-                    }
-                });*/
                 return false;
             }
             else {
@@ -149,10 +130,10 @@
         function AddCompany() {
             var return_status = function () {
                 var tmp = null;
-                var email = $('#txtEmail').val();
+                var lob = $('#txtLOB').val();
                 var companyname = $('#txtCompanyName').val();
                 var phoneno = $('#txtPhoneNo').val();
-                var dataValue = "{ companyname:'" + companyname + "', emailid:'" + email + "',phoneno:'" + phoneno + "'}";
+                var dataValue = "{ companyname:'" + companyname + "', lob:'" + lob + "',phoneno:'" + phoneno + "'}";
                 $.ajax({
                     'async': false,
                     'type': "POST",
@@ -161,7 +142,7 @@
                     contentType: 'application/json; charset=utf-8',
                     'url': "CompanyManagement.aspx/AddNewCompany",
                     'data': dataValue,
-                    data: "{ companyname:'" + $('#txtCompanyName').val() + "', emailid:'" + $('#txtEmail').val() + "',phoneno:'" + $('#txtPhoneNo').val() + "'}",
+                    data: "{ companyname:'" + $('#txtCompanyName').val() + "', lob:'" + $('#txtLOB').val() + "',phoneno:'" + $('#txtPhoneNo').val() + "'}",
                     success: function (data) {
                         tmp = data.d;
                     }
@@ -173,6 +154,23 @@
 
                 toastr.success('New company created', 'Success', { timeOut: 1000, progressBar: true, onHidden: function () { window.location.href = BASE_URL; } });
             }
+        }
+        function ShowServerMessage(servermessage) {
+
+            if (servermessage != "") {
+                $.messager.show({
+                    title: 'In2In Global',
+                    msg: servermessage,
+                    showType: 'slide',
+                    style: {
+                        right: '',
+                        top: '',
+                        bottom: -document.body.scrollTop - document.documentElement.scrollTop
+                    }
+                });
+            }
+
+
         }
         function ShowHidden() {
 

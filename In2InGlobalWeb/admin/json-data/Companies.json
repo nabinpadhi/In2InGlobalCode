@@ -2,13 +2,19 @@
   {
     "CompanyID": "COM-002",
     "CompanyName": "In2In Global Technology",
-    "Email": "sujaymondal@gmail.com",
+    "LOB": "Software  Develoment",
     "PhoneNo": "+919876787644"
   },
   {
     "CompanyID": "COM-001",
     "CompanyName": "Free Lancer",
-    "Email": "nabinpadhi@gmail.com",
+    "LOB": "Construction",
     "PhoneNo": "+917876787646"
+  },
+  {
+    "CompanyID": "COM-3",
+    "CompanyName": "xyzx123",
+    "LOB": "Software",
+    "PhoneNo": "7877765446"
   }
 ]

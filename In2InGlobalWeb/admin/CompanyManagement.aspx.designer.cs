@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace In2InGlobal.presentation.admin
-{
-
-
-    public partial class CompanyManagement
-    {
-
+namespace In2InGlobal.presentation.admin {
+    
+    
+    public partial class CompanyManagement {
+        
         /// <summary>
         /// form1 control.
         /// </summary>
@@ -22,7 +20,7 @@ namespace In2InGlobal.presentation.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-
+        
         /// <summary>
         /// txtCompanyName control.
         /// </summary>
@@ -31,16 +29,16 @@ namespace In2InGlobal.presentation.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtCompanyName;
-
+        
         /// <summary>
-        /// txtEmail control.
+        /// txtLOB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtEmail;
-
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtLOB;
+        
         /// <summary>
         /// txtPhoneNo control.
         /// </summary>
@@ -49,7 +47,7 @@ namespace In2InGlobal.presentation.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtPhoneNo;
-
+        
         /// <summary>
         /// btnSave control.
         /// </summary>
@@ -58,7 +56,7 @@ namespace In2InGlobal.presentation.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSave;
-
+        
         /// <summary>
         /// grdCompany control.
         /// </summary>
