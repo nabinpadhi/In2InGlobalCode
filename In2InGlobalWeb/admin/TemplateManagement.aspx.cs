@@ -26,12 +26,12 @@ namespace In2InGlobal.presentation.admin
                     if (usrRole == "Admin")
                     {
 
-                        BindProjects();
-                        BindUsers();
+                        //BindProjects();
+                        //BindUsers();
                         BindTemplate();
                         BindMasterTemplate();
                         BindMasterTemplateGrid();
-                        BindTemplateToAssign();                                             
+                        //BindTemplateToAssign();                                             
                         //txtcreatedBy = Session["UserEmail"].ToString();
                         txtcreatedB.InnerText = Session["UserEmail"].ToString();                        
 

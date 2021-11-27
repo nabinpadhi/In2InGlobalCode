@@ -34,7 +34,7 @@
                         <div style="border-bottom:0 solid gray;display:flex;padding:2px;width:auto;">
                             <div id="btnUploadMasterTemplate" onclick="ShowUploadMasterTemplate();" class="PanelTab"> Upload Master Template </div>
                             <div id="btnCreateTemplate" onclick="ShowCreateTemplate();" class="PanelTab"> Create Template </div>
-                            <div style="margin-left:4px;" onclick="ShowAssignTemplate();" class="PanelTab" id="btnAssignTemplate">Assign Template</div>                            
+                    <%--        <div style="margin-left:4px;" onclick="ShowAssignTemplate();" class="PanelTab" id="btnAssignTemplate">Assign Template</div>   --%>                         
                         </div>
                         <div title="Upload Master Template" class="upldmt" style="background-color: azure;padding:100px">
                              <table style="width: 100%; background-color: azure;">
@@ -260,10 +260,10 @@
       }
         function ClearAll() {
             
-            $('#ddlTemplates').prop('selectedIndex', 0);            
-            $('#ddlProjects').prop('selectedIndex', 0);
+            //$('#ddlTemplates').prop('selectedIndex', 0);            
+            //$('#ddlProjects').prop('selectedIndex', 0);
             document.getElementById("hdnMTName").value = "";
-            $('#ddlUserEmail').prop('selectedIndex', 0);
+            //$('#ddlUserEmail').prop('selectedIndex', 0);
             $("#txtInstruction").val('');            
             $('#btnCreate').val('Create');
             $('#txtMasterTemplateName').invisible();
@@ -362,7 +362,7 @@
       }
       function ShowCreateTemplate() {
 
-          $('.Asgnpnl').invisible();
+          //$('.Asgnpnl').invisible();
           $('.crtppnl').invisible();
           $('.crtpnl').visible();
           $('.upldmt').invisible();
@@ -370,8 +370,8 @@
           $('#btnUploadMasterTemplate').css("color", "#fff");
           $('#btnCreateTemplate').css("background-color", "azure");
           $('#btnCreateTemplate').css("color", "blue");
-          $('#btnAssignTemplate').css("background-color", "#2c3c59");
-          $('#btnAssignTemplate').css("color", "#fff");          
+         // $('#btnAssignTemplate').css("background-color", "#2c3c59");
+         // $('#btnAssignTemplate').css("color", "#fff");          
           
           
           ClearAll();
