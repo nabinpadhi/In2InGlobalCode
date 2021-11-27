@@ -75,6 +75,95 @@
                     <Triggers><asp:PostBackTrigger ControlID="btnDownload" /></Triggers>
                     <Triggers><asp:PostBackTrigger ControlID="btnUploader" /></Triggers>
                     <ContentTemplate> 
+                         <div style="border-bottom:0 solid gray;display:flex;padding:2px;width:auto;">
+                            <div id="btnProjectMgnt" onclick="ShowProjectMgnt();" class="PanelTab">Project Management</div>
+                            <div id="btnFileMgnt" onclick="ShowFileMgnt();" class="PanelTab">File Management</div>                          
+                        </div>
+                        <div title="Project Management" class="projectmgnt" style="background-color: azure;">
+                               <table style="width: 100%; background-color: azure;">
+                                <tr>
+                                    <td>
+                                        <center>
+                                            <div style="width: 60%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
+                                                <table>
+                                                    <tr>
+                                                        <td style="width:50%;">
+                                                            <table style="width:100%">
+                                                                <tr>                                                                    
+                                                                    <td style="width:40%">
+                                                                        Project Name(<span style="color: red">*</span>)<br />
+                                                                       <span fieldtype="readonly" value="" runat="server" id="spnProjectName" />
+                                                                        <asp:HiddenField ID="hdnPName" runat="server" Value="" />
+                                                                         <asp:HiddenField ID="hdnProjectToEdit" runat="server" Value="" />
+                                                                    </td>
+                                                                </tr>
+                                                                 <tr>
+                                                                    <td>
+                                                                        Created By(<span style="color: red">*</span>)                                                                        
+                                                                        <span fieldtype="readonly" value="" runat="server" id="spnCreatedBy" />
+                                                                    </td>
+                                                                </tr>                                                                                                         
+                                                            </table>
+                                                        </td>
+                                                        <td  style="width:50%;">
+                                                            <table>
+                                                                <tr>
+                                                                    <td>
+                                                                        Description(<span style="color: red">*</span>)
+                                                                        <textarea rows="5" id="txtDescription" class="txtDescription" name="txtDescription" style="resize:none; width: 97%; height: 70px;" runat="server"></textarea>
+                                                                    </td>
+
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <div style="margin-top: 15px;">
+                                                                <center>
+                                                                    <asp:Button  ID="btnCreateProject" runat="server" OnClientClick="return ValidateProject();" OnClick="btnCreateProject_Click"  CssClass="button" Text="Create" />
+                                                                    <input type="button" class="button" style="margin-left: 10px;" value="Cancel" onclick="ClearProject();" />
+                                                                </center>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </center>
+                                    </td>
+                       
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%;">
+                                        <center>
+                                            <div style="width: 70%; border: 1px solid black; border-radius: 5px; margin-top:5px; margin-bottom: 10px;">                                    
+                                                <asp:GridView DataKeyNames="ProjectName" ID="grdProject" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
+                                                    AllowPaging="True" AllowSorting="true" OnSorting="grdProject_Sorting" OnRowDataBound="grdProject_RowDataBound" OnRowDeleting="grdProject_RowDeleting" 
+                                                    OnPageIndexChanging="grdProject_PageIndexChanging"  AutoGenerateColumns="false" PageSize="4">
+                                                    <PagerStyle CssClass="pagination-ys" />
+                                                    <AlternatingRowStyle BackColor="#CCCCCC" />
+                                                    <Columns>                                                      
+                                                         <asp:TemplateField HeaderStyle-Width="150px"  HeaderText="Project Name" SortExpression="ProjectName">                                                            
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblProjectName" runat="server" Text='<%# Bind("ProjectName") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>  
+                                                        <asp:TemplateField HeaderText="Created By" SortExpression="CreatedBy">                                                            
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblCreatedBy" runat="server" Text='<%# Bind("CreatedBy") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>                                                          
+                                                        <asp:BoundField ItemStyle-Wrap="true" HeaderText="Description"  DataField="Description" />  
+                                                        <asp:CommandField ItemStyle-HorizontalAlign="Center" HeaderText="Action" ShowEditButton="true" ShowDeleteButton="true" />                                                                                                             
+                                                    </Columns>
+                                                </asp:GridView>
+                                            </div>
+                                        </center>
+                                    </td>
+                                </tr>
+                        </table>
+                        </div>
+                        <div title="File Management" class="filemgnt" style="background-color: azure;">
                             <table style="width: 100%; background-color: azure;">
                                 <tr>
                                     <td style="width: 70%;">
@@ -219,6 +308,8 @@
                                     </td>
                                 </tr>
                             </table>
+                        </div>
+
                         </ContentTemplate>
                     </asp:UpdatePanel>
                         
@@ -232,7 +323,8 @@
      <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/Validation.js?"), DateTime.Now.Ticks) %>" type="text/javascript" lang="javascript"></script>
      <script src="js/fastclick.js" type="text/javascript" lang="javascript"></script>
     <script src="js/prism.js" type="text/javascript" lang="javascript"></script>
-    
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
  <script>
     
     $(document).ready(function () {
@@ -241,9 +333,89 @@
         $("#projectids").change(function () {
             $('#projectid').val($("#projectids").val());
         }); 
+        ShowProjectMgnt();
+        ClearProject();
+    });
+     function OpenCSV(fn) {
+         window.parent.ShowDiv(fn);
+     }
+     function ClearProject() {
+
+         $('#txtDescription').val('');
+         $('#spnProjectName').text($('#hdnPName').val())
+         $('#btnCreateProject').val('Create');
+     }
+     function ValidateProject() {
+
+         Error_Message = "";
+         Error_Count = 1;
+
+         CheckNull($('#txtDescription').val(), in2in25);
+         if (Error_Message != "") {
+             ShowError(Error_Message, 80);
+             return false;
+         }
+         else {
+             return true;
+         }
+     }
+     function PullDataToEdit(projectname, createdby, description) {
+
+
+         $('#spnProjectName').text(projectname);
+         $('#hdnProjectToEdit').val(projectname);
+         $('#txtDescription').val(description);
+         $('#txtCreatedBy').val(createdby);
+         $('#btnCreateProject').val('Update');
+
+     }
+     function AddProject() {
+         var return_status = function () {
+             var tmp = null;
+             var projectname = $('#txtProjectName').val();
+             var createdBy = $('#txtcreadtedBy').val();
+             var description = $('#txtDescription').val();
+             var dataValue = "{ ProjectName:'" + projectname + "', CreatedBy:'" + createdBy + "',Description:'" + description + "'}";
+             $.ajax({
+                 'async': false,
+                 'type': "POST",
+                 'global': false,
+                 'dataType': 'json',
+                 contentType: 'application/json; charset=utf-8',
+                 'url': "ProjectManagement.aspx/AddNewProject",
+                 'data': dataValue,
+                 data: "{ ProjectName:'" + projectname + "', CreatedBy:'" + createdBy + "',Description:'" + description + "'}",
+                 success: function (data) {
+                     tmp = data.d;
+                 }
+             });
+             return tmp;
+         }();
+
+         if (return_status == "Success") {
+
+             toastr.success('New Project created', 'Success', { timeOut: 1000, progressBar: true, onHidden: function () { window.location.href = BASE_URL; } });
+         }
+     }
+     function ShowProjectMgnt() {
+         $('.projectmgnt').show();
+         $('.filemgnt').hide();
+         
+         $('#btnProjectMgnt').css("background-color", "azure");
+         $('#btnProjectMgnt').css("color", "blue");
+         $('#btnFileMgnt').css("background-color", "#2c3c59");
+         $('#btnFileMgnt').css("color", "#fff");
+     }
+     function ShowFileMgnt() {
+         $('.projectmgnt').hide();
+         $('.filemgnt').show();
+
+         $('#btnFileMgnt').css("background-color", "azure");
+         $('#btnFileMgnt').css("color", "blue");
+         $('#btnProjectMgnt').css("background-color", "#2c3c59");
+         $('#btnProjectMgnt').css("color", "#fff");
         
-    });               
-    
+     }
      function ValidateDownload() {
          Error_Message = "";
          Error_Count = 1;

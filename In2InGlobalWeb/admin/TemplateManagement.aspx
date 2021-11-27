@@ -15,7 +15,7 @@
       <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" />
    
 </head>
-<body onload="ShowFullPostBackMessage();">
+<body>
     <form id="form1" runat="server">
         <center>
             <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 10px;">
@@ -205,9 +205,7 @@
                             </div>
                        
                     </div> 
-                        <div id="deletedialog" name="deletedialog">
-                            
-                        </div>
+                        
                      </ContentTemplate>
                 </asp:UpdatePanel>
             </div>
@@ -425,17 +423,8 @@
 
               return true;
           }
-      }
-      function ShowFullPostBackMessage() {
-         // var sessionvalue = '<%=Session["servermessage"]%>';
-         /* if (sessionvalue != null) {
-              alert(sessionvalue)
-          }
-          if ($('#hdnFake').text() != "") {
-              __doPostBack('hdnFake', 'OnClick');
-          }*/
-      }
-      $('#deletedialog').hide();
+      }     
+     
       function ConfirmDelete(item) {
           $('#deletedialog').confirm({
               title: 'Delete Confirmation',

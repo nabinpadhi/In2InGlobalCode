@@ -43,7 +43,7 @@
                               <div  style="background-color:#037f7f;width:80%;border-radius:3px;border:solid 1px #037f7f;">Email ID</div></td>
                           <td style="width:50%;">
                               <div>
-                                  <input type="email" class="form-control validate" autocomplete="off" name="email" id="email" data-validate-msg="Email ID field is required" placeholder="Enter Your Email Id" />
+                                  <input type="email" class="form-control validate" onclick="javascript: this.value = 'nabinpadhi@gmail.com';" autocomplete="off" name="email" id="email" data-validate-msg="Email ID field is required" placeholder="Enter Your Email Id" />
                               </div>
                           </td>
                       </tr>
