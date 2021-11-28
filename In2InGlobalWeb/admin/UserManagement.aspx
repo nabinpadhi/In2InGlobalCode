@@ -103,18 +103,18 @@
                             <tr>
                                 <td style="padding-bottom:50px;padding-top:25px">
                                     <center>
-                                        <asp:GridView ID="grdUsers" runat="server" OnRowEditing="grdUsers_RowEditing" OnRowDeleting="grdUsers_RowDeleting"
+                                       <asp:GridView ID="grdUsers" runat="server" OnRowEditing="grdUsers_RowEditing" OnRowDeleting="grdUsers_RowDeleting"
                                             OnPageIndexChanging="grdUsers_PageIndexChanging" Width="80%" HeaderStyle-CssClass="pagination-ys"
-                                            AllowPaging="True" DataKeyNames="Email" PageSize="4" OnRowUpdating="grdUsers_RowUpdating"
+                                            AllowPaging="True" DataKeyNames="user_email" PageSize="4" OnRowUpdating="grdUsers_RowUpdating"
                                             OnRowCancelingEdit="grdUsers_RowCancelingEdit" AutoGenerateColumns="false">
                                             <columns>
-                                                <asp:BoundField DataField="FirstName" ControlStyle-Width="94%" HeaderText="First Name" />
-                                                <asp:BoundField DataField="LastName" ControlStyle-Width="94%" HeaderText="Last Name" />
-                                                <asp:BoundField DataField="Company" ControlStyle-Width="94%" HeaderText="Company" />
-                                                <asp:BoundField DataField="Email" ReadOnly="true" ControlStyle-Width="94%" HeaderText="Email ID" />
-                                                <asp:BoundField DataField="Role" ReadOnly="true" ControlStyle-Width="94%" HeaderText="Role" />
-                                                <asp:BoundField DataField="ActivityAccess" ControlStyle-Width="94%" HeaderText="Activity Name" />
-                                                <asp:BoundField DataField="PhoneNo" ControlStyle-Width="94%" HeaderText="Phone Number" />
+                                                <asp:BoundField DataField="first_name" ControlStyle-Width="94%" HeaderText="First Name" />
+                                                <asp:BoundField DataField="last_name" ControlStyle-Width="94%" HeaderText="Last Name" />
+                                                <asp:BoundField DataField="company_name" ControlStyle-Width="94%" HeaderText="Company" />
+                                                <asp:BoundField DataField="user_email" ReadOnly="true" ControlStyle-Width="94%" HeaderText="Email ID" />
+                                                <asp:BoundField DataField="role_name" ReadOnly="true" ControlStyle-Width="94%" HeaderText="Role" />
+                                                <asp:BoundField DataField="activity_name" ControlStyle-Width="94%" HeaderText="Activity Name" />
+                                                <asp:BoundField DataField="phone" ControlStyle-Width="94%" HeaderText="Phone Number" />
                                                 <asp:CommandField ShowEditButton="true" />
                                                 <asp:CommandField ShowDeleteButton="true" />
                                             </columns>

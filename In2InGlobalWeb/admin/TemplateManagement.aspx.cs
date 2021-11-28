@@ -1,4 +1,7 @@
-﻿using In2InGlobal.presentation.Tools;
+﻿using In2InGlobal.businesslogic;
+using In2InGlobal.presentation.Tools;
+using In2InGlobalBL;
+using In2InGlobalBusinessEL;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -15,7 +18,6 @@ namespace In2InGlobal.presentation.admin
 {
     public partial class TemplateManagement : System.Web.UI.Page
     {
-       
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -25,23 +27,20 @@ namespace In2InGlobal.presentation.admin
                     string usrRole = Session["UserRole"].ToString();
                     if (usrRole == "Admin")
                     {
-
                         //BindProjects();
                         //BindUsers();
-                        BindTemplate();
+                        //BindTemplate();
                         BindMasterTemplate();
                         BindMasterTemplateGrid();
                         //BindTemplateToAssign();                                             
                         //txtcreatedBy = Session["UserEmail"].ToString();
-                        txtcreatedB.InnerText = Session["UserEmail"].ToString();                        
+                        txtcreatedB.InnerText = Session["UserEmail"].ToString();
 
                         if (Session["servermessage"] != null && Session["servermessage"].ToString() != "")
                         {
                             string servermessge = Session["servermessage"].ToString();
                             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowCreateTemplate();ShowUploadMasterTemplate();ShowServerMessage('{0}'); ", servermessge), true);
-
                         }
-
                     }
                     else
                     {
@@ -52,33 +51,50 @@ namespace In2InGlobal.presentation.admin
                 {
                     Response.Redirect("Login.aspx");
                 }
-
-
             }
-
         }
 
-      
+        /// <summary>
+        /// Bind Master Template Grid
+        /// </summary>
         private void BindMasterTemplateGrid()
         {
-
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString(Server.MapPath("json-data/MasterTemplate.json"));
-            grdMasterTemplate.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
-            grdMasterTemplate.DataBind();
+            DataSet dsloadTemplare = new DataSet();
+            TemplateMasterBl templateMasterBL = new TemplateMasterBl();
+            try
+            {
+                dsloadTemplare = templateMasterBL.PopulateTemplateGrid();
+                grdMasterTemplate.DataSource = dsloadTemplare;
+                grdMasterTemplate.DataBind();
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
         }
+
+        /// <summary>
+        /// BindTemplate
+        /// </summary>
         private void BindTemplate()
         {
+            DataSet dsloadTemplare = new DataSet();
+            TemplateMasterBl templateMasterBL = new TemplateMasterBl();
+            try
+            {
+                dsloadTemplare = templateMasterBL.PopulateTemplateGrid();
+                grdTemplate.DataSource = dsloadTemplare;
+                grdTemplate.DataBind();
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
+        }
 
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString(Server.MapPath("json-data/Template.json"));
-            grdTemplate.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
-            grdTemplate.DataBind();
-        }        
-        /* Used to load the template name extracting from provided files a folder
-           This will lod the template name on create template screen*/
+        /// <summary>
+        /// populate template name on create template screen
+        /// </summary>
         private void BindMasterTemplate()
         {
             DataTable dtTemplate = new DataTable();
@@ -95,7 +111,7 @@ namespace In2InGlobal.presentation.admin
 
                 dtTemplate.Rows.Add(newRow);
             }
-            
+
             foreach (DataRow dr in dtMasterTemplate.Rows)
             {
                 if (dtTemplate.Select("TemplateName='" + dr["TemplateName"] + "'").Length > 0)
@@ -109,49 +125,99 @@ namespace In2InGlobal.presentation.admin
             ddlMasterTemplate.DataBind();
 
         }
+
+        /// <summary>
+        /// Bind Template To Assign
+        /// </summary>
         private void BindTemplateToAssign()
         {
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string jsonMasterTemplate = (new WebClient()).DownloadString(Server.MapPath("json-data/MasterTemplate.json"));
-            DataTable dtMasterTemplate = JsonConvert.DeserializeObject<DataTable>(jsonMasterTemplate);
-           
-            ddlTemplates.DataSource = dtMasterTemplate;
-            ddlTemplates.DataBind();
+            int projectId = Convert.ToInt32(ddlProjects.SelectedValue);
+            int userId = Convert.ToInt32(ddlUserEmail.SelectedValue);
+            DataSet dsUserDetails = new DataSet();
+            AssignedTemplateBL projectBL = new AssignedTemplateBL();
+            try
+            {
+                dsUserDetails = projectBL.PopulateTemplateNameForAssignedProjectAndUser(projectId, userId);
+                ddlTemplates.DataSource = dsUserDetails;
+                ddlTemplates.DataTextField = "user_name";
+                ddlTemplates.DataValueField = "user_id";
+                ddlTemplates.DataBind();
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
         }
+
+        /// <summary>
+        /// Bind Projects
+        /// </summary>
         private void BindProjects()
         {
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Projects.json");
-            ddlProjects.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
-            ddlProjects.DataBind();
+            DataSet dsUserDetails = new DataSet();
+            AssignedTemplateBL projectBL = new AssignedTemplateBL();
+            try
+            {
+
+                dsUserDetails = projectBL.PopulateProjectNameForTemplate();
+                ddlProjects.DataSource = dsUserDetails;
+                ddlProjects.DataTextField = "project_name";
+                ddlProjects.DataValueField = "project_id";
+                ddlProjects.DataBind();
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
         }
+
+        /// <summary>
+        /// Bind Users
+        /// </summary>
         private void BindUsers()
         {
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Users.json");
-            ddlUserEmail.Items.Clear();
-            ddlUserEmail.Items.Add("--Select an Email");
-            ddlUserEmail.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
-            ddlUserEmail.DataBind();
+            int projectId = Convert.ToInt32(ddlProjects.SelectedValue);
+            DataSet dsUserDetails = new DataSet();
+            AssignedTemplateBL projectBL = new AssignedTemplateBL();
+            try
+            {
+
+                dsUserDetails = projectBL.PopulateAllUserEmailForAssignedProject(projectId);
+                ddlUserEmail.DataSource = dsUserDetails;
+                ddlUserEmail.DataTextField = "user_name";
+                ddlUserEmail.DataValueField = "user_id";
+                ddlUserEmail.DataBind();
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
         }
+
+        /// <summary>
+        /// grdTemplate_PageIndexChanging
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void grdTemplate_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             BindTemplate();
             grdTemplate.PageIndex = e.NewPageIndex;
             grdTemplate.DataBind();
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), "ShowAssignTemplate();", true);
-
         }
 
+        /// <summary>
+        /// grdTemplate RowDeleting
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void grdTemplate_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             string ID = grdTemplate.DataKeys[e.RowIndex].Value.ToString();
             DeleteTemplate(ID);
             BindTemplate();
-            
+
             ddlTemplates.Items.Clear();
             ddlTemplates.Items.Add(new ListItem("--Select a Template--"));
             BindTemplateToAssign();
@@ -159,6 +225,11 @@ namespace In2InGlobal.presentation.admin
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowAssignTemplate();", _message), true);
         }
 
+        /// <summary>
+        /// grdMasterTemplate PageIndexChanging
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void grdMasterTemplate_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             BindMasterTemplateGrid();
@@ -169,6 +240,11 @@ namespace In2InGlobal.presentation.admin
 
         }
 
+        /// <summary>
+        /// grdMasterTemplate RowDeleting
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void grdMasterTemplate_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             string ID = grdMasterTemplate.DataKeys[e.RowIndex].Value.ToString();
@@ -178,7 +254,11 @@ namespace In2InGlobal.presentation.admin
             string _message = "Template removed successfully.";
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", _message), true);
         }
-       
+
+        /// <summary>
+        /// Delete Master Template
+        /// </summary>
+        /// <param name="iD"></param>
         private void DeleteMasterTemplate(string iD)
         {
             ServicePointManager.Expect100Continue = true;
@@ -194,6 +274,10 @@ namespace In2InGlobal.presentation.admin
             }
         }
 
+        /// <summary>
+        /// Delete Template
+        /// </summary>
+        /// <param name="iD"></param>
         private void DeleteTemplate(string iD)
         {
             ServicePointManager.Expect100Continue = true;
@@ -209,9 +293,13 @@ namespace In2InGlobal.presentation.admin
             }
         }
 
+        /// <summary>
+        /// btnSave Click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             string json = (new WebClient()).DownloadString(Server.MapPath("json-data/Template.json"));
@@ -243,49 +331,45 @@ namespace In2InGlobal.presentation.admin
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowAssignTemplate();", _message), true);
 
         }
+
+
+        /// <summary>
+        /// btnCreate Click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString(Server.MapPath("json-data/MasterTemplate.json"));
-            DataTable masterTemplateTable = JsonConvert.DeserializeObject<DataTable>(json);
-            if (hdnMTName.Value == "")
+            TemplateMasterEntity tempalteEntity = new TemplateMasterEntity();
+            string createdBy = Session["UserEmail"].ToString();
+            string templateName = ddlMasterTemplate.Text;
+            string instruction = txtInstruction.Value;
+            try
             {
-                if (masterTemplateTable.Rows.Count == 0)
-                {
-                    masterTemplateTable.Columns.Add("ID");
-                    masterTemplateTable.Columns.Add("TemplateName");
-                    masterTemplateTable.Columns.Add("CreatedBy");
-                    masterTemplateTable.Columns.Add("Instruction");
-                }
-                int _templateID = masterTemplateTable.Rows.Count + 1;
-                string createdBy = Session["UserEmail"].ToString();
-                string templateName = ddlMasterTemplate.Text;
-                string instruction = txtInstruction.Value;
+                tempalteEntity.TemplateName = templateName;
+                tempalteEntity.Instruction = instruction;
+                tempalteEntity.CreatedBy = createdBy;
 
-                DataRow dr = masterTemplateTable.Rows.Add(_templateID, templateName, createdBy, instruction);
-                masterTemplateTable.AcceptChanges();
-                dr.SetModified();
-                string output = Newtonsoft.Json.JsonConvert.SerializeObject(masterTemplateTable, Newtonsoft.Json.Formatting.Indented);
-                File.WriteAllText(Server.MapPath("json-data/MasterTemplate.json"), output);
+                TemplateMasterBl templateMasterBl = new TemplateMasterBl();
+                templateMasterBl.SaveTemplateMaster(tempalteEntity);
+                BindMasterTemplateGrid();
             }
-            else
+            catch (Exception ex)
             {
-                DataRow masterTemplateRow = masterTemplateTable.Select("TemplateName='" + hdnMTName.Value + "'")[0];
-                masterTemplateRow["Instruction"] = txtInstruction.Value;                
-                masterTemplateTable.AcceptChanges();
-                string output = Newtonsoft.Json.JsonConvert.SerializeObject(masterTemplateTable, Newtonsoft.Json.Formatting.Indented);
-                File.WriteAllText(Server.MapPath("json-data/MasterTemplate.json"), output);
+                ex.ToString();
             }
-            BindMasterTemplateGrid();
-            BindMasterTemplate();
-            BindTemplateToAssign();
-            string _message = "Template Updated Successfully.)";
+
+            //BindMasterTemplate();
+            //BindTemplateToAssign();
+            string _message = "Template Created Successfully.)";
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate(); ", _message), true);
         }
 
-       
+        /// <summary>
+        /// btnUploader Click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnUploader_Click(object sender, EventArgs e)
         {
             string fileName = "";
@@ -310,18 +394,18 @@ namespace In2InGlobal.presentation.admin
                         string pathToCheck = filePath + fileName;
                         //if (!System.IO.File.Exists(pathToCheck))
                         //{
-                            using (StreamReader uploadedFS = new StreamReader(templateFileUpload.PostedFile.InputStream))
-                            {
-                                TextReader uploaderFileTextReader = new StreamReader(uploadedFS.BaseStream);
+                        using (StreamReader uploadedFS = new StreamReader(templateFileUpload.PostedFile.InputStream))
+                        {
+                            TextReader uploaderFileTextReader = new StreamReader(uploadedFS.BaseStream);
 
-                                if (CheckUploadedFileHaveOnlyHeader(uploaderFileTextReader))
-                                {
-                                    
-                                    templateFileUpload.SaveAs(System.IO.Path.Combine(filePath, fileName));
-                                    Session["servermessge"] = "File uploaded Successfully.";
-                                    
-                                }                               
+                            if (CheckUploadedFileHaveOnlyHeader(uploaderFileTextReader))
+                            {
+
+                                templateFileUpload.SaveAs(System.IO.Path.Combine(filePath, fileName));
+                                Session["servermessge"] = "File uploaded Successfully.";
+
                             }
+                        }
 
                         //}
                     }
@@ -341,6 +425,11 @@ namespace In2InGlobal.presentation.admin
             else { Response.Redirect("Login.aspx"); }
         }
 
+        /// <summary>
+        /// Check Uploaded File Have Only Header
+        /// </summary>
+        /// <param name="trold"></param>
+        /// <returns></returns>
         private bool CheckUploadedFileHaveOnlyHeader(TextReader trold)
         {
             bool _result = true;
@@ -355,7 +444,11 @@ namespace In2InGlobal.presentation.admin
             return _result;
         }
 
-
+        /// <summary>
+        /// hdnFake_Click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void hdnFake_Click(object sender, EventArgs e)
         {
             if (Session["servermessage"] != null)
@@ -367,16 +460,18 @@ namespace In2InGlobal.presentation.admin
             Session["servermessage"] = null;
             hdnFake.Text = "";
         }
-      
 
+        /// <summary>
+        /// grdMasterTemplate RowDataBound
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void grdMasterTemplate_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-           
-            
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 string item = e.Row.Cells[0].Text;
-                
+
                 string ID = grdMasterTemplate.DataKeys[e.Row.RowIndex].Value.ToString();
                 string instuction = e.Row.Cells[2].Text.Replace("\n", "\\#");
                 foreach (LinkButton button in e.Row.Cells[3].Controls.OfType<LinkButton>())
@@ -385,15 +480,20 @@ namespace In2InGlobal.presentation.admin
                     {
                         button.Attributes["onclick"] = "if(!confirm('Do you want to delete " + item + "?')){ return false; };";
                     }
-                    if(button.CommandName == "Edit")
+                    if (button.CommandName == "Edit")
                     {
-                        button.Attributes["onclick"] = "PullDataToEdit('" + ID+"','"+ item + "','"+ instuction + "');";
+                        button.Attributes["onclick"] = "PullDataToEdit('" + ID + "','" + item + "','" + instuction + "');";
                         button.Attributes["href"] = "#";
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// grd Template RowDataBound
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void grdTemplate_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -409,6 +509,11 @@ namespace In2InGlobal.presentation.admin
             }
         }
 
+        /// <summary>
+        /// ddlProjects_SelectedIndexChanged
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void ddlProjects_SelectedIndexChanged(object sender, EventArgs e)
         {
             ServicePointManager.Expect100Continue = true;
@@ -425,5 +530,5 @@ namespace In2InGlobal.presentation.admin
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), "ShowAssignTemplate();", true);
         }
     }
-    
+
 }

@@ -43,7 +43,9 @@
                               <div  style="background-color:#037f7f;width:80%;border-radius:3px;border:solid 1px #037f7f;">Email ID</div></td>
                           <td style="width:50%;">
                               <div>
-                                  <input type="email" class="form-control validate" onclick="javascript: this.value = 'nabinpadhi@gmail.com';" autocomplete="off" name="email" id="email" data-validate-msg="Email ID field is required" placeholder="Enter Your Email Id" />
+                                  <asp:TextBox Text="" ID="txtEmailId" AutoPostBack="true"  class="form-control validate" autocomplete="off" name="email" 
+                                      data-validate-msg="Email ID field is required" OnTextChanged="txtEmailId_TextChanged" 
+                                      runat="server" ></asp:TextBox>
                               </div>
                           </td>
                       </tr>
@@ -53,7 +55,7 @@
                           </td>
                           <td>
                               <div>
-                                  <input type="text" class="form-control" readonly="readonly" autocomplete="off" name="companyname" id="companyname" />
+                                  <asp:TextBox Text="" ID="companyname" AutoPostBack="true"   class="form-control"  runat="server"  autocomplete="off" name="companyname"> </asp:TextBox>
                               </div>
                           </td>
                       </tr>
@@ -142,9 +144,9 @@
 <link rel="stylesheet" type="text/css" href="css/toastr.min.css">
 <script src="js/toastr.min.js"></script>
 <script type="text/javascript">
-    var BASE_URL = 'login.aspx'; 
+    var BASE_URL = 'login.aspx';
     $(document).ready(function () {
-        
+
         $("#email").change(function () {
             $('.loginButton').prop('disabled', false);
             var usercompanynameandrole = FillCompany($("#email").val());
@@ -191,12 +193,12 @@
     }
 
     function Login() {
-       
+
         var return_status = function () {
             var tmp = null;
-            var email = $('#email').val();
+            var email = $('#txtEmailId').val();
             var password = $('#password').val();
-            var dataValue = "{ emailid:'" + email + "',password:'" + password+"'}";
+            var dataValue = "{ emailid:'" + email + "',password:'" + password + "'}";
             $.ajax({
                 'async': false,
                 'type': "POST",
@@ -217,7 +219,7 @@
             });
             return tmp;
         }();
-       
+
         if (return_status == "Success") {
 
             $('.loginButton').html('Logged In');
@@ -230,9 +232,12 @@
             $('.loginButton').html('Login');
             toastr.error(return_status, 'Error', { timeOut: 2000, closeButton: true, progressBar: true });
         }
-        
+
     }
-    
+    function Demo() {
+        $('#email').val('nabinpadhi@gmail.com');
+    }
+
 
 </script>
 <script src="<%= String.Format("{0}dt={1}",ResolveUrl("js/login.js?"), DateTime.Now.Ticks) %>"></script>

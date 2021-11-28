@@ -11,6 +11,7 @@ using System.Net.Mime;
 using System.Drawing;
 using System.Security.Cryptography;
 using System.Text;
+using In2InGlobal.businesslogic;
 
 namespace In2InGlobal.presentation.admin
 {
@@ -20,53 +21,31 @@ namespace In2InGlobal.presentation.admin
         {
             if (!IsPostBack)
             {
-                BindActivity();                
-
+                BindActivity(Request.Form["email"]);
             }
             else
             {
-                if (hdnPageAction.Value=="Login")
+                if (hdnPageAction.Value == "Login")
                 {
+                    Session["email"] = Request.Form["email"];
+
                     string emailid = Request.Form["email"];
                     string pwd = Request.Form["password"];
                     string companyname = Request.Form["companyname"];
                     string activity = ddlActivity.SelectedValue.ToString();
                 }
             }
-            
-        }
-        private void BindActivity()
-        {
-
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Activity.json");
-            ddlActivity.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
-            ddlActivity.DataValueField = "ActivityName";
-            ddlActivity.DataBind();
-        }
-        [WebMethod]
-        public static string GetUserDetails(string emailid)
-        {
-            string companyNameandrole = "";
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Users.json");
-            DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
-            if (usrTable.Select("Email ='" + emailid + "'").Length > 0)
-            {
-                DataRow dr = usrTable.Select("Email ='" + emailid + "'")[0];
-                companyNameandrole = dr["Company"].ToString()+","+dr["Role"].ToString();                
-            }
-            else
-            {
-                companyNameandrole = "";                
-            }
-            return companyNameandrole;
 
         }
-        
-       [WebMethod(EnableSession = true)]
+
+
+
+        /// <summary>
+        /// Send Password
+        /// </summary>
+        /// <param name="emailid"></param>
+        /// <returns></returns>
+        [WebMethod(EnableSession = true)]
         public static string SendPassword(string emailid)
         {
             string result = "";
@@ -80,12 +59,12 @@ namespace In2InGlobal.presentation.admin
                 string password = userRows[0]["Password"].ToString();
                 password = new EncryptField().Decrypt(password);
                 string userName = userRows[0]["FirstName"].ToString();
-                string bodyText = GetForgotPasswordHTMLBody(userName,emailid);// "Dear " + userName + ",<br><p>As requested here we are sending your password to login In2In Global App.</p><br><b>Password :</b><i>" + password + "</i>";
+                string bodyText = GetForgotPasswordHTMLBody(userName, emailid);// "Dear " + userName + ",<br><p>As requested here we are sending your password to login In2In Global App.</p><br><b>Password :</b><i>" + password + "</i>";
                 try
                 {
                     MailMessage message = new MailMessage("in2inglobalapp@gmail.com", emailid, "In2In Global Login Credential", bodyText);
                     message.IsBodyHtml = true;
-                     SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+                    SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
                     client.EnableSsl = true;
                     client.DeliveryMethod = SmtpDeliveryMethod.Network;
                     client.UseDefaultCredentials = false;
@@ -100,16 +79,22 @@ namespace In2InGlobal.presentation.admin
             }
             else
             {
-                result = "Provided email not found.";               
+                result = "Provided email not found.";
             }
             return result;
 
         }
 
-        private static string GetForgotPasswordHTMLBody(string userName,string emailid)
+        /// <summary>
+        /// Get Forgot Password HTMLBody
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="emailid"></param>
+        /// <returns></returns>
+        private static string GetForgotPasswordHTMLBody(string userName, string emailid)
         {
-           
-            string htmlBody="";
+
+            string htmlBody = "";
 
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
@@ -120,50 +105,101 @@ namespace In2InGlobal.presentation.admin
             htmlBody = htmlBody.Replace("${customer-service-email}", "in2inglobalapp@gmail.com");
             htmlBody = htmlBody.Replace("${site-toll-free-number}", "1200-987654");
             htmlBody = htmlBody.Replace("${site-logo}", "cid:MyImage");
-            htmlBody = htmlBody.Replace("${reset-password-url}",GetResetURL(emailid));
+            htmlBody = htmlBody.Replace("${reset-password-url}", GetResetURL(emailid));
             return htmlBody;
         }
 
+        /// <summary>
+        /// Get Reset Url
+        /// </summary>
+        /// <param name="emailid"></param>
+        /// <returns></returns>
         private static string GetResetURL(string emailid)
-        {            
+        {
             string result = "http://localhost:26677/ResetPassword.aspx?fw=" + StringUtil.Crypt(emailid);
             return result;
         }
-       
 
+        /// <summary>
+        /// Do Login
+        /// </summary>
+        /// <param name="emailid"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         [WebMethod(EnableSession = true)]
-        public static string DoLogin(string emailid,string password)
+        public static string DoLogin(string emailid, string password)
         {
             string result = "";
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Users.json");
-            DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
+            LoginBl userMasterBL = new LoginBl();
+            DataSet dsUser = new DataSet();
+            dsUser = userMasterBL.getMyLogin(emailid);
+
+            DataTable usrTable = dsUser.Tables[0];
+
             password = new EncryptField().Encrypt(password);
-            if (usrTable.Select("Email ='" + emailid + "' and Password = '"+password+"'").Length > 0)
+            if (dsUser.Tables[0].Rows.Count > 0)//(usrTable.Select("user_email ='" + emailid + "' and password = '" + password + "'").Length > 0)
             {
-                DataRow userRow = usrTable.Select("Email ='" + emailid + "' and Password = '" + password + "'")[0];
-                result = "Success";
-                HttpContext.Current.Session["UserRole"] = userRow["Role"].ToString();
-                HttpContext.Current.Session["UserEmail"] = userRow["Email"].ToString();
-                HttpContext.Current.Session["UserRow"] = userRow;
+                if (dsUser.Tables[0].Rows[0]["user_email"].ToString() == emailid)
+                {
+                    DataRow userRow = dsUser.Tables[0].Rows[0];
+                    result = "Success";
+                    HttpContext.Current.Session["UserRole"] = dsUser.Tables[0].Rows[0]["role_name"].ToString();
+                    HttpContext.Current.Session["UserEmail"] = dsUser.Tables[0].Rows[0]["user_email"].ToString();
+                    HttpContext.Current.Session["dsUser"] = dsUser;
+                }
+                else
+                {
+                    result = "Invalid email / password";
+                    HttpContext.Current.Session["UserRole"] = null;
+                    HttpContext.Current.Session["UserRow"] = null;
+                    HttpContext.Current.Session["UserEmail"] = null;
 
-                string projson = (new WebClient()).DownloadString(HttpContext.Current.Server.MapPath("json-data/Projects.json"));
-                DataTable proTable = JsonConvert.DeserializeObject<DataTable>(projson);
-                DataRow[] UserProjects = proTable.Select("CreatedBy ='" + userRow["Email"].ToString() + "'");
-                HttpContext.Current.Session["ProjectTable"] = UserProjects;
-
-            }
-            else
-            {
-                result = "Invalid email / password";
-                HttpContext.Current.Session["UserRole"] = null;
-                HttpContext.Current.Session["UserRow"] = null;
-                HttpContext.Current.Session["UserEmail"] = null;
+                }
             }
             return result;
+        }
 
-        }        
+        /// <summary>
+        /// txtEmailId TextChanged
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void txtEmailId_TextChanged(object sender, EventArgs e)
+        {
+            var email = txtEmailId.Text;
+            BindActivity(email);
+        }
 
+
+        /// <summary>
+        /// Bind Activity
+        /// </summary>
+        /// <param name="useremail"></param>
+        private void BindActivity(string useremail)
+        {
+            //  string result = "";
+            if (useremail != null)
+            {
+                LoginBl userMasterBL = new LoginBl();
+                DataSet dsUser = new DataSet();
+                dsUser = userMasterBL.getMyLogin(useremail);
+                if (dsUser.Tables[0].Rows.Count > 0)
+                {
+                    companyname.Text = dsUser.Tables[0].Rows[0]["company_name"].ToString();
+                    ddlActivity.DataSource = dsUser;
+                    ddlActivity.DataTextField = "activity_name";
+                    ddlActivity.DataBind();
+                    ddlActivity.Enabled = false;
+                    companyname.Enabled = false;
+                }
+                else
+                {
+                    // var  result = "Invalid email / password";
+                    HttpContext.Current.Session["UserRole"] = null;
+                    HttpContext.Current.Session["UserRow"] = null;
+                    HttpContext.Current.Session["UserEmail"] = null;
+                }
+            }
+        }
     }
 }

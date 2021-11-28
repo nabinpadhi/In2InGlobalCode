@@ -1,11 +1,5 @@
 [
   {
-    "ID": "1",
-    "TemplateName": "Spend_Analytics",
-    "CreatedBy": "nabinpadhi@gmail.com",
-    "Instruction": "This is a Master Template\n Update this template and upload the same using file Management."
-  },
-  {
     "ID": "3",
     "TemplateName": "Purchasing",
     "CreatedBy": "nabinpadhi@gmail.com",

@@ -16,7 +16,7 @@ using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 /*
 * Description : In2InGlobalDataAccessHelper is user defined custom class - access point for database operations.
 * Author : .
-* Copyright : Copyright ©2014 . All rights reserved
+* Copyright : Copyright ©2021 . All rights reserved
 */
 namespace InGlobal.DataAccess
 {

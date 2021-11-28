@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using In2InGlobal.businesslogic;
+using In2InGlobalBusinessEL;
+using Newtonsoft.Json;
 using System;
 using System.Data;
 using System.IO;
@@ -27,15 +29,23 @@ namespace In2InGlobal.presentation.admin
                     BindCompany();
                 }
             }
-            
+
         }
         private void BindCompany()
         {
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString(Server.MapPath("json-data/Companies.json"));
-            grdCompany.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
-            grdCompany.DataBind();
+            DataSet dsCompanyDetails = new DataSet();
+            CompanyMasterBL objCompanyBL = new CompanyMasterBL();
+
+            try
+            {
+                dsCompanyDetails = objCompanyBL.getCompanyDetails();
+                grdCompany.DataSource = dsCompanyDetails;
+                grdCompany.DataBind();
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
         }
 
         protected void grdCompany_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -43,15 +53,14 @@ namespace In2InGlobal.presentation.admin
             GridViewRowEventArgs ea = e as GridViewRowEventArgs;
             if (ea.Row.RowType == DataControlRowType.DataRow)
             {
-                
                 DataRowView drv = ea.Row.DataItem as DataRowView;
-                Object ob = drv["PhoneNo"];
+                Object ob = drv["company_phone"];
                 if (!Convert.IsDBNull(ob))
-                {                    
+                {
                     TableCell cell2 = ea.Row.Cells[3];
                     if (cell2.Text.Length > 1)
                     {
-                        cell2.Text = "<img src='assets/img/mobile.png' style='width:25px;height:20px;'></span>" + " " + cell2.Text; 
+                        cell2.Text = "<img src='assets/img/mobile.png' style='width:25px;height:20px;'></span>" + " " + cell2.Text;
                     }
                 }
             }
@@ -60,83 +69,62 @@ namespace In2InGlobal.presentation.admin
 
         protected void grdCompany_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-                BindCompany();
-                grdCompany.PageIndex = e.NewPageIndex;
-                grdCompany.DataBind();
-            
+            BindCompany();
+            grdCompany.PageIndex = e.NewPageIndex;
+            grdCompany.DataBind();
+
 
         }
         [WebMethod(EnableSession = true)]
-        public static string AddNewCompany(string companyname,string lob,string phoneno)
+        public static string AddNewCompany(string companyname, string lob, string phoneno)
         {
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Companies.json");
-            DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
-            if (usrTable.Rows.Count == 0)
+            CompanyEntity companyEntity = new CompanyEntity();
+            try
             {
-                DataColumn dcCompanyID = new DataColumn("CompanyID");
-                DataColumn dcCompanyName = new DataColumn("CompanyName");
-                DataColumn dcLob = new DataColumn("LOB");
-                DataColumn dcPhoneNo = new DataColumn("PhoneNo");
-                usrTable.Rows.Add(dcCompanyID);
-                usrTable.Rows.Add(dcCompanyName);
-                usrTable.Rows.Add(dcLob);
-                usrTable.Rows.Add(dcPhoneNo);
-                usrTable.AcceptChanges();
+                companyEntity.CompanyName = companyname;
+                companyEntity.LOB = lob;
+                companyEntity.CompanyPhone = phoneno;
+                companyEntity.CreatedBy = "Admin";
+                companyEntity.CompanyAddress = "Bangalore";
+                CompanyMasterBL companyMasterBl = new CompanyMasterBL();
+                companyMasterBl.SaveCompanyMaster(companyEntity);
             }
-            int _newNumber = usrTable.Rows.Count + 1;
-            string _companyID = "COM-";
-            if (_newNumber > 9 && _newNumber < 99)
+            catch (Exception ex)
             {
-                _companyID = _companyID + "0" + _newNumber.ToString();
-            }
-            else
-            {
-                _companyID = _companyID + _newNumber.ToString();
-            }
-
-            DataRow dr = usrTable.Rows.Add(_companyID, companyname, lob, phoneno);
-            usrTable.AcceptChanges();
-            dr.SetModified();
-            string output = Newtonsoft.Json.JsonConvert.SerializeObject(usrTable, Newtonsoft.Json.Formatting.Indented);
-            File.WriteAllText(HttpContext.Current.Server.MapPath("json-data/Companies.json"), output);
-            //BindCompany();
+                ex.Message.ToString();
+            }       
             return "Success";
-            
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Companies.json");
-            DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
-
-            int _newNumber = usrTable.Rows.Count + 1;
-            string _companyID = "COM-";
-            if (_newNumber > 9 && _newNumber < 99)
+            CompanyEntity companyEntity = new CompanyEntity();
+            try
             {
-                _companyID = _companyID + "0" + _newNumber.ToString();
-            }
-            else
-            {
-                _companyID = _companyID + _newNumber.ToString();
-            }
+                companyEntity.CompanyName = txtCompanyName.Value;
+                companyEntity.LOB = txtLOB.Value;
+                companyEntity.CompanyPhone = txtPhoneNo.Value;
+                companyEntity.CreatedBy = "Admin";
+                companyEntity.CompanyAddress = "Bangalore";
 
-            DataRow dr = usrTable.Rows.Add(_companyID, txtCompanyName.Value, txtLOB.Value, txtPhoneNo.Value);
-            usrTable.AcceptChanges();
-            dr.SetModified();
-            string output = Newtonsoft.Json.JsonConvert.SerializeObject(usrTable, Newtonsoft.Json.Formatting.Indented);
-            File.WriteAllText(Server.MapPath("json-data/Companies.json"), output);
-            BindCompany();
-            string _message = "Company Created successfully.";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');", _message), true);
+                CompanyMasterBL companyMasterBl = new CompanyMasterBL();
+
+                companyMasterBl.SaveCompanyMaster(companyEntity);
+                BindCompany();
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }         
+          
+            string _message = "Company Created Successfully";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);
+
         }
 
         protected void grdCompany_RowEditing(object sender, GridViewEditEventArgs e)
         {
-            grdCompany.EditIndex = e.NewEditIndex;           
+            grdCompany.EditIndex = e.NewEditIndex;
             BindCompany();
         }
 
@@ -149,17 +137,21 @@ namespace In2InGlobal.presentation.admin
 
         private void DeleteCompany(string companyID)
         {
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Companies.json");
-            DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
-            if (usrTable.Select("CompanyID ='" + companyID + "'").Length > 0)
+            CompanyEntity companyEntity = new CompanyEntity();
+            
+            if (companyID != null)
             {
-                usrTable.Select("CompanyID ='" + companyID + "'")[0].Delete();
-                usrTable.AcceptChanges();
-                string output = Newtonsoft.Json.JsonConvert.SerializeObject(usrTable, Newtonsoft.Json.Formatting.Indented);
-                File.WriteAllText(Server.MapPath("json-data/Companies.json"), output);
-            }
+                try
+                {
+                    companyEntity.CompanyId = Convert.ToInt32(companyID);
+                    CompanyMasterBL companyMasterBl = new CompanyMasterBL();
+                    companyMasterBl.DeleteCompany(companyEntity);
+                }
+                catch(Exception ex)
+                {
+                    ex.Message.ToString();
+                }
+            }            
         }
 
         protected void grdCompany_RowUpdating(object sender, GridViewUpdateEventArgs e)
@@ -167,9 +159,9 @@ namespace In2InGlobal.presentation.admin
             string companyID = grdCompany.DataKeys[e.RowIndex].Value.ToString();
             GridViewRow row = (GridViewRow)grdCompany.Rows[e.RowIndex];
             TextBox textCompanyName = (TextBox)row.Cells[1].Controls[0];
-            TextBox textEmail = (TextBox)row.Cells[2].Controls[0];
+            TextBox textLOB = (TextBox)row.Cells[2].Controls[0];  
             TextBox textPhoneNo = (TextBox)row.Cells[3].Controls[0];
-            UpdateCompany(textCompanyName.Text, textEmail.Text, textPhoneNo.Text, companyID);
+            UpdateCompany(textCompanyName.Text, textLOB.Text, textPhoneNo.Text, companyID);
             grdCompany.EditIndex = -1;
 
             BindCompany();
@@ -177,19 +169,17 @@ namespace In2InGlobal.presentation.admin
 
         protected void UpdateCompany(string companyname, string email, string phoneno, string companyID)
         {
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Companies.json");
-            DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
-            DataRow dr = usrTable.Select("CompanyID ='" + companyID + "'")[0];           
-            dr[1] = companyname;
-            dr[2] = email;
-            dr[3] = phoneno;
-            usrTable.AcceptChanges();
-            dr.SetModified();
-            string output = Newtonsoft.Json.JsonConvert.SerializeObject(usrTable, Newtonsoft.Json.Formatting.Indented);
-            File.WriteAllText(Server.MapPath("json-data/Companies.json"), output);
+            CompanyEntity companyEntity = new CompanyEntity();
+            if(companyID!=null)
+            {
+                companyEntity.CompanyName = companyname;
+                companyEntity.LOB = email;
+                companyEntity.CompanyPhone = phoneno;
+                companyEntity.CompanyId = Convert.ToInt32(companyID);
 
+                CompanyMasterBL companyMasterBl = new CompanyMasterBL();
+                companyMasterBl.UpdateCompany(companyEntity);
+            }           
         }
 
         protected void grdCompany_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)

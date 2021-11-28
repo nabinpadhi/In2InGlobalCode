@@ -68,13 +68,13 @@
                                         <div style="width: 60%; height: 90%; border: 1px solid black; border-radius: 5px; margin-top: 30px; margin-bottom: 20px;">                                           
                                              <asp:GridView ID="grdCompany" Width="100%" runat="server" OnRowEditing="grdCompany_RowEditing" OnRowDeleting="grdCompany_RowDeleting"
                                                 OnPageIndexChanging="grdCompany_PageIndexChanging" HeaderStyle-CssClass="pagination-ys" AllowPaging="True"
-                                                DataKeyNames="CompanyID" PageSize="4" OnRowUpdating="grdCompany_RowUpdating"
+                                                DataKeyNames="company_id" PageSize="4" OnRowUpdating="grdCompany_RowUpdating"
                                                 OnRowCancelingEdit="grdCompany_RowCancelingEdit" OnRowDataBound="grdCompany_RowDataBound" AutoGenerateColumns="false">
                                                 <Columns>
-                                                    <asp:BoundField DataField="CompanyID" ControlStyle-Width="94%" HeaderText="CompanyID" Visible="false" />
-                                                    <asp:BoundField DataField="CompanyName" ControlStyle-Width="94%" HeaderText="Company Name" />
-                                                    <asp:BoundField DataField="LOB" ControlStyle-Width="94%" HeaderText="LOB" />
-                                                    <asp:BoundField DataField="PhoneNo" ControlStyle-Width="94%" HeaderText="Phone No" />
+                                                    <asp:BoundField DataField="company_id" ControlStyle-Width="94%" HeaderText="CompanyID" Visible="false" />
+                                                    <asp:BoundField DataField="company_name" ControlStyle-Width="94%" HeaderText="Company Name" />
+                                                    <asp:BoundField DataField="lob" ControlStyle-Width="94%" HeaderText="LOB" />
+                                                    <asp:BoundField DataField="company_phone" ControlStyle-Width="94%" HeaderText="Phone No" />
                                                     <asp:CommandField ShowEditButton="true" />
                                                     <asp:CommandField ShowDeleteButton="true" />
                                                 </Columns>

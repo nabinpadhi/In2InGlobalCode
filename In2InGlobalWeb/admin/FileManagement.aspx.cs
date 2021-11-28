@@ -126,7 +126,7 @@ namespace In2InGlobal.presentation.admin
 
             DataTable tblUploadedFiles = JsonConvert.DeserializeObject<DataTable>(json);
             DataRow _usrRow = (DataRow)Session["UserRow"];
-            string userName = _usrRow["FirstName"] + " " + _usrRow["LastName"];
+           string userName="s";// = _usrRow["FirstName"] + " " + _usrRow["LastName"];
             if (tblUploadedFiles.Rows.Count > 0)
             {
                 if (pid != "")

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31729.503
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "In2InGlobalweb", "In2InGlobalWeb\In2InGlobalweb.csproj", "{F552702E-3D60-4E1A-BC8E-B850193353C3}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "In2InGlobalDL", "In2InGlobalDL\In2InGlobalDL.csproj", "{5DB052F7-A668-42B8-A9CE-7364E8DB6B60}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "In2InGlobalDataAccess", "In2InGlobalDataAccess\In2InGlobalDataAccess.csproj", "{BCEDF5ED-7EB6-4A94-9986-1A123A2B70BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "In2InGlobalBusinessEL", "In2InGlobalBusinessEL\In2InGlobalBusinessEL.csproj", "{9331A455-AFC3-4D62-A4FE-847838B0F572}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{BCEDF5ED-7EB6-4A94-9986-1A123A2B70BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCEDF5ED-7EB6-4A94-9986-1A123A2B70BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCEDF5ED-7EB6-4A94-9986-1A123A2B70BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9331A455-AFC3-4D62-A4FE-847838B0F572}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9331A455-AFC3-4D62-A4FE-847838B0F572}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9331A455-AFC3-4D62-A4FE-847838B0F572}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9331A455-AFC3-4D62-A4FE-847838B0F572}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

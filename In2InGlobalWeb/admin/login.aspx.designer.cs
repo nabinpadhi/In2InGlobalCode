@@ -24,6 +24,24 @@ namespace In2InGlobal.presentation.admin
         protected global::System.Web.UI.HtmlControls.HtmlForm loginForm;
 
         /// <summary>
+        /// txtEmailId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEmailId;
+
+        /// <summary>
+        /// companyname control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox companyname;
+
+        /// <summary>
         /// ddlActivity control.
         /// </summary>
         /// <remarks>

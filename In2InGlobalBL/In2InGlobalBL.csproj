@@ -8,9 +8,9 @@
     <ProjectGuid>{263D275B-2E79-4EC3-A194-28AD9964E92F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>In2InGlobal.businesslogic</RootNamespace>
+    <RootNamespace>In2InGlobalBL</RootNamespace>
     <AssemblyName>In2InGlobalBL</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -35,6 +35,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="In2InGlobalBusinessEL">
+      <HintPath>..\In2InGlobalBusinessEL\bin\Debug\In2InGlobalBusinessEL.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,11 +46,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssignedTemplateBL.cs" />
+    <Compile Include="CompanyMasterBL.cs" />
+    <Compile Include="FileManagementBL.cs" />
+    <Compile Include="LoginBL.cs" />
     <Compile Include="MemberTaskBL.cs" />
+    <Compile Include="MyProfileBL.cs" />
+    <Compile Include="ProjectMasterBL.cs" />
     <Compile Include="TeamMemberBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TemplateMasterBl.cs" />
     <Compile Include="TPMProjectBL.cs" />
     <Compile Include="TPMUserBL.cs" />
+    <Compile Include="UploadTemplateBL.cs" />
+    <Compile Include="UserMasterBL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\In2InGlobalDL\In2InGlobalDL.csproj">
@@ -58,6 +70,9 @@
       <Project>{a294ec6b-9400-4c64-bba4-6ebad7aec7ef}</Project>
       <Name>In2InGlobalInterface</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

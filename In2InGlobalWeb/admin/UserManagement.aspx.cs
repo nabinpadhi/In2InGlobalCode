@@ -1,4 +1,6 @@
-﻿using InGlobal.presentation;
+﻿using In2InGlobal.businesslogic;
+using In2InGlobalBusinessEL;
+using InGlobal.presentation;
 using Newtonsoft.Json;
 using System;
 using System.Data;
@@ -10,8 +12,16 @@ using System.Web.UI.WebControls;
 
 namespace In2InGlobal.presentation.admin
 {
+    /// <summary>
+    /// User Management
+    /// </summary>
     public partial class UserManagement : System.Web.UI.Page
     {
+        /// <summary>
+        /// Page Load
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -26,57 +36,113 @@ namespace In2InGlobal.presentation.admin
                 {
                     BindUsers();
                     BindCompany();
-                    BindRoles();                  
+                    BindActivity();
+                    BindRoles();
                 }
             }
 
         }
-      
+
+        /// <summary>
+        /// Bind User grid
+        /// </summary>
         private void BindUsers()
         {
-
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/users.json");
-            grdUsers.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
+            UserMasterBL userMasterBL = new UserMasterBL();
+            DataSet dsUser = new DataSet();
+            dsUser = userMasterBL.FillUserGridInfo();
+            grdUsers.DataSource = dsUser;
             grdUsers.DataBind();
         }
+
+        /// <summary>
+        /// Bind Company
+        /// </summary>
         private void BindCompany()
         {
+            DataSet dsUserDetails = new DataSet();
+            UserMasterBL userMasterBL = new UserMasterBL();
+            try
+            {
 
-           
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Companies.json");
-            ddlCompanyName.DataSource = JsonConvert.DeserializeObject<DataTable>(json);            
-            ddlCompanyName.DataBind();
-            ddlCompanyName.SelectedIndex = 0;
-
+                dsUserDetails = userMasterBL.getCompanyNameForUser();
+                ddlCompanyName.DataSource = dsUserDetails;
+                ddlCompanyName.DataTextField = "company_name";
+                ddlCompanyName.DataValueField = "company_id";
+                ddlCompanyName.DataBind();
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
         }
+
+        /// <summary>
+        /// Bind Roles
+        /// </summary>
         private void BindRoles()
         {
-
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Roles.json");
-            ddlRoleName.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
-            ddlRoleName.DataValueField = "RoleName";
-            ddlRoleName.DataBind();           
+            DataSet dsUserDetails = new DataSet();
+            UserMasterBL userMasterBL = new UserMasterBL();
+            try
+            {
+                dsUserDetails = userMasterBL.getRoleNameForUser();
+                ddlRoleName.DataSource = dsUserDetails;
+                ddlRoleName.DataTextField = "role_name";
+                ddlRoleName.DataValueField = "role_id";
+                ddlRoleName.DataBind();
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
         }
-      
+
+        /// <summary>
+        /// grdUsers PageIndexChanging
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void grdUsers_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             BindUsers();
             grdUsers.PageIndex = e.NewPageIndex;
             grdUsers.DataBind();
         }
+        private void BindActivity()
+        {
+            DataSet dsUserDetails = new DataSet();
+            UserMasterBL userMasterBL = new UserMasterBL();
+            try
+            {
+                dsUserDetails = userMasterBL.getActivityNameForUser();
+                ddlActivityAccess.DataSource = dsUserDetails;
+                ddlActivityAccess.DataTextField = "activity_name";
+                ddlActivityAccess.DataValueField = "activity_id";
+                ddlActivityAccess.DataBind();
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
+        }
 
+        /// <summary>
+        /// grdUsers RowEditing
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void grdUsers_RowEditing(object sender, GridViewEditEventArgs e)
         {
             grdUsers.EditIndex = e.NewEditIndex;
             BindUsers();
         }
 
+        /// <summary>
+        /// grdUsers RowDeleting
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void grdUsers_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             string email = grdUsers.DataKeys[e.RowIndex].Value.ToString();
@@ -84,76 +150,89 @@ namespace In2InGlobal.presentation.admin
             BindUsers();
         }
 
+        /// <summary>
+        /// grdUsers RowUpdating
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void grdUsers_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
             string useremailid = grdUsers.DataKeys[e.RowIndex].Value.ToString();
-            GridViewRow row = (GridViewRow)grdUsers.Rows[e.RowIndex];           
-           
+            GridViewRow row = (GridViewRow)grdUsers.Rows[e.RowIndex];
+
             TextBox textFirstName = (TextBox)row.Cells[0].Controls[0];
             TextBox textLastName = (TextBox)row.Cells[1].Controls[0];
             TextBox textCompany = (TextBox)row.Cells[2].Controls[0];
-            UpdateUser(textFirstName.Text,textLastName.Text,textCompany.Text,useremailid);
+            TextBox textPhone = (TextBox)row.Cells[6].Controls[0];
+            UpdateUser(textFirstName.Text, textLastName.Text, textCompany.Text, useremailid, textPhone.Text);
             grdUsers.EditIndex = -1;
-           
-           BindUsers();
+
+            BindUsers();
         }
 
-        private void UpdateUser(string Fname, string Lname, string company,string email)
+        /// <summary>
+        /// Update  User
+        /// </summary>
+        /// <param name="Fname"></param>
+        /// <param name="Lname"></param>
+        /// <param name="company"></param>
+        /// <param name="email"></param>
+        private void UpdateUser(string Fname, string Lname, string company, string email, String Phone)
         {
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Users.json");
-            DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
-            DataRow dr =  usrTable.Select("Email ='" + email + "'")[0];
-            dr[0] = Fname;
-            dr[1] = Lname;
-            dr[2] = company;
-            usrTable.AcceptChanges();
-            dr.SetModified();
-            string output = Newtonsoft.Json.JsonConvert.SerializeObject(usrTable, Newtonsoft.Json.Formatting.Indented);
-            File.WriteAllText(Server.MapPath("json-data/Users.json"), output);
-
+            UserEntity userEntity = new UserEntity();
+            userEntity.FirstName = Fname;
+            userEntity.LastName = Lname;
+            userEntity.Email = email;
+            userEntity.CompanyName = company;
+            userEntity.PhoneNumber = Phone;
+            UserMasterBL userMasterBl = new UserMasterBL();
+            userMasterBl.UpdateUser(userEntity);
         }
+
+        /// <summary>
+        /// Delete User
+        /// </summary>
+        /// <param name="email"></param>
         private void DeleteUser(string email)
         {
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Users.json");
-            DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
-            if (usrTable.Select("Email ='" + email + "'").Length > 0)
-            {
-                usrTable.Select("Email ='" + email + "'")[0].Delete();
-                usrTable.AcceptChanges();
-                string output = Newtonsoft.Json.JsonConvert.SerializeObject(usrTable, Newtonsoft.Json.Formatting.Indented);
-                File.WriteAllText(Server.MapPath("json-data/Users.json"), output);
-            }
+            UserEntity userEntity = new UserEntity();
+            userEntity.Email = email;
+
+            UserMasterBL companyMasterBl = new UserMasterBL();
+            companyMasterBl.DeleteUser(userEntity);
         }
 
+        /// <summary>
+        /// grdUsers RowCancelingEdit
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void grdUsers_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
             grdUsers.EditIndex = -1;
             BindUsers();
         }
 
+        /// <summary>
+        /// Add New User
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void AddNewUser(object sender, EventArgs e)
         {
-            
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString(Server.MapPath("json-data/Users.json"));
-            DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
-            string encPwd = new EncryptField().Encrypt(txtPassword.Value);
-            string projectname = "PRO-0001"; //Project for creating user need to created and assigned the same to user
-            string activityAccess = ddlActivityAccess.SelectedValue; //dropdown field required
-            string status = "Active"; // dropdown field required.
-            string phoneNo =txtPhoneNo.Value; // extra field need to included
-            DataRow dr = usrTable.Rows.Add(
-                txtFName.Value,txtLName.Value,ddlCompanyName.SelectedValue.ToString(),
-                txtEmail.Value, ddlRoleName.SelectedValue.ToString(),encPwd,activityAccess,status,phoneNo, projectname) ;
-            usrTable.AcceptChanges();
-            dr.SetModified();
-            string output = Newtonsoft.Json.JsonConvert.SerializeObject(usrTable, Newtonsoft.Json.Formatting.Indented);
-            File.WriteAllText(Server.MapPath("json-data/Users.json"), output);
+            UserEntity userEntity = new UserEntity();
+            userEntity.FirstName = txtFName.Value;
+            userEntity.LastName = txtLName.Value;
+            userEntity.Email = txtEmail.Value;
+            userEntity.PhoneNumber = txtPhoneNo.Value;
+            userEntity.RoleId = 1; //ddRole.SelectedValue;
+            userEntity.ActivityId = 1;// ddlActivityAccess.SelectedValue;
+            userEntity.CompanyId = 1;//ddlCompanyName.SelectedValue; 
+            userEntity.Password = new EncryptField().Encrypt(txtPassword.Value);
+            userEntity.CreatedBy = "gsahoo2011@gmail.com";
+
+            UserMasterBL companyMasterBl = new UserMasterBL();
+            companyMasterBl.SaveUserMasterDetails(userEntity);
 
             BindUsers();
             ClearAll();
@@ -161,6 +240,9 @@ namespace In2InGlobal.presentation.admin
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);
         }
 
+        /// <summary>
+        /// Clear all data when cancel click
+        /// </summary>
         private void ClearAll()
         {
             txtFName.Value = "";
