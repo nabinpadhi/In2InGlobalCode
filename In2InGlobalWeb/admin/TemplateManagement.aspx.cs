@@ -64,7 +64,7 @@ namespace In2InGlobal.presentation.admin
             try
             {
                 dsloadTemplare = templateMasterBL.PopulateTemplateGrid();
-                grdMasterTemplate.DataSource = dsloadTemplare;
+                grdMasterTemplate.DataSource = dsloadTemplare.Tables[0];
                 grdMasterTemplate.DataBind();
             }
             catch (Exception ex)
@@ -382,7 +382,8 @@ namespace In2InGlobal.presentation.admin
             if (Session["UserRow"] != null)
             {
                 DataRow usrDataRow = (DataRow)Session["UserRow"];
-                uploadedBy = usrDataRow["FirstName"].ToString() + " " + usrDataRow["LastName"].ToString();
+                
+                uploadedBy = usrDataRow["first_name"].ToString() + " " + usrDataRow["last_name"].ToString();
                 try
                 {
                     if (templateFileUpload.HasFile)
@@ -436,7 +437,7 @@ namespace In2InGlobal.presentation.admin
             using (DataTable table = new CSVReader(trold).CreateDataTable(true))
             {
 
-                if (table.Rows.Count < 1)
+                if (table.Rows.Count > 0)
                 {
                     return false;
                 }

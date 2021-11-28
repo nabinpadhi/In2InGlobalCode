@@ -145,6 +145,7 @@ namespace In2InGlobal.presentation.admin
                     result = "Success";
                     HttpContext.Current.Session["UserRole"] = dsUser.Tables[0].Rows[0]["role_name"].ToString();
                     HttpContext.Current.Session["UserEmail"] = dsUser.Tables[0].Rows[0]["user_email"].ToString();
+                    HttpContext.Current.Session["UserRow"] = userRow;
                     HttpContext.Current.Session["dsUser"] = dsUser;
                 }
                 else
@@ -153,6 +154,7 @@ namespace In2InGlobal.presentation.admin
                     HttpContext.Current.Session["UserRole"] = null;
                     HttpContext.Current.Session["UserRow"] = null;
                     HttpContext.Current.Session["UserEmail"] = null;
+                    HttpContext.Current.Session["dsUser"] = null;
 
                 }
             }

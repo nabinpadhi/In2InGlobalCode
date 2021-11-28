@@ -122,9 +122,9 @@
                                                     AllowPaging="True" OnRowDataBound="grdMasterTemplate_RowDataBound" OnRowDeleting="grdMasterTemplate_RowDeleting" OnPageIndexChanging="grdMasterTemplate_PageIndexChanging"  AutoGenerateColumns="false" PageSize="4">
                                                     <PagerStyle CssClass="pagination-ys" />
                                                     <Columns>
-                                                        <asp:BoundField HeaderText="template_name" ItemStyle-Width="25%" DataField="TemplateName" />
-                                                        <asp:BoundField HeaderText="created_by" ItemStyle-Width="25%" DataField="CreatedBy" />                                                                                                              
-                                                        <asp:BoundField HeaderText ="instruction" ItemStyle-Width="35%" DataField="Instruction"/>   
+                                                        <asp:BoundField HeaderText="Template Name" ItemStyle-Width="25%" DataField="template_name" />
+                                                        <asp:BoundField HeaderText="Created By" ItemStyle-Width="25%" DataField="created_by" />                                                                                                              
+                                                        <asp:BoundField HeaderText ="Instruction" ItemStyle-Width="35%" DataField="instruction"/>   
                                                         <asp:CommandField ItemStyle-HorizontalAlign="Center" HeaderText="Action" ShowEditButton="true" ShowDeleteButton="true" />                                                                                                             
                                                     </Columns>
                                                 </asp:GridView>
