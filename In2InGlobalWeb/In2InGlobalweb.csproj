@@ -157,6 +157,7 @@
     <Content Include="AjaxOtherDLL\AjaxControlToolkit.dll" />
     <Content Include="AjaxOtherDLL\AntiXSSLibrary.dll" />
     <Content Include="AjaxOtherDLL\HtmlAgilityPack.dll" />
+    <Content Include="css\jquery-ui.css" />
     <Content Include="css\resetpass.css" />
     <Content Include="css\anythingslider-ie.css" />
     <Content Include="css\anythingslider.css" />

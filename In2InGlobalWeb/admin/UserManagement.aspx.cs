@@ -5,9 +5,11 @@ using Newtonsoft.Json;
 using System;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace In2InGlobal.presentation.admin
@@ -23,22 +25,32 @@ namespace In2InGlobal.presentation.admin
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
-        {
+        {           
             if (!IsPostBack)
             {
-                string usrRole = Session["UserRole"].ToString();
-                if (usrRole != "Admin")
+                if (Session["UserRole"] != null)
                 {
-                    Response.Redirect("Login.aspx");
+                    string usrRole = Session["UserRole"].ToString();
+                    if (usrRole != "Admin")
+                    {
+                        Response.Redirect("Login.aspx");
 
+                    }
+                    else
+                    {
+                        BindUsers();
+                        BindCompany();
+                        BindActivity();
+                        BindRoles();
+                    }
                 }
                 else
-                {
-                    BindUsers();
-                    BindCompany();
-                    BindActivity();
-                    BindRoles();
-                }
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
+            }
+            if (Request.Form["__EVENTTARGET"] == "grdUsers,")
+            {
+                // Fire event
+                DeleteUser(Request.Form["__EVENTARGUMENT"].Substring(0, Request.Form["__EVENTARGUMENT"].Length-1));
             }
 
         }
@@ -200,6 +212,9 @@ namespace In2InGlobal.presentation.admin
 
             UserMasterBL companyMasterBl = new UserMasterBL();
             companyMasterBl.DeleteUser(userEntity);
+            BindUsers();
+            string _message = "User Deleted Successfully";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);
         }
 
         /// <summary>
@@ -213,12 +228,35 @@ namespace In2InGlobal.presentation.admin
             BindUsers();
         }
 
-        /// <summary>
-        /// Add New User
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void AddNewUser(object sender, EventArgs e)
+        protected void grdUsers_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                string email = grdUsers.DataKeys[e.Row.RowIndex].Value.ToString();
+                foreach (LinkButton button in e.Row.Cells[7].Controls.OfType<LinkButton>())
+                {
+                    
+                    if (button.ID == "lnkDel")
+                    {
+                        if (email == Session["UserEmail"].ToString())
+                        {
+                            button.Enabled = false;
+                        }
+                        else
+                        {
+                            button.OnClientClick = "In2InGlobalConfirm('" + email + "');";
+                        }
+                    }                  
+                }
+            }
+        }
+
+            /// <summary>
+            /// Add New User
+            /// </summary>
+            /// <param name="sender"></param>
+            /// <param name="e"></param>
+            protected void AddNewUser(object sender, EventArgs e)
         {
             UserEntity userEntity = new UserEntity();
             userEntity.FirstName = txtFName.Value;
