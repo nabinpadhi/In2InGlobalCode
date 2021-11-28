@@ -40,15 +40,6 @@ namespace In2InGlobal.presentation.admin {
         protected global::System.Web.UI.HtmlControls.HtmlAnchor usrMngmnt;
         
         /// <summary>
-        /// ancFileMan control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor ancFileMan;
-        
-        /// <summary>
         /// projtMngmt control.
         /// </summary>
         /// <remarks>
@@ -65,6 +56,15 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor tmpltMngmnt;
+        
+        /// <summary>
+        /// ancFileMan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor ancFileMan;
         
         /// <summary>
         /// ancAnalytics control.
