@@ -1,4 +1,6 @@
 ﻿using In2InGlobal.presentation.Tools;
+using In2InGlobalBL;
+using In2InGlobalBusinessEL;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -60,22 +62,33 @@ namespace In2InGlobal.presentation.admin
         }
 
         private void BindProjects()
-        {
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Projects.json");
-            ddlProjects.DataSource = JsonConvert.DeserializeObject<DataTable>(json);
+        {            
+            string userEmail = Session["UserEmail"].ToString();
+            string userRole = Session["UserRole"].ToString();
+
+            DataSet dsUserDetails = new DataSet();
+            ProjectMasterBL projectBL = new ProjectMasterBL();
+            dsUserDetails = projectBL.getAssignedProject(userRole, userEmail);
+
+            ddlProjects.DataSource = dsUserDetails;
+            ddlProjects.DataTextField = "project_name";
+            ddlProjects.DataValueField = "project_id";
             ddlProjects.DataBind();
         }
 
         private void BindAssignedProjects()
         {
-            string _email = Session["UserEmail"].ToString();
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Projects.json");
-            ddlAssignedProject.DataSource = JsonConvert.DeserializeObject<DataTable>(json).Select("CreatedBy='" + _email + "'").CopyToDataTable();
-            ddlAssignedProject.DataBind();
+            string userEmail = Session["UserEmail"].ToString();
+            string userRole = Session["UserRole"].ToString();
+
+            DataSet dsUserDetails = new DataSet();
+            ProjectMasterBL projectBL = new ProjectMasterBL();
+            dsUserDetails = projectBL.getAssignedProject(userRole, userEmail);
+
+            ddlAssignedProject.DataSource = dsUserDetails;
+            ddlAssignedProject.DataTextField = "project_name";
+            ddlAssignedProject.DataValueField = "project_id";
+            ddlAssignedProject.DataBind();          
         }
 
         private void LoadTemplates()
@@ -126,7 +139,7 @@ namespace In2InGlobal.presentation.admin
 
             DataTable tblUploadedFiles = JsonConvert.DeserializeObject<DataTable>(json);
             DataRow _usrRow = (DataRow)Session["UserRow"];
-           string userName="s";// = _usrRow["FirstName"] + " " + _usrRow["LastName"];
+            string userName = "s";// = _usrRow["FirstName"] + " " + _usrRow["LastName"];
             if (tblUploadedFiles.Rows.Count > 0)
             {
                 if (pid != "")
@@ -240,13 +253,13 @@ namespace In2InGlobal.presentation.admin
                     if (fileUploader.HasFile)
                     {
                         fileName = fileUploader.FileName;
-                        fileName = fileName.Replace(".csv","~"+ uploadedBy.Replace(" ","")+"~"+ ddlAssignedProject.SelectedValue + ".csv");
+                        fileName = fileName.Replace(".csv", "~" + uploadedBy.Replace(" ", "") + "~" + ddlAssignedProject.SelectedValue + ".csv");
 
                         //check whether file exists,if no write the file into folder & database 
                         //If yes 2nd validation uploaded file only contain header,if yes then exit with error message
                         //if no then verify whether both the files contain same data if same then exit with warning message
                         //if both files are having different data then write the file with different version name
-                        
+
                         string pathToCheck = filePath + fileName;
                         if (!System.IO.File.Exists(pathToCheck))
                         {
@@ -259,7 +272,7 @@ namespace In2InGlobal.presentation.admin
                         {
                             using (StreamReader uploadedFS = new StreamReader(fileUploader.PostedFile.InputStream))
                             {
-                                TextReader uploaderFileTextReader= new StreamReader(uploadedFS.BaseStream);
+                                TextReader uploaderFileTextReader = new StreamReader(uploadedFS.BaseStream);
 
                                 if (CheckUploadedFileHaveOnlyHeader(uploaderFileTextReader))
                                 {
@@ -268,7 +281,7 @@ namespace In2InGlobal.presentation.admin
                                 }
                                 else
                                 {
-                                   
+
                                     string _existingFilePath = System.IO.Path.Combine(filePath, fileName);
                                     if (IsBothCSVFileDataAreSame(_existingFilePath))
                                     {
@@ -281,13 +294,13 @@ namespace In2InGlobal.presentation.admin
                                     }
                                     else
                                     {
-                                        
+
                                         string tempfileName = "";
                                         int counter = 2;
                                         while (System.IO.File.Exists(pathToCheck))
                                         {
 
-                                            tempfileName = "V-"+counter.ToString() +"-" + fileName;
+                                            tempfileName = "V-" + counter.ToString() + "-" + fileName;
                                             pathToCheck = filePath + tempfileName;
                                             counter++;
                                         }
@@ -299,7 +312,7 @@ namespace In2InGlobal.presentation.admin
                                     }
                                 }
                                 uploaderFileTextReader.Close();
-                            } 
+                            }
                         }
                     }
                 }
@@ -314,20 +327,21 @@ namespace In2InGlobal.presentation.admin
         private bool IsBothCSVFileDataAreSame(string fileName)
         {
             bool _result = true;
-            StreamReader fsOld = new StreamReader(fileName);            
+            StreamReader fsOld = new StreamReader(fileName);
             string _existingData = fsOld.ReadToEnd();
             string _uploadedData = GetUploadedContent();
-            if(_existingData !=null && _uploadedData != null)
+            if (_existingData != null && _uploadedData != null)
             {
                 if (_existingData == _uploadedData)
                 {
                     _result = true;
                 }
-                else {
+                else
+                {
                     _result = false;
                 }
             }
-           
+
             fsOld.Close();
             return _result;
         }
@@ -350,7 +364,7 @@ namespace In2InGlobal.presentation.admin
             return strUploadedContent.ToString();
         }
 
-        private bool ValidateUploadedFileExists(string filePath, string fileName,ref int recordCount)
+        private bool ValidateUploadedFileExists(string filePath, string fileName, ref int recordCount)
         {
 
             bool _result = false;
@@ -358,7 +372,7 @@ namespace In2InGlobal.presentation.admin
             DataTable fileTable = JsonConvert.DeserializeObject<DataTable>(json);
             recordCount = fileTable.Select("FileName='" + fileName + "'").Length;
             if (recordCount > 0)
-            {  
+            {
                 _result = true;
             }
             return _result;
@@ -369,7 +383,7 @@ namespace In2InGlobal.presentation.admin
             bool _result = true;
             using (DataTable table = new CSVReader(tr).CreateDataTable(true))
             {
-             
+
                 if (table.Rows.Count > 0)
                 {
                     _result = false;
@@ -381,8 +395,8 @@ namespace In2InGlobal.presentation.admin
         private static byte[] GetFileHash(FileStream fs1)
         {
             using (var md5Hasher = new MD5CryptoServiceProvider())
-            {               
-                return md5Hasher.ComputeHash(fs1); 
+            {
+                return md5Hasher.ComputeHash(fs1);
             }
 
 
@@ -400,7 +414,7 @@ namespace In2InGlobal.presentation.admin
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             string json = (new WebClient()).DownloadString(Server.MapPath("json-data/UploadedFiles.json"));
             DataTable fileTable = JsonConvert.DeserializeObject<DataTable>(json);
-            int columnIDvalue = GetUniqueID(fileTable,"uploadedfiles");
+            int columnIDvalue = GetUniqueID(fileTable, "uploadedfiles");
             DataRow dr = fileTable.Rows.Add(columnIDvalue, fileName, ddlAssignedProject.SelectedValue, uploadedBy, uploadedOn, "img/success.png");
             fileTable.AcceptChanges();
             dr.SetModified();
@@ -423,12 +437,12 @@ namespace In2InGlobal.presentation.admin
             File.WriteAllText(Server.MapPath("json-data/UploadedFiles.json"), output);
             BindFileGrid(ddlAssignedProject.SelectedValue);
         }
-        private int GetUniqueID(DataTable fileTable,string uploadedfiles)
+        private int GetUniqueID(DataTable fileTable, string uploadedfiles)
         {
             int _localNewID = fileTable.Rows.Count;
-            if(_localNewID ==0)
+            if (_localNewID == 0)
             {
-                fileTable = AddColumnsToTargetTable(fileTable,uploadedfiles);
+                fileTable = AddColumnsToTargetTable(fileTable, uploadedfiles);
             }
             _localNewID = _localNewID + 1;
             if (_localNewID == 1)
@@ -444,16 +458,16 @@ namespace In2InGlobal.presentation.admin
         private DataTable AddColumnsToTargetTable(DataTable fileTable, string targetTable)
         {
             string columns = "";
-            switch(targetTable)
+            switch (targetTable)
             {
                 case "uploadedfiles":
                     columns = "ID:FileName:ProjectName:UploadedBy:Date:UploadedStatus";
-                   break;
+                    break;
                 default:
-                  columns = "";
+                    columns = "";
                     break;
             }
-            foreach(string columnName in columns.Split(':'))
+            foreach (string columnName in columns.Split(':'))
             {
                 DataColumn dc = new DataColumn(columnName);
                 fileTable.Columns.Add(dc);
@@ -503,7 +517,7 @@ namespace In2InGlobal.presentation.admin
             byte[] btFile = new byte[fs.Length];
             fs.Read(btFile, 0, Convert.ToInt32(fs.Length));
             fs.Close();
-            Response.AddHeader("Content-disposition", "attachment; filename=" + ddlTemplate.SelectedItem.Text +".csv");
+            Response.AddHeader("Content-disposition", "attachment; filename=" + ddlTemplate.SelectedItem.Text + ".csv");
             Response.ContentType = "application/octet-stream";
             Response.BinaryWrite(btFile);
             Response.End();
@@ -555,7 +569,7 @@ namespace In2InGlobal.presentation.admin
                 ddlTemplate.Enabled = false;
                 btnDownload.Enabled = false;
             }
-            
+
             BindFileGrid(ddlAssignedProject.SelectedValue);
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "ShowFileMgnt();", true);
 
@@ -563,65 +577,116 @@ namespace In2InGlobal.presentation.admin
 
         //Project Management code details 
 
+
+
+
+        private void BindProjectGrid()
+        {
+            string userEmail = Session["UserEmail"].ToString();
+            string userRole = Session["UserRole"].ToString();
+
+            DataSet dsUserDetails = new DataSet();
+            ProjectMasterBL projectBL = new ProjectMasterBL();
+            dsUserDetails = projectBL.getProjectGridDetails(userRole, userEmail);
+
+            grdProject.DataSource = dsUserDetails;
+            grdProject.DataBind();
+        }
+
         private string GenerateProjectName()
         {
-            string projson = (new WebClient()).DownloadString(HttpContext.Current.Server.MapPath("json-data/Projects.json"));
-            DataTable ProjectTable = JsonConvert.DeserializeObject<DataTable>(projson);
+            int _ProjectID = 0;
+            string ProjectName = string.Empty;
 
-            int _ProjectID = ProjectTable.Rows.Count + 1;
-            string ProjectName = "PRO-" + $"{_ProjectID:0000}";
+            DataSet dsUserDetails = new DataSet();
+            ProjectMasterBL projectBL = new ProjectMasterBL();
+            ProjectEntity projectEntitiy = new ProjectEntity();
+            try
+            {
+                dsUserDetails = projectBL.getProjectId();
+
+                if (dsUserDetails.Tables[0].Rows.Count > 0)
+                {
+                    DataRow drMyProfile = dsUserDetails.Tables[0].Rows[0];
+                    int count = Convert.ToInt32(drMyProfile["project_id"].ToString());
+                    _ProjectID = count + 1;
+                    ProjectName = "PRO-" + $"{_ProjectID:0000}";
+                }
+                else
+                {
+                    _ProjectID = 1;
+                    ProjectName = "PRO-" + $"{_ProjectID:0000}";
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+            }
 
             return ProjectName;
         }
 
 
-        private void BindProjectGrid()
-        {
-
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString(Server.MapPath("json-data/Projects.json"));
-            DataTable tblProject = JsonConvert.DeserializeObject<DataTable>(json);
-            ViewState["dirProject"] = tblProject;
-            grdProject.DataSource = tblProject;
-            grdProject.DataBind();
-        }
         protected void btnCreateProject_Click(object sender, EventArgs e)
         {
-
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString(Server.MapPath("json-data/Projects.json"));
-            DataTable ProjectTable = JsonConvert.DeserializeObject<DataTable>(json);
-            string _message = "Project Created Successfully.)";
-            if (hdnProjectToEdit.Value == "")
+            int _ProjectID = 0;
+            string _message = string.Empty;
+            DataSet dsUserDetails = new DataSet();
+            ProjectMasterBL projectBL = new ProjectMasterBL();
+            ProjectEntity projectEntitiy = new ProjectEntity();
+            try
             {
-                if (ProjectTable.Rows.Count == 0)
+                if (hdnProjectToEdit.Value == "")
                 {
-                    ProjectTable.Columns.Add("ID");
-                    ProjectTable.Columns.Add("TemplateName");
-                    ProjectTable.Columns.Add("CreatedBy");
-                    ProjectTable.Columns.Add("Instruction");
-                }
-                int _ProjectID = ProjectTable.Rows.Count + 1;
-                string ProjectName = "PRO-" + $"{_ProjectID:0000}";
-                string createdBy = Session["UserEmail"].ToString();
-                string description = txtDescription.Value;
+                    dsUserDetails = projectBL.getProjectId();
+                    ddlAssignedProject.DataSource = dsUserDetails;
+                    if (dsUserDetails.Tables[0].Rows.Count > 0)
+                    {
+                        DataRow drMyProfile = dsUserDetails.Tables[0].Rows[0];
+                        int count = Convert.ToInt32(drMyProfile["project_id"].ToString());
+                        if (count == 1)
+                        {
+                            _ProjectID = count;
+                        }
+                        else
+                        {
+                            _ProjectID = count + 1;
+                        }
 
-                DataRow dr = ProjectTable.Rows.Add(ProjectName, createdBy, description);
-                ProjectTable.AcceptChanges();
-                dr.SetModified();
+                        projectEntitiy.ProjectName = "PRO-" + $"{_ProjectID:0000}";
+                        projectEntitiy.CreatedBy = Session["UserEmail"].ToString();
+                        projectEntitiy.UserEmail = Session["UserEmail"].ToString();
+                        projectEntitiy.UserRole = Session["UserRole"].ToString();
+                        projectEntitiy.Description = txtDescription.Value;
+                        projectBL.SaveProjectMaster(projectEntitiy);
+                    }
+                    else
+                    {
+                        _ProjectID = 1;
+                        projectEntitiy.ProjectName = "PRO-" + $"{_ProjectID:0000}";
+                        projectEntitiy.CreatedBy = Session["UserEmail"].ToString();
+                        projectEntitiy.Description = txtDescription.Value;
+                        projectBL.SaveProjectMaster(projectEntitiy);
+                    }
+                    _message = "Project Created Successfully.)";
+                }
+                else
+                {
+                    projectEntitiy.ProjectName = hdnProjectToEdit.Value.ToString();
+                    projectEntitiy.CreatedBy = Session["UserEmail"].ToString();
+                    projectEntitiy.UserEmail = Session["UserEmail"].ToString();
+                    projectEntitiy.UserRole = Session["UserRole"].ToString();
+                    projectEntitiy.Description = txtDescription.Value;
+
+                    projectBL.UpdateProjectMaster(projectEntitiy);
+
+                    _message = "Project updated Successfully.)";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                DataRow drProject = ProjectTable.Select("ProjectName='" + hdnProjectToEdit.Value + "'")[0];
-                drProject["Description"] = txtDescription.InnerText;
-                ProjectTable.AcceptChanges();
-                drProject.SetModified();
-                _message = "Project updated Successfully.)";
+                ex.ToString();
             }
-            string output = Newtonsoft.Json.JsonConvert.SerializeObject(ProjectTable, Newtonsoft.Json.Formatting.Indented);
-            File.WriteAllText(Server.MapPath("json-data/Projects.json"), output);
 
             BindProjectGrid();
             grdProject.PageIndex = grdProject.PageCount - 1;
@@ -653,7 +718,7 @@ namespace In2InGlobal.presentation.admin
                 grdProject.DataSource = dtrslt;
                 grdProject.DataBind();
             }
-            
+
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), "ShowProjectMgnt();", true);
 
         }
@@ -717,18 +782,20 @@ namespace In2InGlobal.presentation.admin
         }
         private void DeleteProject(string pName)
         {
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString(Server.MapPath("json-data/Projects.json"));
-            DataTable projTable = JsonConvert.DeserializeObject<DataTable>(json);
-            if (projTable.Select("ProjectName ='" + pName + "'").Length > 0)
+            ProjectMasterBL projectBL = new ProjectMasterBL();
+            ProjectEntity projectEntitiy = new ProjectEntity();
+            try
             {
-                projTable.Select("ProjectName ='" + pName + "'")[0].Delete();
-                projTable.AcceptChanges();
-                string output = Newtonsoft.Json.JsonConvert.SerializeObject(projTable, Newtonsoft.Json.Formatting.Indented);
-                File.WriteAllText(Server.MapPath("json-data/Projects.json"), output);
+                if (pName != string.Empty)
+                {
+                    projectEntitiy.ProjectName = pName;
+                    projectBL.DeleteProjectMaster(projectEntitiy);
+                }
             }
-
+            catch (Exception ex)
+            {
+                ex.ToString();
+            }
 
         }
     }

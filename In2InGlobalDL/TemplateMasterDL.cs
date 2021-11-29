@@ -87,7 +87,7 @@ namespace In2InGlobal.datalink
                 return dsTemplate;
             }
         }
-
+        
         public DataSet PopulateTemplateGrid() 
         {
             BaseRepository baseRepo = new BaseRepository();
@@ -115,6 +115,39 @@ namespace In2InGlobal.datalink
                     npgsqlDataAdapter.Dispose();
                 }
                 return dsTemplate; 
+            }
+        }
+
+
+        public DataSet PopulateTemplateGridForFileMagement(string userId, int projectId)
+        {
+            BaseRepository baseRepo = new BaseRepository();
+            DataSet dsTemplate = new DataSet();
+            NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
+
+            string query = @"SELECT * FROM dbo.populatetemplategridforfilemagement(@userid,@projectid)";
+            using (var connection = baseRepo.GetDBConnection())
+            {
+                try
+                {
+                    connection.Open();
+                    NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
+                    npgsqlCommand.Parameters.AddWithValue("@userid", userId);
+                    npgsqlCommand.Parameters.AddWithValue("@projectid", projectId); 
+                    npgsqlCommand.CommandType = CommandType.Text;
+                    npgsqlDataAdapter.SelectCommand = npgsqlCommand;
+                    npgsqlDataAdapter.Fill(dsTemplate);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Dispose();
+                    npgsqlDataAdapter.Dispose();
+                }
+                return dsTemplate;
             }
         }
     }

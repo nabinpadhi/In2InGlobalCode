@@ -93,7 +93,7 @@
                                     <td style="width: 50%;">
                                         <center>
                                             <div style="width: 70%; border: 1px solid black; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;">                                    
-                                                <asp:GridView DataKeyNames="ProjectName" ID="grdProject" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
+                                                <asp:GridView DataKeyNames="project_id" ID="grdProject" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
                                                     AllowPaging="True" AllowSorting="true" OnSorting="grdProject_Sorting" OnRowDataBound="grdProject_RowDataBound" OnRowDeleting="grdProject_RowDeleting" 
                                                     OnPageIndexChanging="grdProject_PageIndexChanging"  AutoGenerateColumns="false" PageSize="4">
                                                     <PagerStyle CssClass="pagination-ys" />
@@ -101,15 +101,15 @@
                                                     <Columns>                                                      
                                                          <asp:TemplateField HeaderStyle-Width="150px"  HeaderText="Project Name" SortExpression="ProjectName">                                                            
                                                             <ItemTemplate>
-                                                                <asp:Label ID="lblProjectName" runat="server" Text='<%# Bind("ProjectName") %>'></asp:Label>
+                                                                <asp:Label ID="lblProjectName" runat="server" Text='<%# Bind("project_name") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>  
                                                         <asp:TemplateField HeaderText="Created By" SortExpression="CreatedBy">                                                            
                                                             <ItemTemplate>
-                                                                <asp:Label ID="lblCreatedBy" runat="server" Text='<%# Bind("CreatedBy") %>'></asp:Label>
+                                                                <asp:Label ID="lblCreatedBy" runat="server" Text='<%# Bind("created_by") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>                                                          
-                                                        <asp:BoundField ItemStyle-Wrap="true" HeaderText="Description"  DataField="Description" />  
+                                                        <asp:BoundField ItemStyle-Wrap="true" HeaderText="Description"  DataField="description" />  
                                                         <asp:CommandField ItemStyle-HorizontalAlign="Center" HeaderText="Action" ShowEditButton="true" ShowDeleteButton="true" />                                                                                                             
                                                     </Columns>
                                                 </asp:GridView>

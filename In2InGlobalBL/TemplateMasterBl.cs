@@ -93,5 +93,27 @@ namespace In2InGlobal.businesslogic
             }
             return dsTemplategrid;
         }
+
+
+        /// <summary>
+        /// Populate Template Grid
+        /// </summary>
+        /// <returns></returns>
+        public DataSet PopulateTemplateGridForFileMagement(string userId,int projectId)   
+        {
+            DataSet dsTemplategrid = new DataSet();
+            try
+            {
+                TemplateMasterDL objTemplategrid = new TemplateMasterDL();
+                dsTemplategrid = objTemplategrid.PopulateTemplateGridForFileMagement(userId, projectId);
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
+            return dsTemplategrid;
+        }
+
+
     }
 }

@@ -9,6 +9,8 @@ namespace In2InGlobalBusinessEL
     {
         public long ProjectId { get; set; }
         public string ProjectName { get; set; }
+        public string UserRole { get; set; }
+        public string UserEmail { get; set; } 
         public string Description { get; set; }
         public string CreatedBy { get; set; }
     }

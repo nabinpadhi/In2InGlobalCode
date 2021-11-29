@@ -60,7 +60,7 @@ namespace In2InGlobalBL
         /// </summary>
         /// <param name="projectid"></param> 
         /// <returns></returns>
-        public DataSet LoadAllUserEmailForNotAssignedProject(long projectid)  
+        public DataSet LoadAllUserEmailForAssignedProject(long projectid)  
         {
             DataSet dsUplaodUser = new DataSet();  
             try
