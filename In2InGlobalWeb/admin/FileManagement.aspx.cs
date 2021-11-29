@@ -62,33 +62,48 @@ namespace In2InGlobal.presentation.admin
         }
 
         private void BindProjects()
-        {            
-            string userEmail = Session["UserEmail"].ToString();
-            string userRole = Session["UserRole"].ToString();
+        {
+            try
+            {
+                string userEmail = Session["UserEmail"].ToString();
+                string userRole = Session["UserRole"].ToString();
 
-            DataSet dsUserDetails = new DataSet();
-            ProjectMasterBL projectBL = new ProjectMasterBL();
-            dsUserDetails = projectBL.getAssignedProject(userRole, userEmail);
+                DataSet dsUserDetails = new DataSet();
+                ProjectMasterBL projectBL = new ProjectMasterBL();
+                dsUserDetails = projectBL.getAssignedProject(userRole, userEmail);
 
-            ddlProjects.DataSource = dsUserDetails;
-            ddlProjects.DataTextField = "project_name";
-            ddlProjects.DataValueField = "project_id";
-            ddlProjects.DataBind();
+                ddlProjects.DataSource = dsUserDetails;
+                ddlProjects.DataTextField = "project_name";
+                ddlProjects.DataValueField = "project_id";
+                ddlProjects.DataBind();
+            }
+            catch(Exception ex)
+            {
+                string _message = "Problem in loading Projects.";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowFileMgnt();", _message), true);
+            }
         }
 
         private void BindAssignedProjects()
         {
-            string userEmail = Session["UserEmail"].ToString();
-            string userRole = Session["UserRole"].ToString();
+            try { 
+                    string userEmail = Session["UserEmail"].ToString();
+                    string userRole = Session["UserRole"].ToString();
 
-            DataSet dsUserDetails = new DataSet();
-            ProjectMasterBL projectBL = new ProjectMasterBL();
-            dsUserDetails = projectBL.getAssignedProject(userRole, userEmail);
+                    DataSet dsUserDetails = new DataSet();
+                    ProjectMasterBL projectBL = new ProjectMasterBL();
+                    dsUserDetails = projectBL.getAssignedProject(userRole, userEmail);
 
-            ddlAssignedProject.DataSource = dsUserDetails;
-            ddlAssignedProject.DataTextField = "project_name";
-            ddlAssignedProject.DataValueField = "project_id";
-            ddlAssignedProject.DataBind();          
+                    ddlAssignedProject.DataSource = dsUserDetails;
+                    ddlAssignedProject.DataTextField = "project_name";
+                    ddlAssignedProject.DataValueField = "project_id";
+                    ddlAssignedProject.DataBind();
+            }
+            catch (Exception ex)
+            {
+                string _message = "Problem in loading list of Assigned Project.";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowFileMgnt();", _message), true);
+            }
         }
 
         private void LoadTemplates()
@@ -582,15 +597,23 @@ namespace In2InGlobal.presentation.admin
 
         private void BindProjectGrid()
         {
-            string userEmail = Session["UserEmail"].ToString();
-            string userRole = Session["UserRole"].ToString();
+            try
+            {
+                string userEmail = Session["UserEmail"].ToString();
+                string userRole = Session["UserRole"].ToString();
 
-            DataSet dsUserDetails = new DataSet();
-            ProjectMasterBL projectBL = new ProjectMasterBL();
-            dsUserDetails = projectBL.getProjectGridDetails(userRole, userEmail);
+                DataSet dsUserDetails = new DataSet();
+                ProjectMasterBL projectBL = new ProjectMasterBL();
+                dsUserDetails = projectBL.getProjectGridDetails(userRole, userEmail);
 
-            grdProject.DataSource = dsUserDetails;
-            grdProject.DataBind();
+                grdProject.DataSource = dsUserDetails;
+                grdProject.DataBind();
+            }
+            catch (Exception ex)
+            {
+                string _message = "Problem in loading of Project's Grid Data.";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowFileMgnt();", _message), true);
+            }
         }
 
         private string GenerateProjectName()

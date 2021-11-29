@@ -25,7 +25,7 @@ namespace In2InGlobal.presentation.admin
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
-        {           
+        {
             if (!IsPostBack)
             {
                 if (Session["UserRole"] != null)
@@ -50,7 +50,7 @@ namespace In2InGlobal.presentation.admin
             if (Request.Form["__EVENTTARGET"] == "grdUsers,")
             {
                 // Fire event
-                DeleteUser(Request.Form["__EVENTARGUMENT"].Substring(0, Request.Form["__EVENTARGUMENT"].Length-1));
+                DeleteUser(Request.Form["__EVENTARGUMENT"].Substring(0, Request.Form["__EVENTARGUMENT"].Length - 1));
             }
 
         }
@@ -72,13 +72,12 @@ namespace In2InGlobal.presentation.admin
         /// </summary>
         private void BindCompany()
         {
-            DataSet dsUserDetails = new DataSet();
-            UserMasterBL userMasterBL = new UserMasterBL();
+            DataSet dsCompanies = new DataSet();
             try
             {
 
-                dsUserDetails = userMasterBL.getCompanyNameForUser();
-                ddlCompanyName.DataSource = dsUserDetails;
+                dsCompanies = (DataSet)Session["dsCompanies"];
+                ddlCompanyName.DataSource = dsCompanies;
                 ddlCompanyName.DataTextField = "company_name";
                 ddlCompanyName.DataValueField = "company_id";
                 ddlCompanyName.DataBind();
@@ -88,18 +87,64 @@ namespace In2InGlobal.presentation.admin
                 ex.Message.ToString();
             }
         }
+        private DataSet GetCompany()
+        {
+            DataSet dsCompanies = new DataSet();
+            UserMasterBL userMasterBL = new UserMasterBL();
+            try
+            {
+
+                dsCompanies = userMasterBL.getCompanyNameForUser();
+                Session["dsCompanies"] = dsCompanies;
+              
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
+            return dsCompanies;
+        }
+        private DataSet GetActivityAccess()
+        {
+            DataSet dsActivityAccess = new DataSet();
+            UserMasterBL userMasterBL = new UserMasterBL();
+            try
+            {
+                dsActivityAccess = userMasterBL.getActivityNameForUser();
+                Session["dsActivityAccess"] = dsActivityAccess;
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
+            return dsActivityAccess;
+        }
+        private DataSet GetRoles()
+        {
+            DataSet dsRoles = new DataSet();
+            UserMasterBL userMasterBL = new UserMasterBL();
+            try
+            {
+                dsRoles = userMasterBL.getRoleNameForUser();
+                Session["dsRoles"] = dsRoles;
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
+            return dsRoles;
+        }
 
         /// <summary>
         /// Bind Roles
         /// </summary>
         private void BindRoles()
         {
-            DataSet dsUserDetails = new DataSet();
-            UserMasterBL userMasterBL = new UserMasterBL();
+            DataSet dsRoles = new DataSet();         
             try
             {
-                dsUserDetails = userMasterBL.getRoleNameForUser();
-                ddlRoleName.DataSource = dsUserDetails;
+                dsRoles = (DataSet)Session["dsRoles"];
+                ddlRoleName.DataSource = dsRoles;
                 ddlRoleName.DataTextField = "role_name";
                 ddlRoleName.DataValueField = "role_id";
                 ddlRoleName.DataBind();
@@ -121,13 +166,15 @@ namespace In2InGlobal.presentation.admin
             grdUsers.PageIndex = e.NewPageIndex;
             grdUsers.DataBind();
         }
+
+       
         private void BindActivity()
         {
-            DataSet dsUserDetails = new DataSet();
-            UserMasterBL userMasterBL = new UserMasterBL();
+            
+            
             try
             {
-                dsUserDetails = userMasterBL.getActivityNameForUser();
+                DataSet dsUserDetails = (DataSet)Session["dsActivityAccess"];
                 ddlActivityAccess.DataSource = dsUserDetails;
                 ddlActivityAccess.DataTextField = "activity_name";
                 ddlActivityAccess.DataValueField = "activity_id";
@@ -162,26 +209,7 @@ namespace In2InGlobal.presentation.admin
             BindUsers();
         }
 
-        /// <summary>
-        /// grdUsers RowUpdating
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void grdUsers_RowUpdating(object sender, GridViewUpdateEventArgs e)
-        {
-            string useremailid = grdUsers.DataKeys[e.RowIndex].Value.ToString();
-            GridViewRow row = (GridViewRow)grdUsers.Rows[e.RowIndex];
-
-            TextBox textFirstName = (TextBox)row.Cells[0].Controls[0];
-            TextBox textLastName = (TextBox)row.Cells[1].Controls[0];
-            TextBox textCompany = (TextBox)row.Cells[2].Controls[0];
-            TextBox textPhone = (TextBox)row.Cells[6].Controls[0];
-            UpdateUser(textFirstName.Text, textLastName.Text, textCompany.Text, useremailid, textPhone.Text);
-            grdUsers.EditIndex = -1;
-
-            BindUsers();
-        }
-
+      
         /// <summary>
         /// Update  User
         /// </summary>
@@ -189,14 +217,8 @@ namespace In2InGlobal.presentation.admin
         /// <param name="Lname"></param>
         /// <param name="company"></param>
         /// <param name="email"></param>
-        private void UpdateUser(string Fname, string Lname, string company, string email, String Phone)
+        private void UpdateUser(UserEntity userEntity)
         {
-            UserEntity userEntity = new UserEntity();
-            userEntity.FirstName = Fname;
-            userEntity.LastName = Lname;
-            userEntity.Email = email;
-            userEntity.CompanyName = company;
-            userEntity.PhoneNumber = Phone;
             UserMasterBL userMasterBl = new UserMasterBL();
             userMasterBl.UpdateUser(userEntity);
         }
@@ -232,7 +254,18 @@ namespace In2InGlobal.presentation.admin
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
+                DataTable dtCompany = GetCompany().Tables[0];
+                DataTable dtRole = GetRoles().Tables[0];
+                DataTable dtActivity = GetActivityAccess().Tables[0];
+               
+                string fname = e.Row.Cells[0].Text;
+                string lname = e.Row.Cells[1].Text;
+                string companyid = dtCompany.Select("company_name = '"+e.Row.Cells[2].Text+"'")[0]["company_id"].ToString();
                 string email = grdUsers.DataKeys[e.Row.RowIndex].Value.ToString();
+                string roleid = dtRole.Select("role_name = '" + e.Row.Cells[4].Text + "'")[0]["role_id"].ToString(); //e.Row.Cells[4].Text; ;
+                string activityid= dtActivity.Select("activity_name = '" + e.Row.Cells[5].Text + "'")[0]["activity_id"].ToString(); //e.Row.Cells[5].Text; ;                
+                string phone = e.Row.Cells[6].Text; 
+
                 foreach (LinkButton button in e.Row.Cells[7].Controls.OfType<LinkButton>())
                 {
                     
@@ -246,35 +279,49 @@ namespace In2InGlobal.presentation.admin
                         {
                             button.OnClientClick = "In2InGlobalConfirm('" + email + "');";
                         }
-                    }                  
+                    }
+                    if (button.ID == "lnkEdit")
+                    {
+                        button.OnClientClick = "PullDataToEdit('" + fname + "','" + lname + "','" + companyid + "','" + email + "','" + roleid + "','" + activityid + "','" + phone +"'); ";
+                        button.Attributes["href"] = "#";
+                    }
                 }
             }
         }
 
-            /// <summary>
-            /// Add New User
-            /// </summary>
-            /// <param name="sender"></param>
-            /// <param name="e"></param>
-            protected void AddNewUser(object sender, EventArgs e)
+        /// <summary>
+        /// Add New User
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void AddNewUser(object sender, EventArgs e)
         {
             UserEntity userEntity = new UserEntity();
             userEntity.FirstName = txtFName.Value;
             userEntity.LastName = txtLName.Value;
             userEntity.Email = txtEmail.Value;
             userEntity.PhoneNumber = txtPhoneNo.Value;
-            userEntity.RoleId = 1; //ddRole.SelectedValue;
-            userEntity.ActivityId = 1;// ddlActivityAccess.SelectedValue;
-            userEntity.CompanyId = 1;//ddlCompanyName.SelectedValue; 
-            userEntity.Password = new EncryptField().Encrypt(txtPassword.Value);
-            userEntity.CreatedBy = "gsahoo2011@gmail.com";
-
-            UserMasterBL companyMasterBl = new UserMasterBL();
-            companyMasterBl.SaveUserMasterDetails(userEntity);
-
-            BindUsers();
-            ClearAll();
-            string _message = "User Created Successfully";
+            userEntity.RoleId = Convert.ToInt64(ddlRoleName.SelectedValue);
+            userEntity.ActivityId = Convert.ToInt64(ddlActivityAccess.SelectedValue);
+            userEntity.CompanyId = Convert.ToInt64(ddlCompanyName.SelectedValue);            
+            userEntity.CreatedBy = Session["UserEmail"].ToString();//"gsahoo2011@gmail.com";
+            string _message = "";
+            if (hdnUserEmail.Value == "")
+            {
+                userEntity.Password = new EncryptField().Encrypt(txtPassword.Value);
+                UserMasterBL companyMasterBl = new UserMasterBL();
+                companyMasterBl.SaveUserMasterDetails(userEntity);
+                BindUsers();
+                ClearAll();
+                _message = "User Created Successfully";
+            }
+            else {
+                userEntity.CompanyName = ddlCompanyName.SelectedItem.Text;
+                UpdateUser(userEntity);
+                BindUsers();
+                ClearAll();
+                _message = "User Updated Successfully";
+            }
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);
         }
 
@@ -285,6 +332,7 @@ namespace In2InGlobal.presentation.admin
         {
             txtFName.Value = "";
             txtLName.Value = "";
+            txtEmail.Value = "";
             ddlCompanyName.SelectedIndex = 0;
             ddlActivityAccess.SelectedIndex = 0;
             ddlRoleName.SelectedIndex = 0;

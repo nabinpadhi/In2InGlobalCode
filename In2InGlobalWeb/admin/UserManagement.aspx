@@ -83,7 +83,9 @@
                                                 <tr>
                                                     <td>Email ID(<span style="color: red">*</span>)</td>
                                                     <td>
-                                                        <input type="text" id="txtEmail" runat="server" value="" /></td>
+                                                        <input type="text" id="txtEmail" runat="server" value="" />
+                                                        <asp:HiddenField ID="hdnUserEmail" runat="server" Value="" />
+                                                    </td>
                                                     <td>Password(<span style="color: red">*</span>)</td>
                                                     <td>
                                                         <input type="password" id="txtPassword" autocomplete="off" runat="server" value="" /></td>
@@ -92,7 +94,7 @@
                                                     <td colspan="4">
                                                         <div style="margin-top: 10px;">
                                                             <center>
-                                                                <asp:Button runat="server" CssClass="button" Text="Save" OnClientClick="return ValidateUser();" OnClick="AddNewUser" />
+                                                                <asp:Button runat="server" id="btnSave" CssClass="button" Text="Save" OnClientClick="return ValidateUser();" OnClick="AddNewUser" />
                                                                 <input type="button" class="button" style="margin-left: 10px;" value="Cancel" onclick="ClearAll();" />
                                                              
                                                             </center>
@@ -110,10 +112,10 @@
                                         Are you sure you want to delete this record ?
                                     </div>
                                     <center>
-                                       <asp:GridView ID="grdUsers" runat="server" OnRowEditing="grdUsers_RowEditing" OnRowDeleting="grdUsers_RowDeleting"
+                                       <asp:GridView ID="grdUsers" runat="server" OnRowEditing="grdUsers_RowEditing"
                                             OnPageIndexChanging="grdUsers_PageIndexChanging" Width="80%" HeaderStyle-CssClass="pagination-ys"
-                                            AllowPaging="True" DataKeyNames="user_email" PageSize="4" OnRowUpdating="grdUsers_RowUpdating"
-                                            OnRowCancelingEdit="grdUsers_RowCancelingEdit" OnRowDataBound="grdUsers_RowDataBound"  AutoGenerateColumns="false">
+                                            AllowPaging="True" DataKeyNames="user_email" PageSize="4"
+                                            OnRowDataBound="grdUsers_RowDataBound"  AutoGenerateColumns="false">
                                             <columns>
                                                 <asp:BoundField DataField="first_name" ControlStyle-Width="94%" HeaderText="First Name" />
                                                 <asp:BoundField DataField="last_name" ControlStyle-Width="94%" HeaderText="Last Name" />
@@ -122,12 +124,12 @@
                                                 <asp:BoundField DataField="role_name" ReadOnly="true" ControlStyle-Width="94%" HeaderText="Role" />
                                                 <asp:BoundField DataField="activity_name" ControlStyle-Width="94%" HeaderText="Activity Name" />
                                                 <asp:BoundField DataField="phone" ControlStyle-Width="94%" HeaderText="Phone Number" />
-                                                <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Delete">
+                                                <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Action">
                                                   <ItemTemplate >                                                      
-                                                      <asp:LinkButton href="#" runat="server" id="lnkDel" >Delete</asp:LinkButton>
+                                                      <asp:LinkButton href="#" runat="server" id="lnkDel" >Delete</asp:LinkButton>   <asp:LinkButton href="#" runat="server" id="lnkEdit" >Edit</asp:LinkButton>
                                                   </ItemTemplate>
+                                               
                                                 </asp:TemplateField>
-                                                <asp:CommandField ItemStyle-HorizontalAlign="Center" HeaderText="&nbsp;Edit&nbsp;" ShowEditButton="true" />  
                                             </columns>
                                             <pagerstyle cssclass="pagination-ys" />
                                         </asp:GridView>
@@ -189,6 +191,24 @@
             __doPostBack(_target, email);            
             
         }
+        function PullDataToEdit(fname, lname,company,email,role, activity, phone) {
+                        
+            $('#txtFName').val(fname);
+            $('#hdnUserEmail').val(email);
+            $('#txtLName').val(lname);  
+            $('#txtEmail').val(email);  
+            $('#txtPhoneNo').val(phone);           
+            $("#ddlRoleName").val(role);
+            $("#ddlCompanyName").val(company);           
+            $("#ddlActivityAccess").val(activity);
+            $("#txtPassword").val("******");
+            $('input[type="password"]').prop("readonly", true);
+            $("#txtPassword").css("background-color", "lightgray")
+            $("#txtPassword").css("cursor", "url(./img/no-pencil-sign.png),auto")
+            ModifyActivity(role);
+            $('#btnSave').val('Update');
+
+        }
         function ShowServerMessage(servermessage) {
             if (servermessage != "") {
                 $.messager.show({
@@ -245,20 +265,26 @@
             $('#txtPhoneNo').val('');
             $('#ddlRoleName').prop('selectedIndex', 0);
             $('#ddlCompanyName').prop('selectedIndex', 0);
-            $('#ddlActivityAccess').prop('selectedIndex', 0);
-            $('input[type="password"]').val('');
+            $('#ddlActivityAccess').prop('selectedIndex', 0);           
             $('#ddlActivityAccess').prop("disabled", false);
+            $('#btnSave').val('Save');
+            $('#hdnUserEmail').val('');
+            $("#txtPassword").val('');
+            $('input[type="password"]').prop("readonly", false);
+            $("#txtPassword").css("background-color", "white")
+            $("#txtPassword").css("cursor", "auto")
         }
         function ModifyActivity(selectedRole) {
+           
+            if (selectedRole == "1") {
 
-            if (selectedRole == "Admin") {
-
-                $('#ddlActivityAccess').val('All');
+                $('#ddlActivityAccess').val('1');
                 $('#ddlActivityAccess').prop("disabled", true);
             }
             else {
 
                 $('#ddlActivityAccess').prop("disabled", false);
+                $('#ddlActivityAccess').prop('selectedIndex', 0);
 
             }
         }
