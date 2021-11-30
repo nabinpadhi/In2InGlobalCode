@@ -579,7 +579,7 @@ body {
     border: 1px solid #1c4f8a;
     width: 90%;
     display: inline-block;
-    cursor: not-allowed;
+    cursor: url("../img/no-pencil-sign.png") 2 2,auto;
 }
 
 td > input[type=text], td > input[type=password],textarea {

@@ -150,9 +150,9 @@
     <script src="js/fastclick.js" type="text/javascript" lang="javascript"></script>
     <script src="js/prism.js" type="text/javascript" lang="javascript"></script>
 
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">    
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <link rel="stylesheet" href="css/jquery-ui.css">    
+    <script src="js/jquery-3.6.0.js"></script>
+    <script src="js/jquery-ui.js"></script>
     <script type="text/javascript">
         $(function () {
             $('.confirmDialog').hide();          
@@ -203,8 +203,12 @@
             $("#ddlActivityAccess").val(activity);
             $("#txtPassword").val("******");
             $('input[type="password"]').prop("readonly", true);
+            $('input[type="password"]').attr("fieldtype", "readonly");
+            $('#txtEmail').prop("readonly", true);
+            $('#txtEmail').attr("fieldtype", "readonly");
+
             $("#txtPassword").css("background-color", "lightgray")
-            $("#txtPassword").css("cursor", "url(./img/no-pencil-sign.png),auto")
+            
             ModifyActivity(role);
             $('#btnSave').val('Update');
 
@@ -271,8 +275,7 @@
             $('#hdnUserEmail').val('');
             $("#txtPassword").val('');
             $('input[type="password"]').prop("readonly", false);
-            $("#txtPassword").css("background-color", "white")
-            $("#txtPassword").css("cursor", "auto")
+            $("#txtPassword").css("background-color", "white")            
         }
         function ModifyActivity(selectedRole) {
            

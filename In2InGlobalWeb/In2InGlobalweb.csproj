@@ -91,9 +91,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="admin\assets\img\mobile.png" />
+    <Content Include="admin\css\jquery-ui.css" />
     <Content Include="admin\img\loading.gif" />
     <Content Include="admin\img\no-pencil-sign.png" />
     <Content Include="admin\img\processing.gif" />
+    <Content Include="admin\js\jquery-ui.js" />
     <Content Include="admin\ProjectManagement.aspx" />
     <Content Include="admin\css\multi-styles.css" />
     <Content Include="admin\DisplayCSV.aspx" />
