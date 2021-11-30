@@ -91,6 +91,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="admin\assets\img\mobile.png" />
+    <Content Include="admin\css\images\ui-icons_555555_256x240.png" />
+    <Content Include="admin\css\images\ui-icons_777777_256x240.png" />
     <Content Include="admin\css\jquery-ui.css" />
     <Content Include="admin\img\loading.gif" />
     <Content Include="admin\img\no-pencil-sign.png" />
