@@ -29,7 +29,7 @@
     <form id="form1" runat="server">
        
         <center>
-            <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 20px;">
+            <div style="width: 100%;height:450px; border: 1px solid black; border-radius: 5px; margin-top: 20px;">
                 <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height: 40px; padding-top: 10px;"><span class="menu_frame_title">User Management</span></div>
                 <asp:ScriptManager ID="scriptmanager1" runat="server">
                 </asp:ScriptManager>
@@ -44,7 +44,7 @@
                                 <td style="width: 80%;">
                                     <center>
                                         <div style="width: 70%; border: 1px solid black; border-radius: 5px; margin-top: 30px;">
-                                            <table style="width: 80%;">
+                                            <table style="width: 80%;padding-top:10px;">
                                                 <tr>
                                                     <td>First Name(<span style="color: red">*</span>)</td>
                                                     <td>

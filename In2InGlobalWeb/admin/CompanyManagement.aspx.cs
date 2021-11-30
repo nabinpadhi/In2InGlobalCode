@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Services;
@@ -16,19 +17,38 @@ namespace In2InGlobal.presentation.admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (Session["UserRole"] != null)
             {
-                string usrRole = Session["UserRole"].ToString();
-                if (usrRole != "Admin")
+                if (!IsPostBack)
                 {
-                    Response.Redirect("Login.aspx");
+                    string usrRole = Session["UserRole"].ToString();
+                    if (usrRole != "Admin")
+                    {
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
 
+                    }
+                    else
+                    {
+                        BindCompany();
+                        BindLOB();
+                    }
                 }
-                else
+                if (Request.Form["__EVENTTARGET"] != null)
                 {
-                    BindCompany();
+                    if (Request.Form["__EVENTTARGET"].ToString().IndexOf("grdCompany") == 0)
+                    {
+                        int extraComa = Request.Form["__EVENTTARGET"].ToString().Replace("grdCompany","").Length;
+                        // Fire event
+                        DeleteCompany(Request.Form["__EVENTARGUMENT"].Substring(0, Request.Form["__EVENTARGUMENT"].Length - extraComa));
+                        BindCompany();
+                        string _message = "Company deleted Successfully";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);
+                    }
                 }
             }
+            else
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
+
 
         }
         private void BindCompany()
@@ -47,20 +67,34 @@ namespace In2InGlobal.presentation.admin
                 ex.Message.ToString();
             }
         }
-
+       
         protected void grdCompany_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            GridViewRowEventArgs ea = e as GridViewRowEventArgs;
-            if (ea.Row.RowType == DataControlRowType.DataRow)
+            if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                DataRowView drv = ea.Row.DataItem as DataRowView;
-                Object ob = drv["company_phone"];
-                if (!Convert.IsDBNull(ob))
+                
+                string companyid = grdCompany.DataKeys[e.Row.RowIndex].Value.ToString();
+                string companyname = e.Row.Cells[1].Text;
+                string lob = e.Row.Cells[2].Text;
+
+                foreach (LinkButton button in e.Row.Cells[3].Controls.OfType<LinkButton>())
                 {
-                    TableCell cell2 = ea.Row.Cells[3];
-                    if (cell2.Text.Length > 1)
+
+                    if (button.ID == "lnkDel")
                     {
-                        cell2.Text = "<img src='assets/img/mobile.png' style='width:25px;height:20px;'></span>" + " " + cell2.Text;
+                        if (companyname == Session["CompanyName"].ToString())
+                        {
+                            button.Enabled = false;
+                        }
+                        else
+                        {
+                            button.OnClientClick = "In2InGlobalConfirm('" + companyid + "');";
+                        }
+                    }
+                    if (button.ID == "lnkEdit")
+                    {
+                        button.OnClientClick = "PullDataToEdit('"+companyid + "','" + companyname + "','" + lob + "'); ";
+                        button.Attributes["href"] = "#";
                     }
                 }
             }
@@ -75,41 +109,47 @@ namespace In2InGlobal.presentation.admin
 
 
         }
-        [WebMethod(EnableSession = true)]
-        public static string AddNewCompany(string companyname, string lob, string phoneno)
+        
+        private void BindLOB()
         {
-            CompanyEntity companyEntity = new CompanyEntity();
-            try
-            {
-                companyEntity.CompanyName = companyname;
-                companyEntity.LOB = lob;
-                companyEntity.CompanyPhone = phoneno;
-                companyEntity.CreatedBy = "Admin";
-                companyEntity.CompanyAddress = "Bangalore";
-                CompanyMasterBL companyMasterBl = new CompanyMasterBL();
-                companyMasterBl.SaveCompanyMaster(companyEntity);
-            }
-            catch (Exception ex)
-            {
-                ex.Message.ToString();
-            }       
-            return "Success";
+            DataTable dtLOB = GetLOB();
+            ddlLOB.DataSource = dtLOB;
+            ddlLOB.DataTextField = "lob_name";
+            ddlLOB.DataValueField = "lob_name";
+            ddlLOB.DataBind();
         }
-
+        private DataTable GetLOB()
+        {
+            DataTable dtLOB = new DataTable();
+            dtLOB.Columns.Add("lob_id"); dtLOB.Columns.Add("lob_name");
+            dtLOB.Rows.Add("1", "Software"); dtLOB.Rows.Add("2", "Marketing"); dtLOB.Rows.Add("3", "Manufacturing");
+            dtLOB.Rows.Add("4", "Hospitality"); dtLOB.Rows.Add("5", "Realestate");
+            Session["dtLOB"]=dtLOB;
+            return dtLOB;            
+        }
         protected void btnSave_Click(object sender, EventArgs e)
         {
             CompanyEntity companyEntity = new CompanyEntity();
+            string _message = "Company Created Successfully";
             try
             {
                 companyEntity.CompanyName = txtCompanyName.Value;
-                companyEntity.LOB = txtLOB.Value;
-                companyEntity.CompanyPhone = txtPhoneNo.Value;
-                companyEntity.CreatedBy = "Admin";
-                companyEntity.CompanyAddress = "Bangalore";
-
+                companyEntity.LOB = ddlLOB.SelectedItem.Text;
+                companyEntity.CreatedBy = Session["UserEmail"].ToString();
+                
                 CompanyMasterBL companyMasterBl = new CompanyMasterBL();
-
-                companyMasterBl.SaveCompanyMaster(companyEntity);
+                
+                if (hdnCompanyID.Value != "")
+                {
+                    _message = "Company Updated Successfully";
+                    companyEntity.CompanyId = Convert.ToInt64(hdnCompanyID.Value);
+                    companyMasterBl.UpdateCompany(companyEntity);
+                }
+                else
+                {
+                    companyMasterBl.SaveCompanyMaster(companyEntity);
+                }
+               
                 BindCompany();
             }
             catch (Exception ex)
@@ -117,7 +157,7 @@ namespace In2InGlobal.presentation.admin
                 ex.Message.ToString();
             }         
           
-            string _message = "Company Created Successfully";
+           
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);
 
         }
@@ -159,22 +199,20 @@ namespace In2InGlobal.presentation.admin
             string companyID = grdCompany.DataKeys[e.RowIndex].Value.ToString();
             GridViewRow row = (GridViewRow)grdCompany.Rows[e.RowIndex];
             TextBox textCompanyName = (TextBox)row.Cells[1].Controls[0];
-            TextBox textLOB = (TextBox)row.Cells[2].Controls[0];  
-            TextBox textPhoneNo = (TextBox)row.Cells[3].Controls[0];
-            UpdateCompany(textCompanyName.Text, textLOB.Text, textPhoneNo.Text, companyID);
+            TextBox textLOB = (TextBox)row.Cells[2].Controls[0];            
+            UpdateCompany(textCompanyName.Text, textLOB.Text, companyID);
             grdCompany.EditIndex = -1;
 
             BindCompany();
         }
 
-        protected void UpdateCompany(string companyname, string email, string phoneno, string companyID)
+        protected void UpdateCompany(string companyname, string lob, string companyID)
         {
             CompanyEntity companyEntity = new CompanyEntity();
             if(companyID!=null)
             {
                 companyEntity.CompanyName = companyname;
-                companyEntity.LOB = email;
-                companyEntity.CompanyPhone = phoneno;
+                companyEntity.LOB = lob;
                 companyEntity.CompanyId = Convert.ToInt32(companyID);
 
                 CompanyMasterBL companyMasterBl = new CompanyMasterBL();

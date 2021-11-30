@@ -22,6 +22,24 @@ namespace In2InGlobal.presentation.admin {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// companyscriptmanager control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager companyscriptmanager;
+        
+        /// <summary>
+        /// pdnlCompany control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel pdnlCompany;
+        
+        /// <summary>
         /// txtCompanyName control.
         /// </summary>
         /// <remarks>
@@ -31,22 +49,22 @@ namespace In2InGlobal.presentation.admin {
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtCompanyName;
         
         /// <summary>
-        /// txtLOB control.
+        /// hdnCompanyID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtLOB;
+        protected global::System.Web.UI.WebControls.HiddenField hdnCompanyID;
         
         /// <summary>
-        /// txtPhoneNo control.
+        /// ddlLOB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtPhoneNo;
+        protected global::System.Web.UI.WebControls.DropDownList ddlLOB;
         
         /// <summary>
         /// btnSave control.

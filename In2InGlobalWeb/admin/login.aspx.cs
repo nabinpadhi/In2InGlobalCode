@@ -188,6 +188,7 @@ namespace In2InGlobal.presentation.admin
                 if (dsUser.Tables[0].Rows.Count > 0)
                 {
                     companyname.Text = dsUser.Tables[0].Rows[0]["company_name"].ToString();
+                    Session["CompanyName"]= dsUser.Tables[0].Rows[0]["company_name"].ToString();
                     ddlActivity.DataSource = dsUser;
                     ddlActivity.DataTextField = "activity_name";
                     ddlActivity.DataBind();

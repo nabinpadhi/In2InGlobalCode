@@ -13,7 +13,13 @@
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
      <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/Validation.js?"), DateTime.Now.Ticks) %>" type="text/javascript" lang="javascript"></script>
       <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" />
-   
+    <script lang="JavaScript">
+        function __doPostBack(eventTarget, eventArgument) {
+            documenT.Form1.__EVENTTARGET.value = eventTarget;
+            document.Form1.__EVENTARGUMENT.value = eventArgument;
+            document.Form1.submit();
+        }
+</script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -30,6 +36,9 @@
                 <asp:UpdatePanel  ID="pdnlTemplate" runat="server">   
                     <Triggers><asp:PostBackTrigger ControlID="btnUploader" /></Triggers>
                     <ContentTemplate>
+                          <input type="hidden" value="" id="__EVENTARGUMENT" name="__EVENTARGUMENT">
+                        <input type="hidden" value="" id="__EVENTTARGET" name="__EVENTTARGET">
+                        
                         <div name="pnlTemplate" id="pnlTemplate" style="width:auto;height:auto;min-height:350px;color:black">
                         <div style="border-bottom:0 solid gray;display:flex;padding:2px;width:auto;">
                             <div id="btnUploadMasterTemplate" onclick="ShowUploadMasterTemplate();" class="PanelTab"> Upload Master Template </div>
@@ -75,7 +84,7 @@
                                                                         <asp:DropDownList ID="ddlMasterTemplate" Width="92%" AppendDataBoundItems="true" runat="server" DataTextField="TemplateName">
                                                                             <asp:ListItem Text="--Select a Template--" ></asp:ListItem>
                                                                         </asp:DropDownList>
-                                                                        <asp:TextBox ID="txtMasterTemplateName" runat="server" ReadOnly="true" Text="" style="display:none"></asp:TextBox>
+                                                                        <asp:HiddenField ID="hdnTID" Value="" runat="server" />
                                                                     </td>
                                                                 </tr>
                                                                  <tr>
@@ -117,6 +126,9 @@
                                   <tr>
                                     <td>
                                         <center>
+                                            <div class="confirmDialog" style="text-align:center;color:black;display:none;position:center;padding-top:30px;">
+                                                Are you sure you want to delete this record ?
+                                            </div>
                                             <div style="width:60%; border: 1px solid black; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;">                                    
                                                 <asp:GridView DataKeyNames="template_id" ID="grdMasterTemplate" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
                                                     AllowPaging="True" OnRowDataBound="grdMasterTemplate_RowDataBound" OnRowDeleting="grdMasterTemplate_RowDeleting" OnPageIndexChanging="grdMasterTemplate_PageIndexChanging"  AutoGenerateColumns="false" PageSize="4">
@@ -125,7 +137,11 @@
                                                         <asp:BoundField HeaderText="Template Name" ItemStyle-Width="25%" DataField="template_name" />
                                                         <asp:BoundField HeaderText="Created By" ItemStyle-Width="25%" DataField="created_by" />                                                                                                              
                                                         <asp:BoundField HeaderText ="Instruction" ItemStyle-Width="35%" DataField="instruction"/>   
-                                                        <asp:CommandField ItemStyle-HorizontalAlign="Center" HeaderText="Action" ShowEditButton="true" ShowDeleteButton="true" />                                                                                                             
+                                                        <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Action">
+                                                          <ItemTemplate >                                                      
+                                                              <asp:LinkButton href="#" runat="server" id="lnkDel" >Delete</asp:LinkButton>   <asp:LinkButton href="#" runat="server" id="lnkEdit" >Edit</asp:LinkButton>
+                                                          </ItemTemplate>                                               
+                                                        </asp:TemplateField>                                                                                                           
                                                     </Columns>
                                                 </asp:GridView>
                                             </div>
@@ -226,9 +242,13 @@
     
     <script src="js/fastclick.js" type="text/javascript" lang="javascript"></script>
     <script src="js/prism.js" type="text/javascript" lang="javascript"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-  <script>   
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">    
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>    
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('.confirmDialog').hide();
+        });
       var recentnl = "btnCreateTemplate";     
       (function ($) {
           $.fn.invisible = function () {
@@ -245,25 +265,24 @@
 
       $(document).ready(function () {
             
-            FastClick.attach(document.body);
-            ShowUploadMasterTemplate();
+          FastClick.attach(document.body);
+          ShowUploadMasterTemplate();
+          ClearAll();
+         
            
       }); 
       function PullDataToEdit(id,templatename,instruction) {
-          
-          $('#txtMasterTemplateName').val(templatename);
+                    
+          $('#hdnTID').val(id);
           $('#txtInstruction').val(instruction);
           document.getElementById("hdnMTName").value = templatename;
-          $('#btnCreate').val('Save');
-          $('#txtMasterTemplateName').visible();
-          $('#ddlMasterTemplate').invisible();
+          $('#btnCreate').val('Save');         
+          $('#ddlMasterTemplate').val(id);
       }
         function ClearAll() {
             
-            //$('#ddlTemplates').prop('selectedIndex', 0);            
-            //$('#ddlProjects').prop('selectedIndex', 0);
-            document.getElementById("hdnMTName").value = "";
-            //$('#ddlUserEmail').prop('selectedIndex', 0);
+            
+            document.getElementById("hdnMTName").value = "";           
             $("#txtInstruction").val('');            
             $('#btnCreate').val('Create');
             $('#txtMasterTemplateName').invisible();
@@ -272,7 +291,34 @@
 
             
       }
-      
+        function In2InGlobalConfirm(id) {
+
+            $(".confirmDialog").dialog({
+                resizable: false,
+                height: "auto",
+                title: "In2In Global Confirmation",
+                width: 400,
+                height: 170,
+                modal: true,
+                buttons: {
+                    "Yes": function () {
+                        $(this).dialog("close");
+                        DeleteTemplate(id);
+                    },
+                    "No": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        }
+        function DeleteTemplate(id) {
+
+            var _target = 'grdMasterTemplate';
+            $("#__EVENTARGUMENT").val(id);
+            $("#__EVENTTARGET").val(_target);
+            __doPostBack(_target, id);
+
+        }
       function ValidateMasterTemplate() {
 
           Error_Message = "";
@@ -425,21 +471,6 @@
           }
       }     
      
-      function ConfirmDelete(item) {
-          $('#deletedialog').confirm({
-              title: 'Delete Confirmation',
-              content: '!',
-              buttons: {
-                  confirm: function () {
-                      return true;
-                  },
-                  cancel: function () {
-                      return false;
-                  }
-              }
-          });
-          
-      };
     </script>
     <style type="text/css">
         body {
@@ -447,6 +478,31 @@
         }
         .panel-body {
                color:black;
+        }
+        .ui-dialog-titlebar
+        {
+            color: white;
+            background-color: #8f0108;
+            border: 1px solid #dddddd;    
+            text-indent: 5px;    
+            border-radius: 5px;
+        }
+        .ui-dialog-buttonpane {
+
+            background-color:lightGray;                
+        }
+        .ui-dialog{
+            border: 1px solid blue;
+            border-radius:5px;
+        }
+        .ui-button{
+            border: 1px solid blue;
+            border-radius:5px;
+        }
+        .ui-button:hover{
+            border: 1px solid blue;
+            border-radius:5px;
+            font-weight:bold;
         }
     </style>
 </body>

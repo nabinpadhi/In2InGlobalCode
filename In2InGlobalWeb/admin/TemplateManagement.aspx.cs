@@ -44,12 +44,24 @@ namespace In2InGlobal.presentation.admin
                     }
                     else
                     {
-                        Response.Redirect("Login.aspx");
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
                     }
                 }
                 else
                 {
-                    Response.Redirect("Login.aspx");
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
+                }
+            }
+            if (Request.Form["__EVENTTARGET"] != null)
+            {
+                if (Request.Form["__EVENTTARGET"].ToString().IndexOf("grdMasterTemplate") == 0)
+                {
+                    int extraComa = Request.Form["__EVENTTARGET"].ToString().Replace("grdMasterTemplate", "").Length;
+                    // Fire event
+                    DeleteMasterTemplate(Request.Form["__EVENTARGUMENT"].Substring(0, Request.Form["__EVENTARGUMENT"].Length - extraComa));
+                    BindMasterTemplateGrid();
+                    string _message = "Template deleted Successfully";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);
                 }
             }
         }
@@ -344,6 +356,7 @@ namespace In2InGlobal.presentation.admin
             string createdBy = Session["UserEmail"].ToString();
             string templateName = ddlMasterTemplate.Text;
             string instruction = txtInstruction.Value;
+            string _message = "Template Created Successfully.";
             try
             {
                 tempalteEntity.TemplateName = templateName;
@@ -351,7 +364,17 @@ namespace In2InGlobal.presentation.admin
                 tempalteEntity.CreatedBy = createdBy;
 
                 TemplateMasterBl templateMasterBl = new TemplateMasterBl();
-                templateMasterBl.SaveTemplateMaster(tempalteEntity);
+                if (hdnTID.Value != "")
+                {
+                    tempalteEntity.TemplateId = Convert.ToInt64(hdnTID.Value);
+                    _message = "Company Updated Successfully";
+                    //templateMasterBl.UpdateTemplateMaster(tempalteEntity); Nabin :Ganesh write this method to update  master template.
+                }
+                else
+                {
+                    templateMasterBl.SaveTemplateMaster(tempalteEntity);
+                }
+
                 BindMasterTemplateGrid();
             }
             catch (Exception ex)
@@ -361,7 +384,7 @@ namespace In2InGlobal.presentation.admin
 
             //BindMasterTemplate();
             //BindTemplateToAssign();
-            string _message = "Template Created Successfully.)";
+            
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate(); ", _message), true);
         }
 
@@ -477,13 +500,13 @@ namespace In2InGlobal.presentation.admin
                 string instuction = e.Row.Cells[2].Text.Replace("\n", "\\#");
                 foreach (LinkButton button in e.Row.Cells[3].Controls.OfType<LinkButton>())
                 {
-                    if (button.CommandName == "Delete")
+                    if (button.ID == "lnkDel")
                     {
-                        button.Attributes["onclick"] = "if(!confirm('Do you want to delete " + item + "?')){ return false; };";
+                        button.OnClientClick = "In2InGlobalConfirm('" + ID + "');";
                     }
-                    if (button.CommandName == "Edit")
+                    if (button.ID == "lnkEdit")
                     {
-                        button.Attributes["onclick"] = "PullDataToEdit('" + ID + "','" + item + "','" + instuction + "');";
+                        button.OnClientClick = "PullDataToEdit('" + ID + "','" + item + "','" + instuction + "');";
                         button.Attributes["href"] = "#";
                     }
                 }

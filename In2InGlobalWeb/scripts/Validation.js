@@ -880,7 +880,7 @@ function ShowError(rs_ErrorMessage,messageHeight)
     if(_ewLeft == 0)
     {
 
-            $.messager.show({
+        $.messager.show({
 		    title:'In2In Global - Errors',
 		    msg:rs_ErrorMessage,
 		    showType:'slide',
