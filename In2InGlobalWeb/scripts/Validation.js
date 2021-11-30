@@ -248,6 +248,18 @@ function CheckFileExtension(rs_FieldValueToValidate, rs_WhatToValidate, ms_ErrMs
     else { return true;}
 
 }
+function CheckMasterTemplate(rs_FieldValueToValidate, ms_ErrMsg) {
+    if (rs_FieldValueToValidate == "Spend_Analytics.csv" || rs_FieldValueToValidate == "Purchasing" || rs_FieldValueToValidate == "Procurement" || rs_FieldValueToValidate == "Business_Travel_Air" || rs_FieldValueToValidate == "Business_Travel_Hotel") {
+
+        return true;
+    }
+    else
+    {
+        Error_Message = Error_Message + Error_Count + " . " + ms_ErrMsg + "<br>";
+        Error_Count = Error_Count + 1;
+        return false;
+    }
+}
 function CheckNull(rs_FieldValueToValidate,ms_ErrMsg)
 {	
     if(rs_FieldValueToValidate != null)

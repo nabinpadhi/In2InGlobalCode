@@ -98,6 +98,10 @@
     <Content Include="admin\img\no-pencil-sign.png" />
     <Content Include="admin\img\processing.gif" />
     <Content Include="admin\js\jquery-ui.js" />
+    <Content Include="admin\js\jquery.easyui.min.js" />
+    <Content Include="admin\js\jquery.min.js" />
+    <Content Include="admin\js\jquery.panel.js" />
+    <Content Include="admin\js\jquery.window.js" />
     <Content Include="admin\ProjectManagement.aspx" />
     <Content Include="admin\css\multi-styles.css" />
     <Content Include="admin\DisplayCSV.aspx" />

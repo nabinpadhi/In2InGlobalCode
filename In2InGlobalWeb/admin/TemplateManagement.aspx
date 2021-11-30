@@ -242,9 +242,9 @@
     
     <script src="js/fastclick.js" type="text/javascript" lang="javascript"></script>
     <script src="js/prism.js" type="text/javascript" lang="javascript"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">    
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>    
-    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <link rel="stylesheet" href="css/jquery-ui.css">    
+    <script src="js/jquery.min.js"></script>    
+    <script src="js/jquery.easyui.min.js"></script>   
     <script type="text/javascript">
         $(function () {
             $('.confirmDialog').hide();
@@ -265,6 +265,8 @@
 
       $(document).ready(function () {
             
+          alert($.messager);
+
           FastClick.attach(document.body);
           ShowUploadMasterTemplate();
           ClearAll();
@@ -291,7 +293,7 @@
 
             
       }
-        function In2InGlobalConfirm(id) {
+        function IIn2InGlobalConfirm(id) {
 
             $(".confirmDialog").dialog({
                 resizable: false,
@@ -311,6 +313,14 @@
                 }
             });
         }
+        //$.messager.confirm(
+        function In2InGlobalConfirm(id) {
+            $.messager.confirm('In2In Global Confirmation', 'Are you sure you want to delete this?', function (r) {
+                if (r) {
+                    DeleteTemplate(id);;
+                }
+            });
+        }
         function DeleteTemplate(id) {
 
             var _target = 'grdMasterTemplate';
@@ -320,7 +330,7 @@
 
         }
       function ValidateMasterTemplate() {
-
+          var winH = 80;
           Error_Message = "";
           Error_Count = 1;  
           if ($('#btnCreate').val() == 'Create') {
@@ -329,7 +339,7 @@
           CheckNull($("#txtInstruction").val(), in2in18);          
 
           if (Error_Message != "") {
-              ShowError(Error_Message, 80);
+              ShowError(Error_Message, winH);
               return false;
           }
           else {
@@ -449,6 +459,7 @@
       }
       function VerifyFile() {
 
+          var winH = 80
           Error_Message = "";
           Error_Count = 1;
 
@@ -458,11 +469,13 @@
 
           if (CheckNull(fileName, in2in23)) {
               CheckFileExtension(extFile, "csv", in2in24);
+              CheckMasterTemplate(fileName, in2in26, winH)
           }
 
 
+
           if (Error_Message != "") {
-              ShowError(Error_Message, 50);
+              ShowError(Error_Message, 80);
               return false;
           }
           else {
