@@ -87,10 +87,10 @@
                                                     <asp:BoundField DataField="company_name" ControlStyle-Width="94%" HeaderText="Company Name" />
                                                     <asp:BoundField DataField="lob" ControlStyle-Width="94%" HeaderText="LOB" />                             
                                                     <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Action">
-                                                  <ItemTemplate >                                                      
-                                                      <asp:LinkButton href="#" runat="server" id="lnkDel" >Delete</asp:LinkButton>   <asp:LinkButton href="#" runat="server" id="lnkEdit" >Edit</asp:LinkButton>
-                                                  </ItemTemplate>                                               
-                                                </asp:TemplateField>
+                                                      <ItemTemplate >                                                      
+                                                          <asp:LinkButton href="#" runat="server" id="lnkDel" >Delete</asp:LinkButton>   <asp:LinkButton href="#" runat="server" id="lnkEdit" >Edit</asp:LinkButton>
+                                                      </ItemTemplate>                                               
+                                                    </asp:TemplateField>
                                                 </Columns>
                                                 <PagerStyle CssClass="pagination-ys" />
                                             </asp:GridView>
@@ -112,13 +112,12 @@
     <script src="js/fastclick.js" type="text/javascript" lang="javascript"></script>
     <script src="js/prism.js" type="text/javascript" lang="javascript"></script>
 
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">    
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>    
-    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+     <link rel="stylesheet" href="css/jquery-ui.css">    
+    <script src="js/jquery.min.js"></script>    
+    <script src="js/jquery.easyui.min.js"></script>   
+    
     <script type="text/javascript">
-        $(function () {
-            $('.confirmDialog').hide();            
-        });
+       
         var BASE_URL = "CompanyManagement.aspx";
         $(document).ready(function () {
             FastClick.attach(document.body);
@@ -149,20 +148,14 @@
        
         function In2InGlobalConfirm(id) {
 
-            $(".confirmDialog").dialog({
-                resizable: false,
-                height: "auto",
-                title: "In2In Global Confirmation",
-                width: 400,
-                height: 170,
-                modal: true,
-                buttons: {
-                    "Yes": function () {
-                        $(this).dialog("close");
-                        DeleteCompany(id);                       
-                    },
-                    "No": function () {
-                        $(this).dialog("close");
+            $.messager.confirm({
+                title: 'In2In Global Confirmation',
+                msg: 'Are you sure you want to delete this?',
+                ok: 'Yes',
+                cancel: 'No',
+                fn: function (r) {
+                    if (r) {
+                        DeleteCompany(id);
                     }
                 }
             });
@@ -208,30 +201,23 @@
         body {
             background-color: azure;
         }
-        .ui-dialog-titlebar
+        .window-body.panel-body {
+               color:silver;              
+               padding-top:30px;
+               text-align:center;
+        }
+        .panel-title
         {
-            color: white;
+            color: greenyellow;
             background-color: #8f0108;
-            border: 1px solid #dddddd;    
+            border: 0px solid #dddddd;    
             text-indent: 5px;    
             border-radius: 5px;
         }
-        .ui-dialog-buttonpane {
+        .l-btn-text
+        {
+            color:yellow;
 
-            background-color:lightGray;                
-        }
-        .ui-dialog{
-            border: 1px solid blue;
-            border-radius:5px;
-        }
-        .ui-button{
-            border: 1px solid blue;
-            border-radius:5px;
-        }
-        .ui-button:hover{
-            border: 1px solid blue;
-            border-radius:5px;
-            font-weight:bold;
         }
     </style>
 </body>

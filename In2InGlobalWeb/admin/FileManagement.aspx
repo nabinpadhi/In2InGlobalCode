@@ -62,6 +62,13 @@
             width: 1.3em; /* same as padding-left set on li */
         }          
     </style> 
+     <script lang="JavaScript">
+         function __doPostBack(eventTarget, eventArgument) {
+             documenT.Form1.__EVENTTARGET.value = eventTarget;
+             document.Form1.__EVENTARGUMENT.value = eventArgument;
+             document.Form1.submit();
+         }
+</script>
 </head>
 <body style="background-color:azure;">
    
@@ -79,6 +86,8 @@
                             <div id="btnProjectMgnt" onclick="ShowProjectMgnt();" class="PanelTab">Project Management</div>
                             <div id="btnFileMgnt" onclick="ShowFileMgnt();" class="PanelTab">File Management</div>                          
                         </div>
+                        <input type="hidden" value="" id="__EVENTARGUMENT" name="__EVENTARGUMENT">
+                        <input type="hidden" value="" id="__EVENTTARGET" name="__EVENTTARGET">
                         <div title="Project Management" class="projectmgnt" style="background-color: azure;">
                                <table style="width: 100%; background-color: azure;">
                                 <tr>
@@ -92,7 +101,7 @@
                                                                 <tr>                                                                    
                                                                     <td style="width:40%">
                                                                         Project Name(<span style="color: red">*</span>)<br />
-                                                                       <span fieldtype="readonly" value="" runat="server" id="spnProjectName" />
+                                                                        <span fieldtype="readonly" value="" runat="server" id="spnProjectName" />
                                                                         <asp:HiddenField ID="hdnPName" runat="server" Value="" />
                                                                          <asp:HiddenField ID="hdnProjectToEdit" runat="server" Value="" />
                                                                     </td>
@@ -154,7 +163,11 @@
                                                             </ItemTemplate>
                                                         </asp:TemplateField>                                                          
                                                         <asp:BoundField ItemStyle-Wrap="true" HeaderText="Description"  DataField="description" />  
-                                                        <asp:CommandField ItemStyle-HorizontalAlign="Center" HeaderText="Action" ShowEditButton="true" ShowDeleteButton="true" />                                                                                                             
+                                                       <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Action">
+                                                      <ItemTemplate >                                                      
+                                                          <asp:LinkButton href="#" runat="server" id="lnkDel" >Delete</asp:LinkButton>   <asp:LinkButton href="#" runat="server" id="lnkEdit" >Edit</asp:LinkButton>
+                                                      </ItemTemplate>                                               
+                                                    </asp:TemplateField>
                                                     </Columns>
                                                 </asp:GridView>
                                             </div>
@@ -323,8 +336,10 @@
      <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/Validation.js?"), DateTime.Now.Ticks) %>" type="text/javascript" lang="javascript"></script>
      <script src="js/fastclick.js" type="text/javascript" lang="javascript"></script>
     <script src="js/prism.js" type="text/javascript" lang="javascript"></script>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+     <link rel="stylesheet" href="css/jquery-ui.css">    
+    <script src="js/jquery.min.js"></script>    
+    <script src="js/jquery.easyui.min.js"></script>   
+    
  <script>
     
     $(document).ready(function () {
@@ -336,6 +351,29 @@
         ShowProjectMgnt();
         ClearProject();
     });
+     function In2InGlobalConfirm(id) {
+
+         $.messager.confirm({
+             title: 'In2In Global Confirmation',
+             msg: 'Are you sure you want to delete this?',
+             ok: 'Yes',
+             cancel: 'No',
+             fn: function (r) {
+                 if (r) {
+                     DeleteProject(id);
+                 }
+             }
+         });
+     }
+     function DeleteProject(id) {
+
+         var _target = 'grdProject';
+         $("#__EVENTARGUMENT").val(id);
+         $("#__EVENTTARGET").val(_target);
+         __doPostBack(_target, id);
+
+     }
+
      function OpenCSV(fn) {
          window.parent.ShowDiv(fn);
      }
@@ -484,5 +522,28 @@
         ga('create', 'UA-64633646-1', 'auto');
         ga('send', 'pageview');        
     </script>
+    <style type="text/css">
+        body {
+            background-color: azure;
+        }
+        .window-body.panel-body {
+               color:silver;              
+               padding-top:30px;
+               text-align:center;
+        }
+        .panel-title
+        {
+            color: greenyellow;
+            background-color: #8f0108;
+            border: 0px solid #dddddd;    
+            text-indent: 5px;    
+            border-radius: 5px;
+        }
+        .l-btn-text
+        {
+            color:yellow;
+
+        }
+    </style>
 </body>
 </html>

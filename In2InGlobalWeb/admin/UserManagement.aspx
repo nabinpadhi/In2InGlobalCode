@@ -150,9 +150,10 @@
     <script src="js/fastclick.js" type="text/javascript" lang="javascript"></script>
     <script src="js/prism.js" type="text/javascript" lang="javascript"></script>
 
-    <link rel="stylesheet" href="css/jquery-ui.css">    
-    <script src="js/jquery-3.6.0.js"></script>
-    <script src="js/jquery-ui.js"></script>
+     <link rel="stylesheet" href="css/jquery-ui.css">    
+    <script src="js/jquery.min.js"></script>    
+    <script src="js/jquery.easyui.min.js"></script>   
+    
     <script type="text/javascript">
         $(function () {
             $('.confirmDialog').hide();          
@@ -165,20 +166,14 @@
         });
         function In2InGlobalConfirm(email) {
 
-            $(".confirmDialog").dialog({
-                resizable: false,
-                height: "auto",
-                title:"In2In Global Confirmation",
-                width: 400,
-                height:170,
-                modal: true,
-                buttons: {
-                    "Yes": function () {
+            $.messager.confirm({
+                title: 'In2In Global Confirmation',
+                msg: 'Are you sure you want to delete this?',
+                ok: 'Yes',
+                cancel: 'No',
+                fn: function (r) {
+                    if (r) {
                         DeleteUser(email);
-                        $(this).dialog("close");
-                    },
-                    "No": function () {
-                        $(this).dialog("close");
                     }
                 }
             });
@@ -307,30 +302,23 @@
         body {
             background-color: azure;
         }
-        .ui-dialog-titlebar
+        .window-body.panel-body {
+               color:silver;              
+               padding-top:30px;
+               text-align:center;
+        }
+        .panel-title
         {
-            color: white;
+            color: greenyellow;
             background-color: #8f0108;
-            border: 1px solid #dddddd;    
+            border: 0px solid #dddddd;    
             text-indent: 5px;    
             border-radius: 5px;
         }
-        .ui-dialog-buttonpane {
+        .l-btn-text
+        {
+            color:yellow;
 
-            background-color:lightGray;                
-        }
-        .ui-dialog{
-            border: 1px solid blue;
-            border-radius:5px;
-        }
-        .ui-button{
-            border: 1px solid blue;
-            border-radius:5px;
-        }
-        .ui-button:hover{
-            border: 1px solid blue;
-            border-radius:5px;
-            font-weight:bold;
         }
     </style>
 </body>

@@ -33,16 +33,19 @@ namespace In2InGlobal.presentation.admin
                         BindLOB();
                     }
                 }
-                if (Request.Form["__EVENTTARGET"] != null)
+                else
                 {
-                    if (Request.Form["__EVENTTARGET"].ToString().IndexOf("grdCompany") == 0)
+                    if (Request.Form["__EVENTTARGET"] != null)
                     {
-                        int extraComa = Request.Form["__EVENTTARGET"].ToString().Replace("grdCompany","").Length;
-                        // Fire event
-                        DeleteCompany(Request.Form["__EVENTARGUMENT"].Substring(0, Request.Form["__EVENTARGUMENT"].Length - extraComa));
-                        BindCompany();
-                        string _message = "Company deleted Successfully";
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);
+                        if (Request.Form["__EVENTTARGET"].ToString().IndexOf("grdCompany") == 0)
+                        {
+                            int extraComa = Request.Form["__EVENTTARGET"].ToString().Replace("grdCompany", "").Length;
+                            // Fire event
+                            DeleteCompany(Request.Form["__EVENTARGUMENT"].Substring(0, Request.Form["__EVENTARGUMENT"].Length - extraComa));
+                            BindCompany();
+                            string _message = "Company deleted Successfully";
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);
+                        }
                     }
                 }
             }

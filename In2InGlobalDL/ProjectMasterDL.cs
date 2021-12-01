@@ -21,7 +21,7 @@ namespace In2InGlobal.datalink
         public long SaveProjectMaster(ProjectEntity projectEntity)  
         {
             BaseRepository baseRepo = new BaseRepository();
-            var query = @"SELECT * FROM dbo.saveprojectinfo(@projectname,@description,@createdby,@useremail,@userrole)";
+            var query = @"SELECT * FROM dbo.saveprojectinfo(@projectname,@description,@createdby)";
             using (var connection = baseRepo.GetDBConnection())
             {
                 try
@@ -31,9 +31,7 @@ namespace In2InGlobal.datalink
                     {
                         projectname = projectEntity.ProjectName,
                         description = projectEntity.Description,                         
-                        createdby = projectEntity.CreatedBy,
-                        useremail = projectEntity.UserEmail,
-                        userrole = projectEntity.UserRole
+                        createdby = projectEntity.CreatedBy
                     }, commandType: CommandType.Text
                     );
 
@@ -112,15 +110,15 @@ namespace In2InGlobal.datalink
             DataSet dsProject = new DataSet();
             NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
 
-            string query = @"SELECT * FROM dbo.fillprojectgrid(@userrole,@useremail)";
+            string query = @"SELECT * FROM dbo.fillprojectgrid()";
             using (var connection = baseRepo.GetDBConnection())
             {
                 try
                 {
                     connection.Open();
                     NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
-                    npgsqlCommand.Parameters.AddWithValue("@userrole", userRole);
-                    npgsqlCommand.Parameters.AddWithValue("@useremail", userEmail);
+                    //npgsqlCommand.Parameters.AddWithValue("@userrole", userRole);
+                    //npgsqlCommand.Parameters.AddWithValue("@useremail", userEmail);
                     npgsqlCommand.CommandType = CommandType.Text;
                     npgsqlDataAdapter.SelectCommand = npgsqlCommand;
                     npgsqlDataAdapter.Fill(dsProject);
@@ -146,15 +144,15 @@ namespace In2InGlobal.datalink
             DataSet dsProject = new DataSet();
             NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
 
-            string query = @"SELECT * FROM dbo.fillproject(@userrole,@useremail)";
+            string query = @"SELECT * FROM dbo.fillproject()";
             using (var connection = baseRepo.GetDBConnection())
             {
                 try
                 {
                     connection.Open();
                     NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
-                    npgsqlCommand.Parameters.AddWithValue("@userrole", userRole);
-                    npgsqlCommand.Parameters.AddWithValue("@useremail", userEmail);
+                    //npgsqlCommand.Parameters.AddWithValue("@userrole", userRole);
+                    //npgsqlCommand.Parameters.AddWithValue("@useremail", userEmail);
                     npgsqlCommand.CommandType = CommandType.Text;
                     npgsqlDataAdapter.SelectCommand = npgsqlCommand;
                     npgsqlDataAdapter.Fill(dsProject);
@@ -246,7 +244,7 @@ namespace In2InGlobal.datalink
             public long DeleteProjectMaster(ProjectEntity projectEntity)
             {
                 BaseRepository baseRepo = new BaseRepository();
-                var query = @"SELECT * FROM dbo.deleteproject(@projectname)";
+                var query = @"SELECT * FROM dbo.deleteproject(@projectid)";
                 using (var connection = baseRepo.GetDBConnection())
                 {
                     try
@@ -254,7 +252,7 @@ namespace In2InGlobal.datalink
                         connection.Open();
                         var result = connection.Query(query, new
                         {
-                            projectname = projectEntity.ProjectName                           
+                            projectid = projectEntity.ProjectId                           
 
                         }, commandType: CommandType.Text
                         );
