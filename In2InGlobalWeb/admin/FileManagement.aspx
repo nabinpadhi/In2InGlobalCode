@@ -88,6 +88,7 @@
                         </div>
                         <input type="hidden" value="" id="__EVENTARGUMENT" name="__EVENTARGUMENT">
                         <input type="hidden" value="" id="__EVENTTARGET" name="__EVENTTARGET">
+
                         <div title="Project Management" class="projectmgnt" style="background-color: azure;">
                                <table style="width: 100%; background-color: azure;">
                                 <tr>
@@ -218,7 +219,8 @@
                                                                                 <center>
                                                                                     <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
                                                                                         <asp:GridView DataKeyNames="ID" ID="grdUploadedFiles" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
-                                                                                            AllowPaging="True" RowStyle-Wrap="false" HeaderStyle-Wrap="false" EmptyDataText="No file found uploaded by you." OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
+                                                                                            AllowPaging="True" RowStyle-Wrap="false" HeaderStyle-Wrap="false" EmptyDataText="No file found uploaded by you." 
+                                                                                            OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" OnRowDataBound="grdUploadedFiles_RowDataBound" AutoGenerateColumns="false" PageSize="4">
                                                                                             <PagerStyle CssClass="pagination-ys" />
                                                                                             <Columns>
                                                                                                     <asp:TemplateField ItemStyle-Width="150px" HeaderStyle-Width="150px" HeaderText="File Name">
@@ -233,6 +235,7 @@
                                                                                                 <asp:BoundField ItemStyle-Width="150px" HeaderStyle-Width="150px" HeaderText="Uploaded On" DataField="Date" />
                                                                                                 <asp:ImageField ItemStyle-Width="50px" HeaderStyle-Width="50px" ItemStyle-CssClass ="GridViewImageAlignment" HeaderText="Status" ControlStyle-Height="20px" ControlStyle-Width="20px" DataImageUrlField="UploadedStatus"></asp:ImageField>                                                                                             
                                                                                             </Columns>
+                                                                                            <PagerStyle CssClass="grdUploadedFilesPager" />
                                                                                         </asp:GridView>
                                                                                     </div>
                                                                                 </center>
@@ -286,7 +289,7 @@
                                                     </td>
                                                     <td>
                                                         <div>
-                                                            <asp:DropDownList OnSelectedIndexChanged="ddlProjects_SelectedIndexChanged" AppendDataBoundItems="true" AutoPostBack="true" ID="ddlProjects" Width="85%" runat="server" DataTextField="ProjectName">
+                                                            <asp:DropDownList onchange="alert();return false;" OnSelectedIndexChanged="ddlProjects_SelectedIndexChanged" AppendDataBoundItems="true" AutoPostBack="true" ID="ddlProjects" Width="85%" runat="server" DataTextField="ProjectName">
                                                                     <asp:ListItem Text="--Select a Project--"></asp:ListItem>
                                                             </asp:DropDownList>
                                                         </div>
@@ -350,7 +353,20 @@
         }); 
         ShowProjectMgnt();
         ClearProject();
+        DoPagination();
     });
+     function DoPagination() {
+         //alert("DoPagination()");
+         $('.grdUploadedFilesPager').click(function () {
+
+             var pageNo = $(this).find("a").html();
+             var _target = 'grdUploadedFiles';
+             $("#__EVENTARGUMENT").val(pageNo);
+             $("#__EVENTTARGET").val(_target);
+         });
+
+     }
+
      function In2InGlobalConfirm(id) {
 
          $.messager.confirm({
@@ -436,6 +452,7 @@
          }
      }
      function ShowProjectMgnt() {
+        
          $('.projectmgnt').show();
          $('.filemgnt').hide();
          
@@ -445,6 +462,7 @@
          $('#btnFileMgnt').css("color", "#fff");
      }
      function ShowFileMgnt() {
+       
          $('.projectmgnt').hide();
          $('.filemgnt').show();
 

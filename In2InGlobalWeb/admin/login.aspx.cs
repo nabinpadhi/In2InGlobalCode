@@ -170,6 +170,9 @@ namespace In2InGlobal.presentation.admin
         {
             var email = txtEmailId.Text;
             BindActivity(email);
+            password.Value = "";
+            password.Focus();
+            
         }
 
 

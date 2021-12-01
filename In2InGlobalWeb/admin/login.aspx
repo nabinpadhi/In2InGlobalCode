@@ -55,7 +55,7 @@
                           </td>
                           <td>
                               <div>
-                                  <asp:TextBox Text="" ID="companyname" AutoPostBack="true"   class="form-control"  runat="server"  autocomplete="off" name="companyname"> </asp:TextBox>
+                                  <asp:TextBox Text="" ID="companyname" AutoPostBack="true" fieldtype="readonly"  class="form-control"  runat="server"  autocomplete="off" name="companyname"> </asp:TextBox>
                               </div>
                           </td>
                       </tr>
@@ -76,7 +76,7 @@
                           <td>
                             
                                <div>
-                                  <input type="password" class="form-control validate" autocomplete="off" id="password" name="password" data-validate-msg="Password field is required" placeholder="Password" />
+                                  <input type="password" runat="server" class="form-control validate" autocomplete="off" id="password" name="password" data-validate-msg="Password field is required" placeholder="Password" />
                               </div>
                           </td>
                       </tr>

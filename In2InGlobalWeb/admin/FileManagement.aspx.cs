@@ -24,11 +24,15 @@ namespace In2InGlobal.presentation.admin
             {
                 if (!IsPostBack)
                 {
-
-                    BindFileGrid("");
                     LoadTemplates();
                     BindProjects();
                     BindAssignedProjects();
+                    if(ddlAssignedProject.Items.Count>1)
+                    {
+                        ddlAssignedProject.SelectedIndex = 1;
+                        BindFileGrid(ddlAssignedProject.SelectedItem.Text);
+                    }
+                   
                     string usrRole = Session["UserRole"].ToString();
                     spnCreatedBy.InnerText = Session["UserEmail"].ToString();
                     spnProjectName.InnerText = GenerateProjectName();
@@ -72,11 +76,27 @@ namespace In2InGlobal.presentation.admin
                             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowProjectMgnt();", _message), true);
 
                         }
+                        if (Request.Form["__EVENTTARGET"].ToString().IndexOf("grdUploadedFiles") == 0)
+                        {
+                            int extraComa = Request.Form["__EVENTTARGET"].ToString().Replace("grdUploadedFiles", "").Length;
+                            DoPagination(Request.Form["__EVENTARGUMENT"].Substring(0, Request.Form["__EVENTARGUMENT"].Length - extraComa));
+                        }
+                        if (Request.Form["__EVENTTARGET"].ToString().IndexOf("ddlProjects") == 0)
+                        {
+                            ddlAssignedProject_SelectedIndexChanged(ddlAssignedProject, null);
+                        }
                     }
                 }
             }
             else
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
+        }
+
+        private void DoPagination(string pageNo)
+        {
+            GridViewPageEventArgs gvpea = new GridViewPageEventArgs(Convert.ToInt32(pageNo));
+
+            grdUploadedFiles_PageIndexChanging(grdUploadedFiles, gvpea);
         }
 
         private void BindProjects()
@@ -95,7 +115,7 @@ namespace In2InGlobal.presentation.admin
                 ddlProjects.DataValueField = "project_id";
                 ddlProjects.DataBind();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 string _message = "Problem in loading Projects.";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowFileMgnt();", _message), true);
@@ -104,18 +124,19 @@ namespace In2InGlobal.presentation.admin
 
         private void BindAssignedProjects()
         {
-            try { 
-                    string userEmail = Session["UserEmail"].ToString();
-                    string userRole = Session["UserRole"].ToString();
+            try
+            {
+                string userEmail = Session["UserEmail"].ToString();
+                string userRole = Session["UserRole"].ToString();
 
-                    DataSet dsUserDetails = new DataSet();
-                    ProjectMasterBL projectBL = new ProjectMasterBL();
-                    dsUserDetails = projectBL.getAssignedProject(userRole, userEmail);
+                DataSet dsUserDetails = new DataSet();
+                ProjectMasterBL projectBL = new ProjectMasterBL();
+                dsUserDetails = projectBL.getAssignedProject(userRole, userEmail);
 
-                    ddlAssignedProject.DataSource = dsUserDetails;
-                    ddlAssignedProject.DataTextField = "project_name";
-                    ddlAssignedProject.DataValueField = "project_id";
-                    ddlAssignedProject.DataBind();
+                ddlAssignedProject.DataSource = dsUserDetails;
+                ddlAssignedProject.DataTextField = "project_name";
+                ddlAssignedProject.DataValueField = "project_id";
+                ddlAssignedProject.DataBind();
             }
             catch (Exception ex)
             {
@@ -163,7 +184,7 @@ namespace In2InGlobal.presentation.admin
             ddlTemplate.DataValueField = "FilePath";
             ddlTemplate.DataBind();
         }
-        private void BindFileGrid(string pid)
+        private void BindFileGrid(string pName)
         {
 
             ServicePointManager.Expect100Continue = true;
@@ -175,12 +196,12 @@ namespace In2InGlobal.presentation.admin
             string userName = _usrRow[0].ToString() + " " + _usrRow[1].ToString();
             if (tblUploadedFiles.Rows.Count > 0)
             {
-                if (pid != "")
+                if (pName != "")
                 {
 
-                    if (tblUploadedFiles.Select("ProjectName='" + pid + "'").Length > 0)
+                    if (tblUploadedFiles.Select("ProjectName='" + pName + "'").Length > 0)
                     {
-                        tblUploadedFiles = tblUploadedFiles.Select("ProjectName='" + pid + "'").CopyToDataTable();
+                        tblUploadedFiles = tblUploadedFiles.Select("ProjectName='" + pName + "'").CopyToDataTable();
                     }
                     else
                     {
@@ -245,15 +266,7 @@ namespace In2InGlobal.presentation.admin
             }
 
         }
-        protected void grdUploadedFiles_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
 
-            BindFileGrid(ddlAssignedProject.SelectedValue);
-            grdUploadedFiles.PageIndex = e.NewPageIndex;
-            grdUploadedFiles.DataBind();
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "ShowFileMgnt();", true);
-
-        }
         protected void grdTemplate_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             BindTemplateGrid("", Session["UserEmail"].ToString());
@@ -265,9 +278,7 @@ namespace In2InGlobal.presentation.admin
         protected void ddlProjects_SelectedIndexChanged(object sender, EventArgs e)
         {
             usrEmailId.Text = "";
-            BindTemplateGrid(ddlProjects.SelectedValue, "");
-            //string _message = "Project removed successfully.";
-            //ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowFileMgnt();", _message), true);
+            BindTemplateGrid(ddlProjects.SelectedValue, "");            
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "ShowFileMgnt();", true);
         }
 
@@ -453,7 +464,7 @@ namespace In2InGlobal.presentation.admin
             dr.SetModified();
             string output = Newtonsoft.Json.JsonConvert.SerializeObject(fileTable, Newtonsoft.Json.Formatting.Indented);
             File.WriteAllText(Server.MapPath("json-data/UploadedFiles.json"), output);
-            BindFileGrid(ddlAssignedProject.SelectedValue);
+            BindFileGrid(ddlAssignedProject.SelectedItem.Text);
         }
         private void UpdateUploadedFile(string fileName, string uploadedBy, string uploadedOn)
         {
@@ -468,7 +479,7 @@ namespace In2InGlobal.presentation.admin
             dr.SetModified();
             string output = Newtonsoft.Json.JsonConvert.SerializeObject(fileTable, Newtonsoft.Json.Formatting.Indented);
             File.WriteAllText(Server.MapPath("json-data/UploadedFiles.json"), output);
-            BindFileGrid(ddlAssignedProject.SelectedValue);
+            BindFileGrid(ddlAssignedProject.SelectedItem.Text);
         }
         private int GetUniqueID(DataTable fileTable, string uploadedfiles)
         {
@@ -603,7 +614,7 @@ namespace In2InGlobal.presentation.admin
                 btnDownload.Enabled = false;
             }
 
-            BindFileGrid(ddlAssignedProject.SelectedValue);
+            BindFileGrid(ddlAssignedProject.SelectedItem.Text);
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "ShowFileMgnt();", true);
 
         }
@@ -653,7 +664,7 @@ namespace In2InGlobal.presentation.admin
                         int count = Convert.ToInt32(dsUserDetails.Tables[0].Rows[0][0].ToString());
                         _ProjectID = count + 1;
                         ProjectName = "PRO-" + $"{_ProjectID:0000}";
-                    }                   
+                    }
                 }
                 else
                 {
@@ -805,7 +816,7 @@ namespace In2InGlobal.presentation.admin
                 {
                     if (button.ID == "lnkDel")
                     {
-                        button.OnClientClick = "In2InGlobalConfirm('" + ID + "');";                        
+                        button.OnClientClick = "In2InGlobalConfirm('" + ID + "');";
                     }
                     if (button.ID == "lnkEdit")
                     {
@@ -823,7 +834,7 @@ namespace In2InGlobal.presentation.admin
             {
                 if (pid != string.Empty)
                 {
-                    projectEntitiy.ProjectId =Convert.ToInt64(pid);
+                    projectEntitiy.ProjectId = Convert.ToInt64(pid);
                     projectBL.DeleteProjectMaster(projectEntitiy);
                 }
             }
@@ -833,7 +844,30 @@ namespace In2InGlobal.presentation.admin
             }
 
         }
+
+
+        protected void grdUploadedFiles_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+           
+            grdUploadedFiles.PageIndex = e.NewPageIndex;
+            grdUploadedFiles.DataBind();
+            BindFileGrid(ddlAssignedProject.SelectedItem.Text);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), "ShowFileMgnt();DoPagination();", true);
+            //string _message = "";
+            //ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowFileMgnt(); ", _message), true);
+
+        }
+
+        protected void grdUploadedFiles_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.Pager)
+            {
+                string item = e.Row.Cells[0].Text;
+            }
+        }
     }
+
+
 }
 
 
