@@ -469,3 +469,7 @@ td > input[type=text]:focus {
     border-bottom-right-radius: 25px;
     border-top-right-radius: 25px;
 }
+.aspNetDisabled {
+    color: darkgrey;
+    cursor: url("../img/no-pencil-sign.png"),auto;
+}

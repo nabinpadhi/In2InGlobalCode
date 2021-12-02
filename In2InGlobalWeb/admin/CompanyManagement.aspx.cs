@@ -88,6 +88,7 @@ namespace In2InGlobal.presentation.admin
                         if (companyname == Session["CompanyName"].ToString())
                         {
                             button.Enabled = false;
+                            button.Visible = false;
                         }
                         else
                         {
