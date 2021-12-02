@@ -139,13 +139,13 @@ namespace In2InGlobalBL
         /// get Project Details
         /// </summary>
         /// <returns></returns>
-        public DataSet getEmailforAdminAndUser(string useEMail,int roleId) 
+        public DataSet getEmailforAdminAndUser(string roleId, string useEMail)
         {
             DataSet dsProject = new DataSet();
             try
             {
                 ProjectMasterDL objProject = new ProjectMasterDL();
-                dsProject = objProject.getEmailforAdminAndUser(useEMail, roleId); 
+                dsProject = objProject.getEmailforAdminAndUser(roleId, useEMail);
             }
             catch (Exception ex)
             {

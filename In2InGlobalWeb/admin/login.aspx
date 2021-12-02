@@ -59,16 +59,7 @@
                               </div>
                           </td>
                       </tr>
-                      <tr>
-                          <td style="text-align:center;color:white;font-weight:bold;">
-                              <div style="background-color:#037f7f;width:80%;border-radius:3px;border:solid 1px #037f7f;">Activity</div>                              
-                          </td>
-                          <td>
-                               <div>
-                                  <asp:DropDownList ID="ddlActivity" Width="100%" runat="server" DataTextField="ActivityName"></asp:DropDownList>
-                              </div>
-                          </td>
-                      </tr>
+                      
                       <tr>
                           <td style="text-align:center;color:white;font-weight:bold;">
                               <div style="background-color:#037f7f;width:80%;border-radius:3px;border:solid 1px #037f7f;">Password</div>
