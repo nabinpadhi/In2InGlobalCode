@@ -132,48 +132,51 @@ namespace In2InGlobal.presentation.admin
             string result = "";
             LoginBl userMasterBL = new LoginBl();
             DataSet dsUser = new DataSet();
-            dsUser = userMasterBL.getMyLogin(emailid);
-
+            if (HttpContext.Current.Session["dsUser"] == null)
+                dsUser = userMasterBL.getMyLogin(emailid);            
+            else
+                dsUser = (DataSet)HttpContext.Current.Session["dsUser"];
             DataTable usrTable = dsUser.Tables[0];
 
             password = new EncryptField().Encrypt(password);
-            if (dsUser.Tables[0].Rows.Count > 0)//(usrTable.Select("user_email ='" + emailid + "' and password = '" + password + "'").Length > 0)
+            if (usrTable.Select("user_email ='" + emailid + "' and paawrd = '" + password + "'").Length > 0)
             {
-                if (dsUser.Tables[0].Rows[0]["user_email"].ToString() == emailid)
-                {
-                    DataRow userRow = dsUser.Tables[0].Rows[0];
-                    result = "Success";
-                    HttpContext.Current.Session["UserRole"] = dsUser.Tables[0].Rows[0]["role_name"].ToString();
-                    HttpContext.Current.Session["UserEmail"] = dsUser.Tables[0].Rows[0]["user_email"].ToString();
-                    HttpContext.Current.Session["UserRow"] = userRow;
-                    HttpContext.Current.Session["dsUser"] = dsUser;
-                }
-                else
-                {
-                    result = "Invalid email / password";
-                    HttpContext.Current.Session["UserRole"] = null;
-                    HttpContext.Current.Session["UserRow"] = null;
-                    HttpContext.Current.Session["UserEmail"] = null;
-                    HttpContext.Current.Session["dsUser"] = null;
+                DataRow userRow = dsUser.Tables[0].Rows[0];
+                result = "Success";
+                HttpContext.Current.Session["UserRole"] = dsUser.Tables[0].Rows[0]["role_name"].ToString();
+                HttpContext.Current.Session["UserEmail"] = dsUser.Tables[0].Rows[0]["user_email"].ToString();
+                HttpContext.Current.Session["UserRow"] = userRow;
+                HttpContext.Current.Session["dsUser"] = dsUser;
 
-                }
+
+               
+            }
+            else
+            {
+                result = "Invalid email / password";
+                HttpContext.Current.Session["UserRole"] = null;
+                HttpContext.Current.Session["UserRow"] = null;
+                HttpContext.Current.Session["UserEmail"] = null;
+                HttpContext.Current.Session["dsUser"] = null;
+
             }
             return result;
         }
 
-        /// <summary>
-        /// txtEmailId TextChanged
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void txtEmailId_TextChanged(object sender, EventArgs e)
-        {
+            /// <summary>
+            /// txtEmailId TextChanged
+            /// </summary>
+            /// <param name="sender"></param>
+            /// <param name="e"></param>
+            protected void txtEmailId_TextChanged(object sender, EventArgs e)
+            {
+            loginbtn.Disabled = false;
             var email = txtEmailId.Text;
-          // BindActivity(email);
-            password.Value = "";
-            password.Focus();
+               BindActivity(email);
+                password.Value = "";
+                password.Focus();
             
-        }
+            }
 
 
         /// <summary>
@@ -191,16 +194,14 @@ namespace In2InGlobal.presentation.admin
                 if (dsUser.Tables[0].Rows.Count > 0)
                 {
                     companyname.Text = dsUser.Tables[0].Rows[0]["company_name"].ToString();
-                    Session["CompanyName"]= dsUser.Tables[0].Rows[0]["company_name"].ToString();
-                   // ddlActivity.DataSource = dsUser;
-                    //ddlActivity.DataTextField = "activity_name";
-                    //ddlActivity.DataBind();
-                    //ddlActivity.Enabled = false;
+                    Session["CompanyName"]= dsUser.Tables[0].Rows[0]["company_name"].ToString();                   
                     companyname.Enabled = false;
+                    Session["dsUser"] = dsUser;
                 }
                 else
                 {
-                    // var  result = "Invalid email / password";
+                    companyname.Text = "No Company";
+                    loginbtn.Disabled = true;
                     HttpContext.Current.Session["UserRole"] = null;
                     HttpContext.Current.Session["UserRow"] = null;
                     HttpContext.Current.Session["UserEmail"] = null;

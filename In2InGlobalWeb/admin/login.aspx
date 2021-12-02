@@ -77,7 +77,7 @@
                 <div class="custom-checkbox mb-3">
                   <input type="checkbox" class="custom-input checkAll" checked style="width:0%;" id="remember" name="remember">
                   <label class="custom-label" for="remember">Remember me</label>
-                    <button class="custom-button loginButton button" id="loginbtn" name="loginbtn" type="button" style="margin-left:100px;">Login</button>
+                    <button class="custom-button loginButton button" id="loginbtn" name="loginbtn" runat="server" type="button" style="margin-left:100px;">Login</button>
                 </div>
               </form>
               <hr>

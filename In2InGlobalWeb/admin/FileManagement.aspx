@@ -62,6 +62,17 @@
             width: 1.3em; /* same as padding-left set on li */
         }          
     </style> 
+    <script type="text/javascript">
+        function ShowFileMgnt() {
+            $('.projectmgnt').hide();
+            $('.filemgnt').show();
+
+            $('#btnFileMgnt').css("background-color", "azure");
+            $('#btnFileMgnt').css("color", "blue");
+            $('#btnProjectMgnt').css("background-color", "#2c3c59");
+            $('#btnProjectMgnt').css("color", "#fff");
+        }
+    </script>
 </head>
 <body style="background-color:azure;">
    
@@ -79,7 +90,7 @@
                             <div id="btnProjectMgnt" onclick="ShowProjectMgnt();" class="PanelTab">Project Management</div>
                             <div id="btnFileMgnt" onclick="ShowFileMgnt();" class="PanelTab">File Management</div>                          
                         </div>
-                        <div title="Project Management" class="projectmgnt" style="background-color: azure;">
+                        <div title="Project Management" class="projectmgnt" style="background-color: azure;color:blue;">
                                <table style="width: 100%; background-color: azure;">
                                 <tr>
                                     <td>
@@ -94,7 +105,9 @@
                                                                         Project Name(<span style="color: red">*</span>)<br />
                                                                        <span fieldtype="readonly" value="" runat="server" id="spnProjectName" />
                                                                         <asp:HiddenField ID="hdnPName" runat="server" Value="" />
-                                                                         <asp:HiddenField ID="hdnProjectToEdit" runat="server" Value="" />
+                                                                        <asp:HiddenField ID="hdnPID" runat="server" Value="" />
+                                                                         <asp:HiddenField ID="hdnProjectToEdit" runat="server" Value="" />                                                                       
+                                                                        <asp:Button style="display:none" Text="Delete" OnClientClick="return true;" OnClick="hdnDelBtn_Click" ID="hdnDelBtn" runat="server"></asp:Button>
                                                                     </td>
                                                                 </tr>
                                                                  <tr>
@@ -154,7 +167,12 @@
                                                             </ItemTemplate>
                                                         </asp:TemplateField>                                                          
                                                         <asp:BoundField ItemStyle-Wrap="true" HeaderText="Description"  DataField="description" />  
-                                                        <asp:CommandField ItemStyle-HorizontalAlign="Center" HeaderText="Action" ShowEditButton="true" ShowDeleteButton="true" />                                                                                                             
+                                                         <asp:CommandField ItemStyle-HorizontalAlign="Center" HeaderText="Edit" ShowEditButton="true" />
+                                                        <asp:TemplateField ShowHeader="False">
+                                                            <ItemTemplate>
+                                                                <asp:Button ID="DeleteButton" runat="server" Text="Delete" />               
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>                                                                                                              
                                                     </Columns>
                                                 </asp:GridView>
                                             </div>
@@ -163,7 +181,7 @@
                                 </tr>
                         </table>
                         </div>
-                        <div title="File Management" class="filemgnt" style="background-color: azure;">
+                        <div title="File Management" class="filemgnt" style="background-color: azure;display:none;">
                             <table style="width: 100%; background-color: azure;">
                                 <tr>
                                     <td style="width: 70%;">
@@ -327,8 +345,9 @@
      <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/Validation.js?"), DateTime.Now.Ticks) %>" type="text/javascript" lang="javascript"></script>
      <script src="js/fastclick.js" type="text/javascript" lang="javascript"></script>
     <script src="js/prism.js" type="text/javascript" lang="javascript"></script>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+     <link rel="stylesheet" href="css/jquery-ui.css">    
+    <script src="js/jquery.min.js"></script>    
+    <script src="js/jquery.easyui.min.js"></script>   
  <script>
     
     $(document).ready(function () {
@@ -340,13 +359,33 @@
         ShowProjectMgnt();
         ClearProject();
     });
+     function In2InGlobalConfirm(pName, pID) {
+
+         $.messager.confirm({
+             title: 'In2In Global Confirmation',
+             msg: 'Are you sure you want to delete this?',
+             ok: 'Yes',
+             cancel: 'No',
+             fn: function (r) {
+
+                 if (r) {
+                     $('#hdnPName').val(pName);
+                     $('#hdnPID').val(pID);
+                     $('#hdnDelBtn').trigger('click');
+                 }
+                 else {
+                     $('#hdnPName').val('');
+
+                 }
+             }
+         });
+     }   
      function OpenCSV(fn) {
          window.parent.ShowDiv(fn);
      }
      function ClearProject() {
 
-         $('#txtDescription').val('');
-         $('#spnProjectName').text($('#hdnPName').val())
+         $('#txtDescription').val('');         
          $('#btnCreateProject').val('Create');
      }
      function ValidateProject() {
@@ -372,6 +411,7 @@
          $('#txtCreatedBy').val(createdby);
          $('#btnCreateProject').val('Update');
 
+         return false;
      }
      function AddProject() {
          var return_status = function () {

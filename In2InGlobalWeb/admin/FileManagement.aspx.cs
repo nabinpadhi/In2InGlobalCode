@@ -266,19 +266,13 @@ namespace In2InGlobal.presentation.admin
             if (Session["UserRow"] != null)
             {
                 DataRow usrDataRow = (DataRow)Session["UserRow"];
-                uploadedBy = usrDataRow["FirstName"].ToString() + " " + usrDataRow["LastName"].ToString();
+                uploadedBy = usrDataRow["first_name"].ToString() + " " + usrDataRow["last_name"].ToString();
                 try
                 {
                     if (fileUploader.HasFile)
                     {
                         fileName = fileUploader.FileName;
-                        fileName = fileName.Replace(".csv", "~" + uploadedBy.Replace(" ", "") + "~" + ddlAssignedProject.SelectedValue + ".csv");
-
-                        //check whether file exists,if no write the file into folder & database 
-                        //If yes 2nd validation uploaded file only contain header,if yes then exit with error message
-                        //if no then verify whether both the files contain same data if same then exit with warning message
-                        //if both files are having different data then write the file with different version name
-
+                        fileName = fileName.Replace(".csv", "~" + uploadedBy.Replace(" ", "") + "~" + ddlAssignedProject.SelectedItem.Text + ".csv");
                         string pathToCheck = filePath + fileName;
                         if (!System.IO.File.Exists(pathToCheck))
                         {
@@ -296,11 +290,10 @@ namespace In2InGlobal.presentation.admin
                                 if (CheckUploadedFileHaveOnlyHeader(uploaderFileTextReader))
                                 {
                                     string _message = "Uploaded Template contains only header.";
-                                    ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("B"), string.Format("ShowServerMessage('{0}');ShowFileMgnt();", _message), true);
+                                    ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowFileMgnt(); ", _message), true);
                                 }
                                 else
                                 {
-
                                     string _existingFilePath = System.IO.Path.Combine(filePath, fileName);
                                     if (IsBothCSVFileDataAreSame(_existingFilePath))
                                     {
@@ -309,7 +302,7 @@ namespace In2InGlobal.presentation.admin
                                         //updating uploadedon field in JSON row data 
                                         UpdateUploadedFile(fileName, uploadedBy, today);
                                         string _message = "File uploaded Successfully.";
-                                        ScriptManager.RegisterStartupScript(scriptmanager1, scriptmanager1.GetType(), "ShowServerMessage", string.Format("ShowServerMessage('{0}');ShowFileMgnt();", _message), true);
+                                        ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("X"), string.Format("ShowServerMessage('{0}');ShowFileMgnt(); ", _message), true);
                                     }
                                     else
                                     {
@@ -327,13 +320,15 @@ namespace In2InGlobal.presentation.admin
                                         fileUploader.SaveAs(Server.MapPath(System.IO.Path.Combine("/admin/uploadedfiles/", fileName)));
                                         SaveFileDetails(fileName, uploadedBy, today);
                                         string _message = "File uploaded Successfully.";
-                                        ScriptManager.RegisterStartupScript(scriptmanager1, scriptmanager1.GetType(), "ShowServerMessage", string.Format("ShowServerMessage('{0}');ShowFileMgnt();", _message), true);
+                                        ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("n"), string.Format("ShowServerMessage('{0}');ShowFileMgnt(); ", _message), true);
                                     }
                                 }
                                 uploaderFileTextReader.Close();
                             }
                         }
                     }
+                    
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString("X"), "<script type=\"text/javascript\">ShowFileMgnt();</script> ");
                 }
                 catch (System.IO.IOException ex)
                 {
@@ -434,7 +429,7 @@ namespace In2InGlobal.presentation.admin
             string json = (new WebClient()).DownloadString(Server.MapPath("json-data/UploadedFiles.json"));
             DataTable fileTable = JsonConvert.DeserializeObject<DataTable>(json);
             int columnIDvalue = GetUniqueID(fileTable, "uploadedfiles");
-            DataRow dr = fileTable.Rows.Add(columnIDvalue, fileName, ddlAssignedProject.SelectedValue, uploadedBy, uploadedOn, "img/success.png");
+            DataRow dr = fileTable.Rows.Add(columnIDvalue, fileName, ddlAssignedProject.SelectedItem.Text, uploadedBy, uploadedOn, "img/success.png");
             fileTable.AcceptChanges();
             dr.SetModified();
             string output = Newtonsoft.Json.JsonConvert.SerializeObject(fileTable, Newtonsoft.Json.Formatting.Indented);
@@ -448,7 +443,7 @@ namespace In2InGlobal.presentation.admin
             string json = (new WebClient()).DownloadString(Server.MapPath("json-data/UploadedFiles.json"));
             DataTable fileTable = JsonConvert.DeserializeObject<DataTable>(json);
             int columnIDvalue = GetUniqueID(fileTable, "uploadedfiles");
-            DataRow dr = fileTable.Select("FileName='" + fileName + "' AND ProjectName='" + ddlAssignedProject.SelectedValue + "' AND UploadedBy ='" + uploadedBy + "'")[0];
+            DataRow dr = fileTable.Select("FileName='" + fileName + "' AND ProjectName='" + ddlAssignedProject.SelectedItem.Text + "' AND UploadedBy ='" + uploadedBy + "'")[0];
             dr["Date"] = uploadedOn;
             fileTable.AcceptChanges();
             dr.SetModified();
@@ -597,7 +592,7 @@ namespace In2InGlobal.presentation.admin
             ProjectMasterBL projectBL = new ProjectMasterBL();
             dsUserDetails = projectBL.getProjectGridDetails(userRole, userEmail);
 
-            grdProject.DataSource = dsUserDetails;
+            grdProject.DataSource = dsUserDetails.Tables[0];
             grdProject.DataBind();
         }
 
@@ -616,9 +611,17 @@ namespace In2InGlobal.presentation.admin
                 if (dsUserDetails.Tables[0].Rows.Count > 0)
                 {
                     DataRow drMyProfile = dsUserDetails.Tables[0].Rows[0];
-                    int count = Convert.ToInt32(drMyProfile["project_id"].ToString());
-                    _ProjectID = count + 1;
-                    ProjectName = "PRO-" + $"{_ProjectID:0000}";
+                    if (!drMyProfile["project_id"].Equals(System.DBNull.Value))
+                    {
+                        int count = Convert.ToInt32(drMyProfile["project_id"].ToString());
+                        _ProjectID = count + 1;
+                        ProjectName = "PRO-" + $"{_ProjectID:0000}";
+                    }
+                    else
+                    {
+                        _ProjectID = 1;
+                        ProjectName = "PRO-" + $"{_ProjectID:0000}";
+                    }
                 }
                 else
                 {
@@ -637,57 +640,24 @@ namespace In2InGlobal.presentation.admin
 
         protected void btnCreateProject_Click(object sender, EventArgs e)
         {
-            int _ProjectID = 0;
+           
             string _message = string.Empty;
             DataSet dsUserDetails = new DataSet();
             ProjectMasterBL projectBL = new ProjectMasterBL();
             ProjectEntity projectEntitiy = new ProjectEntity();
             try
             {
+                projectEntitiy.ProjectName = spnProjectName.InnerText;
+                projectEntitiy.CreatedBy = Session["UserEmail"].ToString();
+                projectEntitiy.Description = txtDescription.Value;
                 if (hdnProjectToEdit.Value == "")
-                {
-                    dsUserDetails = projectBL.getProjectId();
-                    ddlAssignedProject.DataSource = dsUserDetails;
-                    if (dsUserDetails.Tables[0].Rows.Count > 0)
-                    {
-                        DataRow drMyProfile = dsUserDetails.Tables[0].Rows[0];
-                        int count = Convert.ToInt32(drMyProfile["project_id"].ToString());
-                        if (count == 1)
-                        {
-                            _ProjectID = count;
-                        }
-                        else
-                        {
-                            _ProjectID = count + 1;
-                        }
-
-                        projectEntitiy.ProjectName = "PRO-" + $"{_ProjectID:0000}";
-                        projectEntitiy.CreatedBy = Session["UserEmail"].ToString();
-                        projectEntitiy.UserEmail = Session["UserEmail"].ToString();
-                        projectEntitiy.UserRole = Session["UserRole"].ToString();
-                        projectEntitiy.Description = txtDescription.Value;
-                        projectBL.SaveProjectMaster(projectEntitiy);
-                    }
-                    else
-                    {
-                        _ProjectID = 1;
-                        projectEntitiy.ProjectName = "PRO-" + $"{_ProjectID:0000}";
-                        projectEntitiy.CreatedBy = Session["UserEmail"].ToString();
-                        projectEntitiy.Description = txtDescription.Value;
-                        projectBL.SaveProjectMaster(projectEntitiy);
-                    }
+                {                       
+                     projectBL.SaveProjectMaster(projectEntitiy);                    
                     _message = "Project Created Successfully.)";
                 }
                 else
                 {
-                    projectEntitiy.ProjectName = hdnProjectToEdit.Value.ToString();
-                    projectEntitiy.CreatedBy = Session["UserEmail"].ToString();
-                    projectEntitiy.UserEmail = Session["UserEmail"].ToString();
-                    projectEntitiy.UserRole = Session["UserRole"].ToString();
-                    projectEntitiy.Description = txtDescription.Value;
-
                     projectBL.UpdateProjectMaster(projectEntitiy);
-
                     _message = "Project updated Successfully.)";
                 }
             }
@@ -697,7 +667,8 @@ namespace In2InGlobal.presentation.admin
             }
 
             BindProjectGrid();
-            grdProject.PageIndex = grdProject.PageCount - 1;
+            if(grdProject.PageCount > 1)
+                grdProject.PageIndex = grdProject.PageCount - 1;
             spnProjectName.InnerText = GenerateProjectName();
 
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowProjectMgnt(); ", _message), true);
@@ -770,33 +741,36 @@ namespace In2InGlobal.presentation.admin
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                string item = e.Row.Cells[0].Text;
-
+                string projectname = ((DataTable)grdProject.DataSource).Rows[e.Row.RowIndex][1].ToString();
+                string updatedBy = Session["UserEmail"].ToString();
                 string ID = grdProject.DataKeys[e.Row.RowIndex].Value.ToString();
-                string instuction = e.Row.Cells[2].Text.Replace("\n", "\\#");
+                string instuction = e.Row.Cells[2].Text.Replace("\n", "<br>");
                 foreach (LinkButton button in e.Row.Cells[3].Controls.OfType<LinkButton>())
                 {
-                    if (button.CommandName == "Delete")
-                    {
-                        button.Attributes["onclick"] = "if(!confirm('Do you want to delete " + item + "?')){ return false; };";
-                    }
+
                     if (button.CommandName == "Edit")
                     {
-                        button.Attributes["onclick"] = "PullDataToEdit('" + ID + "','" + item + "','" + instuction + "');";
+                        button.Attributes["onclick"] = "return PullDataToEdit('" + projectname + "','" + updatedBy + "','" + instuction + "');";
                         button.Attributes["href"] = "#";
                     }
                 }
+                foreach (Button delbutton in e.Row.Cells[4].Controls.OfType<Button>())
+                {
+
+                    delbutton.UseSubmitBehavior = false;
+                    delbutton.Attributes["onclick"] = "javascript:In2InGlobalConfirm('" + projectname + "','" + ID + "');return false;";
+                }
             }
         }
-        private void DeleteProject(string pName)
+        private void DeleteProject(string pID)
         {
             ProjectMasterBL projectBL = new ProjectMasterBL();
             ProjectEntity projectEntitiy = new ProjectEntity();
             try
             {
-                if (pName != string.Empty)
+                if (pID != string.Empty)
                 {
-                    projectEntitiy.ProjectName = pName;
+                    projectEntitiy.ProjectId = Convert.ToInt64(pID);
                     projectBL.DeleteProjectMaster(projectEntitiy);
                 }
             }
@@ -804,6 +778,18 @@ namespace In2InGlobal.presentation.admin
             {
                 ex.ToString();
             }
+
+        }
+
+        protected void hdnDelBtn_Click(object sender, EventArgs e)
+        {
+            if (hdnPID.Value != "")
+            {
+                DeleteProject(hdnPID.Value);
+            }
+            BindProjectGrid();
+            string _message = "Project deleted successfully.";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowProjectMgnt(); ", _message), true);
 
         }
     }
