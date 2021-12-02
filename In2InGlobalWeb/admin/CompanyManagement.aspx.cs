@@ -82,23 +82,23 @@ namespace In2InGlobal.presentation.admin
 
                 foreach (LinkButton button in e.Row.Cells[3].Controls.OfType<LinkButton>())
                 {
-
-                    if (button.ID == "lnkDel")
+                    if (button.CommandName == "Edit")
                     {
-                        if (companyname == Session["CompanyName"].ToString())
-                        {
-                            button.Enabled = false;
-                            button.Visible = false;
-                        }
-                        else
-                        {
-                            button.OnClientClick = "In2InGlobalConfirm('" + companyid + "');";
-                        }
-                    }
-                    if (button.ID == "lnkEdit")
-                    {
-                        button.OnClientClick = "PullDataToEdit('"+companyid + "','" + companyname + "','" + lob + "'); ";
+                        button.Attributes["onclick"] = "return PullDataToEdit('" + companyid + "','" + companyname + "','" + lob + "');";
                         button.Attributes["href"] = "#";
+                    }
+                }
+                foreach (Button delbutton in e.Row.Cells[4].Controls.OfType<Button>())
+                {
+                    if (companyname == Session["CompanyName"].ToString())
+                    {
+                        delbutton.Enabled = false;
+                        
+                    }
+                    else
+                    {
+                        delbutton.UseSubmitBehavior = false;
+                        delbutton.Attributes["onclick"] = "javascript:In2InGlobalConfirm('" + companyname + "','" + companyid + "');return false;";
                     }
                 }
             }
@@ -153,7 +153,8 @@ namespace In2InGlobal.presentation.admin
                 {
                     companyMasterBl.SaveCompanyMaster(companyEntity);
                 }
-               
+                txtCompanyName.Value = "";
+                ddlLOB.SelectedIndex = 0;
                 BindCompany();
             }
             catch (Exception ex)
@@ -165,19 +166,7 @@ namespace In2InGlobal.presentation.admin
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);
 
         }
-
-        protected void grdCompany_RowEditing(object sender, GridViewEditEventArgs e)
-        {
-            grdCompany.EditIndex = e.NewEditIndex;
-            BindCompany();
-        }
-
-        protected void grdCompany_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            string companyID = grdCompany.DataKeys[e.RowIndex].Value.ToString();
-            DeleteCompany(companyID);
-            BindCompany();
-        }
+        
 
         private void DeleteCompany(string companyID)
         {
@@ -198,18 +187,6 @@ namespace In2InGlobal.presentation.admin
             }            
         }
 
-        protected void grdCompany_RowUpdating(object sender, GridViewUpdateEventArgs e)
-        {
-            string companyID = grdCompany.DataKeys[e.RowIndex].Value.ToString();
-            GridViewRow row = (GridViewRow)grdCompany.Rows[e.RowIndex];
-            TextBox textCompanyName = (TextBox)row.Cells[1].Controls[0];
-            TextBox textLOB = (TextBox)row.Cells[2].Controls[0];            
-            UpdateCompany(textCompanyName.Text, textLOB.Text, companyID);
-            grdCompany.EditIndex = -1;
-
-            BindCompany();
-        }
-
         protected void UpdateCompany(string companyname, string lob, string companyID)
         {
             CompanyEntity companyEntity = new CompanyEntity();
@@ -223,11 +200,17 @@ namespace In2InGlobal.presentation.admin
                 companyMasterBl.UpdateCompany(companyEntity);
             }           
         }
-
-        protected void grdCompany_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        protected void hdnDelBtn_Click(object sender, EventArgs e)
         {
-            grdCompany.EditIndex = -1;
+            if (hdnCompanyID.Value != "")
+            {
+                DeleteCompany(hdnCompanyID.Value);
+            }
             BindCompany();
+            string _message = "Company deleted successfully.";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}')", _message), true);
+
         }
     }
+    
 }

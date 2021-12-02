@@ -170,7 +170,7 @@
                                                          <asp:CommandField ItemStyle-HorizontalAlign="Center" HeaderText="Edit" ShowEditButton="true" />
                                                         <asp:TemplateField ShowHeader="False">
                                                             <ItemTemplate>
-                                                                <asp:Button ID="DeleteButton" runat="server" Text="Delete" />               
+                                                                <asp:Button ID="DeleteButton" CssClass="GridDeleteButton" runat="server" Text="Delete" />               
                                                             </ItemTemplate>
                                                         </asp:TemplateField>                                                                                                              
                                                     </Columns>

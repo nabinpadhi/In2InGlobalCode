@@ -143,7 +143,7 @@ namespace In2InGlobal.datalink
         public long UpdateCompany(CompanyEntity companyEntity)
         {
             BaseRepository baseRepo = new BaseRepository();
-            var query = @"SELECT * FROM dbo.updatecompanyinfo(@companyname,@companylob,@companyphone,@companyid)";
+            var query = @"SELECT * FROM dbo.updatecompanyinfo(@companyname,@companylob,@companyid)";
             using (var connection = baseRepo.GetDBConnection())
             {
                 try
@@ -153,7 +153,7 @@ namespace In2InGlobal.datalink
                     {
                         companyname = companyEntity.CompanyName,
                         companylob = companyEntity.LOB, 
-                        companyphone = companyEntity.CompanyPhone,
+                        //companyphone = companyEntity.CompanyPhone, //we are not capturing phone number anymore
                         companyid = companyEntity.CompanyId
                     }, commandType: CommandType.Text
                     );

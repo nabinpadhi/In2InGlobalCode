@@ -15,14 +15,7 @@
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/black/easyui.css" />
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/icon.css" />
     <link href="../css/msgBoxLight.css" rel="stylesheet" type="text/css" />
-    <script lang="JavaScript">
-        function __doPostBack(eventTarget, eventArgument) {           
-            documenT.Form1.__EVENTTARGET.value = eventTarget;
-            document.Form1.__EVENTARGUMENT.value = eventArgument;
-            document.Form1.submit();
-        }
-</script>
-
+   
 </head>
 <body style="overflow: hidden;">
 
@@ -35,9 +28,6 @@
                 </asp:ScriptManager>
                 <asp:UpdatePanel ID="pdnlCompany" runat="server">
                     <ContentTemplate>  
-                        
-                        <input type="hidden" value="" id="__EVENTARGUMENT" name="__EVENTARGUMENT">
-                        <input type="hidden" value="" id="__EVENTTARGET" name="__EVENTTARGET">
                         
                         <table style="width: 100%; background-color: azure;">
                             <tr>
@@ -85,6 +75,8 @@
                                                     <td>
                                                         <input type="text" id="txtEmail" runat="server" value="" />
                                                         <asp:HiddenField ID="hdnUserEmail" runat="server" Value="" />
+                                                        <asp:HiddenField ID="hdnUID" runat="server" Value="" />
+                                                        <asp:Button runat="server" ID="hdnDelBtn" style="display:none;" OnClientClick="return true;" OnClick="hdnDelBtn_Click" />
                                                     </td>
                                                     <td>Password(<span style="color: red">*</span>)</td>
                                                     <td>
@@ -107,10 +99,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="padding-bottom:50px;padding-top:25px">
-                                    <div class="confirmDialog" style="text-align:center;color:black;display:none;position:center;padding-top:30px;">
-                                        Are you sure you want to delete this record ?
-                                    </div>
+                                <td style="padding-bottom:50px;padding-top:25px">                                   
                                     <center>
                                        <asp:GridView ID="grdUsers" runat="server" OnRowEditing="grdUsers_RowEditing"
                                             OnPageIndexChanging="grdUsers_PageIndexChanging" Width="80%" HeaderStyle-CssClass="pagination-ys"
@@ -124,12 +113,12 @@
                                                 <asp:BoundField DataField="role_name" ReadOnly="true" ControlStyle-Width="94%" HeaderText="Role" />
                                                 <asp:BoundField DataField="activity_name" ControlStyle-Width="94%" HeaderText="Activity Name" />
                                                 <asp:BoundField DataField="phone" ControlStyle-Width="94%" HeaderText="Phone Number" />
-                                                <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Action">
-                                                  <ItemTemplate >                                                      
-                                                      <asp:LinkButton href="#" runat="server" id="lnkDel" >Delete</asp:LinkButton>   <asp:LinkButton href="#" runat="server" id="lnkEdit" >Edit</asp:LinkButton>
-                                                  </ItemTemplate>
-                                               
-                                                </asp:TemplateField>
+                                               <asp:CommandField ItemStyle-HorizontalAlign="Center" HeaderText="Edit" ShowEditButton="true" />
+                                                    <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Delete" >
+                                                        <ItemTemplate>
+                                                            <asp:Button ID="DeleteButton" CssClass="GridDeleteButton" runat="server" Text="" />               
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField> 
                                             </columns>
                                             <pagerstyle cssclass="pagination-ys" />
                                         </asp:GridView>
@@ -155,37 +144,36 @@
     <script src="js/jquery.easyui.min.js"></script>   
     
     <script type="text/javascript">
-        $(function () {
-            $('.confirmDialog').hide();          
-        });
+       
         $(document).ready(function () {
             //$('select:not(.ignore)').niceSelect();
             FastClick.attach(document.body);
             ClearAll(); 
             
         });
-        function In2InGlobalConfirm(email) {
+        function In2InGlobalConfirm(email,uid) {
 
             $.messager.confirm({
                 title: 'In2In Global Confirmation',
-                msg: 'Are you sure you want to delete this?',
+                msg: 'Are you sure you want to delete this User?',
                 ok: 'Yes',
                 cancel: 'No',
                 fn: function (r) {
+
                     if (r) {
-                        DeleteUser(email);
+                        $('#hdnUserEmail').val(email);
+                        $('#hdnUID').val(UID);
+                        $('#hdnDelBtn').trigger('click');
+                    }
+                    else {
+                        $('#hdnUserEmail').val('');
+                        $('#hdnUID').val('');
+
                     }
                 }
             });
-        }
-        function DeleteUser(email) {
-                        
-            var _target = 'grdUsers'; 
-            $("#__EVENTARGUMENT").val(email);
-            $("#__EVENTTARGET").val(_target);
-            __doPostBack(_target, email);            
-            
-        }
+        }   
+       
         function PullDataToEdit(fname, lname,company,email,role, activity, phone) {
                         
             $('#txtFName').val(fname);

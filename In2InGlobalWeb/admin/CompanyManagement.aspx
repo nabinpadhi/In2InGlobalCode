@@ -12,12 +12,8 @@
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/black/easyui.css" />
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/icon.css" />
     <link href="../css/msgBoxLight.css" rel="stylesheet" type="text/css" />
-     <script lang="JavaScript">
-         function __doPostBack(eventTarget, eventArgument) {
-             documenT.Form1.__EVENTTARGET.value = eventTarget;
-             document.Form1.__EVENTARGUMENT.value = eventArgument;
-             document.Form1.submit();
-         }
+  <script lang="JavaScript">
+  
 </script>
 </head>
 <body>
@@ -30,9 +26,7 @@
                 <asp:UpdatePanel  ID="pdnlCompany" runat="server">                       
                     <ContentTemplate> 
                        <div style="width:100%" id="companyDiv">
-                       <input type="hidden" value="" id="__EVENTARGUMENT" name="__EVENTARGUMENT">
-                        <input type="hidden" value="" id="__EVENTTARGET" name="__EVENTTARGET">
-                        
+                       
                         <table style="width: 70%; background-color: azure;">
                             <tr>
                                 <td>
@@ -44,6 +38,9 @@
                                                     <td>
                                                         <input type="text" id="txtCompanyName" runat="server" value="" />
                                                         <asp:HiddenField ID="hdnCompanyID" runat="server" Value="" />
+                                                          <asp:HiddenField ID="hdnCName" runat="server" Value="" />        
+                                                        <asp:Button runat="server" ID="hdnDelBtn" Text="" style="display:none;" OnClientClick="return true;" OnClick="hdnDelBtn_Click" />
+                                                         
                                                     </td>
                                                    
                                                    
@@ -72,25 +69,21 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="width: 50%;">
-                                      <div class="confirmDialog" style="text-align:center;color:black;display:none;position:center;padding-top:30px;">
-                                        Are you sure you want to delete this record ?
-                                    </div>
+                                <td style="width: 50%;">                                    
                                     <center>
                                         <div style="width: 50%; height: 90%; border: 1px solid black; border-radius: 5px; margin-top: 30px; margin-bottom: 20px;">                                           
-                                             <asp:GridView ID="grdCompany" Width="100%" runat="server" OnRowEditing="grdCompany_RowEditing" OnRowDeleting="grdCompany_RowDeleting"
-                                                OnPageIndexChanging="grdCompany_PageIndexChanging" HeaderStyle-CssClass="pagination-ys" AllowPaging="True"
-                                                DataKeyNames="company_id" PageSize="10"  OnRowUpdating="grdCompany_RowUpdating"
-                                                OnRowCancelingEdit="grdCompany_RowCancelingEdit" OnRowDataBound="grdCompany_RowDataBound" AutoGenerateColumns="false">
+                                             <asp:GridView runat="server" ID="grdCompany" Width="100%" OnPageIndexChanging="grdCompany_PageIndexChanging" HeaderStyle-CssClass="pagination-ys" AllowPaging="True"
+                                                DataKeyNames="company_id" PageSize="10" OnRowDataBound="grdCompany_RowDataBound" AutoGenerateColumns="false">
                                                 <Columns>
                                                     <asp:BoundField DataField="company_id" ControlStyle-Width="94%" HeaderText="CompanyID" Visible="false" />                                                    
                                                     <asp:BoundField DataField="company_name" ControlStyle-Width="94%" HeaderText="Company Name" />
                                                     <asp:BoundField DataField="lob" ControlStyle-Width="94%" HeaderText="LOB" />                             
-                                                    <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Action">
-                                                      <ItemTemplate >                                                      
-                                                          <asp:LinkButton href="#" runat="server" id="lnkDel" >Delete</asp:LinkButton>   <asp:LinkButton href="#" runat="server" id="lnkEdit" >Edit</asp:LinkButton>
-                                                      </ItemTemplate>                                               
-                                                    </asp:TemplateField>
+                                                   <asp:CommandField ItemStyle-HorizontalAlign="Center" HeaderText="Edit" ShowEditButton="true" />
+                                                    <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Delete" >
+                                                        <ItemTemplate>
+                                                            <asp:Button ID="DeleteButton" CssClass="GridDeleteButton" runat="server" Text="" />               
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>        
                                                 </Columns>
                                                 <PagerStyle CssClass="pagination-ys" />
                                             </asp:GridView>
@@ -146,7 +139,7 @@
             }
         }
        
-        function In2InGlobalConfirm(id) {
+        function In2InGlobalConfirm(cName, cID) {
 
             $.messager.confirm({
                 title: 'In2In Global Confirmation',
@@ -154,20 +147,19 @@
                 ok: 'Yes',
                 cancel: 'No',
                 fn: function (r) {
+
                     if (r) {
-                        DeleteCompany(id);
+                        $('#hdnCName').val(cName);
+                        $('#hdnCompanyID').val(cID);
+                        $('#hdnDelBtn').trigger('click');
+                    }
+                    else {
+                        $('#hdnCompanyID').val('');
+
                     }
                 }
             });
-        }
-        function DeleteCompany(id) {
-
-            var _target = 'grdCompany';
-            $("#__EVENTARGUMENT").val(id);
-            $("#__EVENTTARGET").val(_target);
-            __doPostBack(_target, id);
-
-        }
+        }         
         function PullDataToEdit(cid,cname, lob) {
 
             $('#txtCompanyName').val(cname);            

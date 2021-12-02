@@ -249,7 +249,7 @@ function CheckFileExtension(rs_FieldValueToValidate, rs_WhatToValidate, ms_ErrMs
 
 }
 function CheckMasterTemplate(rs_FieldValueToValidate, ms_ErrMsg) {
-    if (rs_FieldValueToValidate == "Spend_Analytics.csv" || rs_FieldValueToValidate == "Purchasing" || rs_FieldValueToValidate == "Procurement" || rs_FieldValueToValidate == "Business_Travel_Air" || rs_FieldValueToValidate == "Business_Travel_Hotel") {
+    if (rs_FieldValueToValidate == "Spend_Analytics.csv" || rs_FieldValueToValidate == "Purchasing.csv" || rs_FieldValueToValidate == "Procurement.csv" || rs_FieldValueToValidate == "Business_Travel_Air.csv" || rs_FieldValueToValidate == "Business_Travel_Hotel.csv") {
 
         return true;
     }

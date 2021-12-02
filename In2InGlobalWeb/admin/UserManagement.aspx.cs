@@ -47,12 +47,6 @@ namespace In2InGlobal.presentation.admin
                 else
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
             }
-            if (Request.Form["__EVENTTARGET"] == "grdUsers,")
-            {
-                // Fire event
-                DeleteUser(Request.Form["__EVENTARGUMENT"].Substring(0, Request.Form["__EVENTARGUMENT"].Length - 1));
-            }
-
         }
 
         /// <summary>
@@ -260,31 +254,33 @@ namespace In2InGlobal.presentation.admin
                
                 string fname = e.Row.Cells[0].Text;
                 string lname = e.Row.Cells[1].Text;
-                string companyid = dtCompany.Select("company_name = '"+e.Row.Cells[2].Text+"'")[0]["company_id"].ToString();
+                string companyid = dtCompany.Select("company_name = '"+ e.Row.Cells[2].Text + "'")[0]["company_id"].ToString();
                 string email = grdUsers.DataKeys[e.Row.RowIndex].Value.ToString();
                 string roleid = dtRole.Select("role_name = '" + e.Row.Cells[4].Text + "'")[0]["role_id"].ToString(); //e.Row.Cells[4].Text; ;
                 string activityid= dtActivity.Select("activity_name = '" + e.Row.Cells[5].Text + "'")[0]["activity_id"].ToString(); //e.Row.Cells[5].Text; ;                
-                string phone = e.Row.Cells[6].Text; 
+                string phone = e.Row.Cells[6].Text;
 
                 foreach (LinkButton button in e.Row.Cells[7].Controls.OfType<LinkButton>())
                 {
-                    
-                    if (button.ID == "lnkDel")
+                    if (button.CommandName == "Edit")
                     {
-                        if (email == Session["UserEmail"].ToString())
-                        {
-                            button.Enabled = false;
-                        }
-                        else
-                        {
-                            button.OnClientClick = "In2InGlobalConfirm('" + email + "');";
-                        }
-                    }
-                    if (button.ID == "lnkEdit")
-                    {
-                        button.OnClientClick = "PullDataToEdit('" + fname + "','" + lname + "','" + companyid + "','" + email + "','" + roleid + "','" + activityid + "','" + phone +"'); ";
+                        button.Attributes["onclick"] = "return PullDataToEdit('" + fname + "', '" + lname + "', '" + companyid + "', '" + email + "', '" + roleid + "', '" + activityid + "', '" + phone + "'); ";
                         button.Attributes["href"] = "#";
                     }
+                }
+                foreach (Button delbutton in e.Row.Cells[8].Controls.OfType<Button>())
+                {
+                   
+                    if (email == Session["UserEmail"].ToString())
+                    {
+                        delbutton.Enabled = false;
+                    }
+                    else
+                    {
+                        delbutton.UseSubmitBehavior = false;
+                        delbutton.Attributes["onclick"] = "javascript:In2InGlobalConfirm('" + email + "');return false;";
+                    }
+
                 }
             }
         }
@@ -338,6 +334,17 @@ namespace In2InGlobal.presentation.admin
             ddlRoleName.SelectedIndex = 0;
             txtPhoneNo.Value = "";
             txtPassword.Value = "";
+        }
+        protected void hdnDelBtn_Click(object sender, EventArgs e)
+        {
+            if (hdnUserEmail.Value != "")
+            {
+                DeleteUser(hdnUserEmail.Value);
+            }
+            BindUsers();
+            string _message = "User deleted successfully.";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}')", _message), true);
+
         }
     }
 }

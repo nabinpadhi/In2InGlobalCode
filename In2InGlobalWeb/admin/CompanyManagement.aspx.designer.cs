@@ -58,6 +58,24 @@ namespace In2InGlobal.presentation.admin {
         protected global::System.Web.UI.WebControls.HiddenField hdnCompanyID;
         
         /// <summary>
+        /// hdnCName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnCName;
+        
+        /// <summary>
+        /// hdnDelBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button hdnDelBtn;
+        
+        /// <summary>
         /// ddlLOB control.
         /// </summary>
         /// <remarks>
