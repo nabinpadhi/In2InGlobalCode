@@ -62,13 +62,6 @@
             width: 1.3em; /* same as padding-left set on li */
         }          
     </style> 
-     <script lang="JavaScript">
-         function __doPostBack(eventTarget, eventArgument) {
-             documenT.Form1.__EVENTTARGET.value = eventTarget;
-             document.Form1.__EVENTARGUMENT.value = eventArgument;
-             document.Form1.submit();
-         }
-</script>
 </head>
 <body style="background-color:azure;">
    
@@ -86,9 +79,6 @@
                             <div id="btnProjectMgnt" onclick="ShowProjectMgnt();" class="PanelTab">Project Management</div>
                             <div id="btnFileMgnt" onclick="ShowFileMgnt();" class="PanelTab">File Management</div>                          
                         </div>
-                        <input type="hidden" value="" id="__EVENTARGUMENT" name="__EVENTARGUMENT">
-                        <input type="hidden" value="" id="__EVENTTARGET" name="__EVENTTARGET">
-
                         <div title="Project Management" class="projectmgnt" style="background-color: azure;">
                                <table style="width: 100%; background-color: azure;">
                                 <tr>
@@ -102,7 +92,7 @@
                                                                 <tr>                                                                    
                                                                     <td style="width:40%">
                                                                         Project Name(<span style="color: red">*</span>)<br />
-                                                                        <span fieldtype="readonly" value="" runat="server" id="spnProjectName" />
+                                                                       <span fieldtype="readonly" value="" runat="server" id="spnProjectName" />
                                                                         <asp:HiddenField ID="hdnPName" runat="server" Value="" />
                                                                          <asp:HiddenField ID="hdnProjectToEdit" runat="server" Value="" />
                                                                     </td>
@@ -164,11 +154,7 @@
                                                             </ItemTemplate>
                                                         </asp:TemplateField>                                                          
                                                         <asp:BoundField ItemStyle-Wrap="true" HeaderText="Description"  DataField="description" />  
-                                                       <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Action">
-                                                      <ItemTemplate >                                                      
-                                                          <asp:LinkButton href="#" runat="server" id="lnkDel" >Delete</asp:LinkButton>   <asp:LinkButton href="#" runat="server" id="lnkEdit" >Edit</asp:LinkButton>
-                                                      </ItemTemplate>                                               
-                                                    </asp:TemplateField>
+                                                        <asp:CommandField ItemStyle-HorizontalAlign="Center" HeaderText="Action" ShowEditButton="true" ShowDeleteButton="true" />                                                                                                             
                                                     </Columns>
                                                 </asp:GridView>
                                             </div>
@@ -219,8 +205,7 @@
                                                                                 <center>
                                                                                     <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
                                                                                         <asp:GridView DataKeyNames="ID" ID="grdUploadedFiles" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
-                                                                                            AllowPaging="True" RowStyle-Wrap="false" HeaderStyle-Wrap="false" EmptyDataText="No file found uploaded by you." 
-                                                                                            OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" OnRowDataBound="grdUploadedFiles_RowDataBound" AutoGenerateColumns="false" PageSize="4">
+                                                                                            AllowPaging="True" RowStyle-Wrap="false" HeaderStyle-Wrap="false" EmptyDataText="No file found uploaded by you." OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
                                                                                             <PagerStyle CssClass="pagination-ys" />
                                                                                             <Columns>
                                                                                                     <asp:TemplateField ItemStyle-Width="150px" HeaderStyle-Width="150px" HeaderText="File Name">
@@ -235,7 +220,6 @@
                                                                                                 <asp:BoundField ItemStyle-Width="150px" HeaderStyle-Width="150px" HeaderText="Uploaded On" DataField="Date" />
                                                                                                 <asp:ImageField ItemStyle-Width="50px" HeaderStyle-Width="50px" ItemStyle-CssClass ="GridViewImageAlignment" HeaderText="Status" ControlStyle-Height="20px" ControlStyle-Width="20px" DataImageUrlField="UploadedStatus"></asp:ImageField>                                                                                             
                                                                                             </Columns>
-                                                                                            <PagerStyle CssClass="grdUploadedFilesPager" />
                                                                                         </asp:GridView>
                                                                                     </div>
                                                                                 </center>
@@ -280,7 +264,11 @@
                                                         <b><u>Email ID</u> : </b>
                                                     </td>
                                                     <td style="width: 65%;">
-                                                        <asp:TextBox Text="" ID="usrEmailId" AutoPostBack="true" OnTextChanged="usrEmailId_TextChanged" runat="server" style="width: 80%" ></asp:TextBox>                                            
+                                                          <div>
+                                                            <asp:DropDownList OnSelectedIndexChanged="ddlusrEmailId_SelectedIndexChanged" AppendDataBoundItems="true" AutoPostBack="true" ID="ddlUsrEmailId" Width="85%" runat="server" DataTextField="UserEmail">
+                                                                    <asp:ListItem Text="--Select a Email--"></asp:ListItem>
+                                                            </asp:DropDownList>
+                                                        </div>                                                                                                  
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -289,7 +277,7 @@
                                                     </td>
                                                     <td>
                                                         <div>
-                                                            <asp:DropDownList onchange="alert();return false;" OnSelectedIndexChanged="ddlProjects_SelectedIndexChanged" AppendDataBoundItems="true" AutoPostBack="true" ID="ddlProjects" Width="85%" runat="server" DataTextField="ProjectName">
+                                                            <asp:DropDownList OnSelectedIndexChanged="ddlProjects_SelectedIndexChanged" AppendDataBoundItems="true" AutoPostBack="true" ID="ddlProjects" Width="85%" runat="server" DataTextField="ProjectName">
                                                                     <asp:ListItem Text="--Select a Project--"></asp:ListItem>
                                                             </asp:DropDownList>
                                                         </div>
@@ -339,10 +327,8 @@
      <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/Validation.js?"), DateTime.Now.Ticks) %>" type="text/javascript" lang="javascript"></script>
      <script src="js/fastclick.js" type="text/javascript" lang="javascript"></script>
     <script src="js/prism.js" type="text/javascript" lang="javascript"></script>
-     <link rel="stylesheet" href="css/jquery-ui.css">    
-    <script src="js/jquery.min.js"></script>    
-    <script src="js/jquery.easyui.min.js"></script>   
-    
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
  <script>
     
     $(document).ready(function () {
@@ -353,43 +339,7 @@
         }); 
         ShowProjectMgnt();
         ClearProject();
-        DoPagination();
     });
-     function DoPagination() {
-         //alert("DoPagination()");
-         $('.grdUploadedFilesPager').click(function () {
-
-             var pageNo = $(this).find("a").html();
-             var _target = 'grdUploadedFiles';
-             $("#__EVENTARGUMENT").val(pageNo);
-             $("#__EVENTTARGET").val(_target);
-         });
-
-     }
-
-     function In2InGlobalConfirm(id) {
-
-         $.messager.confirm({
-             title: 'In2In Global Confirmation',
-             msg: 'Are you sure you want to delete this?',
-             ok: 'Yes',
-             cancel: 'No',
-             fn: function (r) {
-                 if (r) {
-                     DeleteProject(id);
-                 }
-             }
-         });
-     }
-     function DeleteProject(id) {
-
-         var _target = 'grdProject';
-         $("#__EVENTARGUMENT").val(id);
-         $("#__EVENTTARGET").val(_target);
-         __doPostBack(_target, id);
-
-     }
-
      function OpenCSV(fn) {
          window.parent.ShowDiv(fn);
      }
@@ -452,7 +402,6 @@
          }
      }
      function ShowProjectMgnt() {
-        
          $('.projectmgnt').show();
          $('.filemgnt').hide();
          
@@ -462,7 +411,6 @@
          $('#btnFileMgnt').css("color", "#fff");
      }
      function ShowFileMgnt() {
-       
          $('.projectmgnt').hide();
          $('.filemgnt').show();
 
@@ -476,31 +424,8 @@
          Error_Message = "";
          Error_Count = 1;
 
-         var value = document.getElementById("<%=ddlTemplate.ClientID%>");         
+         var value = document.getElementById("<%=ddlTemplate.ClientID%>");
          CheckNullDropdown(value.selectedIndex, in2in15);
-         
-         if (Error_Message != "") {
-             ShowError(Error_Message, 50);
-             return false;
-         }
-         else {
-
-             return true;
-         }
-     }  
-     function VerifyFile() {
-
-         Error_Message = "";
-         Error_Count = 1;
-         
-         var fileName = $('#fileUploader').val();
-         var idxDot = fileName.lastIndexOf(".") + 1;
-         var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
-
-         if (CheckNull(fileName, in2in23)) {
-             CheckFileExtension(extFile, "csv", in2in24);
-         }
-         
 
          if (Error_Message != "") {
              ShowError(Error_Message, 50);
@@ -511,7 +436,30 @@
              return true;
          }
      }
-         
+     function VerifyFile() {
+
+         Error_Message = "";
+         Error_Count = 1;
+
+         var fileName = $('#fileUploader').val();
+         var idxDot = fileName.lastIndexOf(".") + 1;
+         var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+
+         if (CheckNull(fileName, in2in23)) {
+             CheckFileExtension(extFile, "csv", in2in24);
+         }
+
+
+         if (Error_Message != "") {
+             ShowError(Error_Message, 50);
+             return false;
+         }
+         else {
+
+             return true;
+         }
+     }
+
      function ShowServerMessage(servermessage) {
 
          if (servermessage != "") {
@@ -530,38 +478,15 @@
      }
      function ShowHidden() { }
 
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date(); a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+     (function (i, s, o, g, r, a, m) {
+         i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+             (i[r].q = i[r].q || []).push(arguments)
+         }, i[r].l = 1 * new Date(); a = s.createElement(o),
+             m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-        ga('create', 'UA-64633646-1', 'auto');
-        ga('send', 'pageview');        
-    </script>
-    <style type="text/css">
-        body {
-            background-color: azure;
-        }
-        .window-body.panel-body {
-               color:silver;              
-               padding-top:30px;
-               text-align:center;
-        }
-        .panel-title
-        {
-            color: greenyellow;
-            background-color: #8f0108;
-            border: 0px solid #dddddd;    
-            text-indent: 5px;    
-            border-radius: 5px;
-        }
-        .l-btn-text
-        {
-            color:yellow;
-
-        }
-    </style>
+     ga('create', 'UA-64633646-1', 'auto');
+     ga('send', 'pageview');
+ </script>
 </body>
 </html>

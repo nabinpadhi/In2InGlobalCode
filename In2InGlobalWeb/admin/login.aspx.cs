@@ -21,7 +21,7 @@ namespace In2InGlobal.presentation.admin
         {
             if (!IsPostBack)
             {
-                BindActivity(Request.Form["email"]);
+               // BindActivity(Request.Form["email"]);
             }
             else
             {
@@ -32,7 +32,7 @@ namespace In2InGlobal.presentation.admin
                     string emailid = Request.Form["email"];
                     string pwd = Request.Form["password"];
                     string companyname = Request.Form["companyname"];
-                    string activity = ddlActivity.SelectedValue.ToString();
+                    //string activity = ddlActivity.SelectedValue.ToString();
                 }
             }
 
@@ -169,7 +169,7 @@ namespace In2InGlobal.presentation.admin
         protected void txtEmailId_TextChanged(object sender, EventArgs e)
         {
             var email = txtEmailId.Text;
-            BindActivity(email);
+          // BindActivity(email);
             password.Value = "";
             password.Focus();
             
@@ -192,10 +192,10 @@ namespace In2InGlobal.presentation.admin
                 {
                     companyname.Text = dsUser.Tables[0].Rows[0]["company_name"].ToString();
                     Session["CompanyName"]= dsUser.Tables[0].Rows[0]["company_name"].ToString();
-                    ddlActivity.DataSource = dsUser;
-                    ddlActivity.DataTextField = "activity_name";
-                    ddlActivity.DataBind();
-                    ddlActivity.Enabled = false;
+                   // ddlActivity.DataSource = dsUser;
+                    //ddlActivity.DataTextField = "activity_name";
+                    //ddlActivity.DataBind();
+                    //ddlActivity.Enabled = false;
                     companyname.Enabled = false;
                 }
                 else

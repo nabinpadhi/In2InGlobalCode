@@ -21,7 +21,7 @@ namespace In2InGlobal.datalink
         public long SaveProjectMaster(ProjectEntity projectEntity)  
         {
             BaseRepository baseRepo = new BaseRepository();
-            var query = @"SELECT * FROM dbo.saveprojectinfo(@projectname,@description,@createdby)";
+            var query = @"SELECT * FROM dbo.saveproject(@projectname,@description,@createdby,@roleid,@userid)";
             using (var connection = baseRepo.GetDBConnection())
             {
                 try
@@ -31,7 +31,9 @@ namespace In2InGlobal.datalink
                     {
                         projectname = projectEntity.ProjectName,
                         description = projectEntity.Description,                         
-                        createdby = projectEntity.CreatedBy
+                        createdby = projectEntity.CreatedBy,
+                        roleid= projectEntity.UserRole,
+                        userid = projectEntity.UserEmail
                     }, commandType: CommandType.Text
                     );
 
@@ -144,15 +146,15 @@ namespace In2InGlobal.datalink
             DataSet dsProject = new DataSet();
             NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
 
-            string query = @"SELECT * FROM dbo.fillproject()";
+            string query = @"SELECT * FROM dbo.fillproject(@userrole,@useremail)";
             using (var connection = baseRepo.GetDBConnection())
             {
                 try
                 {
                     connection.Open();
                     NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
-                    //npgsqlCommand.Parameters.AddWithValue("@userrole", userRole);
-                    //npgsqlCommand.Parameters.AddWithValue("@useremail", userEmail);
+                    npgsqlCommand.Parameters.AddWithValue("@userrole", userRole);
+                    npgsqlCommand.Parameters.AddWithValue("@useremail", userEmail);
                     npgsqlCommand.CommandType = CommandType.Text;
                     npgsqlDataAdapter.SelectCommand = npgsqlCommand;
                     npgsqlDataAdapter.Fill(dsProject);
@@ -204,13 +206,13 @@ namespace In2InGlobal.datalink
         }
 
 
-        public DataSet getEmailforAdminAndUser(string userEmail, int RoleId)
+        public DataSet getEmailforAdminAndUser(string RoleId, string userEmail)
         {
             BaseRepository baseRepo = new BaseRepository();
             DataSet dsProject = new DataSet();
             NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
 
-            string query = @"SELECT * FROM dbo.getallemailforuser()";
+            string query = @"SELECT * FROM dbo.populatealluseremail()";
             using (var connection = baseRepo.GetDBConnection())
             {
                 try
@@ -236,12 +238,12 @@ namespace In2InGlobal.datalink
             }
         }
 
-            /// <summary>
-            /// This Function is used to Save the Project
-            /// </summary>
-            /// <param name="projectEntity"></param>
-            /// <returns></returns>
-            public long DeleteProjectMaster(ProjectEntity projectEntity)
+        /// <summary>
+        /// This Function is used to Save the Project
+        /// </summary>
+        /// <param name="projectEntity"></param>
+        /// <returns></returns>
+        public long DeleteProjectMaster(ProjectEntity projectEntity)
             {
                 BaseRepository baseRepo = new BaseRepository();
                 var query = @"SELECT * FROM dbo.deleteproject(@projectid)";
