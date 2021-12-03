@@ -39,9 +39,9 @@ namespace In2InGlobal.presentation.admin
                     else
                     {
                         BindUsers();
-                        BindCompany();
-                        BindActivity();
+                        BindCompany();                       
                         BindRoles();
+                        BindActivity();
                     }
                 }
                 else

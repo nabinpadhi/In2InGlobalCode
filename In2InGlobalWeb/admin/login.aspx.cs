@@ -32,7 +32,7 @@ namespace In2InGlobal.presentation.admin
                     string emailid = Request.Form["email"];
                     string pwd = Request.Form["password"];
                     string companyname = Request.Form["companyname"];
-                    //string activity = ddlActivity.SelectedValue.ToString();
+                    BindActivity(emailid);
                 }
             }
 
@@ -130,6 +130,7 @@ namespace In2InGlobal.presentation.admin
         public static string DoLogin(string emailid, string password)
         {
             string result = "";
+           
             LoginBl userMasterBL = new LoginBl();
             DataSet dsUser = new DataSet();
             if (HttpContext.Current.Session["dsUser"] == null)
@@ -137,9 +138,9 @@ namespace In2InGlobal.presentation.admin
             else
                 dsUser = (DataSet)HttpContext.Current.Session["dsUser"];
             DataTable usrTable = dsUser.Tables[0];
-
+            ///and paawrd = '" + password + "'"
             password = new EncryptField().Encrypt(password);
-            if (usrTable.Select("user_email ='" + emailid + "' and paawrd = '" + password + "'").Length > 0)
+            if (dsUser.Tables[0].Rows.Count > 0)
             {
                 DataRow userRow = dsUser.Tables[0].Rows[0];
                 result = "Success";

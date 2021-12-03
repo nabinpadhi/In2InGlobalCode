@@ -366,9 +366,10 @@ namespace In2InGlobal.presentation.admin
                 TemplateMasterBl templateMasterBl = new TemplateMasterBl();
                 if (hdnTID.Value != "")
                 {
-                    tempalteEntity.TemplateId = Convert.ToInt64(hdnTID.Value);
+                    tempalteEntity.TemplateId = Convert.ToInt64(hdnTID.Value);                   
+                    templateMasterBl.UpdateTemplateMaster(tempalteEntity);
+
                     _message = "Company Updated Successfully";
-                    //templateMasterBl.UpdateTemplateMaster(tempalteEntity); Nabin :Ganesh write this method to update  master template.
                 }
                 else
                 {

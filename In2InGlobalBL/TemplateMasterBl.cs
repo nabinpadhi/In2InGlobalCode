@@ -19,7 +19,7 @@ namespace In2InGlobal.businesslogic
         public TemplateMasterDto SaveProjectMaster(TemplateMasterEntity templateMasterEntity)
         {
             TemplateMasterDto response = null;
-            TemplateMasterDL templateMasterDL = new TemplateMasterDL(); 
+            TemplateMasterDL templateMasterDL = new TemplateMasterDL();
 
             if (templateMasterEntity == null) return response;
 
@@ -37,7 +37,7 @@ namespace In2InGlobal.businesslogic
         /// </summary>
         /// <param name="templateMasterEntity"></param>
         /// <returns></returns>
-        public TemplateMasterDto SaveTemplateMaster(TemplateMasterEntity templateMasterEntity)  
+        public TemplateMasterDto SaveTemplateMaster(TemplateMasterEntity templateMasterEntity)
         {
             TemplateMasterDto response = null;
             TemplateMasterDL templateMasterDL = new TemplateMasterDL();
@@ -53,17 +53,36 @@ namespace In2InGlobal.businesslogic
             return response;
         }
 
+        /// <summary>
+        /// UpdateTemplateMaster
+        /// </summary>
+        /// <param name="templateMasterEntity"></param>
+        /// <returns></returns>
+        public TemplateMasterDto UpdateTemplateMaster(TemplateMasterEntity templateMasterEntity)
+        {
+            TemplateMasterDto response = null;
+            TemplateMasterDL templateMasterDL = new TemplateMasterDL();
 
+            if (templateMasterEntity == null) return response;
+
+            var varTemplateId = templateMasterDL.UpdateTemplateMaster(templateMasterEntity);
+
+            response = new TemplateMasterDto
+            {
+                TemplateId = varTemplateId
+            };
+            return response;
+        }
 
         /// <summary>
         /// Populate Template Name
         /// </summary>
         /// <returns></returns>
-        public DataSet PopulateTemplateName()  
+        public DataSet PopulateTemplateName()
         {
             DataSet dsTemplate = new DataSet();
             try
-            { 
+            {
                 TemplateMasterDL objTemplate = new TemplateMasterDL();
                 dsTemplate = objTemplate.PopulateTemplateName();
             }
@@ -99,7 +118,7 @@ namespace In2InGlobal.businesslogic
         /// Populate Template Grid
         /// </summary>
         /// <returns></returns>
-        public DataSet PopulateTemplateGridForFileMagement(string userId,int projectId)   
+        public DataSet PopulateTemplateGridForFileMagement(string userId, int projectId)
         {
             DataSet dsTemplategrid = new DataSet();
             try

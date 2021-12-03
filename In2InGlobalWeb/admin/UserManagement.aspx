@@ -52,7 +52,7 @@
                                                     </td>
                                                     <td>Role Name(<span style="color: red">*</span>)</td>
                                                     <td>
-                                                        <asp:DropDownList ID="ddlRoleName" AppendDataBoundItems="true" onchange="ModifyActivity(this.value);" style="width:95%;" runat="server" DataTextField="RoleName">
+                                                        <asp:DropDownList ID="ddlRoleName" AppendDataBoundItems="true"  style="width:95%;" runat="server" DataTextField="RoleName">
                                                             <asp:ListItem Text="-- Select a Role --"></asp:ListItem>
                                                         </asp:DropDownList>
 
@@ -66,7 +66,7 @@
                                                     <td>Activity Name(<span style="color: red">*</span>)</td>
                                                     <td>
                                                         <asp:DropDownList  AppendDataBoundItems="true" ID="ddlActivityAccess" style="width:95%;" runat="server" DataTextField="ActivityAccess">                                                            
-                                                           <asp:ListItem Text="-- Select a Activity --"></asp:ListItem>                                                           
+                                                                                                              
                                                         </asp:DropDownList>
                                                     </td>
                                                 </tr>

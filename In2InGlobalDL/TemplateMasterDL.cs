@@ -58,6 +58,46 @@ namespace In2InGlobal.datalink
             return templateEntity.TemplateId;
         }
 
+        public long UpdateTemplateMaster(TemplateMasterEntity templateEntity)
+        {
+            BaseRepository baseRepo = new BaseRepository();
+            var query = @"SELECT * FROM dbo.updatetemplateinfo(@templatename,@instructions,@createdby,@templateid)";
+            using (var connection = baseRepo.GetDBConnection())
+            {
+                try
+                {
+                    connection.Open();
+                    var result = connection.Query(query, new
+                    {
+                        templatename = templateEntity.TemplateName,
+                        instructions = templateEntity.Instruction,
+                        createdby = templateEntity.CreatedBy,
+                        templateid = templateEntity.TemplateId
+                    }, commandType: CommandType.Text
+                    );
+
+                    if (result == null || !result.Any())
+                    {
+                        //  throw (" failed to create company").ToString();
+                    }
+                    // companyEntity.CompanyId = Convert.ToInt64(result.First().CompanyId);
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Dispose();
+                }
+
+            }
+            return templateEntity.TemplateId;
+        }
+
+
+
         public DataSet PopulateTemplateName()   
         {
             BaseRepository baseRepo = new BaseRepository();
