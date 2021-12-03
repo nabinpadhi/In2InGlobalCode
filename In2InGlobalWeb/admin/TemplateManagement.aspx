@@ -11,9 +11,10 @@
     <link href="../css/msgBoxLight.css" rel="stylesheet" type="text/css" />
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/gridview.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
-     <script src="<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/Validation.js?"), DateTime.Now.Ticks) %>" type="text/javascript" lang="javascript"></script>
+     <script src="../scripts/Validation.js" type="text/javascript" lang="javascript"></script>
       <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" />
     <script lang="JavaScript">
+       // alert("<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/Validation.js?"), DateTime.Now.Ticks) %>");
         function __doPostBack(eventTarget, eventArgument) {
             documenT.Form1.__EVENTTARGET.value = eventTarget;
             document.Form1.__EVENTARGUMENT.value = eventArgument;
@@ -442,7 +443,7 @@
       }
       function VerifyFile() {
 
-          var winH = 80
+          var winH = 90
           Error_Message = "";
           Error_Count = 1;
 
@@ -451,8 +452,9 @@
           var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
 
           if (CheckNull(fileName, in2in23)) {
-              CheckFileExtension(extFile, "csv", in2in24);
-              CheckMasterTemplate(fileName, in2in26, winH)
+              if (CheckFileExtension(extFile, "csv", in2in24)) {
+                  CheckMasterTemplate(fileName, in2in26, winH)
+              }
           }
 
 
@@ -469,7 +471,7 @@
      
     </script>
     <style type="text/css">
-        body {
+         body {
             background-color: azure;
         }
         .window-body.panel-body {

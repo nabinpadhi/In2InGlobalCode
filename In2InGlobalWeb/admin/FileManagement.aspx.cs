@@ -158,7 +158,7 @@ namespace In2InGlobal.presentation.admin
 
             DataTable tblUploadedFiles = JsonConvert.DeserializeObject<DataTable>(json);
             DataRow _usrRow = (DataRow)Session["UserRow"];
-            string userName = "s";// = _usrRow["FirstName"] + " " + _usrRow["LastName"];
+            string userName =_usrRow["first_name"] + " " + _usrRow["last_name"];
             if (tblUploadedFiles.Rows.Count > 0)
             {
                 if (pid != "")
@@ -573,7 +573,7 @@ namespace In2InGlobal.presentation.admin
                 btnDownload.Enabled = false;
             }
 
-            BindFileGrid(ddlAssignedProject.SelectedValue);
+            BindFileGrid(ddlAssignedProject.SelectedItem.Text);
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "ShowFileMgnt();", true);
 
         }
@@ -591,7 +591,7 @@ namespace In2InGlobal.presentation.admin
             DataSet dsUserDetails = new DataSet();
             ProjectMasterBL projectBL = new ProjectMasterBL();
             dsUserDetails = projectBL.getProjectGridDetails(userRole, userEmail);
-
+            ViewState["dirProject"] = dsUserDetails.Tables[0];
             grdProject.DataSource = dsUserDetails.Tables[0];
             grdProject.DataBind();
         }
@@ -650,6 +650,8 @@ namespace In2InGlobal.presentation.admin
                 projectEntitiy.ProjectName = spnProjectName.InnerText;
                 projectEntitiy.CreatedBy = Session["UserEmail"].ToString();
                 projectEntitiy.Description = txtDescription.Value;
+                projectEntitiy.UserEmail = Session["UserEmail"].ToString();
+                projectEntitiy.UserRole = Session["UserRole"].ToString();
                 if (hdnProjectToEdit.Value == "")
                 {                       
                      projectBL.SaveProjectMaster(projectEntitiy);                    

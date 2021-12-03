@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" EnableEventValidation="false"  AutoEventWireup="true" CodeBehind="FileManagement.aspx.cs" Inherits="In2InGlobal.presentation.admin.FileManagement" %>
+﻿\<%@ Page Language="C#" EnableEventValidation="false"  AutoEventWireup="true" CodeBehind="FileManagement.aspx.cs" Inherits="In2InGlobal.presentation.admin.FileManagement" %>
 
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="ajaxToolkit" %>
 
@@ -14,11 +14,11 @@
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/gridview.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
-    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />   
+    
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/black/easyui.css" />
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/icon.css" />
     <link href="../css/msgBoxLight.css" rel="stylesheet" type="text/css" />
-
+    <link href="css/style.css" rel="stylesheet" type="text/css" />   
     <style type="text/css">
         body {
             background-color: azure;
@@ -156,21 +156,21 @@
                                                     <PagerStyle CssClass="pagination-ys" />
                                                     <AlternatingRowStyle BackColor="#CCCCCC" />
                                                     <Columns>                                                      
-                                                         <asp:TemplateField HeaderStyle-Width="150px"  HeaderText="Project Name" SortExpression="ProjectName">                                                            
+                                                         <asp:TemplateField HeaderStyle-Width="150px"  HeaderText="Project Name" SortExpression="project_name">                                                            
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lblProjectName" runat="server" Text='<%# Bind("project_name") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>  
-                                                        <asp:TemplateField HeaderText="Created By" SortExpression="CreatedBy">                                                            
+                                                        <asp:TemplateField HeaderText="Created By" SortExpression="created_by">                                                            
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lblCreatedBy" runat="server" Text='<%# Bind("created_by") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>                                                          
                                                         <asp:BoundField ItemStyle-Wrap="true" HeaderText="Description"  DataField="description" />  
                                                          <asp:CommandField ItemStyle-HorizontalAlign="Center" HeaderText="Edit" ShowEditButton="true" />
-                                                        <asp:TemplateField ShowHeader="False">
+                                                        <asp:TemplateField ShowHeader="False" ItemStyle-Width="30px">
                                                             <ItemTemplate>
-                                                                <asp:Button ID="DeleteButton" CssClass="GridDeleteButton" runat="server" Text="Delete" />               
+                                                                <asp:Button ID="DeleteButton" CssClass="GridDeleteButton" runat="server" Width="30px" />               
                                                             </ItemTemplate>
                                                         </asp:TemplateField>                                                                                                              
                                                     </Columns>
@@ -184,8 +184,8 @@
                         <div title="File Management" class="filemgnt" style="background-color: azure;display:none;">
                             <table style="width: 100%; background-color: azure;">
                                 <tr>
-                                    <td style="width: 70%;">
-                                        <table style="width: 100%; margin-top: 25px;">                               
+                                    <td style="width: 70%;">                                                                
+                                        <table style="width: 100%;">                               
                                             <tr>
                                                 <td colspan="2" style="text-align: center;">
                                                     <div style="border: 1px solid black; margin-left: auto; margin-right: auto; border-radius: 5px">
@@ -194,16 +194,15 @@
                                                                 <td style="width: 60%; vertical-align:top;">
                                                                     <table style="width: 100%;">
                                                                         <tr>
-                                                                            <td style="width: 50%;text-align:left;padding-left:25px;">
+                                                                            <td style="width: 30%;text-align:left;padding-left:25px;">
                                                                                  <b>Select Project</b>
                                                                                 <div style="width:100px;text-align:left;">
                                                                                     <asp:DropDownList AutoPostBack="true" OnSelectedIndexChanged="ddlAssignedProject_SelectedIndexChanged"  DataValueField="ProjectName" DataTextField="ProjectName"  ID="ddlAssignedProject" AppendDataBoundItems="true" runat="server">
                                                                                         <asp:ListItem Text="--Select a Project--"></asp:ListItem>
                                                                                     </asp:DropDownList>
                                                                                 </div>
-                                                                            </td>
-                                                                            <td style="width: 5%"></td>
-                                                                            <td style="width: 45%;margin-left:0px;text-align:left;">
+                                                                            </td>                                                                            
+                                                                            <td style="width: 30%;margin-left:0px;text-align:left;">
                                                                                 <b>Select Template</b>
                                                                                 <div style="text-align:left;">
                                                                                     <asp:DropDownList OnSelectedIndexChanged="LoadInstruction" Enabled="false" DataTextField="TemplateName" AutoPostBack="true" DataValueField="Path"  ID="ddlTemplate" AppendDataBoundItems="true" runat="server">
@@ -211,24 +210,23 @@
                                                                                     </asp:DropDownList>
                                                                                 </div>
                                                                             </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td></td>
-                                                                            <td></td>
-                                                                            <td style="text-align: right;">
-                                                                                <asp:Button CssClass="button" Enabled="false" OnClientClick="return ValidateDownload();" OnClick="btnDownload_Click" Text="Download" ID="btnDownload" runat="server"></asp:Button></td>
-                                                                        </tr>
+                                                                            <td style="width:40%;vertical-align:top;padding-top:20px;">
+                                                                                <asp:Button CssClass="button" Enabled="false" OnClientClick="return ValidateDownload();" OnClick="btnDownload_Click" Text="Download" ID="btnDownload" runat="server"></asp:Button>
+                                                                            </td>
+                                                                        </tr>                                                                       
                                                                         <tr>
                                                                             <td colspan="3">                                                                    
                                                                                 <center>
                                                                                     <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
                                                                                         <asp:GridView DataKeyNames="ID" ID="grdUploadedFiles" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
-                                                                                            AllowPaging="True" RowStyle-Wrap="false" HeaderStyle-Wrap="false" EmptyDataText="No file found uploaded by you." OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
-                                                                                            <PagerStyle CssClass="pagination-ys" />
+                                                                                            AllowPaging="True" RowStyle-Wrap="false" HeaderStyle-Wrap="false" EmptyDataText="No file found uploaded by you." 
+                                                                                            OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" AutoGenerateColumns="false" PageSize="8">
+                                                                                            <PagerStyle CssClass="WillBeModified" />
+                                                                                             <AlternatingRowStyle BackColor="#CCCCCC" />
                                                                                             <Columns>
-                                                                                                    <asp:TemplateField ItemStyle-Width="150px" HeaderStyle-Width="150px" HeaderText="File Name">
+                                                                                                    <asp:TemplateField HeaderStyle-CssClass="specify" ItemStyle-CssClass="specify" ItemStyle-Width="150px" HeaderStyle-Width="100px" HeaderText="File Name">
                                                                                                         <ItemTemplate>
-                                                                                                            <a href='#' onclick="OpenCSV('<%# DataBinder.Eval(Container.DataItem, "FileName") %>');">
+                                                                                                            <a href='#' title=" <%# DataBinder.Eval(Container.DataItem, "FileName")%>" onclick="OpenCSV('<%# DataBinder.Eval(Container.DataItem, "FileName") %>');">
                                                                                                                 <%# DataBinder.Eval(Container.DataItem, "FileName")%>
                                                                                                             </a>
                                                                                                         </ItemTemplate>
@@ -257,7 +255,7 @@
                                                                         </tr>
                                                                     </table>
                                                                 </td>
-                                                                <td style="width: 35%;">
+                                                                <td style="width: 35%;vertical-align:text-top;">
                                                                     <div style="width: 95%; text-align: left; margin-left: 15px; height: 220px; overflow-y: auto;">
                                                                         <b>Template Instruction</b><br />
                                                                         <p></p>
@@ -272,6 +270,7 @@
                                                 </td>
                                             </tr>
                                         </table>
+                                                                                
                                     </td>
                                     <td style="width: 30%; vertical-align: top;">
                                         <div style="margin-top: 10px; margin-left: 20px; border-left: 1px solid gray; height: 300px;">
@@ -528,5 +527,38 @@
      ga('create', 'UA-64633646-1', 'auto');
      ga('send', 'pageview');
  </script>
+     <style type="text/css">
+        body {
+            background-color: azure;
+        }
+        .window-body.panel-body {
+               color:silver;              
+               padding-top:30px;
+               text-align:center;
+        }
+        .panel-title
+        {
+            color: greenyellow;
+            background-color: #8f0108;
+            border: 0px solid #dddddd;    
+            text-indent: 5px;    
+            border-radius: 5px;
+        }
+        .l-btn-text
+        {
+            color:yellow;
+
+        }
+         .specify {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-height: 20px;
+        height: 20px;
+        word-break: break-all;
+        word-wrap: break-word;
+        display: block;
+        border:none;
+    }
+    </style>
 </body>
 </html>

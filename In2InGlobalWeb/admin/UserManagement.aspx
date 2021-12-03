@@ -63,7 +63,7 @@
                                                     <td>
                                                         <input type="text" id="txtPhoneNo" runat="server" value="" />
                                                     </td>
-                                                    <td>Activity Name(<span style="color: red">*</span>)</td>
+                                                    <td>Activity Name</td>
                                                     <td>
                                                         <asp:DropDownList  AppendDataBoundItems="true" ID="ddlActivityAccess" style="width:95%;" runat="server" DataTextField="ActivityAccess">                                                            
                                                                                                               
@@ -219,8 +219,7 @@
             CheckNull($("#txtFName").val(), in2in10);
             CheckNull($("#txtLName").val(), in2in11);
             CheckNullDropdown($("select[name='ddlCompanyName'] option:selected").index(), in2in21);
-            CheckNullDropdown($("select[name='ddlRoleName'] option:selected").index(), in2in12);
-            CheckNullDropdown($("select[name='ddlActivityAccess'] option:selected").index(), in2in19);
+            CheckNullDropdown($("select[name='ddlRoleName'] option:selected").index(), in2in12);            
             if ($('#txtPhoneNo').val() != "") {
                 ValidatePhoneNumber($('#txtPhoneNo').val(), in2in20);
             }
@@ -260,7 +259,7 @@
             $('input[type="password"]').prop("readonly", false);
             $("#txtPassword").css("background-color", "white")            
         }
-        function ModifyActivity(selectedRole) {
+       function ModifyActivity(selectedRole) {
            
             if (selectedRole == "1") {
 

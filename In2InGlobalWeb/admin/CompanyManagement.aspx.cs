@@ -32,22 +32,7 @@ namespace In2InGlobal.presentation.admin
                         BindCompany();
                         BindLOB();
                     }
-                }
-                else
-                {
-                    if (Request.Form["__EVENTTARGET"] != null)
-                    {
-                        if (Request.Form["__EVENTTARGET"].ToString().IndexOf("grdCompany") == 0)
-                        {
-                            int extraComa = Request.Form["__EVENTTARGET"].ToString().Replace("grdCompany", "").Length;
-                            // Fire event
-                            DeleteCompany(Request.Form["__EVENTARGUMENT"].Substring(0, Request.Form["__EVENTARGUMENT"].Length - extraComa));
-                            BindCompany();
-                            string _message = "Company deleted Successfully";
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);
-                        }
-                    }
-                }
+                }                
             }
             else
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
@@ -80,12 +65,18 @@ namespace In2InGlobal.presentation.admin
                 string companyname = e.Row.Cells[1].Text;
                 string lob = e.Row.Cells[2].Text;
 
-                foreach (LinkButton button in e.Row.Cells[3].Controls.OfType<LinkButton>())
+               
+                foreach (Button editbutton in e.Row.Cells[3].Controls.OfType<Button>())
                 {
-                    if (button.CommandName == "Edit")
+                    if (companyname == Session["CompanyName"].ToString())
                     {
-                        button.Attributes["onclick"] = "return PullDataToEdit('" + companyid + "','" + companyname + "','" + lob + "');";
-                        button.Attributes["href"] = "#";
+                        editbutton.Enabled = false;
+
+                    }
+                    else
+                    {
+                        editbutton.UseSubmitBehavior = false;
+                        editbutton.Attributes["onclick"] = "return PullDataToEdit('" + companyid + "','" + companyname + "','" + lob + "');";
                     }
                 }
                 foreach (Button delbutton in e.Row.Cells[4].Controls.OfType<Button>())

@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/black/easyui.css" />
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/icon.css" />
     <link href="../css/msgBoxLight.css" rel="stylesheet" type="text/css" />
+    <link href="css/Grid.css" rel="stylesheet" type="text/css" />
   <script lang="JavaScript">
   
 </script>
@@ -48,7 +49,7 @@
                                                  <tr>                                                   
                                                     <td>LOB</td>
                                                     <td>
-                                                       <asp:DropDownList ID="ddlLOB" runat="server" AppendDataBoundItems="true" DataValueField="lob_id" DataTextField="lob_name">
+                                                       <asp:DropDownList ID="ddlLOB" runat="server" Width="94%" AppendDataBoundItems="true" DataValueField="lob_id" DataTextField="lob_name">
                                                            <asp:ListItem>--Select a LOB--</asp:ListItem>
                                                        </asp:DropDownList>
                                                     </td>
@@ -71,22 +72,30 @@
                             <tr>
                                 <td style="width: 50%;">                                    
                                     <center>
-                                        <div style="width: 50%; height: 90%; border: 1px solid black; border-radius: 5px; margin-top: 30px; margin-bottom: 20px;">                                           
-                                             <asp:GridView runat="server" ID="grdCompany" Width="100%" OnPageIndexChanging="grdCompany_PageIndexChanging" HeaderStyle-CssClass="pagination-ys" AllowPaging="True"
-                                                DataKeyNames="company_id" PageSize="10" OnRowDataBound="grdCompany_RowDataBound" AutoGenerateColumns="false">
-                                                <Columns>
-                                                    <asp:BoundField DataField="company_id" ControlStyle-Width="94%" HeaderText="CompanyID" Visible="false" />                                                    
-                                                    <asp:BoundField DataField="company_name" ControlStyle-Width="94%" HeaderText="Company Name" />
-                                                    <asp:BoundField DataField="lob" ControlStyle-Width="94%" HeaderText="LOB" />                             
-                                                   <asp:CommandField ItemStyle-HorizontalAlign="Center" HeaderText="Edit" ShowEditButton="true" />
-                                                    <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Delete" >
-                                                        <ItemTemplate>
-                                                            <asp:Button ID="DeleteButton" CssClass="GridDeleteButton" runat="server" Text="" />               
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>        
-                                                </Columns>
-                                                <PagerStyle CssClass="pagination-ys" />
-                                            </asp:GridView>
+                                        <div style="width: 50%; height: 90%; border: 1px solid black; border-radius: 5px; margin-top: 20px; margin-bottom: 20px;"> 
+                                            <div class="AspNet-GridView">
+                                                 <asp:GridView runat="server" ID="grdCompany" Width="100%" OnPageIndexChanging="grdCompany_PageIndexChanging" 
+                                                     HeaderStyle-CssClass="AspNet-GridView" AllowPaging="True" DataKeyNames="company_id" PageSize="5" 
+                                                     OnRowDataBound="grdCompany_RowDataBound" AutoGenerateColumns="false">
+                                                     <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
+                                                    <Columns>
+                                                        <asp:BoundField DataField="company_id" ControlStyle-Width="94%" HeaderText="CompanyID" Visible="false" />                                                    
+                                                        <asp:BoundField DataField="company_name" ControlStyle-Width="94%" HeaderText="Company Name" />
+                                                        <asp:BoundField DataField="lob" ControlStyle-Width="94%" HeaderText="LOB" />                                                                                    
+                                                        <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Edit" >
+                                                            <ItemTemplate>
+                                                                <asp:Button ID="DeleteButton" CssClass="GridEditButton" runat="server" Text="" />               
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>      
+                                                        <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Delete" >
+                                                            <ItemTemplate>
+                                                                <asp:Button ID="DeleteButton" CssClass="GridDeleteButton" runat="server" Text="" />               
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>        
+                                                    </Columns>
+                                                    <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
+                                                </asp:GridView>
+                                                    </div>
                                         </div>
                                     </center>
                                 </td>
@@ -115,6 +124,8 @@
         $(document).ready(function () {
             FastClick.attach(document.body);
             ClearAll();
+            $('.aspNetDisabled').css('color', 'darkgray');
+            $('.aspNetDisabled:hover').css('text-decoration', 'none');
         });
         function ClearAll() {
 
@@ -211,6 +222,15 @@
             color:yellow;
 
         }
+         .specify {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-height: 90px;
+        height: 90px;
+        word-break: break-all;
+        word-wrap: break-word;
+        display: block;
+    }
     </style>
 </body>
 </html>

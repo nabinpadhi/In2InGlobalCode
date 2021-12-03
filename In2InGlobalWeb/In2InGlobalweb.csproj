@@ -94,9 +94,14 @@
     <Content Include="admin\css\images\ui-icons_555555_256x240.png" />
     <Content Include="admin\css\images\ui-icons_777777_256x240.png" />
     <Content Include="admin\css\jquery-ui.css" />
+    <Content Include="admin\css\Grid.css" />
+    <Content Include="admin\img\delete-disabled.jpeg" />
     <Content Include="admin\img\delete.png" />
+    <Content Include="admin\img\edit-pencil.jpg" />
     <Content Include="admin\img\edit.jpg" />
     <Content Include="admin\img\edit.png" />
+    <Content Include="admin\img\HB-Pencil-edit-disabled.png" />
+    <Content Include="admin\img\HB-Pencil-edit.png" />
     <Content Include="admin\img\loading.gif" />
     <Content Include="admin\img\no-pencil-sign.png" />
     <Content Include="admin\img\processing.gif" />
