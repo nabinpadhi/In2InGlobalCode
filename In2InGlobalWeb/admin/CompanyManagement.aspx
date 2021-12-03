@@ -84,7 +84,7 @@
                                                         <asp:BoundField DataField="lob" ControlStyle-Width="94%" HeaderText="LOB" />                                                                                    
                                                         <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Edit" >
                                                             <ItemTemplate>
-                                                                <asp:Button ID="DeleteButton" CssClass="GridEditButton" runat="server" Text="" />               
+                                                                <asp:Button ID="EditButton" CssClass="GridEditButton" runat="server" Text="" />               
                                                             </ItemTemplate>
                                                         </asp:TemplateField>      
                                                         <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Delete" >

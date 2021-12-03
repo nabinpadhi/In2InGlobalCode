@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/black/easyui.css" />
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/icon.css" />
     <link href="../css/msgBoxLight.css" rel="stylesheet" type="text/css" />
+     <link href="css/Grid.css" rel="stylesheet" type="text/css" />
    
 </head>
 <body style="overflow: hidden;">
@@ -102,9 +103,10 @@
                                 <td style="padding-bottom:50px;padding-top:25px">                                   
                                     <center>
                                        <asp:GridView ID="grdUsers" runat="server" OnRowEditing="grdUsers_RowEditing"
-                                            OnPageIndexChanging="grdUsers_PageIndexChanging" Width="80%" HeaderStyle-CssClass="pagination-ys"
+                                            OnPageIndexChanging="grdUsers_PageIndexChanging" Width="80%" HeaderStyle-CssClass="AspNet-GridView" 
                                             AllowPaging="True" DataKeyNames="user_email" PageSize="4"
                                             OnRowDataBound="grdUsers_RowDataBound"  AutoGenerateColumns="false">
+                                             <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
                                             <columns>
                                                 <asp:BoundField DataField="first_name" ControlStyle-Width="94%" HeaderText="First Name" />
                                                 <asp:BoundField DataField="last_name" ControlStyle-Width="94%" HeaderText="Last Name" />
@@ -113,14 +115,18 @@
                                                 <asp:BoundField DataField="role_name" ReadOnly="true" ControlStyle-Width="94%" HeaderText="Role" />
                                                 <asp:BoundField DataField="activity_name" ControlStyle-Width="94%" HeaderText="Activity Name" />
                                                 <asp:BoundField DataField="phone" ControlStyle-Width="94%" HeaderText="Phone Number" />
-                                               <asp:CommandField ItemStyle-HorizontalAlign="Center" HeaderText="Edit" ShowEditButton="true" />
+                                               <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Edit" >
+                                                <ItemTemplate>
+                                                    <asp:Button ID="EditButton" CssClass="GridEditButton" runat="server" Text="" />               
+                                                </ItemTemplate>
+                                            </asp:TemplateField>   
                                                     <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Delete" >
                                                         <ItemTemplate>
                                                             <asp:Button ID="DeleteButton" CssClass="GridDeleteButton" runat="server" Text="" />               
                                                         </ItemTemplate>
                                                     </asp:TemplateField> 
                                             </columns>
-                                            <pagerstyle cssclass="pagination-ys" />
+                                             <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
                                         </asp:GridView>
                                     </center>
                                 </td>

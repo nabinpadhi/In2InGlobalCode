@@ -260,13 +260,18 @@ namespace In2InGlobal.presentation.admin
                 string activityid= dtActivity.Select("activity_name = '" + e.Row.Cells[5].Text + "'")[0]["activity_id"].ToString(); //e.Row.Cells[5].Text; ;                
                 string phone = e.Row.Cells[6].Text;
 
-                foreach (LinkButton button in e.Row.Cells[7].Controls.OfType<LinkButton>())
+                foreach (Button editbutton in e.Row.Cells[7].Controls.OfType<Button>())
                 {
-                    if (button.CommandName == "Edit")
+                    if (email == Session["UserEmail"].ToString())
                     {
-                        button.Attributes["onclick"] = "return PullDataToEdit('" + fname + "', '" + lname + "', '" + companyid + "', '" + email + "', '" + roleid + "', '" + activityid + "', '" + phone + "'); ";
-                        button.Attributes["href"] = "#";
+                        editbutton.Enabled = false;
                     }
+                    else
+                    {
+                        editbutton.UseSubmitBehavior = false;
+                        editbutton.Attributes["onclick"] = "return PullDataToEdit('" + fname + "', '" + lname + "', '" + companyid + "', '" + email + "', '" + roleid + "', '" + activityid + "', '" + phone + "'); ";
+                    }
+                   
                 }
                 foreach (Button delbutton in e.Row.Cells[8].Controls.OfType<Button>())
                 {
