@@ -143,6 +143,7 @@ namespace In2InGlobal.presentation.admin
             if (dsUser.Tables[0].Rows.Count > 0)
             {
                 DataRow userRow = dsUser.Tables[0].Rows[0];
+
                 result = "Success";
                 HttpContext.Current.Session["UserRole"] = dsUser.Tables[0].Rows[0]["role_name"].ToString();
                 HttpContext.Current.Session["UserEmail"] = dsUser.Tables[0].Rows[0]["user_email"].ToString();

@@ -24,18 +24,17 @@ namespace In2InGlobal.presentation.admin
             {
                 if (Session["UserRole"] != null)
                 {
+                    BindProjects();
+                    BindUsers();
+                    BindTemplate();                   
+                    BindTemplateToAssign();                                             
+                    txtcreatedB.InnerText = Session["UserEmail"].ToString();
                     string usrRole = Session["UserRole"].ToString();
                     if (usrRole == "Admin")
                     {
-                        //BindProjects();
-                        //BindUsers();
-                        //BindTemplate();
+                        
                         BindMasterTemplate();
                         BindMasterTemplateGrid();
-                        //BindTemplateToAssign();                                             
-                        //txtcreatedBy = Session["UserEmail"].ToString();
-                        txtcreatedB.InnerText = Session["UserEmail"].ToString();
-
                         if (Session["servermessage"] != null && Session["servermessage"].ToString() != "")
                         {
                             string servermessge = Session["servermessage"].ToString();
@@ -52,18 +51,7 @@ namespace In2InGlobal.presentation.admin
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
                 }
             }
-            if (Request.Form["__EVENTTARGET"] != null)
-            {
-                if (Request.Form["__EVENTTARGET"].ToString().IndexOf("grdMasterTemplate") == 0)
-                {
-                    int extraComa = Request.Form["__EVENTTARGET"].ToString().Replace("grdMasterTemplate", "").Length;
-                    // Fire event
-                    DeleteMasterTemplate(Request.Form["__EVENTARGUMENT"].Substring(0, Request.Form["__EVENTARGUMENT"].Length - extraComa));
-                    BindMasterTemplateGrid();
-                    string _message = "Template deleted Successfully";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);
-                }
-            }
+           
         }
 
         /// <summary>
@@ -143,8 +131,17 @@ namespace In2InGlobal.presentation.admin
         /// </summary>
         private void BindTemplateToAssign()
         {
-            int projectId = Convert.ToInt32(ddlProjects.SelectedValue);
-            int userId = Convert.ToInt32(ddlUserEmail.SelectedValue);
+            int projectId = 0;
+            if (ddlProjects.SelectedIndex > 0)
+            {
+                projectId = Convert.ToInt32(ddlProjects.SelectedValue);
+            }
+            int userId = 0;
+            if (ddlUserEmail.SelectedIndex > 0)
+            {
+                userId = Convert.ToInt32(ddlUserEmail.SelectedValue);
+            }
+            
             DataSet dsUserDetails = new DataSet();
             AssignedTemplateBL projectBL = new AssignedTemplateBL();
             try
@@ -188,7 +185,11 @@ namespace In2InGlobal.presentation.admin
         /// </summary>
         private void BindUsers()
         {
-            int projectId = Convert.ToInt32(ddlProjects.SelectedValue);
+            int projectId = 0;
+            if (ddlProjects.SelectedIndex > 0)
+            {
+                projectId = Convert.ToInt32(ddlProjects.SelectedValue);
+            }
             DataSet dsUserDetails = new DataSet();
             AssignedTemplateBL projectBL = new AssignedTemplateBL();
             try
@@ -499,17 +500,20 @@ namespace In2InGlobal.presentation.admin
 
                 string ID = grdMasterTemplate.DataKeys[e.Row.RowIndex].Value.ToString();
                 string instuction = e.Row.Cells[2].Text.Replace("\n", "\\#");
-                foreach (LinkButton button in e.Row.Cells[3].Controls.OfType<LinkButton>())
+               
+                foreach (Button editbutton in e.Row.Cells[3].Controls.OfType<Button>())
                 {
-                    if (button.ID == "lnkDel")
-                    {
-                        button.OnClientClick = "In2InGlobalConfirm('" + ID + "');";
-                    }
-                    if (button.ID == "lnkEdit")
-                    {
-                        button.OnClientClick = "PullDataToEdit('" + ID + "','" + item + "','" + instuction + "');";
-                        button.Attributes["href"] = "#";
-                    }
+                    
+                        editbutton.UseSubmitBehavior = false;
+                        editbutton.Attributes["onclick"] = "PullDataToEdit('" + ID + "','" + item + "','" + instuction + "');";
+                    
+                }
+                foreach (Button delbutton in e.Row.Cells[4].Controls.OfType<Button>())
+                {
+                    
+                        delbutton.UseSubmitBehavior = false;
+                        delbutton.Attributes["onclick"] = "javascript:In2InGlobalConfirm('" + ID + "');return false;";
+                    
                 }
             }
         }
@@ -553,6 +557,17 @@ namespace In2InGlobal.presentation.admin
                 ddlUserEmail.DataBind();
             }
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), "ShowAssignTemplate();", true);
+        }
+
+        protected void hdnDelBtn_Click(object sender, EventArgs e)
+        {
+            if (hdnTID.Value != "")
+            {
+                DeleteMasterTemplate(hdnTID.Value);
+            }
+            BindMasterTemplateGrid();
+            string _message = "Master TEmplate deleted successfully.";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}')", _message), true);
         }
     }
 

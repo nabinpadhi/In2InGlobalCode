@@ -13,14 +13,8 @@
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
      <script src="../scripts/Validation.js" type="text/javascript" lang="javascript"></script>
       <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" />
-    <script lang="JavaScript">
-       // alert("<%= String.Format("{0}dt={1}",ResolveUrl("../scripts/Validation.js?"), DateTime.Now.Ticks) %>");
-        function __doPostBack(eventTarget, eventArgument) {
-            documenT.Form1.__EVENTTARGET.value = eventTarget;
-            document.Form1.__EVENTARGUMENT.value = eventArgument;
-            document.Form1.submit();
-        }
-</script>
+  <link href="css/Grid.css" rel="stylesheet" type="text/css" />
+
 </head>
 <body>
     <form id="form1" runat="server">
@@ -37,9 +31,7 @@
                 <asp:UpdatePanel  ID="pdnlTemplate" runat="server">   
                     <Triggers><asp:PostBackTrigger ControlID="btnUploader" /></Triggers>
                     <ContentTemplate>
-                          <input type="hidden" value="" id="__EVENTARGUMENT" name="__EVENTARGUMENT">
-                        <input type="hidden" value="" id="__EVENTTARGET" name="__EVENTTARGET">
-                        
+                          
                         <div name="pnlTemplate" id="pnlTemplate" style="width:auto;height:auto;min-height:350px;color:black">
                         <div style="border-bottom:0 solid gray;display:flex;padding:2px;width:auto;">
                             <div id="btnUploadMasterTemplate" onclick="ShowUploadMasterTemplate();" class="PanelTab"> Upload Master Template </div>
@@ -85,7 +77,10 @@
                                                                         <asp:DropDownList ID="ddlMasterTemplate" Width="92%" AppendDataBoundItems="true" runat="server" DataTextField="TemplateName">
                                                                             <asp:ListItem Text="--Select a Template--" ></asp:ListItem>
                                                                         </asp:DropDownList>
-                                                                        <asp:HiddenField ID="hdnTID" Value="" runat="server" />
+                                                                        <asp:HiddenField ID="hdnTID" Value="" runat="server" />                                                                        
+                                                                        <asp:HiddenField ID="hdnTName" runat="server" Value="" />        
+                                                                        <asp:Button runat="server" ID="hdnDelBtn" Text="" style="display:none;" OnClientClick="return true;" OnClick="hdnDelBtn_Click" />
+                                                         
                                                                     </td>
                                                                 </tr>
                                                                  <tr>
@@ -131,19 +126,25 @@
                                                 Are you sure you want to delete this record ?
                                             </div>
                                             <div style="width:60%; border: 1px solid black; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;">                                    
-                                                <asp:GridView DataKeyNames="template_id" ID="grdMasterTemplate" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
+                                                <asp:GridView DataKeyNames="template_id" ID="grdMasterTemplate" runat="server" Width="100%" HeaderStyle-CssClass="AspNet-GridView"
                                                     AllowPaging="True" OnRowDataBound="grdMasterTemplate_RowDataBound" OnRowDeleting="grdMasterTemplate_RowDeleting" OnPageIndexChanging="grdMasterTemplate_PageIndexChanging"  AutoGenerateColumns="false" PageSize="4">
-                                                    <PagerStyle CssClass="pagination-ys" />
+                                                    <PagerStyle CssClass="AspNet-GridView-Alternate" />
                                                     <Columns>
                                                         <asp:BoundField HeaderText="Template Name" ItemStyle-Width="25%" DataField="template_name" />
                                                         <asp:BoundField HeaderText="Created By" ItemStyle-Width="25%" DataField="created_by" />                                                                                                              
                                                         <asp:BoundField HeaderText ="Instruction" ItemStyle-Width="35%" DataField="instruction"/>   
-                                                        <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Action">
-                                                          <ItemTemplate >                                                      
-                                                              <asp:LinkButton href="#" runat="server" id="lnkDel" >Delete</asp:LinkButton>   <asp:LinkButton href="#" runat="server" id="lnkEdit" >Edit</asp:LinkButton>
-                                                          </ItemTemplate>                                               
-                                                        </asp:TemplateField>                                                                                                           
+                                                        <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Edit" >
+                                                            <ItemTemplate>
+                                                                <asp:Button ID="EditButton" CssClass="GridEditButton" runat="server" Text="" />               
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>      
+                                                        <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Delete" >
+                                                            <ItemTemplate>
+                                                                <asp:Button ID="DeleteButton" CssClass="GridDeleteButton" runat="server" Text="" />               
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>                                                                                                                
                                                     </Columns>
+                                                     <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
                                                 </asp:GridView>
                                             </div>
                                         </center>
@@ -300,19 +301,13 @@
                 cancel: 'No',
                 fn: function (r) {
                     if (r) {
-                        DeleteTemplate(id);
+                        $('#hdnTID').val(id);
+                        $('#hdnDelBtn').trigger("click");
                     }
                 }
             });
         }
-        function DeleteTemplate(id) {
-
-            var _target = 'grdMasterTemplate';
-            $("#__EVENTARGUMENT").val(id);
-            $("#__EVENTTARGET").val(_target);
-            __doPostBack(_target, id);
-
-        }
+       
       function ValidateMasterTemplate() {
           var winH = 80;
           Error_Message = "";
