@@ -39,7 +39,7 @@ namespace In2InGlobal.presentation.admin
                     {
                         usrEmailTR.Visible = true;
                         tblTemplateDetail.Visible = true;
-                        // BindTemplateGrid(ddlProjects.SelectedValue, "");
+                        BindTemplateGrid(ddlProjects.SelectedValue, "");
 
 
                     }
@@ -151,77 +151,110 @@ namespace In2InGlobal.presentation.admin
         }
         private void BindFileGrid(string pid)
         {
-
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/UploadedFiles.json");
-
-            DataTable tblUploadedFiles = JsonConvert.DeserializeObject<DataTable>(json);
-            DataRow _usrRow = (DataRow)Session["UserRow"];
-            string userName =_usrRow["first_name"] + " " + _usrRow["last_name"];
-            if (tblUploadedFiles.Rows.Count > 0)
+            try
             {
-                if (pid != "")
-                {
+                string userEmail = Session["UserEmail"].ToString();
+                string userRole = Session["UserRole"].ToString();
 
-                    if (tblUploadedFiles.Select("ProjectName='" + pid + "'").Length > 0)
+                DataSet dsUserDetails = new DataSet();
+                UploadTemplateBL projectBL = new UploadTemplateBL();
+                dsUserDetails = projectBL.LoadUploadFileTemplateGrid(userRole, userEmail, pid);
+                if (dsUserDetails.Tables[0].Rows.Count > 0)
+                {
+                    DataTable tblUploadedFiles = dsUserDetails.Tables[0];
+                    // DataRow _usrRow = (DataRow)Session["UserRow"];
+                    // string userName = _usrRow["FirstName"] + " " + _usrRow["LastName"];
+                    string userName = tblUploadedFiles.Rows[0]["user_email"].ToString();
+                    if (tblUploadedFiles.Rows.Count > 0)
                     {
-                        tblUploadedFiles = tblUploadedFiles.Select("ProjectName='" + pid + "'").CopyToDataTable();
+                        if (pid != "")
+                        {
+
+                            if (tblUploadedFiles.Select("project_name='" + pid + "'").Length > 0)
+                            {
+                                tblUploadedFiles = tblUploadedFiles.Select("project_name='" + pid + "'").CopyToDataTable();
+                            }
+                            else
+                            {
+                                tblUploadedFiles = null;
+                                grdTemplate.EmptyDataText = "No file(s) uploaded for selected project. ";
+                            }
+                        }
+                        else
+                        {
+
+                            if (tblUploadedFiles.Select("uploaded_by='" + userName + "'").Length > 0)
+                            {
+                                tblUploadedFiles = tblUploadedFiles.Select("uploaded_by='" + userName + "'").CopyToDataTable();
+
+                            }
+                            else
+                            {
+                                tblUploadedFiles = null;
+                                grdTemplate.EmptyDataText = "No file(s) uploaded for selected project. ";
+                            }
+
+                        }
                     }
                     else
                     {
                         tblUploadedFiles = null;
                         grdTemplate.EmptyDataText = "No file(s) uploaded for selected project. ";
                     }
+                    grdUploadedFiles.DataSource = tblUploadedFiles;
+                    grdUploadedFiles.DataBind();
                 }
                 else
                 {
-
-                    if (tblUploadedFiles.Select("UploadedBy='" + userName + "'").Length > 0)
-                    {
-                        tblUploadedFiles = tblUploadedFiles.Select("UploadedBy='" + userName + "'").CopyToDataTable();
-
-                    }
-                    else
-                    {
-                        tblUploadedFiles = null;
-                        grdTemplate.EmptyDataText = "No file(s) uploaded for selected project. ";
-                    }
-
+                    grdUploadedFiles.DataSource = null;
+                    grdUploadedFiles.DataBind();
                 }
             }
-            else
+            catch (Exception ex)
             {
-                tblUploadedFiles = null;
-                grdTemplate.EmptyDataText = "No file(s) uploaded for selected project. ";
+                ex.ToString();
             }
-            grdUploadedFiles.DataSource = tblUploadedFiles;
-            grdUploadedFiles.DataBind();
         }
+
+
         private void BindTemplateGrid(string _pid, string _email)
         {
-            grdTemplate.Visible = true;
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Template.json");
-            DataTable tblTemplate = JsonConvert.DeserializeObject<DataTable>(json);
-            if (_pid != "" || _email != "")
+            try
             {
-                string _target = "";
-                if (_pid != "")
-                {
-                    _target = "ProjectName = '" + _pid + "'";
-                }
-                else if (_email != "")
-                {
-                    _target = "Email = '" + _email + "'";
-                }
-                if (tblTemplate.Select(_target).Length > 0)
-                {
-                    tblTemplate = tblTemplate.Select(_target).CopyToDataTable();
-                    grdTemplate.DataSource = tblTemplate;
-                    grdTemplate.DataBind();
+                grdTemplate.Visible = true;
+                string userRole = Session["UserRole"].ToString();
 
+                DataSet dsUserDetails = new DataSet();
+                UploadTemplateBL projectBL = new UploadTemplateBL();
+                dsUserDetails = projectBL.LoadSearchTemplateGrid(userRole, _email, _pid);
+                if (dsUserDetails.Tables[0].Rows.Count == 0)
+                {
+                    DataTable tblTemplate = dsUserDetails.Tables[0];
+
+                    if (_pid != "" || _email != "")
+                    {
+                        string _target = "";
+                        if (_pid != "")
+                        {
+                            _target = "ProjectName = '" + _pid + "'";
+                        }
+                        else if (_email != "")
+                        {
+                            _target = "Email = '" + _email + "'";
+                        }
+                        if (tblTemplate.Select(_target).Length > 0)
+                        {
+                            tblTemplate = tblTemplate.Select(_target).CopyToDataTable();
+                            grdTemplate.DataSource = tblTemplate;
+                            grdTemplate.DataBind();
+
+                        }
+                        else
+                        {
+                            grdTemplate.DataSource = null;
+                            grdTemplate.DataBind();
+                        }
+                    }
                 }
                 else
                 {
@@ -229,17 +262,19 @@ namespace In2InGlobal.presentation.admin
                     grdTemplate.DataBind();
                 }
             }
-
+            catch (Exception ex)
+            {
+                ex.ToString();
+            }
         }
         protected void grdUploadedFiles_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-
             BindFileGrid(ddlAssignedProject.SelectedValue);
             grdUploadedFiles.PageIndex = e.NewPageIndex;
             grdUploadedFiles.DataBind();
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "ShowFileMgnt();", true);
-
         }
+
         protected void grdTemplate_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             BindTemplateGrid("", Session["UserEmail"].ToString());
@@ -318,7 +353,11 @@ namespace In2InGlobal.presentation.admin
                                         }
                                         fileName = tempfileName;
                                         fileUploader.SaveAs(Server.MapPath(System.IO.Path.Combine("/admin/uploadedfiles/", fileName)));
+
                                         SaveFileDetails(fileName, uploadedBy, today);
+
+                                        SaveUploadTemplateInformationInDB(fileName, ddlAssignedProject.SelectedItem.Text, "True");
+
                                         string _message = "File uploaded Successfully.";
                                         ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("n"), string.Format("ShowServerMessage('{0}');ShowFileMgnt(); ", _message), true);
                                     }
@@ -327,7 +366,7 @@ namespace In2InGlobal.presentation.admin
                             }
                         }
                     }
-                    
+
                     Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString("X"), "<script type=\"text/javascript\">ShowFileMgnt();</script> ");
                 }
                 catch (System.IO.IOException ex)
@@ -336,6 +375,30 @@ namespace In2InGlobal.presentation.admin
                 }
             }
 
+        }
+
+        private void SaveUploadTemplateInformationInDB(string FileName, string ProjectName, string Status)
+        {
+            UploadTemplateEntity templateEntity = new UploadTemplateEntity();
+            try
+            {
+                if (ProjectName != null)
+                {
+                    templateEntity.FileName = FileName;
+                    templateEntity.ProjectName = ProjectName;
+                    templateEntity.CreatedBy = Session["UserEmail"].ToString(); ;
+                    templateEntity.RoleName = Session["UserRole"].ToString(); ;
+                    templateEntity.UserEmail = Session["UserEmail"].ToString(); ;
+                    templateEntity.Status = Status;
+
+                    UploadTemplateBL uploadTemplateBl = new UploadTemplateBL();
+                    uploadTemplateBl.SaveAssignedTemplate(templateEntity);
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+            }
         }
 
         private bool IsBothCSVFileDataAreSame(string fileName)
@@ -573,7 +636,7 @@ namespace In2InGlobal.presentation.admin
                 btnDownload.Enabled = false;
             }
 
-            BindFileGrid(ddlAssignedProject.SelectedItem.Text);
+            BindFileGrid(ddlAssignedProject.SelectedValue);
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "ShowFileMgnt();", true);
 
         }
@@ -591,7 +654,7 @@ namespace In2InGlobal.presentation.admin
             DataSet dsUserDetails = new DataSet();
             ProjectMasterBL projectBL = new ProjectMasterBL();
             dsUserDetails = projectBL.getProjectGridDetails(userRole, userEmail);
-            ViewState["dirProject"] = dsUserDetails.Tables[0];
+
             grdProject.DataSource = dsUserDetails.Tables[0];
             grdProject.DataBind();
         }
@@ -640,7 +703,7 @@ namespace In2InGlobal.presentation.admin
 
         protected void btnCreateProject_Click(object sender, EventArgs e)
         {
-           
+
             string _message = string.Empty;
             DataSet dsUserDetails = new DataSet();
             ProjectMasterBL projectBL = new ProjectMasterBL();
@@ -650,11 +713,9 @@ namespace In2InGlobal.presentation.admin
                 projectEntitiy.ProjectName = spnProjectName.InnerText;
                 projectEntitiy.CreatedBy = Session["UserEmail"].ToString();
                 projectEntitiy.Description = txtDescription.Value;
-                projectEntitiy.UserEmail = Session["UserEmail"].ToString();
-                projectEntitiy.UserRole = Session["UserRole"].ToString();
                 if (hdnProjectToEdit.Value == "")
-                {                       
-                     projectBL.SaveProjectMaster(projectEntitiy);                    
+                {
+                    projectBL.SaveProjectMaster(projectEntitiy);
                     _message = "Project Created Successfully.)";
                 }
                 else
@@ -669,7 +730,7 @@ namespace In2InGlobal.presentation.admin
             }
 
             BindProjectGrid();
-            if(grdProject.PageCount > 1)
+            if (grdProject.PageCount > 1)
                 grdProject.PageIndex = grdProject.PageCount - 1;
             spnProjectName.InnerText = GenerateProjectName();
 

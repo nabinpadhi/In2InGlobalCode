@@ -20,14 +20,14 @@ namespace In2InGlobalBL
         /// <param name="tempEntity"></param>
         /// <param name="uploadTemplate"></param>
         /// <returns></returns>
-        public UploadTemplateDto SaveAssignedTemplate(UploadTemplateEntity tempEntity,DataTable uploadTemplate)
+        public UploadTemplateDto SaveAssignedTemplate(UploadTemplateEntity tempEntity)
         {
             UploadTemplateDto response = null;
             UploadTemplateDL tempuploadDL = new UploadTemplateDL();
 
             if (tempEntity == null) return response;
 
-            var varTemplateId = tempuploadDL.SaveUploadTemplate(tempEntity, uploadTemplate);
+            var varTemplateId = tempuploadDL.SaveUploadTemplate(tempEntity);
 
             response = new UploadTemplateDto
             {
@@ -54,6 +54,40 @@ namespace In2InGlobalBL
             }
             return dsUplaodProject;
         }
+
+        public DataSet LoadUploadFileTemplateGrid(string userRole, string userEmail, string pid)
+        {
+            DataSet dsUplaodProject = new DataSet();
+            try
+            {
+                UploadTemplateDL objUploadProject = new UploadTemplateDL();
+                dsUplaodProject = objUploadProject.LoadUploadFileTemplateGrid(userRole, userEmail, pid);
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
+            return dsUplaodProject;
+        }
+       
+        public DataSet LoadSearchTemplateGrid(string userRole, string userEmail, string pid)
+        {
+            DataSet dsUplaodProject = new DataSet();
+            try
+            {
+                UploadTemplateDL objUploadProject = new UploadTemplateDL();
+                dsUplaodProject = objUploadProject.LoadSearchTemplateGrid(userRole, userEmail, pid);
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
+            return dsUplaodProject;
+        }
+
+
+
+
 
         /// <summary>
         /// Load All User Email For Assigned Project

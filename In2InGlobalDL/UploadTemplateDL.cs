@@ -15,13 +15,13 @@ namespace In2InGlobal.datalink
     /// <summary>
     /// Upload Template
     /// </summary>
-    public class UploadTemplateDL 
+    public class UploadTemplateDL
     {
         /// <summary>
         /// Load Project Name For Template
         /// </summary>
         /// <returns></returns>
-        public DataSet LoadProjectNameForTemplate() 
+        public DataSet LoadProjectNameForTemplate()
         {
             BaseRepository baseRepo = new BaseRepository();
             DataSet dsProject = new DataSet();
@@ -56,7 +56,7 @@ namespace In2InGlobal.datalink
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
-        public DataSet LoadAllUserEmailForNotAssignedProject(long projectId) 
+        public DataSet LoadAllUserEmailForNotAssignedProject(long projectId)
         {
             BaseRepository baseRepo = new BaseRepository();
             DataSet dsEmail = new DataSet();
@@ -85,13 +85,13 @@ namespace In2InGlobal.datalink
                 }
                 return dsEmail;
             }
-        } 
+        }
 
         /// <summary>
         /// Populate Template Name For Project And User
         /// </summary>
         /// <returns></returns>
-        public DataSet LoadTemplateForNotAssignedProjectAndUser(long projectid, string userid) 
+        public DataSet LoadTemplateForNotAssignedProjectAndUser(long projectid, string userid)
         {
             BaseRepository baseRepo = new BaseRepository();
             DataSet dsTemplate = new DataSet();
@@ -123,15 +123,101 @@ namespace In2InGlobal.datalink
             }
         }
 
+        public DataSet LoadUploadFileTemplateGrid(string userRole, string userEmail, string pid) 
+        {
+            string query = string.Empty;
+            int projectId = Convert.ToInt32(pid);  
+            BaseRepository baseRepo = new BaseRepository();
+            DataSet dsEmail = new DataSet();
+            NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
+
+            if (userRole == "Admin")
+            {
+                query = @"SELECT * FROM dbo.populateadmintemplategrid(@useremail,@userrole,@projectname)";
+            }
+            else
+            {
+                query = @"SELECT * FROM dbo.populateusertemplategrid(@useremail,@userrole,@projectname)";
+            }
+            using (var connection = baseRepo.GetDBConnection())
+            {
+                try
+                {
+                    connection.Open();
+                    NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
+                    npgsqlCommand.Parameters.AddWithValue("@useremail", userEmail);
+                    npgsqlCommand.Parameters.AddWithValue("@userrole", userRole);
+                    npgsqlCommand.Parameters.AddWithValue("@projectname", projectId);
+                    npgsqlCommand.CommandType = CommandType.Text;
+                    npgsqlDataAdapter.SelectCommand = npgsqlCommand;
+                    npgsqlDataAdapter.Fill(dsEmail);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Dispose();
+                    npgsqlDataAdapter.Dispose();
+                }
+                return dsEmail;
+            }
+        }
+
+        public DataSet LoadSearchTemplateGrid(string userRole, string userEmail, string pid) 
+        {
+            string query = string.Empty;
+            int projectId = Convert.ToInt32(pid);
+            BaseRepository baseRepo = new BaseRepository();
+            DataSet dsEmail = new DataSet();
+            NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
+            if (userRole == "Admin")
+            {
+                query = @"SELECT * FROM dbo.populateadmintemplategrid(@useremail,@userrole,@projectname)";
+            }
+            else
+            {
+                query = @"SELECT * FROM dbo.populateusertemplategrid(@useremail,@userrole,@projectname)";
+            }
+            using (var connection = baseRepo.GetDBConnection())
+            {
+                try
+                {
+                    connection.Open();
+                    NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
+                    npgsqlCommand.Parameters.AddWithValue("@useremail", userEmail);
+                    npgsqlCommand.Parameters.AddWithValue("@userrole", userRole);
+                    npgsqlCommand.Parameters.AddWithValue("@projectname", projectId);
+
+                    npgsqlCommand.CommandType = CommandType.Text;
+                    npgsqlDataAdapter.SelectCommand = npgsqlCommand;
+                    npgsqlDataAdapter.Fill(dsEmail);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Dispose();
+                    npgsqlDataAdapter.Dispose();
+                }
+                return dsEmail;
+            }
+        }
+
+
+
         /// <summary>
         /// Save Upload Template
         /// </summary>
         /// <param name="templateEntity"></param>
         /// <returns></returns>
-        public long SaveUploadTemplate(UploadTemplateEntity uploadTemplateEntity,DataTable uploadTemplateData) 
+        public long SaveUploadTemplate(UploadTemplateEntity uploadTemplateEntity)
         {
             BaseRepository baseRepo = new BaseRepository();
-            var query = @"SELECT * FROM dbo.saveuploadtemplateinfo(@templateid,@projectid,@userid,@templatename,@uploadededby,@status)";  
+            var query = @"SELECT * FROM dbo.uploadtemplateinfo(@filename,@projectname,@createdby,@useremail,@status,@rolename)";
             using (var connection = baseRepo.GetDBConnection())
             {
                 try
@@ -139,13 +225,12 @@ namespace In2InGlobal.datalink
                     connection.Open();
                     var result = connection.Query(query, new
                     {
-                        templateid = uploadTemplateEntity.TemplateId,
-                        projectid = uploadTemplateEntity.ProjectId,
-                        userid = uploadTemplateEntity.UserId,
-                        templatename = uploadTemplateEntity.TemplateName,
-                        uploadedby= uploadTemplateEntity.UploadedBy,
-                        status= uploadTemplateEntity.Status                     
-
+                        filename = uploadTemplateEntity.FileName,
+                        projectname = uploadTemplateEntity.ProjectName,                                             
+                        createdby = uploadTemplateEntity.CreatedBy,
+                        useremail = uploadTemplateEntity.UserEmail,
+                        status = uploadTemplateEntity.Status,
+                        rolename = uploadTemplateEntity.RoleName
                     }, commandType: CommandType.Text
                     );
 
@@ -169,14 +254,14 @@ namespace In2InGlobal.datalink
             return uploadTemplateEntity.TemplateId;
         }
 
-        private void SaveUploadTemplate(DataTable dtUploadTemplate)  
+        private void SaveUploadTemplate(DataTable dtUploadTemplate)
         {
             BaseRepository baseRepo = new BaseRepository();
             var connection = baseRepo.GetDBConnection();
 
-           using (var transaction = connection.BeginTransaction())
-             {               
-               foreach (DataRow row in dtUploadTemplate.Rows)
+            using (var transaction = connection.BeginTransaction())
+            {
+                foreach (DataRow row in dtUploadTemplate.Rows)
                 {
                     // Create an NpgsqlParameter for every field in the column
                     var parameters = new List<DbParameter>();
@@ -202,9 +287,9 @@ namespace In2InGlobal.datalink
         {
             BaseRepository baseRepo = new BaseRepository();
             var connection = baseRepo.GetDBConnection();
-            
+
             using (var transaction = connection.BeginTransaction())
-            {             
+            {
                 //using (var adap =new NpgsqlDataAdapter)
                 {
                     //DataSet dataSetUploadTemplate = new DataSet();
@@ -233,7 +318,7 @@ namespace In2InGlobal.datalink
                         connection);
                     command.Parameters.AddRange(parameters.ToArray());
                     command.ExecuteNonQuery();
-                }              
+                }
 
             }
 

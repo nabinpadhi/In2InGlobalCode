@@ -65,7 +65,7 @@ namespace In2InGlobal.datalink
         public long UpdateProjectMaster(ProjectEntity projectEntity)
         {
             BaseRepository baseRepo = new BaseRepository();
-            var query = @"SELECT * FROM dbo.updateProjectinfo(@projectname,@description,@createdby)";
+            var query = @"SELECT * FROM dbo.updateprojectinfo(@projectname,@descriptions,@createdby)";
             using (var connection = baseRepo.GetDBConnection())
             {
                 try
@@ -74,7 +74,7 @@ namespace In2InGlobal.datalink
                     var result = connection.Query(query, new
                     {
                         projectname = projectEntity.ProjectName,
-                        description = projectEntity.Description,
+                        descriptions = projectEntity.Description, 
                         createdby = projectEntity.CreatedBy
                        
                     }, commandType: CommandType.Text

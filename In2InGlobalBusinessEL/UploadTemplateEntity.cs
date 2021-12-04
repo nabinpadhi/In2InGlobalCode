@@ -10,11 +10,12 @@ namespace In2InGlobalBusinessEL
     {
         public long Id { get; set; }
         public long  TemplateId { get; set; }
-        public string TemplateName { get; set; }
-        public long  ProjectId { get; set; }
-        public long UserId { get; set; }
-        public string UploadedBy { get; set; }
-        public bool Status { get; set; }
+        public string FileName { get; set; }
+        public string ProjectName { get; set; }
+        public string CreatedBy { get; set; }
+        public string UserEmail { get; set; }
+        public string Status { get; set; }
+        public string RoleName { get; set; }
 
     }
 }

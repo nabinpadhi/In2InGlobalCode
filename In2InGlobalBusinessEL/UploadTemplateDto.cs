@@ -8,6 +8,7 @@ namespace In2InGlobalBusinessEL
 {
     public class UploadTemplateDto
     {
-        public long TemplateId { get; set; }
+        public long TemplateId { get; set; }              
+
     }
 }
