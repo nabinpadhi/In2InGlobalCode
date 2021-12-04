@@ -14,7 +14,15 @@
      <script src="../scripts/Validation.js" type="text/javascript" lang="javascript"></script>
       <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" />
   <link href="css/Grid.css" rel="stylesheet" type="text/css" />
+     <script type="text/javascript">
+         function FUcallBack(msg) {
 
+             document.getElementById("hdnFUCalBkMsg").value = msg;
+             if (msg != "") {
+                 document.getElementById('<%= btnFUCalbk.ClientID %>').click();
+             }
+         }
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -31,7 +39,9 @@
                 <asp:UpdatePanel  ID="pdnlTemplate" runat="server">   
                     <Triggers><asp:PostBackTrigger ControlID="btnUploader" /></Triggers>
                     <ContentTemplate>
-                          
+                           <asp:Button style="display:none" Text="Delete" OnClientClick="return true;" OnClick="btnFUCalbk_Click" ID="btnFUCalbk" runat="server" />
+                            <asp:HiddenField ID="hdnFUCalBkMsg" Value="" runat="server" />
+
                         <div name="pnlTemplate" id="pnlTemplate" style="width:auto;height:auto;min-height:350px;color:black">
                         <div style="border-bottom:0 solid gray;display:flex;padding:2px;width:auto;">
                             <div id="btnUploadMasterTemplate" onclick="ShowUploadMasterTemplate();" class="PanelTab"> Upload Master Template </div>
@@ -74,7 +84,7 @@
                                                                     
                                                                     <td style="width:40%">
                                                                         Template Name(<span style="color: red">*</span>)<br />
-                                                                        <asp:DropDownList ID="ddlMasterTemplate" Width="92%" AppendDataBoundItems="true" runat="server" DataTextField="TemplateName">
+                                                                        <asp:DropDownList ID="ddlMasterTemplate" Width="92%" AppendDataBoundItems="true" runat="server" DataValueField="TemplateName" DataTextField="TemplateName">
                                                                             <asp:ListItem Text="--Select a Template--" ></asp:ListItem>
                                                                         </asp:DropDownList>
                                                                         <asp:HiddenField ID="hdnTID" Value="" runat="server" />                                                                        
@@ -246,9 +256,32 @@
     <script src="js/prism.js" type="text/javascript" lang="javascript"></script>
     <link rel="stylesheet" href="css/jquery-ui.css">    
     <script src="js/jquery.min.js"></script>    
-    <script src="js/jquery.easyui.min.js"></script>   
+    <script src="js/jquery.easyui.min.js"></script> 
+     <style type="text/css">
+         body {
+            background-color: azure;
+        }
+         .panel-title
+        {
+            color: greenyellow;
+            background-color: #8f0108;
+            border: 0px solid #dddddd;    
+            text-indent: 5px;    
+            border-radius: 5px;
+        }
+        .window-body.panel-body {
+               color:silver;                           
+               text-align:left;
+        }
+        
+        .l-btn-text
+        {
+            color:yellow;
+
+        }
+    </style>
     <script type="text/javascript">
-       
+        var uploadingFileName = "";
       var recentnl = "btnCreateTemplate";     
       (function ($) {
           $.fn.invisible = function () {
@@ -268,6 +301,10 @@
           FastClick.attach(document.body);
           ShowUploadMasterTemplate();
           ClearAll();
+          $('input[type="file"]').change(function (e) {
+              uploadingFileName = e.target.files[0].name;
+             
+          });
          
            
       }); 
@@ -276,8 +313,8 @@
           $('#hdnTID').val(id);
           $('#txtInstruction').val(instruction);
           document.getElementById("hdnMTName").value = templatename;
-          $('#btnCreate').val('Save');         
-          $('#ddlMasterTemplate').val(id);
+          $('#btnCreate').val('Save'); 
+          $('#ddlMasterTemplate').val(templatename);
       }
         function ClearAll() {
             
@@ -301,7 +338,7 @@
                 cancel: 'No',
                 fn: function (r) {
                     if (r) {
-                        $('#hdnTID').val(id);
+                        $('#hdnMTName').val(id);
                         $('#hdnDelBtn').trigger("click");
                     }
                 }
@@ -438,24 +475,29 @@
       }
       function VerifyFile() {
 
-          var winH = 90
+          var winH = 50
           Error_Message = "";
-          Error_Count = 1;
+          Error_Count =1;
 
-          var fileName = $('#templateFileUpload').val();
-          var idxDot = fileName.lastIndexOf(".") + 1;
-          var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
-
-          if (CheckNull(fileName, in2in23)) {
-              if (CheckFileExtension(extFile, "csv", in2in24)) {
-                  CheckMasterTemplate(fileName, in2in26, winH)
+        
+          var idxDot = uploadingFileName.lastIndexOf(".") + 1;
+          var extFile = uploadingFileName.substr(idxDot, uploadingFileName.length).toLowerCase();
+        
+          if (CheckNull(uploadingFileName, in2in23)) {
+              if (CheckFileExtension(extFile, "csv", in2in24))
+              {
+                  
+                  CheckMasterTemplate(uploadingFileName, in2in26, winH)
               }
           }
+         
+          if (Error_Count == 2) {
+              Error_Message = Error_Message.replace("1 .", "");           
 
-
+          }
 
           if (Error_Message != "") {
-              ShowError(Error_Message, 80);
+              ShowError(Error_Message, 70);
               return false;
           }
           else {
@@ -466,13 +508,13 @@
      
     </script>
     <style type="text/css">
-         body {
+        body {
             background-color: azure;
         }
         .window-body.panel-body {
                color:silver;              
                padding-top:30px;
-               text-align:center;
+               text-align:left;
         }
         .panel-title
         {
@@ -487,6 +529,18 @@
             color:yellow;
 
         }
+          .specify {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-height: 20px;
+        height: 20px;
+        word-break: break-all;
+        word-wrap: break-word;
+        display: block;
+        border:none;
+    }
+      
+      
     </style>
 </body>
 </html>

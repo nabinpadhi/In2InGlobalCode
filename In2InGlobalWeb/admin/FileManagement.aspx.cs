@@ -295,6 +295,7 @@ namespace In2InGlobal.presentation.admin
         protected void btnUploader_Click(object sender, EventArgs e)
         {
             string fileName = "";
+            string _message = "";
             string filePath = Server.MapPath("uploadedfiles\\");
             string uploadedBy = "";
             string today = DateTime.Now.ToShortDateString();
@@ -313,8 +314,8 @@ namespace In2InGlobal.presentation.admin
                         {
                             fileUploader.SaveAs(System.IO.Path.Combine(filePath, fileName));
                             SaveFileDetails(fileName, uploadedBy, today);
-                            string _message = "File uploaded Successfully.";
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("B"), string.Format("ShowServerMessage('{0}');ShowFileMgnt();", _message), true);
+                             _message = "File uploaded Successfully.";
+                           // ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("B"), string.Format("ShowServerMessage('{0}');ShowFileMgnt();", _message), true);
                         }
                         else
                         {
@@ -324,8 +325,8 @@ namespace In2InGlobal.presentation.admin
 
                                 if (CheckUploadedFileHaveOnlyHeader(uploaderFileTextReader))
                                 {
-                                    string _message = "Uploaded Template contains only header.";
-                                    ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowFileMgnt(); ", _message), true);
+                                     _message = "Uploaded Template contains only header.";
+                                    //ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowFileMgnt(); ", _message), true);
                                 }
                                 else
                                 {
@@ -336,8 +337,8 @@ namespace In2InGlobal.presentation.admin
                                         fileUploader.SaveAs(System.IO.Path.Combine(filePath, fileName));
                                         //updating uploadedon field in JSON row data 
                                         UpdateUploadedFile(fileName, uploadedBy, today);
-                                        string _message = "File uploaded Successfully.";
-                                        ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("X"), string.Format("ShowServerMessage('{0}');ShowFileMgnt(); ", _message), true);
+                                         _message = "File uploaded Successfully.";
+                                       // ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowFileMgnt(); ", _message), true);
                                     }
                                     else
                                     {
@@ -358,8 +359,8 @@ namespace In2InGlobal.presentation.admin
 
                                         SaveUploadTemplateInformationInDB(fileName, ddlAssignedProject.SelectedItem.Text, "True");
 
-                                        string _message = "File uploaded Successfully.";
-                                        ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("n"), string.Format("ShowServerMessage('{0}');ShowFileMgnt(); ", _message), true);
+                                        _message = "File uploaded Successfully.";
+                                        
                                     }
                                 }
                                 uploaderFileTextReader.Close();
@@ -367,7 +368,8 @@ namespace In2InGlobal.presentation.admin
                         }
                     }
 
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString("X"), "<script type=\"text/javascript\">ShowFileMgnt();</script> ");
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString("X"), "<script type=\"text/javascript\">FUcallBack('" + _message + "');</script> ");
+                    
                 }
                 catch (System.IO.IOException ex)
                 {
@@ -578,18 +580,28 @@ namespace In2InGlobal.presentation.admin
 
         protected void btnDownload_Click(object sender, EventArgs e)
         {
-            System.IO.FileStream fs = null;
-            fs = System.IO.File.Open(ddlTemplate.SelectedValue, System.IO.FileMode.Open);
-            byte[] btFile = new byte[fs.Length];
-            fs.Read(btFile, 0, Convert.ToInt32(fs.Length));
-            fs.Close();
-            Response.AddHeader("Content-disposition", "attachment; filename=" + ddlTemplate.SelectedItem.Text + ".csv");
-            Response.ContentType = "application/octet-stream";
-            Response.BinaryWrite(btFile);
-            Response.End();
-            string _message = "File downloaded Successfully.";
+            string _message="";
+            try
+            {
+                System.IO.FileStream fs = null;
+                fs = System.IO.File.Open(ddlTemplate.SelectedValue, System.IO.FileMode.Open);
+                byte[] btFile = new byte[fs.Length];
+                fs.Read(btFile, 0, Convert.ToInt32(fs.Length));
+                fs.Close();
+                Response.AddHeader("Content-disposition", "attachment; filename=" + ddlTemplate.SelectedItem.Text + ".csv");
+                Response.ContentType = "application/octet-stream";
+                Response.BinaryWrite(btFile);
+                Response.End();
+                _message = "File downloaded successfully.";
+            }
+            catch (IOException ex)
+            {
+                _message = ex.Message;
+               
+            }
             ScriptManager.RegisterStartupScript(scriptmanager1, scriptmanager1.GetType(), "ShowServerMessage", string.Format("ShowServerMessage('{0}');ShowFileMgnt();", _message), true);
         }
+            
 
         protected void LoadInstruction(object sender, EventArgs e)
         {
@@ -657,6 +669,7 @@ namespace In2InGlobal.presentation.admin
 
             grdProject.DataSource = dsUserDetails.Tables[0];
             grdProject.DataBind();
+            ViewState["dirProject"] = dsUserDetails.Tables[0];
         }
 
         private string GenerateProjectName()
@@ -713,6 +726,8 @@ namespace In2InGlobal.presentation.admin
                 projectEntitiy.ProjectName = spnProjectName.InnerText;
                 projectEntitiy.CreatedBy = Session["UserEmail"].ToString();
                 projectEntitiy.Description = txtDescription.Value;
+                projectEntitiy.UserRole = Session["UserRole"].ToString();
+                projectEntitiy.UserEmail = Session["UserEmail"].ToString();
                 if (hdnProjectToEdit.Value == "")
                 {
                     projectBL.SaveProjectMaster(projectEntitiy);
@@ -740,9 +755,9 @@ namespace In2InGlobal.presentation.admin
         protected void grdProject_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
 
-            grdProject.PageIndex = e.NewPageIndex;
+            
             if (ViewState["SortExpression"] == null)
-                ViewState["SortExpression"] = "ProjectName";
+                ViewState["SortExpression"] = "project_name";
             DataTable dtrslt = (DataTable)ViewState["dirProject"];
             if (dtrslt.Rows.Count > 0)
             {
@@ -756,7 +771,7 @@ namespace In2InGlobal.presentation.admin
                     dtrslt.DefaultView.Sort = ViewState["SortExpression"] + " Asc";
                     ViewState["sortdr"] = "Asc";
                 }
-
+                grdProject.PageIndex = e.NewPageIndex;
                 grdProject.DataSource = dtrslt;
                 grdProject.DataBind();
             }
@@ -804,24 +819,22 @@ namespace In2InGlobal.presentation.admin
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                string projectname = ((DataTable)grdProject.DataSource).Rows[e.Row.RowIndex][1].ToString();
+                string projectid = ((DataTable)grdProject.DataSource).Rows[e.Row.DataItemIndex][0].ToString();
+                string projectname = ((DataTable)grdProject.DataSource).Rows[e.Row.DataItemIndex][1].ToString();
                 string updatedBy = Session["UserEmail"].ToString();
-                string ID = grdProject.DataKeys[e.Row.RowIndex].Value.ToString();
+                DataTable grdDSTable = (DataTable)grdProject.DataSource;
+               
                 string instuction = e.Row.Cells[2].Text.Replace("\n", "<br>");
-                foreach (LinkButton button in e.Row.Cells[3].Controls.OfType<LinkButton>())
+                foreach (Button editButton in e.Row.Cells[3].Controls.OfType<Button>())
                 {
-
-                    if (button.CommandName == "Edit")
-                    {
-                        button.Attributes["onclick"] = "return PullDataToEdit('" + projectname + "','" + updatedBy + "','" + instuction + "');";
-                        button.Attributes["href"] = "#";
-                    }
+                    editButton.UseSubmitBehavior = false;
+                    editButton.Attributes["onclick"] = "return PullDataToEdit('" + projectname + "','" + updatedBy + "','" + instuction + "');";
                 }
                 foreach (Button delbutton in e.Row.Cells[4].Controls.OfType<Button>())
                 {
 
                     delbutton.UseSubmitBehavior = false;
-                    delbutton.Attributes["onclick"] = "javascript:In2InGlobalConfirm('" + projectname + "','" + ID + "');return false;";
+                    delbutton.Attributes["onclick"] = "javascript:In2InGlobalConfirm('" + projectname + "','" + projectid + "');return false;";
                 }
             }
         }
@@ -854,6 +867,13 @@ namespace In2InGlobal.presentation.admin
             string _message = "Project deleted successfully.";
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowProjectMgnt(); ", _message), true);
 
+        }
+
+        protected void btnFUCalbk_Click(object sender, EventArgs e)
+        {
+            string _message = hdnFUCalBkMsg.Value;
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowFileMgnt(); ", _message), true);
+            hdnFUCalBkMsg.Value = "";
         }
     }
 }

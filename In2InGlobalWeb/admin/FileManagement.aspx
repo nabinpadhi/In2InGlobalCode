@@ -1,4 +1,4 @@
-﻿\<%@ Page Language="C#" EnableEventValidation="false"  AutoEventWireup="true" CodeBehind="FileManagement.aspx.cs" Inherits="In2InGlobal.presentation.admin.FileManagement" %>
+﻿<%@ Page Language="C#" EnableEventValidation="false"  AutoEventWireup="true" CodeBehind="FileManagement.aspx.cs" Inherits="In2InGlobal.presentation.admin.FileManagement" %>
 
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="ajaxToolkit" %>
 
@@ -7,79 +7,30 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script type="text/javascript">
-</script>
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/gridview.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
-    
+    <title>XYZ</title>
+    <script src="vendor/jquery/jquery.min.js"></script>   
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/black/easyui.css" />
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/icon.css" />
     <link href="../css/msgBoxLight.css" rel="stylesheet" type="text/css" />
     <link href="css/style.css" rel="stylesheet" type="text/css" />   
-    <style type="text/css">
-        body {
-            background-color: azure;
-        }
-        .GridViewImageAlignment{
-            text-align:center;
-        }
-        .file_table {
-            width: 100%;
-        }
-
-        .file_table_header {
-            border-bottom: 1px solid #ffb215;
-            padding: 8px;
-        }
-
-            .file_table_header th {
-                background-color: #4472c4;
-                color: white;
-                border-bottom: 1px solid black;
-            }
-
-        .file_table tr td {
-            border-bottom: 1px solid #ccc;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
-            padding-left: 1.3em;
-        }
-
-        li:before {
-            content: "\f00c"; /* FontAwesome Unicode */
-            font-family: FontAwesome;
-            display: inline-block;
-            margin-left: -1.3em; /* same as padding-left set on li */
-            width: 1.3em; /* same as padding-left set on li */
-        }          
-    </style> 
+    <link href="css/gridview.css" rel="stylesheet" type="text/css" />
+    <link href="css/Grid.css" rel="stylesheet" type="text/css" />   
     <script type="text/javascript">
-        function ShowFileMgnt() {
-            $('.projectmgnt').hide();
-            $('.filemgnt').show();
-
-            $('#btnFileMgnt').css("background-color", "azure");
-            $('#btnFileMgnt').css("color", "blue");
-            $('#btnProjectMgnt').css("background-color", "#2c3c59");
-            $('#btnProjectMgnt').css("color", "#fff");
+        function FUcallBack(msg) {
+   
+            document.getElementById("hdnFUCalBkMsg").value = msg;
+            
+            if (msg != "") {
+                document.getElementById('<%= btnFUCalbk.ClientID %>').click();
+             }
         }
     </script>
 </head>
 <body style="background-color:azure;">
-   
     <form id="form1" runat="server">
         <center>
             <div id="fmPageDiv" style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 20px;display:block;">
-                <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height:40px;padding-top:10px;"><span class="menu_frame_title">File Management</span></div>
+                <div class="pagination-ys" style="border:0px solid black;border-bottom:1px solid black; border-radius: 5px; height:40px;padding-top:10px;"><span class="menu_frame_title">File Management</span></div>
                     <asp:ScriptManager ID="scriptmanager1" runat="server">
                 </asp:ScriptManager>                
                 <asp:UpdatePanel ID="pdnlFileMgnt" runat="server">
@@ -87,9 +38,11 @@
                     <Triggers><asp:PostBackTrigger ControlID="btnUploader" /></Triggers>
                     <ContentTemplate> 
                          <div style="border-bottom:0 solid gray;display:flex;padding:2px;width:auto;">
-                            <div id="btnProjectMgnt" onclick="ShowProjectMgnt();" class="PanelTab">Project Management</div>
+                            <div id="btnProjectMgnt" onclick="ShowProjectMgnt();" class="PanelTab" style="background-color:azure;color:blue;">Project Management</div>
                             <div id="btnFileMgnt" onclick="ShowFileMgnt();" class="PanelTab">File Management</div>                          
                         </div>
+                        <asp:Button style="display:none" Text="Delete" OnClientClick="return true;" OnClick="btnFUCalbk_Click" ID="btnFUCalbk" runat="server"></asp:Button>
+                        <asp:HiddenField ID="hdnFUCalBkMsg" Value="" runat="server" />
                         <div title="Project Management" class="projectmgnt" style="background-color: azure;color:blue;">
                                <table style="width: 100%; background-color: azure;">
                                 <tr>
@@ -149,12 +102,15 @@
                                 <tr>
                                     <td style="width: 50%;">
                                         <center>
-                                            <div style="width: 70%; border: 1px solid black; border-radius: 5px; margin-top:5px; margin-bottom: 10px;">                                    
-                                                <asp:GridView DataKeyNames="project_id" ID="grdProject" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
-                                                    AllowPaging="True" AllowSorting="true" OnSorting="grdProject_Sorting" OnRowDataBound="grdProject_RowDataBound" OnRowDeleting="grdProject_RowDeleting" 
-                                                    OnPageIndexChanging="grdProject_PageIndexChanging"  AutoGenerateColumns="false" PageSize="4">
-                                                    <PagerStyle CssClass="pagination-ys" />
-                                                    <AlternatingRowStyle BackColor="#CCCCCC" />
+                                            <div style="width: 70%; border: 1px solid black; border-radius: 5px; margin-top:5px; margin-bottom:10px;"> 
+                                                <div class="AspNet-GridView">
+                                                <asp:GridView DataKeyNames="project_id" ID="grdProject" runat="server" Width="100%" AllowPaging="True" 
+                                                     AllowSorting="true" OnSorting="grdProject_Sorting" OnRowDataBound="grdProject_RowDataBound"
+                                                    OnPageIndexChanging="grdProject_PageIndexChanging"  AutoGenerateColumns="false" PageSize="4"
+                                                    HeaderStyle-CssClass="AspNet-GridView" EmptyDataText="No file has been uploaded." SortedAscendingCellStyle-CssClass="SortedAscendingHeaderStyle" 
+                                                    SortedDescendingCellStyle-CssClass="SortedDescendingHeaderStyle">
+                                                     <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
+                                                     <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
                                                     <Columns>                                                      
                                                          <asp:TemplateField HeaderStyle-Width="150px"  HeaderText="Project Name" SortExpression="project_name">                                                            
                                                             <ItemTemplate>
@@ -167,14 +123,19 @@
                                                             </ItemTemplate>
                                                         </asp:TemplateField>                                                          
                                                         <asp:BoundField ItemStyle-Wrap="true" HeaderText="Description"  DataField="description" />  
-                                                         <asp:CommandField ItemStyle-HorizontalAlign="Center" HeaderText="Edit" ShowEditButton="true" />
-                                                        <asp:TemplateField ShowHeader="False" ItemStyle-Width="30px">
+                                                         <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Edit" >
                                                             <ItemTemplate>
-                                                                <asp:Button ID="DeleteButton" CssClass="GridDeleteButton" runat="server" Width="30px" />               
+                                                                <asp:Button ID="EditButton" CssClass="GridEditButton" runat="server" Text="" />               
                                                             </ItemTemplate>
-                                                        </asp:TemplateField>                                                                                                              
+                                                        </asp:TemplateField>      
+                                                        <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Delete" >
+                                                            <ItemTemplate>
+                                                                <asp:Button ID="DeleteButton" CssClass="GridDeleteButton" runat="server" Text="" />               
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>                                                                                                           
                                                     </Columns>
                                                 </asp:GridView>
+                                                </div>
                                             </div>
                                         </center>
                                     </td>
@@ -218,11 +179,12 @@
                                                                             <td colspan="3">                                                                    
                                                                                 <center>
                                                                                     <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
-                                                                                        <asp:GridView DataKeyNames="project_id" ID="grdUploadedFiles" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
+                                                                                        <div class="AspNet-GridView">
+                                                                                        <asp:GridView DataKeyNames="project_id" ID="grdUploadedFiles" runat="server" Width="100%" HeaderStyle-CssClass="AspNet-GridView"
                                                                                             AllowPaging="True" RowStyle-Wrap="false" HeaderStyle-Wrap="false" EmptyDataText="No file found uploaded by you." 
                                                                                             OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" AutoGenerateColumns="false" PageSize="8">
-                                                                                            <PagerStyle CssClass="WillBeModified" />
-                                                                                             <AlternatingRowStyle BackColor="#CCCCCC" />
+                                                                                            <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
+                                                                                            <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
                                                                                             <Columns>
                                                                                                     <asp:TemplateField HeaderStyle-CssClass="specify" ItemStyle-CssClass="specify" ItemStyle-Width="150px" HeaderStyle-Width="100px" HeaderText="File Name">
                                                                                                         <ItemTemplate>
@@ -237,6 +199,7 @@
                                                                                                 <asp:ImageField ItemStyle-Width="50px" HeaderStyle-Width="50px" ItemStyle-CssClass ="GridViewImageAlignment" HeaderText="Status" ControlStyle-Height="20px" ControlStyle-Width="20px" DataImageUrlField="uploaded_status"></asp:ImageField>                                                                                             
                                                                                             </Columns>
                                                                                         </asp:GridView>
+                                                                                            </div>
                                                                                     </div>
                                                                                 </center>
                                                                             </td>
@@ -310,9 +273,10 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td style="margin-left: auto; margin-top: auto;">
-                                                                        <asp:GridView ID="grdTemplate" EmptyDataText="No Template Found..." Visible="false" runat="server" Width="95%" HeaderStyle-CssClass="pagination-ys"
+                                                                        <asp:GridView ID="grdTemplate" EmptyDataText="No Template Found..." Visible="false" runat="server" Width="95%" HeaderStyle-CssClass="AspNet-GridView"
                                                                             AllowPaging="True" OnPageIndexChanging="grdTemplate_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
-                                                                            <PagerStyle CssClass="pagination-ys" />
+                                                                           <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
+                                                                            <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
                                                                             <Columns>
                                                                                 <asp:BoundField HeaderText="Template Name" DataField="template_file_name" />
                                                                                 <asp:BoundField HeaderText="DateAdded" DataField="uploaded_on" />
@@ -371,9 +335,11 @@
                      $('#hdnPName').val(pName);
                      $('#hdnPID').val(pID);
                      $('#hdnDelBtn').trigger('click');
+
                  }
                  else {
                      $('#hdnPName').val('');
+                     $('#hdnPID').val('');
 
                  }
              }
@@ -488,9 +454,9 @@
              CheckFileExtension(extFile, "csv", in2in24);
          }
 
-
+         
          if (Error_Message != "") {
-             ShowError(Error_Message, 50);
+             ShowError(Error_Message, 80);
              return false;
          }
          else {
@@ -527,7 +493,7 @@
      ga('create', 'UA-64633646-1', 'auto');
      ga('send', 'pageview');
  </script>
-     <style type="text/css">
+       <style type="text/css">
         body {
             background-color: azure;
         }
@@ -549,7 +515,7 @@
             color:yellow;
 
         }
-         .specify {
+          .specify {
         overflow: hidden;
         text-overflow: ellipsis;
         max-height: 20px;
@@ -559,6 +525,7 @@
         display: block;
         border:none;
     }
+      
     </style>
 </body>
 </html>

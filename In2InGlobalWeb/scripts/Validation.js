@@ -1,7 +1,8 @@
 var Error_Message ="";
 var _ewTop  = 0;
 var _ewLeft = 0;
-var Error_Count =1;
+var Error_Count = 1;
+var _extraHeight = 0;
 //'ctl00_MasterContainer_dgdLocation_ctl07_chkAssetLocations'
 
 function CheckLocationSelected(rs_CheckBoxName,rs_gridName,ri_RowCount,rs_ExcludeCheckBoxId,ms_ErrMsg)
@@ -248,16 +249,16 @@ function CheckFileExtension(rs_FieldValueToValidate, rs_WhatToValidate, ms_ErrMs
     else { return true;}
 
 }
-function CheckMasterTemplate(rs_FieldValueToValidate, ms_ErrMsg) {
+function CheckMasterTemplate(rs_FieldValueToValidate, ms_ErrMsg,xtraHeight) {
     if (rs_FieldValueToValidate == "Spend_Analytics.csv" || rs_FieldValueToValidate == "Purchasing.csv" || rs_FieldValueToValidate == "Procurement.csv" || rs_FieldValueToValidate == "Business_Travel_Air.csv" || rs_FieldValueToValidate == "Business_Travel_Hotel.csv") {
 
-        alert();
         return true;
     }
     else
     {
         Error_Message = Error_Message + Error_Count + " . " + ms_ErrMsg + "<br>";
         Error_Count = Error_Count + 1;
+        _extraHeight = xtraHeight;
         return false;
     }
 }
@@ -890,7 +891,8 @@ function ValidateInput(eventInstance) {
 
 function ShowError(rs_ErrorMessage,messageHeight)
 {
-    if(_ewLeft == 0)
+   
+    if (_ewLeft == 0)
     {
 
         $.messager.show({
@@ -920,9 +922,10 @@ function ShowError(rs_ErrorMessage,messageHeight)
     }
             if(messageHeight != "")
             {
+                messageHeight = messageHeight + _extraHeight;
                 $('.messager-body.panel-body.panel-body-noborder.window-body').height(messageHeight + 'px');
             }
-            $('.panel-title').css('color','Red');
+          
                 
 }
 function CheckSaveModal()

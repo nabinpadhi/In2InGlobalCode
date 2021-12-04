@@ -24,10 +24,10 @@ namespace In2InGlobal.presentation.admin
             {
                 if (Session["UserRole"] != null)
                 {
-                    BindProjects();
-                    BindUsers();
-                    BindTemplate();                   
-                    BindTemplateToAssign();                                             
+                   // BindProjects();
+                    //BindUsers();
+                   // BindTemplate();                   
+                    //BindTemplateToAssign();                                             
                     txtcreatedB.InnerText = Session["UserEmail"].ToString();
                     string usrRole = Session["UserRole"].ToString();
                     if (usrRole == "Admin")
@@ -398,7 +398,7 @@ namespace In2InGlobal.presentation.admin
         protected void btnUploader_Click(object sender, EventArgs e)
         {
             string fileName = "";
-
+            string _message = "";
             string filePath = Server.MapPath("MasterTemplate\\");
             string uploadedBy = "";
             string today = DateTime.Now.ToShortDateString();
@@ -413,13 +413,8 @@ namespace In2InGlobal.presentation.admin
                 {
                     if (templateFileUpload.HasFile)
                     {
-                        fileName = templateFileUpload.FileName;
-                        //fileName = fileName.Replace(".csv", "~" + uploadedBy.Replace(" ", "") + "~" + ddlAssignedProject.SelectedValue + ".csv");
-
-
-                        string pathToCheck = filePath + fileName;
-                        //if (!System.IO.File.Exists(pathToCheck))
-                        //{
+                        fileName = templateFileUpload.FileName;                     
+                        string pathToCheck = filePath + fileName;                     
                         using (StreamReader uploadedFS = new StreamReader(templateFileUpload.PostedFile.InputStream))
                         {
                             TextReader uploaderFileTextReader = new StreamReader(uploadedFS.BaseStream);
@@ -428,29 +423,36 @@ namespace In2InGlobal.presentation.admin
                             {
 
                                 templateFileUpload.SaveAs(System.IO.Path.Combine(filePath, fileName));
-                                Session["servermessge"] = "File uploaded Successfully.";
+                                //Ganesh - Write function to save the file details.
+                                _message = "File uploaded Successfully.";
 
                             }
                         }
 
-                        //}
+                     
                     }
                     else
                     {
-                        string _message = "Please choose a file again.";
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", _message), true);
+                         _message = "Please choose a file again.";
+                        //ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", _message), true);
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
-                    string _message = "Failed to upload choosed file.";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", _message), true);
+                    //Console.WriteLine(ex.Message);
+                     _message = "Failed to upload choosed file.";
+                   // ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", _message), true);
                 }
+                Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString("X"), "<script type=\"text/javascript\">FUcallBack('" + _message + "');</script> ");
             }
             else { Response.Redirect("Login.aspx"); }
         }
-
+        protected void btnFUCalbk_Click(object sender, EventArgs e)
+        {
+            string _message = hdnFUCalBkMsg.Value;
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowUploadMasterTemplate(); ", _message), true);
+            hdnFUCalBkMsg.Value = "";
+        }
         /// <summary>
         /// Check Uploaded File Have Only Header
         /// </summary>
@@ -505,7 +507,7 @@ namespace In2InGlobal.presentation.admin
                 {
                     
                         editbutton.UseSubmitBehavior = false;
-                        editbutton.Attributes["onclick"] = "PullDataToEdit('" + ID + "','" + item + "','" + instuction + "');";
+                        editbutton.Attributes["onclick"] = "return PullDataToEdit('" + ID + "','" + item + "','" + instuction + "');";
                     
                 }
                 foreach (Button delbutton in e.Row.Cells[4].Controls.OfType<Button>())

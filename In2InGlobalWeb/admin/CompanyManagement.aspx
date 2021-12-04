@@ -6,12 +6,11 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-
-    <link href="css/gridview.css" rel="stylesheet" type="text/css" />
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/black/easyui.css" />
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/icon.css" />
     <link href="../css/msgBoxLight.css" rel="stylesheet" type="text/css" />
+    <link href="css/gridview.css" rel="stylesheet" type="text/css" />
     <link href="css/Grid.css" rel="stylesheet" type="text/css" />
   <script lang="JavaScript">
   
@@ -72,7 +71,7 @@
                             <tr>
                                 <td style="width: 50%;">                                    
                                     <center>
-                                        <div style="width: 50%; height: 90%; border: 1px solid black; border-radius: 5px; margin-top: 20px; margin-bottom: 20px;"> 
+                                        <div style="width: 50%; height: 90%; border: 1px solid black; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;"> 
                                             <div class="AspNet-GridView">
                                                  <asp:GridView runat="server" ID="grdCompany" Width="100%" OnPageIndexChanging="grdCompany_PageIndexChanging" 
                                                      HeaderStyle-CssClass="AspNet-GridView" AllowPaging="True" DataKeyNames="company_id" PageSize="5" 
