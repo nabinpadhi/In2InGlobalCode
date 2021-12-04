@@ -478,8 +478,10 @@
                      bottom: -document.body.scrollTop - document.documentElement.scrollTop
                  }
              });
-         }
 
+         }
+         $('.messager-body.panel-body.panel-body-noborder.window-body').css('height', '32px');
+         $('.messager-body.panel-body.panel-body-noborder.window-body').css('width', '275px');
      }
      function ShowHidden() { }
 
@@ -525,7 +527,10 @@
         display: block;
         border:none;
     }
-      
+       .messager-body.panel-body.panel-body-noborder.window-body{
+            width:278px;
+            height:32px;
+        }
     </style>
 </body>
 </html>

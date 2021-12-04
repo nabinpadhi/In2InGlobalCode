@@ -57,29 +57,38 @@ namespace In2InGlobal.presentation.admin
                 }
                 else
                 {
-                    Response.Redirect("login.aspx");
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
                 }
             }
         }
 
         private void BindProjects()
         {
-            string userEmail = Session["UserEmail"].ToString();
-            string userRole = Session["UserRole"].ToString();
+            try
+            {
+                string userEmail = Session["UserEmail"].ToString();
+                string userRole = Session["UserRole"].ToString();
 
-            DataSet dsUserDetails = new DataSet();
-            ProjectMasterBL projectBL = new ProjectMasterBL();
-            dsUserDetails = projectBL.getAssignedProject(userRole, userEmail);
+                DataSet dsUserDetails = new DataSet();
+                ProjectMasterBL projectBL = new ProjectMasterBL();
+                dsUserDetails = projectBL.getAssignedProject(userRole, userEmail);
 
-            ddlProjects.DataSource = dsUserDetails;
-            ddlProjects.DataTextField = "project_name";
-            ddlProjects.DataValueField = "project_id";
-            ddlProjects.DataBind();
+                ddlProjects.DataSource = dsUserDetails;
+                ddlProjects.DataTextField = "project_name";
+                ddlProjects.DataValueField = "project_id";
+                ddlProjects.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
+            }
         }
 
         private void BindAssignedProjects()
         {
-            string userEmail = Session["UserEmail"].ToString();
+            try
+            {
+                string userEmail = Session["UserEmail"].ToString();
             string userRole = Session["UserRole"].ToString();
 
             DataSet dsUserDetails = new DataSet();
@@ -90,11 +99,17 @@ namespace In2InGlobal.presentation.admin
             ddlAssignedProject.DataTextField = "project_name";
             ddlAssignedProject.DataValueField = "project_id";
             ddlAssignedProject.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
+            }
         }
 
 
         private void BindAssignedUser()
         {
+            try { 
             string userEmail = Session["UserEmail"].ToString();
             string userRole = Session["UserRole"].ToString();
 
@@ -107,6 +122,11 @@ namespace In2InGlobal.presentation.admin
             ddlUsrEmailId.DataValueField = "user_id";
             ddlUsrEmailId.DataBind();
         }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
+        }
+    }
 
 
 
@@ -374,6 +394,10 @@ namespace In2InGlobal.presentation.admin
                 catch (System.IO.IOException ex)
                 {
                     throw ex;
+                }
+                finally
+                {
+                    fileUploader.PostedFile.InputStream.Dispose();
                 }
             }
 

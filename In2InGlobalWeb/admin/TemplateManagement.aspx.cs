@@ -434,16 +434,21 @@ namespace In2InGlobal.presentation.admin
                     else
                     {
                          _message = "Please choose a file again.";
-                        //ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", _message), true);
+                       
                     }
                 }
                 catch (Exception ex)
                 {
                     //Console.WriteLine(ex.Message);
-                     _message = "Failed to upload choosed file.";
-                   // ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", _message), true);
+                     _message = "Failed to upload choosed file.";                   
                 }
-                Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString("X"), "<script type=\"text/javascript\">FUcallBack('" + _message + "');</script> ");
+                finally
+                {
+                    templateFileUpload.PostedFile.InputStream.Flush();                    
+                    templateFileUpload.Attributes.Clear();
+                    templateFileUpload = new FileUpload();
+                }
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString("X"), "<script type=\"text/javascript\">FUcallBack('" + _message + "');</script> ");
             }
             else { Response.Redirect("Login.aspx"); }
         }

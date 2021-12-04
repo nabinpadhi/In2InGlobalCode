@@ -23,7 +23,7 @@ var in2in22 = "Kindly select an Email."
 var in2in23 = "Kindly choose a File."
 var in2in24 = "Kindly choose only .CSV File."
 var in2in25 = "Project description cannot be empty."
-var in2in26 = "<ul>Target template File must be anyone of following.<p></p><li> Spend_Analytics</li><li> Purchasing</li><li> Procurement</li><li> Business_Travel_Air</li><li> Business_Travel_Hotel</li></ul>"
+var in2in26 = "<ul>Target template File Name must be anyone of the following.<p></p><li> Spend_Analytics</li><li> Purchasing</li><li> Procurement</li><li> Business_Travel_Air</li><li> Business_Travel_Hotel</li></ul>"
 var InvalidEmail_err_msg = "Kindly provide a valid email id."
 
 var serverMessages = {

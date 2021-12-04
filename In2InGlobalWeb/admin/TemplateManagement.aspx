@@ -16,11 +16,13 @@
   <link href="css/Grid.css" rel="stylesheet" type="text/css" />
      <script type="text/javascript">
          function FUcallBack(msg) {
-
+            
              document.getElementById("hdnFUCalBkMsg").value = msg;
              if (msg != "") {
                  document.getElementById('<%= btnFUCalbk.ClientID %>').click();
              }
+             msg = "";
+             document.getElementById("hdnFUCalBkMsg").value = "";
          }
     </script>
 </head>
@@ -279,6 +281,7 @@
             color:yellow;
 
         }
+        
     </style>
     <script type="text/javascript">
         var uploadingFileName = "";
@@ -297,7 +300,7 @@
       }(jQuery));
 
       $(document).ready(function () {
-                      
+                                
           FastClick.attach(document.body);
           ShowUploadMasterTemplate();
           ClearAll();
@@ -404,7 +407,7 @@
             if (servermessage != "") {
                 $.messager.show({
                     title: 'In2In Global',
-                    msg: servermessage,
+                    msg: servermessage,                            
                     showType: 'slide',
                     style: {
                         right: '',
@@ -413,8 +416,9 @@
                     }
                 });
             }
-            
-            
+
+          $('.messager-body.panel-body.panel-body-noborder.window-body').css('height','32px');
+          $('.messager-body.panel-body.panel-body-noborder.window-body').css('width', '275px');
       }
      
       function ShowAssignTemplate() {
@@ -513,8 +517,9 @@
         }
         .window-body.panel-body {
                color:silver;              
-               padding-top:30px;
+               padding-top:10px;
                text-align:left;
+               vertical-align:middle;
         }
         .panel-title
         {
@@ -523,7 +528,7 @@
             border: 0px solid #dddddd;    
             text-indent: 5px;    
             border-radius: 5px;
-        }
+        }        
         .l-btn-text
         {
             color:yellow;
@@ -539,7 +544,10 @@
         display: block;
         border:none;
     }
-      
+      .messager-body.panel-body.panel-body-noborder.window-body{
+            width:278px;
+            height:32px;
+        }
       
     </style>
 </body>
