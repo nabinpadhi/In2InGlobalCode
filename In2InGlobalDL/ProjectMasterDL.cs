@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace In2InGlobal.datalink
 {
-    public class ProjectMasterDL  
+    public class ProjectMasterDL
     {
         /// <summary>
         /// This Function is used to Save the Project
         /// </summary>
         /// <param name="projectEntity"></param>
         /// <returns></returns>
-        public long SaveProjectMaster(ProjectEntity projectEntity)  
+        public long SaveProjectMaster(ProjectEntity projectEntity)
         {
             BaseRepository baseRepo = new BaseRepository();
             var query = @"SELECT * FROM dbo.saveproject(@projectname,@description,@createdby,@roleid,@userid)";
@@ -30,9 +30,9 @@ namespace In2InGlobal.datalink
                     var result = connection.Query(query, new
                     {
                         projectname = projectEntity.ProjectName,
-                        description = projectEntity.Description,                         
+                        description = projectEntity.Description,
                         createdby = projectEntity.CreatedBy,
-                        roleid= projectEntity.UserRole,
+                        roleid = projectEntity.UserRole,
                         userid = projectEntity.UserEmail
                     }, commandType: CommandType.Text
                     );
@@ -74,9 +74,9 @@ namespace In2InGlobal.datalink
                     var result = connection.Query(query, new
                     {
                         projectname = projectEntity.ProjectName,
-                        descriptions = projectEntity.Description, 
+                        descriptions = projectEntity.Description,
                         createdby = projectEntity.CreatedBy
-                       
+
                     }, commandType: CommandType.Text
                     );
 
@@ -107,7 +107,7 @@ namespace In2InGlobal.datalink
         /// </summary>
         /// <returns></returns>
         public DataSet getProjectGridDetails(string userRole, string userEmail)
-        { 
+        {
             BaseRepository baseRepo = new BaseRepository();
             DataSet dsProject = new DataSet();
             NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
@@ -140,20 +140,26 @@ namespace In2InGlobal.datalink
         }
 
 
-        public DataSet getAssignedProject(string userRole, string userEmail) 
+        public DataSet getAssignedProject(string userRole, string userEmail)
         {
             BaseRepository baseRepo = new BaseRepository();
             DataSet dsProject = new DataSet();
             NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
-
-            string query = @"SELECT * FROM dbo.fillproject(@userrole,@useremail)";
+            string query = string.Empty;
+            if (userRole == "Admin")
+            {
+                query = @"SELECT * FROM dbo.fillprojectnameforadmin(@useremail)";
+            }
+            else
+            {
+                query = @"SELECT * FROM dbo.fillprojectnameforuser(@useremail)";
+            }
             using (var connection = baseRepo.GetDBConnection())
             {
                 try
                 {
                     connection.Open();
-                    NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
-                    npgsqlCommand.Parameters.AddWithValue("@userrole", userRole);
+                    NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);                    
                     npgsqlCommand.Parameters.AddWithValue("@useremail", userEmail);
                     npgsqlCommand.CommandType = CommandType.Text;
                     npgsqlDataAdapter.SelectCommand = npgsqlCommand;
@@ -186,7 +192,7 @@ namespace In2InGlobal.datalink
                 try
                 {
                     connection.Open();
-                    NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);                  
+                    NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
                     npgsqlCommand.CommandType = CommandType.Text;
                     npgsqlDataAdapter.SelectCommand = npgsqlCommand;
                     npgsqlDataAdapter.Fill(dsProject);
@@ -206,21 +212,27 @@ namespace In2InGlobal.datalink
         }
 
 
-        public DataSet getEmailforAdminAndUser(string RoleId, string userEmail)
+        public DataSet getEmailforAdminAndUser(string userRole, string userEmail)
         {
             BaseRepository baseRepo = new BaseRepository();
             DataSet dsProject = new DataSet();
             NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
-
-            string query = @"SELECT * FROM dbo.populatealluseremail()";
+            string query = string.Empty;
+            if (userRole == "Admin")
+            {
+                query = @"SELECT * FROM dbo.populateallemailforadmin(@useremail)";
+            }
+            else
+            {
+                query = @"SELECT * FROM dbo.populateallemailforuser(@useremail)";
+            }
             using (var connection = baseRepo.GetDBConnection())
             {
                 try
                 {
                     connection.Open();
                     NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
-                    npgsqlCommand.Parameters.AddWithValue("@useremail", userEmail);
-                    npgsqlCommand.Parameters.AddWithValue("@roleid", RoleId);
+                    npgsqlCommand.Parameters.AddWithValue("@useremail", userEmail);                  
                     npgsqlCommand.CommandType = CommandType.Text;
                     npgsqlDataAdapter.SelectCommand = npgsqlCommand;
                     npgsqlDataAdapter.Fill(dsProject);
@@ -244,39 +256,39 @@ namespace In2InGlobal.datalink
         /// <param name="projectEntity"></param>
         /// <returns></returns>
         public long DeleteProjectMaster(ProjectEntity projectEntity)
+        {
+            BaseRepository baseRepo = new BaseRepository();
+            var query = @"SELECT * FROM dbo.deleteproject(@projectid)";
+            using (var connection = baseRepo.GetDBConnection())
             {
-                BaseRepository baseRepo = new BaseRepository();
-                var query = @"SELECT * FROM dbo.deleteproject(@projectid)";
-                using (var connection = baseRepo.GetDBConnection())
+                try
                 {
-                    try
+                    connection.Open();
+                    var result = connection.Query(query, new
                     {
-                        connection.Open();
-                        var result = connection.Query(query, new
-                        {
-                            projectid = projectEntity.ProjectId                           
+                        projectid = projectEntity.ProjectId
 
-                        }, commandType: CommandType.Text
-                        );
+                    }, commandType: CommandType.Text
+                    );
 
-                        if (result == null || !result.Any())
-                        {
-                            //  throw (" failed to create company").ToString();
-                        }
-                        // companyEntity.CompanyId = Convert.ToInt64(result.First().CompanyId);
-
-                    }
-                    catch (Exception ex)
+                    if (result == null || !result.Any())
                     {
-                        throw ex;
+                        //  throw (" failed to create company").ToString();
                     }
-                    finally
-                    {
-                        connection.Dispose();
-                    }
+                    // companyEntity.CompanyId = Convert.ToInt64(result.First().CompanyId);
 
                 }
-                return projectEntity.ProjectId;
-            }        
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Dispose();
+                }
+
+            }
+            return projectEntity.ProjectId;
+        }
     }
 }

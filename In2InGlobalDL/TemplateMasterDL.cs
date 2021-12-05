@@ -58,6 +58,44 @@ namespace In2InGlobal.datalink
             return templateEntity.TemplateId;
         }
 
+        public long SaveUploadTemplateMaster(TemplateMasterEntity templateEntity)
+        {
+            BaseRepository baseRepo = new BaseRepository();
+            var query = @"SELECT * FROM dbo.saveuploadtemplate(@filepath,@filename,@createdby)"; 
+            using (var connection = baseRepo.GetDBConnection())
+            {
+                try
+                {
+                    connection.Open();
+                    var result = connection.Query(query, new
+                    {
+                        filepath = templateEntity.FilePath,
+                        filename = templateEntity.FileName,
+                        createdby = templateEntity.CreatedBy
+                    }, commandType: CommandType.Text
+                    );
+
+                    if (result == null || !result.Any())
+                    {
+                        //  throw (" failed to create company").ToString();
+                    }
+                    // companyEntity.CompanyId = Convert.ToInt64(result.First().CompanyId);
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Dispose();
+                }
+
+            }
+            return templateEntity.TemplateId;
+        }
+
+
         public long UpdateTemplateMaster(TemplateMasterEntity templateEntity)
         {
             BaseRepository baseRepo = new BaseRepository();
@@ -96,7 +134,40 @@ namespace In2InGlobal.datalink
             return templateEntity.TemplateId;
         }
 
+        public long DeleteMasterTemplate(TemplateMasterEntity templateEntity)
+        {
+            BaseRepository baseRepo = new BaseRepository();
+            var query = @"SELECT * FROM dbo.deletemastertemplate(@id)"; 
+            using (var connection = baseRepo.GetDBConnection())
+            {
+                try
+                {
+                    connection.Open();
+                    var result = connection.Query(query, new
+                    {                        
+                        id = templateEntity.TemplateId
+                    }, commandType: CommandType.Text
+                    );
 
+                    if (result == null || !result.Any())
+                    {
+                        //  throw (" failed to create company").ToString();
+                    }
+                    // companyEntity.CompanyId = Convert.ToInt64(result.First().CompanyId);
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Dispose();
+                }
+
+            }
+            return templateEntity.TemplateId;
+        }
 
         public DataSet PopulateTemplateName()   
         {
@@ -155,6 +226,37 @@ namespace In2InGlobal.datalink
                     npgsqlDataAdapter.Dispose();
                 }
                 return dsTemplate; 
+            }
+        }
+
+
+        public DataSet PopulateUploadMasterTemplateName()  
+        {
+            BaseRepository baseRepo = new BaseRepository();
+            DataSet dsTemplate = new DataSet();
+            NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
+
+            string query = @"SELECT * FROM dbo.filluploadmastertemplatename()";
+            using (var connection = baseRepo.GetDBConnection())
+            {
+                try
+                {
+                    connection.Open();
+                    NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
+                    npgsqlCommand.CommandType = CommandType.Text;
+                    npgsqlDataAdapter.SelectCommand = npgsqlCommand;
+                    npgsqlDataAdapter.Fill(dsTemplate);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Dispose();
+                    npgsqlDataAdapter.Dispose();
+                }
+                return dsTemplate;
             }
         }
 

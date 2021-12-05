@@ -9,7 +9,9 @@ namespace In2InGlobalBusinessEL
     {
         public long TemplateId { get; set; }
         public string TemplateName { get; set; }  
-        public string Instruction { get; set; }          
+        public string Instruction { get; set; }
+        public string FilePath { get; set; }
+        public string FileName { get; set; } 
         public string CreatedBy { get; set; }
     }
 }

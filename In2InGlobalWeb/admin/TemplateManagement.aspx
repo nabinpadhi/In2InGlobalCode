@@ -86,7 +86,7 @@
                                                                     
                                                                     <td style="width:40%">
                                                                         Template Name(<span style="color: red">*</span>)<br />
-                                                                        <asp:DropDownList ID="ddlMasterTemplate" Width="92%" AppendDataBoundItems="true" runat="server" DataValueField="TemplateName" DataTextField="TemplateName">
+                                                                        <asp:DropDownList ID="ddlMasterTemplate" Width="92%" AppendDataBoundItems="true" runat="server" DataValueField="template_id" DataTextField="file_name">
                                                                             <asp:ListItem Text="--Select a Template--" ></asp:ListItem>
                                                                         </asp:DropDownList>
                                                                         <asp:HiddenField ID="hdnTID" Value="" runat="server" />                                                                        

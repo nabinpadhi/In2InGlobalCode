@@ -53,6 +53,25 @@ namespace In2InGlobal.businesslogic
             return response;
         }
 
+        public TemplateMasterDto SaveUploadTemplateMaster(TemplateMasterEntity templateMasterEntity) 
+        {
+            TemplateMasterDto response = null;
+            TemplateMasterDL templateMasterDL = new TemplateMasterDL();
+
+            if (templateMasterEntity == null) return response;
+
+            var varTemplateId = templateMasterDL.SaveUploadTemplateMaster(templateMasterEntity);
+
+            response = new TemplateMasterDto
+            {
+                TemplateId = varTemplateId
+            };
+            return response;
+        }
+
+
+
+
         /// <summary>
         /// UpdateTemplateMaster
         /// </summary>
@@ -66,6 +85,23 @@ namespace In2InGlobal.businesslogic
             if (templateMasterEntity == null) return response;
 
             var varTemplateId = templateMasterDL.UpdateTemplateMaster(templateMasterEntity);
+
+            response = new TemplateMasterDto
+            {
+                TemplateId = varTemplateId
+            };
+            return response;
+        }
+
+
+        public TemplateMasterDto DeleteMasterTemplate(TemplateMasterEntity templateMasterEntity)
+        {
+            TemplateMasterDto response = null;
+            TemplateMasterDL templateMasterDL = new TemplateMasterDL();
+
+            if (templateMasterEntity == null) return response;
+
+            var varTemplateId = templateMasterDL.DeleteMasterTemplate(templateMasterEntity);
 
             response = new TemplateMasterDto
             {
@@ -105,6 +141,21 @@ namespace In2InGlobal.businesslogic
             {
                 TemplateMasterDL objTemplategrid = new TemplateMasterDL();
                 dsTemplategrid = objTemplategrid.PopulateTemplateGrid();
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
+            return dsTemplategrid;
+        }
+
+        public DataSet PopulateUploadMasterTemplateName()
+        {
+            DataSet dsTemplategrid = new DataSet();
+            try
+            {
+                TemplateMasterDL objTemplategrid = new TemplateMasterDL();
+                dsTemplategrid = objTemplategrid.PopulateUploadMasterTemplateName();
             }
             catch (Exception ex)
             {

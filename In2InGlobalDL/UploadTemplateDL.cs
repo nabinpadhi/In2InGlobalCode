@@ -254,6 +254,49 @@ namespace In2InGlobal.datalink
             return uploadTemplateEntity.TemplateId;
         }
 
+
+        public long UpdateUploadTemplate(UploadTemplateEntity uploadTemplateEntity) 
+        {
+            BaseRepository baseRepo = new BaseRepository();
+            var query = @"SELECT * FROM dbo.updateuploadtemplateinfo(@filename,@projectname,@createdby,@useremail,@status,@rolename)"; 
+            using (var connection = baseRepo.GetDBConnection())
+            {
+                try
+                {
+                    connection.Open();
+                    var result = connection.Query(query, new
+                    {
+                        filename = uploadTemplateEntity.FileName,
+                        projectname = uploadTemplateEntity.ProjectName,
+                        createdby = uploadTemplateEntity.CreatedBy,
+                        useremail = uploadTemplateEntity.UserEmail,
+                        status = uploadTemplateEntity.Status,
+                        rolename = uploadTemplateEntity.RoleName
+                    }, commandType: CommandType.Text
+                    );
+
+                    if (result == null || !result.Any())
+                    {
+                        // throw (" failed to create company").ToString();
+                    }
+                    // companyEntity.CompanyId = Convert.ToInt64(result.First().CompanyId);
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Dispose();
+                }
+
+            }
+            return uploadTemplateEntity.TemplateId;
+        }
+
+
+
         private void SaveUploadTemplate(DataTable dtUploadTemplate)
         {
             BaseRepository baseRepo = new BaseRepository();

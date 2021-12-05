@@ -18,13 +18,13 @@ namespace In2InGlobalBL
         /// Populate Project Name For Template
         /// </summary>
         /// <returns></returns>
-        public DataSet PopulateProjectNameForTemplate()
+        public DataSet PopulateProjectNameForTemplate(string userrole, string useremail)
         {
             DataSet dsTemplategrid = new DataSet();
             try
             {
                 AssignedTemplateDL objTemplategrid = new AssignedTemplateDL();
-                dsTemplategrid = objTemplategrid.PopulateProjectNameForTemplate();
+                dsTemplategrid = objTemplategrid.PopulateProjectNameForTemplate(userrole, useremail);
             }
             catch (Exception ex)
             {

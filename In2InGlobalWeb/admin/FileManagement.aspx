@@ -188,8 +188,8 @@
                                                                                             <Columns>
                                                                                                     <asp:TemplateField HeaderStyle-CssClass="specify" ItemStyle-CssClass="specify" ItemStyle-Width="150px" HeaderStyle-Width="100px" HeaderText="File Name">
                                                                                                         <ItemTemplate>
-                                                                                                            <a href='#' title=" <%# DataBinder.Eval(Container.DataItem, "FileName")%>" onclick="OpenCSV('<%# DataBinder.Eval(Container.DataItem, "FileName") %>');">
-                                                                                                                <%# DataBinder.Eval(Container.DataItem, "FileName")%>
+                                                                                                            <a href='#' title=" <%# DataBinder.Eval(Container.DataItem, "template_file_name")%>" onclick="OpenCSV('<%# DataBinder.Eval(Container.DataItem, "template_file_name") %>');">
+                                                                                                                <%# DataBinder.Eval(Container.DataItem, "template_file_name")%>
                                                                                                             </a>
                                                                                                         </ItemTemplate>
                                                                                                     </asp:TemplateField>                                                                                                

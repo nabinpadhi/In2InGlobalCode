@@ -36,6 +36,25 @@ namespace In2InGlobalBL
             return response;
         }
 
+
+        public UploadTemplateDto UpdateAssignedTemplate(UploadTemplateEntity tempEntity) 
+        {
+            UploadTemplateDto response = null;
+            UploadTemplateDL tempuploadDL = new UploadTemplateDL();
+
+            if (tempEntity == null) return response;
+
+            var varTemplateId = tempuploadDL.UpdateUploadTemplate(tempEntity);
+
+            response = new UploadTemplateDto
+            {
+                TemplateId = varTemplateId
+            };
+            return response;
+        }
+
+
+
         /// <summary>
         /// Load Project Name For Template
         /// </summary>

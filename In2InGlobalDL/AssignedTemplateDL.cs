@@ -20,19 +20,21 @@ namespace In2InGlobal.datalink
         /// Populate all project Name to assigned Template
         /// </summary> 
         /// <returns></returns>
-        public DataSet PopulateProjectNameForTemplate() 
+        public DataSet PopulateProjectNameForTemplate(string userrole, string useremail) 
         {
             BaseRepository baseRepo = new BaseRepository();
             DataSet dsProject = new DataSet();
             NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
 
-            string query = @"SELECT * FROM dbo.fillProject()";
+            string query = @"SELECT * FROM dbo.fillProject(@userrole,@useremail)";
             using (var connection = baseRepo.GetDBConnection())
             {
                 try
                 {
                     connection.Open();
-                    NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);  
+                    NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
+                    npgsqlCommand.Parameters.AddWithValue("@userrole", userrole);
+                    npgsqlCommand.Parameters.AddWithValue("@useremail", useremail);
                     npgsqlCommand.CommandType = CommandType.Text;
                     npgsqlDataAdapter.SelectCommand = npgsqlCommand;
                     npgsqlDataAdapter.Fill(dsProject);
