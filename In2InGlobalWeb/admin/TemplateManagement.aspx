@@ -59,11 +59,15 @@
                                                 <table style="width:100%;">
                                                     <tr><td style="width:25%">Template Files</td>
                                                         <td style="width:5%">:</td>
-                                                        <td style="width:70%"><asp:FileUpload accept=".csv" ID="templateFileUpload" runat="server" /></td>
+                                                        <td style="width:70%"><asp:FileUpload onchange="ResetStatus();" accept=".csv" ID="templateFileUpload" runat="server" /></td>
                                                         <td>
                                                             <asp:Button ID="btnUploader" class="button" OnClientClick="return VerifyFile();" OnClick="btnUploader_Click"  runat="server" Text="Upload" />
                                                             <asp:Button ID="hdnFake" Text="" EnableViewState="true" runat="server" Visible="false" OnClick="hdnFake_Click" />
                                                         </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2"></td>
+                                                        <td><asp:Label ID="lblUploadStatus" Text="Selected File Uploaded Successfully" Visible="false" style="color:forestgreen;font-weight:bold;" runat="server"></asp:Label></td>
                                                     </tr>
                                                 </table>                                                                                    
                                             </div>
@@ -134,9 +138,7 @@
                                   <tr>
                                     <td>
                                         <center>
-                                            <div class="confirmDialog" style="text-align:center;color:black;display:none;position:center;padding-top:30px;">
-                                                Are you sure you want to delete this record ?
-                                            </div>
+                                            <div class="AspNet-GridView">
                                             <div style="width:60%; border: 1px solid black; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;">                                    
                                                 <asp:GridView DataKeyNames="template_id" ID="grdMasterTemplate" runat="server" Width="100%" HeaderStyle-CssClass="AspNet-GridView"
                                                     AllowPaging="True" OnRowDataBound="grdMasterTemplate_RowDataBound" OnRowDeleting="grdMasterTemplate_RowDeleting" OnPageIndexChanging="grdMasterTemplate_PageIndexChanging"  AutoGenerateColumns="false" PageSize="4">
@@ -211,9 +213,14 @@
                                                             <td colspan="2">
                                                                 <center>
                                                                     <div style="width: 97%; border: 1px solid black; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;">                                    
-                                                                        <asp:GridView DataKeyNames="ID" ID="grdTemplate" runat="server" Width="100%" HeaderStyle-CssClass="pagination-ys"
-                                                                            AllowPaging="True" OnRowDataBound="grdTemplate_RowDataBound" OnRowDeleting="grdTemplate_RowDeleting" OnPageIndexChanging="grdTemplate_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
-                                                                            <PagerStyle CssClass="pagination-ys" />
+                                                                        <div>
+                                                                        <asp:GridView DataKeyNames="template_id" ID="grdTemplate" runat="server" Width="100%" AllowPaging="True" 
+                                                                            OnRowDataBound="grdTemplate_RowDataBound" OnRowDeleting="grdTemplate_RowDeleting" 
+                                                                            OnPageIndexChanging="grdTemplate_PageIndexChanging" AutoGenerateColumns="false" PageSize="4" 
+                                                                            HeaderStyle-CssClass="AspNet-GridView" EmptyDataText="No file has been uploaded." 
+                                                                            SortedAscendingCellStyle-CssClass="SortedAscendingHeaderStyle" SortedDescendingCellStyle-CssClass="SortedDescendingHeaderStyle">
+                                                                             <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
+                                                                             <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
                                                                             <Columns>
                                                                                 <asp:BoundField HeaderText="Template Name" DataField="TemplateName" />
                                                                                 <asp:BoundField HeaderText="Assigned On" DataField="DateAdded" />
@@ -222,6 +229,7 @@
                                                                                 <asp:CommandField ItemStyle-HorizontalAlign="Center" HeaderText="Action" ShowDeleteButton="true" />
                                                                             </Columns>
                                                                         </asp:GridView>
+                                                                            </div>
                                                                     </div>
                                                                 </center>
                                                             </td>
@@ -341,7 +349,7 @@
                 cancel: 'No',
                 fn: function (r) {
                     if (r) {
-                        $('#hdnMTName').val(id);
+                        $('#hdnTID').val(id);
                         $('#hdnDelBtn').trigger("click");
                     }
                 }
@@ -425,7 +433,6 @@
 
           $('.Asgnpnl').visible();
           $('.crtpnl').invisible();
-          $('.crtppnl').invisible();
           $('.upldmt').invisible();
           $('#btnUploadMasterTemplate').css("background-color", "#2c3c59");
           $('#btnUploadMasterTemplate').css("color", "#fff");
@@ -439,7 +446,6 @@
       function ShowCreateTemplate() {
 
           //$('.Asgnpnl').invisible();
-          $('.crtppnl').invisible();
           $('.crtpnl').visible();
           $('.upldmt').invisible();
           $('#btnUploadMasterTemplate').css("background-color", "#2c3c59");
@@ -456,9 +462,8 @@
      
       function ShowUploadMasterTemplate()
       {          
-          $('.Asgnpnl').invisible();
+          //$('.Asgnpnl').invisible();
           $('.crtpnl').invisible();
-          $('.crtppnl').invisible();
           $('.upldmt').visible();
           $('#btnUploadMasterTemplate').css("background-color", "azure");
           $('#btnUploadMasterTemplate').css("color", "blue");
@@ -509,7 +514,10 @@
               return true;
           }
       }     
-     
+        function ResetStatus() {
+
+            $('#lblUploadStatus').hide();
+        }
     </script>
     <style type="text/css">
         body {

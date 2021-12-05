@@ -61,7 +61,7 @@ namespace In2InGlobal.datalink
         public long SaveUploadTemplateMaster(TemplateMasterEntity templateEntity)
         {
             BaseRepository baseRepo = new BaseRepository();
-            var query = @"SELECT * FROM dbo.saveuploadtemplate(@filepath,@filename,@createdby)"; 
+            var query = @"SELECT * FROM dbo.saveuploadmastertemplate(@filepath,@filename,@createdby)"; 
             using (var connection = baseRepo.GetDBConnection())
             {
                 try

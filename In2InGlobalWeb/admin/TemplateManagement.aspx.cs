@@ -348,7 +348,7 @@ namespace In2InGlobal.presentation.admin
         {
             TemplateMasterEntity tempalteEntity = new TemplateMasterEntity();
             string createdBy = Session["UserEmail"].ToString();
-            string templateName = ddlMasterTemplate.Text;
+            string templateName = ddlMasterTemplate.SelectedItem.Text;
             string instruction = txtInstruction.Value;
             string _message = "Template Created Successfully.";
             try
@@ -380,7 +380,7 @@ namespace In2InGlobal.presentation.admin
             //BindMasterTemplate();
             //BindTemplateToAssign();
 
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate(); ", _message), true);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate(); ", _message), true);
         }
 
         /// <summary>
@@ -417,8 +417,13 @@ namespace In2InGlobal.presentation.admin
 
                                 templateFileUpload.SaveAs(System.IO.Path.Combine(filePath, fileName));
                                 //Ganesh - Write function to save the file details.
-                                SaveUploadMasterTemplateFile(filePath, fileName);
+                                fileName = fileName.Replace(".csv", "");
+                                if (fileName != "")
+                                {
+                                    SaveUploadMasterTemplateFile(filePath, fileName);
+                                }
                                 _message = "File uploaded Successfully.";
+
 
                             }
                         }
@@ -433,7 +438,7 @@ namespace In2InGlobal.presentation.admin
                 }
                 catch (Exception ex)
                 {
-                    //Console.WriteLine(ex.Message);
+                    
                     _message = "Failed to upload choosed file.";
                 }
                 finally
@@ -441,10 +446,13 @@ namespace In2InGlobal.presentation.admin
                     templateFileUpload.PostedFile.InputStream.Flush();
                     templateFileUpload.Attributes.Clear();
                     templateFileUpload = new FileUpload();
+                    lblUploadStatus.Text = _message;
+                    lblUploadStatus.Visible = true;
+                    BindMasterTemplate();
                 }
                 //Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString("X"), "<script type=\"text/javascript\">FUcallBack('" + _message + "');</script> ");
             }
-            else { Response.Redirect("Login.aspx"); }
+            else { Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true); }
         }
 
 
