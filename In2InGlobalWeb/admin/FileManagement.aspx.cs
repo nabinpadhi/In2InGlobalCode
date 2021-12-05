@@ -266,34 +266,36 @@ namespace In2InGlobal.presentation.admin
                 DataSet dsUserDetails = new DataSet();
                 UploadTemplateBL projectBL = new UploadTemplateBL();
                 dsUserDetails = projectBL.LoadSearchTemplateGrid(userRole, _email, _pid);
-                if (dsUserDetails.Tables[0].Rows.Count == 0)
+                if (dsUserDetails.Tables[0].Rows.Count > 0)
                 {
-                    DataTable tblTemplate = dsUserDetails.Tables[0];
+                   // DataTable tblTemplate = dsUserDetails.Tables[0];
+                    grdTemplate.DataSource = dsUserDetails.Tables[0]; 
+                    grdTemplate.DataBind();
 
-                    if (_pid != "" || _email != "")
-                    {
-                        string _target = "";
-                        if (_pid != "")
-                        {
-                            _target = "ProjectName = '" + _pid + "'";
-                        }
-                        else if (_email != "")
-                        {
-                            _target = "Email = '" + _email + "'";
-                        }
-                        if (tblTemplate.Select(_target).Length > 0)
-                        {
-                            tblTemplate = tblTemplate.Select(_target).CopyToDataTable();
-                            grdTemplate.DataSource = tblTemplate;
-                            grdTemplate.DataBind();
+                    //if (_pid != "" || _email != "")
+                    //{
+                    //    string _target = "";
+                    //    if (_pid != "")
+                    //    {
+                    //        _target = "ProjectName = '" + _pid + "'";
+                    //    }
+                    //    else if (_email != "")
+                    //    {
+                    //        _target = "Email = '" + _email + "'";
+                    //    }
+                    //    if (tblTemplate.Select(_target).Length > 0)
+                    //    {
+                    //        tblTemplate = tblTemplate.Select(_target).CopyToDataTable();
+                    //        grdTemplate.DataSource = tblTemplate;
+                    //        grdTemplate.DataBind();
 
-                        }
-                        else
-                        {
-                            grdTemplate.DataSource = null;
-                            grdTemplate.DataBind();
-                        }
-                    }
+                    //    }
+                    //    else
+                    //    {
+                    //        grdTemplate.DataSource = null;
+                    //        grdTemplate.DataBind();
+                    //    }
+                    //}
                 }
                 else
                 {
