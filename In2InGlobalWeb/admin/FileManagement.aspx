@@ -29,7 +29,7 @@
 <body style="background-color:azure;">
     <form id="form1" runat="server">
         <center>
-            <div id="fmPageDiv" style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 20px;display:block;">
+            <div id="fmPageDiv" style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 5px;display:block;">
                 <div class="pagination-ys" style="border:0px solid black;border-bottom:1px solid black; border-radius: 5px; height:40px;padding-top:10px;"><span class="menu_frame_title">File Management</span></div>
                     <asp:ScriptManager ID="scriptmanager1" runat="server">
                 </asp:ScriptManager>                
@@ -85,7 +85,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2">
-                                                            <div style="margin-top: 15px;">
+                                                            <div style="margin-top: 5px;">
                                                                 <center>
                                                                     <asp:Button  ID="btnCreateProject" runat="server" OnClientClick="return ValidateProject();" OnClick="btnCreateProject_Click"  CssClass="button" Text="Create" />
                                                                     <input type="button" class="button" style="margin-left: 10px;" value="Cancel" onclick="ClearProject();" />

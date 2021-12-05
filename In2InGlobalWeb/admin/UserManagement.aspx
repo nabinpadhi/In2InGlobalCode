@@ -23,18 +23,18 @@
     <form id="form1" runat="server">
        
         <center>
-            <div style="width: 100%;height:450px; border: 1px solid black; border-radius: 5px; margin-top: 20px;">
+            <div style="width: 100%;height:450px; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
                 <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height: 40px; padding-top: 10px;"><span class="menu_frame_title">User Management</span></div>
                 <asp:ScriptManager ID="scriptmanager1" runat="server">
                 </asp:ScriptManager>
                 <asp:UpdatePanel ID="pdnlCompany" runat="server">
-                    <ContentTemplate>  
-                        
+                    <ContentTemplate> 
+                        <div style="width:100%" id="userDiv">                       
                         <table style="width: 100%; background-color: azure;">
                             <tr>
                                 <td style="width: 80%;">
                                     <center>
-                                        <div style="width: 70%; border: 1px solid black; border-radius: 5px; margin-top: 30px;">
+                                        <div style="width: 70%; border: 1px solid black; border-radius: 5px; margin-top: 10px;">
                                             <table style="width: 80%;padding-top:10px;">
                                                 <tr>
                                                     <td>First Name(<span style="color: red">*</span>)</td>
@@ -100,10 +100,12 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="padding-bottom:50px;padding-top:25px">                                   
+                                <td style="padding-bottom:50px;padding-top:5px">                                   
                                     <center>
+                                       
+                                        <div class="AspNet-GridView" style="width: 70%;border: 1px solid black; border-radius: 5px;">
                                        <asp:GridView ID="grdUsers" runat="server" OnRowEditing="grdUsers_RowEditing"
-                                            OnPageIndexChanging="grdUsers_PageIndexChanging" Width="80%" HeaderStyle-CssClass="AspNet-GridView" 
+                                            OnPageIndexChanging="grdUsers_PageIndexChanging" Width="100%" HeaderStyle-CssClass="AspNet-GridView" 
                                             AllowPaging="True" DataKeyNames="user_email" PageSize="4"
                                             OnRowDataBound="grdUsers_RowDataBound"  AutoGenerateColumns="false">
                                              <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
@@ -128,6 +130,8 @@
                                             </columns>
                                              <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
                                         </asp:GridView>
+                                            </div>
+                                      
                                     </center>
                                 </td>
                             </tr>

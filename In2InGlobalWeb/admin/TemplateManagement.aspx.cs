@@ -54,13 +54,16 @@ namespace In2InGlobal.presentation.admin
         /// </summary>
         private void BindMasterTemplateGrid()
         {
-            DataSet dsloadTemplare = new DataSet();
+            DataSet dsloadTemplate = null;
             TemplateMasterBl templateMasterBL = new TemplateMasterBl();
             try
             {
-                dsloadTemplare = templateMasterBL.PopulateTemplateGrid();
-                grdMasterTemplate.DataSource = dsloadTemplare.Tables[0];
-                grdMasterTemplate.DataBind();
+                dsloadTemplate = templateMasterBL.PopulateTemplateGrid();
+                if (dsloadTemplate != null || dsloadTemplate.Tables.Count != 0)
+                {
+                    grdMasterTemplate.DataSource = dsloadTemplate.Tables[0];
+                    grdMasterTemplate.DataBind();
+                }
             }
             catch (Exception ex)
             {
@@ -99,9 +102,11 @@ namespace In2InGlobal.presentation.admin
                 dsloadTemplare = templateMasterBL.PopulateUploadMasterTemplateName();
                 if (dsloadTemplare.Tables[0].Rows.Count > 0)
                 {
-                    ddlMasterTemplate.DataSource = dsloadTemplare;
+                    ddlMasterTemplate.Items.Clear();
                     ddlMasterTemplate.DataTextField = "file_name";
                     ddlMasterTemplate.DataValueField = "template_id";
+                    ddlMasterTemplate.Items.Add(new ListItem("--Select a Template--"));
+                    ddlMasterTemplate.DataSource = dsloadTemplare.Tables[0];                    
                     ddlMasterTemplate.DataBind();
                 }
             }
@@ -362,24 +367,21 @@ namespace In2InGlobal.presentation.admin
                 {
                     tempalteEntity.TemplateId = Convert.ToInt64(hdnTID.Value);
                     templateMasterBl.UpdateTemplateMaster(tempalteEntity);
-
-                    _message = "Company Updated Successfully";
+                    _message = "Template Updated Successfully";
                 }
                 else
-                {
+                {  
                     templateMasterBl.SaveTemplateMaster(tempalteEntity);
+                    _message = "Template Created Successfully";
                 }
 
-                BindMasterTemplateGrid();
+               
             }
             catch (Exception ex)
             {
                 ex.ToString();
             }
-
-            //BindMasterTemplate();
-            //BindTemplateToAssign();
-
+            BindMasterTemplateGrid();
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate(); ", _message), true);
         }
 
@@ -514,7 +516,7 @@ namespace In2InGlobal.presentation.admin
             if (Session["servermessage"] != null)
             {
                 string servermessge = Session["servermessage"].ToString();
-                ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowCreateTemplate();ShowServerMessage('{0}'); ", servermessge), true);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", servermessge), true);
 
             }
             Session["servermessage"] = null;
@@ -528,28 +530,53 @@ namespace In2InGlobal.presentation.admin
         /// <param name="e"></param>
         protected void grdMasterTemplate_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            if (e.Row.RowType == DataControlRowType.DataRow)
+            try
             {
-                string item = e.Row.Cells[0].Text;
-
-                string ID = grdMasterTemplate.DataKeys[e.Row.RowIndex].Value.ToString();
-                string instuction = e.Row.Cells[2].Text.Replace("\n", "\\#");
-
-                foreach (Button editbutton in e.Row.Cells[3].Controls.OfType<Button>())
+                if (e.Row.RowType == DataControlRowType.DataRow)
                 {
+                    string template_name = e.Row.Cells[0].Text;
 
-                    editbutton.UseSubmitBehavior = false;
-                    editbutton.Attributes["onclick"] = "return PullDataToEdit('" + ID + "','" + item + "','" + instuction + "');";
+                    string template_id = grdMasterTemplate.DataKeys[e.Row.RowIndex].Value.ToString();
+                    string instuction = e.Row.Cells[2].Text.Replace("\n", "_#_");
+                    string masterTemplateId = GetMaterTemplateId(template_name);
+                    foreach (Button editbutton in e.Row.Cells[3].Controls.OfType<Button>())
+                    {
 
-                }
-                foreach (Button delbutton in e.Row.Cells[4].Controls.OfType<Button>())
-                {
+                        editbutton.UseSubmitBehavior = false;
+                        editbutton.Attributes["onclick"] = "return PullDataToEdit('" + template_id + "','" + template_name + "','" + instuction + "','" + masterTemplateId + "');";
 
-                    delbutton.UseSubmitBehavior = false;
-                    delbutton.Attributes["onclick"] = "javascript:In2InGlobalConfirm('" + ID + "');return false;";
+                    }
+                    foreach (Button delbutton in e.Row.Cells[4].Controls.OfType<Button>())
+                    {
 
+                        delbutton.UseSubmitBehavior = false;
+                        delbutton.Attributes["onclick"] = "javascript:In2InGlobalConfirm('" + template_id + "');return false;";
+
+                    }
                 }
             }
+            catch(Exception ex)
+            {
+                
+            }
+        }
+
+        private string GetMaterTemplateId(string template_name)
+        {
+            string masterTemplateId = "";
+            DataTable masterTemplateDDLDT = (DataTable)ddlMasterTemplate.DataSource;
+            if (masterTemplateDDLDT == null)
+                BindMasterTemplate();
+            foreach (DataRow dr in masterTemplateDDLDT.Rows)
+            {
+                if(dr[1].ToString() == template_name)
+                {
+                    masterTemplateId = dr[0].ToString();
+                    break;
+                }
+            }
+           
+            return masterTemplateId;
         }
 
         /// <summary>
@@ -600,8 +627,8 @@ namespace In2InGlobal.presentation.admin
                 DeleteMasterTemplate(hdnTID.Value);
             }
             BindMasterTemplateGrid();
-            string _message = "Master Template deleted successfully.";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}')", _message), true);
+            string _message = "Template deleted successfully.";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", _message), true);
         }
     }
 
