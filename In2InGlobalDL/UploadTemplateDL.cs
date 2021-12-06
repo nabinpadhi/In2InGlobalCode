@@ -123,10 +123,9 @@ namespace In2InGlobal.datalink
             }
         }
 
-        public DataSet LoadUploadFileTemplateGrid(string userRole, string userEmail, string pid) 
+        public DataSet LoadUploadFileTemplateGrid(string userRole, string userEmail, int pid)
         {
             string query = string.Empty;
-            int projectId = Convert.ToInt32(pid);  
             BaseRepository baseRepo = new BaseRepository();
             DataSet dsEmail = new DataSet();
             NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
@@ -147,7 +146,7 @@ namespace In2InGlobal.datalink
                     NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
                     npgsqlCommand.Parameters.AddWithValue("@useremail", userEmail);
                     npgsqlCommand.Parameters.AddWithValue("@userrole", userRole);
-                    npgsqlCommand.Parameters.AddWithValue("@projectname", projectId);
+                    npgsqlCommand.Parameters.AddWithValue("@projectname", pid);
                     npgsqlCommand.CommandType = CommandType.Text;
                     npgsqlDataAdapter.SelectCommand = npgsqlCommand;
                     npgsqlDataAdapter.Fill(dsEmail);
@@ -165,20 +164,19 @@ namespace In2InGlobal.datalink
             }
         }
 
-        public DataSet LoadSearchTemplateGrid(string userRole, string userEmail, string pid) 
+        public DataSet LoadSearchTemplateGrid(string userRole, string userEmail, int pid)
         {
-            string query = string.Empty;
-            int projectId = Convert.ToInt32(pid);
+            string query = string.Empty;            
             BaseRepository baseRepo = new BaseRepository();
             DataSet dsEmail = new DataSet();
             NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
             if (userRole == "Admin")
             {
-                query = @"SELECT * FROM dbo.populateadmintemplategrid(@useremail,@userrole,@projectname)";
+                query = @"SELECT * FROM dbo.searchadmintemplategrid(@useremail,@userrole,@projectname)";
             }
             else
             {
-                query = @"SELECT * FROM dbo.populateusertemplategrid(@useremail,@userrole,@projectname)";
+                query = @"SELECT * FROM dbo.searchusertemplategrid(@useremail,@userrole,@projectname)";
             }
             using (var connection = baseRepo.GetDBConnection())
             {
@@ -188,7 +186,7 @@ namespace In2InGlobal.datalink
                     NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
                     npgsqlCommand.Parameters.AddWithValue("@useremail", userEmail);
                     npgsqlCommand.Parameters.AddWithValue("@userrole", userRole);
-                    npgsqlCommand.Parameters.AddWithValue("@projectname", projectId);
+                    npgsqlCommand.Parameters.AddWithValue("@projectname", pid);
 
                     npgsqlCommand.CommandType = CommandType.Text;
                     npgsqlDataAdapter.SelectCommand = npgsqlCommand;
@@ -226,7 +224,7 @@ namespace In2InGlobal.datalink
                     var result = connection.Query(query, new
                     {
                         filename = uploadTemplateEntity.FileName,
-                        projectname = uploadTemplateEntity.ProjectName,                                             
+                        projectname = uploadTemplateEntity.ProjectName,
                         createdby = uploadTemplateEntity.CreatedBy,
                         useremail = uploadTemplateEntity.UserEmail,
                         status = uploadTemplateEntity.Status,
@@ -255,10 +253,10 @@ namespace In2InGlobal.datalink
         }
 
 
-        public long UpdateUploadTemplate(UploadTemplateEntity uploadTemplateEntity) 
+        public long UpdateUploadTemplate(UploadTemplateEntity uploadTemplateEntity)
         {
             BaseRepository baseRepo = new BaseRepository();
-            var query = @"SELECT * FROM dbo.updateuploadtemplateinfo(@filename,@projectname,@createdby,@useremail,@status,@rolename)"; 
+            var query = @"SELECT * FROM dbo.updateuploadtemplateinfo(@filename,@projectname,@createdby,@useremail,@status,@rolename)";
             using (var connection = baseRepo.GetDBConnection())
             {
                 try

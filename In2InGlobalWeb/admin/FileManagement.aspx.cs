@@ -190,123 +190,80 @@ namespace In2InGlobal.presentation.admin
 
         private void BindFileGrid(string pid)
         {
+            int projectID = 0;
+            DataSet dsUserDetails = new DataSet();
+            UploadTemplateBL projectBL = new UploadTemplateBL();
+            if (pid == string.Empty) 
+            {
+                projectID =0;
+            }
+            else { projectID = Convert.ToInt32(pid); }
+            string userEmail = Session["UserEmail"].ToString();
+            string userRole = Session["UserRole"].ToString();
+
             try
             {
-                string userEmail = Session["UserEmail"].ToString();
-                string userRole = Session["UserRole"].ToString();
-
-                DataSet dsUserDetails = new DataSet();
-                UploadTemplateBL projectBL = new UploadTemplateBL();
-                dsUserDetails = projectBL.LoadUploadFileTemplateGrid(userRole, userEmail, pid);
-                if (dsUserDetails.Tables[0].Rows.Count > 0)
+                dsUserDetails = projectBL.LoadUploadFileTemplateGrid(userRole, userEmail, projectID);
+                if (pid == string.Empty && dsUserDetails.Tables[0].Rows.Count > 0)
                 {
-                   // DataTable tblUploadedFiles = dsUserDetails.Tables[0];
-                    // DataRow _usrRow = (DataRow)Session["UserRow"];
-                    // string userName = _usrRow["FirstName"] + " " + _usrRow["LastName"];
-                    //string userName = tblUploadedFiles.Rows[0]["user_email"].ToString();
-                    //if (tblUploadedFiles.Rows.Count > 0)
-                    //{
-                    //    if (pid != "")
-                    //    {
-
-                    //        if (tblUploadedFiles.Select("project_name='" + pid + "'").Length > 0)
-                    //        {
-                    //            tblUploadedFiles = tblUploadedFiles.Select("project_name='" + pid + "'").CopyToDataTable();
-                    //        }
-                    //        else
-                    //        {
-                    //            tblUploadedFiles = null;
-                    //            grdTemplate.EmptyDataText = "No file(s) uploaded for selected project. ";
-                    //        }
-                    //    }
-                    //    else
-                    //    {
-
-                    //        if (tblUploadedFiles.Select("uploaded_by='" + userName + "'").Length > 0)
-                    //        {
-                    //            tblUploadedFiles = tblUploadedFiles.Select("uploaded_by='" + userName + "'").CopyToDataTable();
-
-                    //        }
-                    //        else
-                    //        {
-                    //            tblUploadedFiles = null;
-                    //            grdTemplate.EmptyDataText = "No file(s) uploaded for selected project. ";
-                    //        }
-
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    tblUploadedFiles = null;
-                    //    grdTemplate.EmptyDataText = "No file(s) uploaded for selected project. ";
-                    //}
                     grdUploadedFiles.DataSource = dsUserDetails.Tables[0];
                     grdUploadedFiles.DataBind();
                 }
                 else
                 {
-                    grdUploadedFiles.DataSource = null;
-                    grdUploadedFiles.DataBind();
+                    var projectUploadRows = dsUserDetails.Tables[0].Select("project_id='" + pid + "'");
+                    if (projectUploadRows.Length > 0)
+                    {
+                        grdUploadedFiles.DataSource = projectUploadRows.CopyToDataTable();
+                        grdUploadedFiles.DataBind();
+                    }
                 }
+
             }
             catch (Exception ex)
             {
                 ex.ToString();
             }
+
         }
 
 
-        private void BindTemplateGrid(string _pid, string _email)
+        private void BindTemplateGrid(string pid, string _email)
         {
+            grdTemplate.Visible = true;
+            int projectID = 0;
+            DataSet dsUserDetails = new DataSet();
+            UploadTemplateBL projectBL = new UploadTemplateBL();
+            if (pid == "--Select a Project--")
+            {
+                projectID = 0;
+            }
+            else { projectID = Convert.ToInt32(pid); }            
+            string userRole = Session["UserRole"].ToString();
+
             try
             {
-                grdTemplate.Visible = true;
-                string userRole = Session["UserRole"].ToString();
-
-                DataSet dsUserDetails = new DataSet();
-                UploadTemplateBL projectBL = new UploadTemplateBL();
-                dsUserDetails = projectBL.LoadSearchTemplateGrid(userRole, _email, _pid);
-                if (dsUserDetails.Tables[0].Rows.Count > 0)
+                dsUserDetails = projectBL.LoadSearchTemplateGrid(userRole, _email, projectID); 
+                if (pid == string.Empty && dsUserDetails.Tables[0].Rows.Count > 0)
                 {
-                   // DataTable tblTemplate = dsUserDetails.Tables[0];
-                    grdTemplate.DataSource = dsUserDetails.Tables[0]; 
+                    grdTemplate.DataSource = dsUserDetails.Tables[0];
                     grdTemplate.DataBind();
-
-                    //if (_pid != "" || _email != "")
-                    //{
-                    //    string _target = "";
-                    //    if (_pid != "")
-                    //    {
-                    //        _target = "ProjectName = '" + _pid + "'";
-                    //    }
-                    //    else if (_email != "")
-                    //    {
-                    //        _target = "Email = '" + _email + "'";
-                    //    }
-                    //    if (tblTemplate.Select(_target).Length > 0)
-                    //    {
-                    //        tblTemplate = tblTemplate.Select(_target).CopyToDataTable();
-                    //        grdTemplate.DataSource = tblTemplate;
-                    //        grdTemplate.DataBind();
-
-                    //    }
-                    //    else
-                    //    {
-                    //        grdTemplate.DataSource = null;
-                    //        grdTemplate.DataBind();
-                    //    }
-                    //}
                 }
                 else
                 {
-                    grdTemplate.DataSource = null;
-                    grdTemplate.DataBind();
+                    var projectUploadRows = dsUserDetails.Tables[0].Select("project_id='" + pid + "'");
+                    if (projectUploadRows.Length > 0)
+                    {
+                        grdTemplate.DataSource = projectUploadRows.CopyToDataTable();
+                        grdTemplate.DataBind();
+                    }
                 }
             }
             catch (Exception ex)
             {
                 ex.ToString();
             }
+
         }
         protected void grdUploadedFiles_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {

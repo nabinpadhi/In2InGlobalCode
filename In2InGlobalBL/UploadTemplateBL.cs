@@ -74,7 +74,7 @@ namespace In2InGlobalBL
             return dsUplaodProject;
         }
 
-        public DataSet LoadUploadFileTemplateGrid(string userRole, string userEmail, string pid)
+        public DataSet LoadUploadFileTemplateGrid(string userRole, string userEmail, int pid)
         {
             DataSet dsUplaodProject = new DataSet();
             try
@@ -89,7 +89,7 @@ namespace In2InGlobalBL
             return dsUplaodProject;
         }
        
-        public DataSet LoadSearchTemplateGrid(string userRole, string userEmail, string pid)
+        public DataSet LoadSearchTemplateGrid(string userRole, string userEmail, int pid)
         {
             DataSet dsUplaodProject = new DataSet();
             try
