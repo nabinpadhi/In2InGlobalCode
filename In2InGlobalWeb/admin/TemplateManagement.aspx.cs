@@ -419,13 +419,10 @@ namespace In2InGlobal.presentation.admin
 
                                 templateFileUpload.SaveAs(System.IO.Path.Combine(filePath, fileName));
                                 //Ganesh - Write function to save the file details.
-                                fileName = fileName.Replace(".csv", "");
-                                if (fileName != "")
-                                {
-                                    SaveUploadMasterTemplateFile(filePath, fileName);
-                                }
+                                
+                                 SaveUploadMasterTemplateFile(filePath, fileName);
+                                
                                 _message = "File uploaded Successfully.";
-
 
                             }
                         }

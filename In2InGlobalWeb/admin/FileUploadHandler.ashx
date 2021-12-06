@@ -18,8 +18,9 @@ using System.Web.UI.WebControls;
 public class FileUploadHandler : IHttpHandler
 {
 
-    public void ProcessRequest (HttpContext context)
+    public void ProcessRequest(HttpContext context)
     {
+        string filePath = "./MasterTemplate/";
         if (context.Request.Files.Count > 0)
         {
 
@@ -27,12 +28,15 @@ public class FileUploadHandler : IHttpHandler
             // for (int i = 0; i < files.Count; i++)
             //{
             HttpPostedFile file = files[0];
-            string fname = context.Server.MapPath("./MasterTemplate/" + file.FileName);
+            string fname = context.Server.MapPath(filePath + file.FileName);
             if (CheckUploadedFileHaveOnlyHeader(file))
             {
                 file.SaveAs(fname);
                 //call the function to db entry
-                 context.Response.ContentType = "text/csv";
+
+                SaveUploadMasterTemplateFile(filePath, file.FileName,null);
+
+                context.Response.ContentType = "text/csv";
                 context.Response.Write("File Uploaded Successfully!");
                 context.Response.End();
             }
@@ -43,7 +47,7 @@ public class FileUploadHandler : IHttpHandler
                 context.Response.End();
             }
             //}
-           
+
         }
 
     }
@@ -59,7 +63,7 @@ public class FileUploadHandler : IHttpHandler
 
                 if (table.Rows.Count > 0)
                 {
-                    _result= false;
+                    _result = false;
                 }
             }
         }
@@ -72,5 +76,28 @@ public class FileUploadHandler : IHttpHandler
             return false;
         }
     }
+
+
+    private void SaveUploadMasterTemplateFile(string filePath, string fileName, string createdby)
+    {
+        try
+        {
+            if (fileName != null)
+            {
+                TemplateMasterEntity templateEntity = new TemplateMasterEntity();
+                templateEntity.FileName = fileName;
+                templateEntity.FilePath = filePath;
+                templateEntity.CreatedBy = createdby ;
+                TemplateMasterBl templateMasterBl = new TemplateMasterBl();
+                templateMasterBl.SaveTemplateMaster(templateEntity);
+            }
+        }
+        catch (Exception ex)
+        {
+            ex.ToString();
+        }
+    }
+
+
 
 }  
