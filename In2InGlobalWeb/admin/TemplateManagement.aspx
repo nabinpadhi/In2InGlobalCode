@@ -32,19 +32,14 @@
             <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
                 <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height: 40px; padding-top: 10px;"><span class="menu_frame_title">Template Management</span></div>
                 <asp:ScriptManager ID="Templatescriptmanager" runat="server">                    
-                </asp:ScriptManager>
-                <asp:UpdateProgress ID="UpdatePnlTemplate" runat="server" AssociatedUpdatePanelID="pdnlTemplate">
-                <ProgressTemplate>
-                        <img src="img/processing.gif" style="z-index:1000;" alt="Uploading..." />
-                </ProgressTemplate>
-            </asp:UpdateProgress>
+                </asp:ScriptManager>              
                 <asp:UpdatePanel  ID="pdnlTemplate" runat="server">   
                     <Triggers><asp:PostBackTrigger ControlID="btnUploader" /></Triggers>
                     <ContentTemplate>
                            <asp:Button style="display:none" Text="Delete" OnClientClick="return true;" OnClick="btnFUCalbk_Click" ID="btnFUCalbk" runat="server" />
                             <asp:HiddenField ID="hdnFUCalBkMsg" Value="" runat="server" />
 
-                        <div name="pnlTemplate" id="pnlTemplate" style="width:auto;height:auto;min-height:345px;color:black">
+                        <div id="pnlTemplate" style="width:auto;height:auto;min-height:345px;color:black">
                         <div style="border-bottom:0 solid gray;display:flex;padding:2px;width:auto;">
                             <div id="btnUploadMasterTemplate" onclick="ShowUploadMasterTemplate();" class="PanelTab"> Upload Master Template </div>
                             <div id="btnCreateTemplate" onclick="ShowCreateTemplate();" class="PanelTab"> Create Template </div>
@@ -59,7 +54,7 @@
                                                 <table style="width:100%;">
                                                     <tr><td style="width:25%">Template Files</td>
                                                         <td style="width:5%">:</td>
-                                                        <td style="width:70%"><asp:FileUpload onchange="ResetStatus();" accept=".csv" ID="templateFileUpload" runat="server" /></td>
+                                                        <td style="width:70%"><asp:FileUpload accept=".csv" ID="templateFileUpload" runat="server" /></td>
                                                         <td>
                                                             <asp:Button ID="btnUploader" class="button" OnClientClick="return VerifyFile();" OnClick="btnUploader_Click"  runat="server" Text="Upload" />
                                                             <asp:Button ID="hdnFake" Text="" EnableViewState="true" runat="server" Visible="false" OnClick="hdnFake_Click" />
@@ -72,11 +67,7 @@
                                                             <asp:Button ID="btnUpload" class="button" runat="server" Text="Upload" />
                                                            
                                                         </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2"></td>
-                                                        <td><asp:Label ID="lblUploadStatus" Text="Selected File Uploaded Successfully" Visible="false" style="color:forestgreen;font-weight:bold;" runat="server"></asp:Label></td>
-                                                    </tr>
+                                                    </tr>                                                    
                                                 </table>                                                                                    
                                             </div>
                                             </center>
@@ -131,10 +122,9 @@
                                                     <tr>
                                                         <td colspan="2">
                                                             <div style="margin-top: 0px;">
-                                                                <center>
                                                                     <asp:Button  ID="btnCreate" runat="server" OnClientClick="return ValidateMasterTemplate();" OnClick="btnCreate_Click"  CssClass="button" Text="Create" />
-                                                                    <input type="button" class="button" style="margin-left: 10px;" value="Cancel" onclick="ClearAll();" />
-                                                                </center>
+                                                                    <input type="button" class="button" style="margin-left: 10px;" value="Cancel" onclick="ClearAll();" />                                                                    
+                                                              
                                                             </div>
                                                         </td>
                                                     </tr>                                                    
@@ -294,6 +284,7 @@
     </style>
     <script type="text/javascript">
         var uploadingFileName = "";
+       
         var recentnl = "btnCreateTemplate";
         (function ($) {
             $.fn.invisible = function () {
@@ -541,14 +532,12 @@
                 return true;
             }
         }
-        function ResetStatus() {
-
-            $('#lblUploadStatus').hide();
-        }
+       
         $("#btnUpload").click(function (evt)
         {
             if (VerifyFile())
             {
+                
                 var fileUpload = $("#tmpltFU").get(0);
                 var files = fileUpload.files;
 
@@ -558,7 +547,7 @@
                 }
 
                 $.ajax({
-                    url: "FileUploadHandler.ashx",
+                    url: "FileUploadHandler.ashx?upb=" + $('#txtcreatedB').text(),
                     type: "POST",
                     data: data,
                     contentType: false,
@@ -567,7 +556,8 @@
 
                         if (result != '') {
 
-                            ShowServerMessage(result);
+                            RefreshTemplateNames(result);
+                            ShowServerMessage("Master Template Uploaded Successfully.");                          
                             $("#tmpltFU").val('');
                             uploadingFileName = "";
 
@@ -575,14 +565,38 @@
 
                     },
                     error: function (err) {
-                        alert(err.statusText)
+                        ShowServerMessage(err.statusText);
+                    },
+                    complete: function (data) {
+                        
+                        ShowCreateTemplate();
+
                     }
                 });
                 
             }
-            
+          
             evt.preventDefault();
-        });  
+        }); 
+        function RefreshTemplateNames(templates) {
+
+            if (templates.length > 0) {
+                var myTemplates = $.parseJSON(templates);
+                $('#ddlMasterTemplate').html('');
+                var myDdl = document.getElementById('ddlMasterTemplate');    
+                myDdl.innerHTML = "<option selected='selected' value='0'>--Select a Template--</option>";
+                for (var i = 0; i < myTemplates.length; i++) {
+                  
+                    myDdl.innerHTML = myDdl.innerHTML + "<option value='" + myTemplates[i]['template_id'] + "'>" + myTemplates[i]['file_name'] + "</option>";
+                  
+                }
+                $('#ddlMasterTemplate').val('first').change();
+                $("#ddlMasterTemplate").prop('selectedIndex', 0);
+            }
+
+
+        }
+        
     </script>
     <style type="text/css">
         body {

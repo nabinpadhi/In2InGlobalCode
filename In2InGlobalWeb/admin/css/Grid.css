@@ -144,9 +144,13 @@ div.grid-row-count {
 .aspNetDisabled {
     cursor: url("../img/no-pencil-sign.png"),auto;
     color: darkgray;
-  
+    background: lightgrey;
 }
-
+.aspNetDisabled:hover {
+    cursor: url("../img/no-pencil-sign.png"),auto;
+    color: darkgray;
+    background: lightgrey;
+}
 .GridDeleteButton {
     background: url(../img/delete.png) 23px 23px no-repeat;
     height: 23px;

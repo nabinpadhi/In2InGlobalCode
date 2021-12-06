@@ -190,10 +190,12 @@ namespace In2InGlobal.presentation.admin
 
         private void BindFileGrid(string pid)
         {
+            grdUploadedFiles.DataSource = null;
+            grdUploadedFiles.DataBind();
             int projectID = 0;
             DataSet dsUserDetails = new DataSet();
             UploadTemplateBL projectBL = new UploadTemplateBL();
-            if (pid == string.Empty) 
+            if (pid == string.Empty || pid.ToLower() =="--select a project--") 
             {
                 projectID =0;
             }
@@ -204,7 +206,7 @@ namespace In2InGlobal.presentation.admin
             try
             {
                 dsUserDetails = projectBL.LoadUploadFileTemplateGrid(userRole, userEmail, projectID);
-                if (pid == string.Empty && dsUserDetails.Tables[0].Rows.Count > 0)
+                if (projectID == 0 && dsUserDetails.Tables[0].Rows.Count > 0)
                 {
                     grdUploadedFiles.DataSource = dsUserDetails.Tables[0];
                     grdUploadedFiles.DataBind();
@@ -216,7 +218,7 @@ namespace In2InGlobal.presentation.admin
                     {
                         grdUploadedFiles.DataSource = projectUploadRows.CopyToDataTable();
                         grdUploadedFiles.DataBind();
-                    }
+                    }                   
                 }
 
             }

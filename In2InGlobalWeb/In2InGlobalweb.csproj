@@ -1731,6 +1731,9 @@
     <Compile Include="admin\FileUploadHandler.ashx.cs">
       <DependentUpon>FileUploadHandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="admin\GetMasterDataHandler.ashx.cs">
+      <DependentUpon>GetMasterDataHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="admin\ProjectManagement.aspx.cs">
       <DependentUpon>ProjectManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1881,6 +1884,7 @@
     <Content Include="admin\MasterTemplate\Purchasing.csv" />
     <Content Include="admin\MasterTemplate\Spend_Analytics.csv" />
     <Content Include="admin\FileUploadHandler.ashx" />
+    <Content Include="admin\GetMasterDataHandler.ashx" />
     <None Include="font\fontawesome-webfont.ttf" />
     <None Include="font\fontawesome-webfont.woff" />
     <None Include="GoogleFont\2UX7WLTfW3W8TclTUvlFyQ.woff" />

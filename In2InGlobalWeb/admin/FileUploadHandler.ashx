@@ -14,6 +14,7 @@ using System.Linq;
 using System.Net;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Newtonsoft.Json;
 
 public class FileUploadHandler : IHttpHandler
 {
@@ -23,21 +24,21 @@ public class FileUploadHandler : IHttpHandler
         string filePath = "./MasterTemplate/";
         if (context.Request.Files.Count > 0)
         {
-
+            string uploadedBy = context.Request.QueryString["upb"].ToString();
             HttpFileCollection files = context.Request.Files;
             // for (int i = 0; i < files.Count; i++)
             //{
             HttpPostedFile file = files[0];
-            string fname = context.Server.MapPath(filePath + file.FileName);
+            string filePathWithFileName = context.Server.MapPath(filePath + file.FileName);
             if (CheckUploadedFileHaveOnlyHeader(file))
             {
-                file.SaveAs(fname);
+                file.SaveAs(filePathWithFileName);
                 //call the function to db entry
 
-                SaveUploadMasterTemplateFile(filePath, file.FileName,null);
+                SaveUploadMasterTemplateFile(filePath, file.FileName.Replace(".csv",""),uploadedBy);
 
-                context.Response.ContentType = "text/csv";
-                context.Response.Write("File Uploaded Successfully!");
+                context.Response.ContentType = "text/plain";
+                context.Response.Write(GetMasterTemplatesJSON());
                 context.Response.End();
             }
             else
@@ -89,7 +90,7 @@ public class FileUploadHandler : IHttpHandler
                 templateEntity.FilePath = filePath;
                 templateEntity.CreatedBy = createdby ;
                 TemplateMasterBl templateMasterBl = new TemplateMasterBl();
-                templateMasterBl.SaveTemplateMaster(templateEntity);
+                templateMasterBl.SaveUploadTemplateMaster(templateEntity);
             }
         }
         catch (Exception ex)
@@ -98,6 +99,14 @@ public class FileUploadHandler : IHttpHandler
         }
     }
 
-
+ private string GetMasterTemplatesJSON()
+    {
+            DataSet dsloadTemplare = new DataSet();
+            TemplateMasterBl templateMasterBL = new TemplateMasterBl();
+            dsloadTemplare = templateMasterBL.PopulateUploadMasterTemplateName();            
+             string JSONresult = JsonConvert.SerializeObject(dsloadTemplare.Tables[0]);
+            return JSONresult;
+        }
+   
 
 }  

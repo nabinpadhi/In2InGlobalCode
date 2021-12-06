@@ -12,8 +12,8 @@
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/black/easyui.css" />
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/icon.css" />
     <link href="../css/msgBoxLight.css" rel="stylesheet" type="text/css" />
-    <link href="css/style.css" rel="stylesheet" type="text/css" />   
-    <link href="css/gridview.css" rel="stylesheet" type="text/css" />
+    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />  
+    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/gridview.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" /> 
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/Grid.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />      
 </head>
 <body style="background-color:azure;">
@@ -162,7 +162,7 @@
                                                                                 </div>
                                                                             </td>
                                                                             <td style="width:40%;vertical-align:top;padding-top:20px;">
-                                                                                <asp:Button CssClass="button" Enabled="false" OnClientClick="return ValidateDownload();" OnClick="btnDownload_Click" Text="Download" ID="btnDownload" runat="server"></asp:Button>
+                                                                                <asp:Button CssClass="button" Enabled="false" OnClientClick="return ValidateDownload();" OnClick="btnDownload_Click" Text="Download" ID="btnDownload" runat="server" style="width:70px;padding-left:5px;"></asp:Button>
                                                                             </td>
                                                                         </tr>                                                                       
                                                                         <tr>
@@ -199,7 +199,7 @@
                                                                                 <asp:FileUpload ID="fileUploader" accept=".csv" Enabled="false" runat="server" />                                                                                                                                                    
                                                                             </td>
                                                                             <td>
-                                                                                <asp:Button ID="btnUploader" Enabled="false" class="button" OnClientClick="return VerifyFile();"  runat="server" Text="Upload" OnClick="btnUploader_Click" />
+                                                                                <asp:Button ID="btnUploader" Enabled="false" class="button" OnClientClick="return VerifyFile();"  runat="server" Text="Upload" OnClick="btnUploader_Click" style="width:70px;padding-left:15px;" />
                                                                             </td>
                                                                 
                                                                             <td>

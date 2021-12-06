@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -95,11 +96,10 @@ namespace In2InGlobal.presentation.admin
         /// </summary>
         private void BindMasterTemplate()
         {
-            DataSet dsloadTemplare = new DataSet();
-            TemplateMasterBl templateMasterBL = new TemplateMasterBl();
+            DataSet dsloadTemplare = GetMasterTemplates();
             try
             {
-                dsloadTemplare = templateMasterBL.PopulateUploadMasterTemplateName();
+                
                 if (dsloadTemplare.Tables[0].Rows.Count > 0)
                 {
                     ddlMasterTemplate.Items.Clear();
@@ -116,6 +116,15 @@ namespace In2InGlobal.presentation.admin
             }
         }
 
+        private DataSet GetMasterTemplates()
+        {
+            DataSet dsloadTemplare = new DataSet();
+            TemplateMasterBl templateMasterBL = new TemplateMasterBl();
+            dsloadTemplare = templateMasterBL.PopulateUploadMasterTemplateName();
+            return dsloadTemplare;
+        }
+        
+        
         /// <summary>
         /// Bind Template To Assign
         /// </summary>
@@ -444,9 +453,7 @@ namespace In2InGlobal.presentation.admin
                 {
                     templateFileUpload.PostedFile.InputStream.Flush();
                     templateFileUpload.Attributes.Clear();
-                    templateFileUpload = new FileUpload();
-                    lblUploadStatus.Text = _message;
-                    lblUploadStatus.Visible = true;
+                    templateFileUpload = new FileUpload();                    
                     BindMasterTemplate();
                 }
                 //Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString("X"), "<script type=\"text/javascript\">FUcallBack('" + _message + "');</script> ");
@@ -627,6 +634,13 @@ namespace In2InGlobal.presentation.admin
             string _message = "Template deleted successfully.";
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", _message), true);
         }
+
+       /* protected void btnReloadMTDdl_Click(object sender, EventArgs e)
+        {
+            BindMasterTemplate();
+            string _message = "Master Template Uploaded successfully.";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", _message), true);
+        }*/
     }
 
 }
