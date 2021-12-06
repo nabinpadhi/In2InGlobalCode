@@ -7,24 +7,14 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>XYZ</title>
+    <title></title>
     <script src="vendor/jquery/jquery.min.js"></script>   
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/black/easyui.css" />
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/icon.css" />
     <link href="../css/msgBoxLight.css" rel="stylesheet" type="text/css" />
     <link href="css/style.css" rel="stylesheet" type="text/css" />   
     <link href="css/gridview.css" rel="stylesheet" type="text/css" />
-    <link href="css/Grid.css" rel="stylesheet" type="text/css" />   
-    <script type="text/javascript">
-        function FUcallBack(msg) {
-   
-            document.getElementById("hdnFUCalBkMsg").value = msg;
-            
-            if (msg != "") {
-                document.getElementById('<%= btnFUCalbk.ClientID %>').click();
-             }
-        }
-    </script>
+    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/Grid.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />      
 </head>
 <body style="background-color:azure;">
     <form id="form1" runat="server">
@@ -182,11 +172,11 @@
                                                                                         <div class="AspNet-GridView">
                                                                                         <asp:GridView DataKeyNames="project_id" ID="grdUploadedFiles" runat="server" Width="100%" HeaderStyle-CssClass="AspNet-GridView"
                                                                                             AllowPaging="True" RowStyle-Wrap="false" HeaderStyle-Wrap="false" EmptyDataText="No file found uploaded by you." 
-                                                                                            OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" AutoGenerateColumns="false" PageSize="8">
+                                                                                            OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" OnRowDataBound="grdUploadedFiles_RowDataBound" AutoGenerateColumns="false" PageSize="8">
                                                                                             <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
                                                                                             <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
                                                                                             <Columns>
-                                                                                                    <asp:TemplateField HeaderStyle-CssClass="specify" ItemStyle-CssClass="specify" ItemStyle-Width="150px" HeaderStyle-Width="100px" HeaderText="File Name">
+                                                                                                    <asp:TemplateField HeaderStyle-CssClass="specify" ItemStyle-CssClass="specify" ItemStyle-Width="150px" HeaderStyle-Width="152px" HeaderText="File Name">
                                                                                                         <ItemTemplate>
                                                                                                             <a href='#' title=" <%# DataBinder.Eval(Container.DataItem, "template_file_name")%>" onclick="OpenCSV('<%# DataBinder.Eval(Container.DataItem, "template_file_name") %>');">
                                                                                                                 <%# DataBinder.Eval(Container.DataItem, "template_file_name")%>
@@ -196,7 +186,7 @@
                                                                                                 <asp:BoundField ItemStyle-Width="150px" HeaderStyle-Width="150px" HeaderText="Project Name" DataField="project_name" />
                                                                                                 <asp:BoundField ItemStyle-Width="150px" HeaderStyle-Width="150px" HeaderText="Uploaded By" DataField="uploaded_by" />
                                                                                                 <asp:BoundField ItemStyle-Width="150px" HeaderStyle-Width="150px" HeaderText="Uploaded On" DataField="uploaded_on" />
-                                                                                                <asp:ImageField ItemStyle-Width="50px" HeaderStyle-Width="50px" ItemStyle-CssClass ="GridViewImageAlignment" HeaderText="Status" ControlStyle-Height="20px" ControlStyle-Width="20px" DataImageUrlField="uploaded_status"></asp:ImageField>                                                                                             
+                                                                                                <asp:ImageField ItemStyle-Width="50px" HeaderStyle-Width="50px" ItemStyle-CssClass ="GridViewImageAlignment" HeaderText="Status" ControlStyle-Height="20px" ControlStyle-Width="20px" DataImageUrlField="uploadstatus"></asp:ImageField>                                                                                             
                                                                                             </Columns>
                                                                                         </asp:GridView>
                                                                                             </div>
@@ -236,7 +226,7 @@
                                                                                 
                                     </td>
                                     <td style="width: 30%; vertical-align: top;">
-                                        <div style="margin-top: 10px; margin-left: 20px; border-left: 1px solid gray; height: 300px;">
+                                        <div style="margin-top: 10px; margin-left: 20px;margin-bottom:20px;border-radius:5px; border: 1px solid gray; height: 280px;">
                                             <span style="margin-left: 10px;"><b>Search Template </b></span>
                                             <table style="width: 100%; margin-left: 5px;margin-right: 5px;">
                                                 <tr id="usrEmailTR" runat="server">
@@ -272,16 +262,18 @@
                                                                     <td><b><u>Template Details:</u></b></td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td style="margin-left: auto; margin-top: auto;">
-                                                                        <asp:GridView ID="grdTemplate" EmptyDataText="No Template Found..." Visible="false" runat="server" Width="95%" HeaderStyle-CssClass="AspNet-GridView"
-                                                                            AllowPaging="True" OnPageIndexChanging="grdTemplate_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
-                                                                           <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
-                                                                            <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
-                                                                            <Columns>
-                                                                                <asp:BoundField HeaderText="Template Name" DataField="template_file_name" />
-                                                                                <asp:BoundField HeaderText="DateAdded" DataField="uploaded_on" />
-                                                                            </Columns>
-                                                                        </asp:GridView>
+                                                                    <td >
+                                                                        <div class="AspNet-GridView">
+                                                                            <asp:GridView ID="grdTemplate" EmptyDataText="No Template Found..."  runat="server" Width="100%" HeaderStyle-CssClass="AspNet-GridView"
+                                                                                AllowPaging="True" OnPageIndexChanging="grdTemplate_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
+                                                                               <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
+                                                                                <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
+                                                                                <Columns>
+                                                                                    <asp:BoundField HeaderStyle-CssClass="specifySearchCol" ItemStyle-CssClass="specifySearch" ItemStyle-Width="160px" HeaderStyle-Width="165px"  HeaderText="Template Name" DataField="template_file_name" />
+                                                                                    <asp:BoundField ItemStyle-Width="200px" HeaderStyle-Width="200px" HeaderText="On Date" DataField="uploaded_on" />
+                                                                                </Columns>
+                                                                            </asp:GridView>
+                                                                            </div>
                                                                     </td>
                                                                 </tr>
                                                             </table>
@@ -524,8 +516,30 @@
         height: 20px;
         word-break: break-all;
         word-wrap: break-word;
-        display: block;
-        border:none;
+        display:inline-block;     
+         white-space: nowrap;
+    }
+            .specifySearch {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-height: 20px;
+        height: 20px;
+        word-break: break-all;
+        word-wrap: break-word;
+        display:inline-block;
+        margin-bottom: 2px;  
+        margin-left:3px;
+         white-space: nowrap;
+    }
+            .specifySearchCol {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-height: 20px;
+        height: 20px;
+        word-break: break-all;
+        word-wrap: break-word;
+        display:inline-block;        
+         white-space: nowrap;
     }
        .messager-body.panel-body.panel-body-noborder.window-body{
             width:278px;

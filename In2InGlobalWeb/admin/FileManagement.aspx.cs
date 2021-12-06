@@ -310,13 +310,25 @@ namespace In2InGlobal.presentation.admin
                         string pathToCheck = filePath + fileName;
                         if (!System.IO.File.Exists(pathToCheck))
                         {
-                            fileUploader.SaveAs(System.IO.Path.Combine(filePath, fileName));
-                            SaveFileDetails(fileName, uploadedBy, today);
+                            using (StreamReader uploadedFS = new StreamReader(fileUploader.PostedFile.InputStream))
+                            {
+                                TextReader uploaderFileTextReader = new StreamReader(uploadedFS.BaseStream);
 
-                            SaveUploadTemplateInformationInDB(fileName, uploadedBy, ddlAssignedProject.SelectedItem.Text);
+                                if (CheckUploadedFileHaveOnlyHeader(uploaderFileTextReader))
+                                {
+                                    _message = "Uploaded Template contains only header.";
+                                   
+                                   
+                                }
+                                else
+                                {
+                                    fileUploader.SaveAs(System.IO.Path.Combine(filePath, fileName));
 
+                                    SaveUploadTemplateInformationInDB(fileName, uploadedBy, ddlAssignedProject.SelectedItem.Text);
+                                }
+                            }
                             _message = "File uploaded Successfully.";
-                            // ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("B"), string.Format("ShowServerMessage('{0}');ShowFileMgnt();", _message), true);
+                            
                         }
                         else
                         {
@@ -327,20 +339,18 @@ namespace In2InGlobal.presentation.admin
                                 if (CheckUploadedFileHaveOnlyHeader(uploaderFileTextReader))
                                 {
                                     _message = "Uploaded Template contains only header.";
-                                    //ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowFileMgnt(); ", _message), true);
+                                    
                                 }
                                 else
                                 {
                                     string _existingFilePath = System.IO.Path.Combine(filePath, fileName);
                                     if (IsBothCSVFileDataAreSame(_existingFilePath))
                                     {
-                                        //replace the file                                       
-                                        fileUploader.SaveAs(System.IO.Path.Combine(filePath, fileName));
-                                        //updating uploadedon field in JSON row data 
-                                        UpdateUploadedFile(fileName, uploadedBy, today);
+                                        
+                                        fileUploader.SaveAs(System.IO.Path.Combine(filePath, fileName));                                       
                                         SaveUploadTemplateInformationInDB(fileName, uploadedBy, ddlAssignedProject.SelectedItem.Text);
                                         _message = "File uploaded Successfully.";
-                                        // ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowFileMgnt(); ", _message), true);
+                                        
                                     }
                                     else
                                     {
@@ -357,8 +367,6 @@ namespace In2InGlobal.presentation.admin
                                         fileName = tempfileName;
                                         fileUploader.SaveAs(Server.MapPath(System.IO.Path.Combine("/admin/uploadedfiles/", fileName)));
 
-                                        SaveFileDetails(fileName, uploadedBy, today);
-
                                         SaveUploadTemplateInformationInDB(fileName, uploadedBy, ddlAssignedProject.SelectedItem.Text);
 
                                         _message = "File uploaded Successfully.";
@@ -369,8 +377,6 @@ namespace In2InGlobal.presentation.admin
                             }
                         }
                     }
-
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString("X"), "<script type=\"text/javascript\">FUcallBack('" + _message + "');</script> ");
 
                 }
                 catch (System.IO.IOException ex)
@@ -904,6 +910,25 @@ namespace In2InGlobal.presentation.admin
             string _message = hdnFUCalBkMsg.Value;
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowFileMgnt(); ", _message), true);
             hdnFUCalBkMsg.Value = "";
+        }
+
+        protected void grdUploadedFiles_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                string upload_status_Img_Url = ((System.Web.UI.WebControls.Image)e.Row.Cells[4].Controls[0]).ImageUrl;
+                if (e.Row.RowState == DataControlRowState.Alternate)
+                {
+                    upload_status_Img_Url = "./img/" + upload_status_Img_Url + "-alt.png";
+                }
+                else
+                {
+                    upload_status_Img_Url = "./img/" + upload_status_Img_Url + ".png";
+                }
+                ((System.Web.UI.WebControls.Image)e.Row.Cells[4].Controls[0]).ImageUrl = upload_status_Img_Url;
+
+
+            }
         }
     }
 }
