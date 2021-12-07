@@ -55,6 +55,7 @@ namespace In2InGlobal.presentation.admin
         /// </summary>
         private void BindMasterTemplateGrid()
         {
+            Session["TemplateInfo"] = null;
             DataSet dsloadTemplate = null;
             TemplateMasterBl templateMasterBL = new TemplateMasterBl();
             try
@@ -62,6 +63,7 @@ namespace In2InGlobal.presentation.admin
                 dsloadTemplate = templateMasterBL.PopulateTemplateGrid();
                 if (dsloadTemplate != null || dsloadTemplate.Tables.Count != 0)
                 {
+                    Session["TemplateInfo"] = dsloadTemplate.Tables[0];
                     grdMasterTemplate.DataSource = dsloadTemplate.Tables[0];
                     grdMasterTemplate.DataBind();
                 }
@@ -95,18 +97,17 @@ namespace In2InGlobal.presentation.admin
         /// populate template name on create template screen
         /// </summary>
         private void BindMasterTemplate()
-        {
-            DataSet dsloadTemplare = GetMasterTemplates();
+        {           
+            DataSet dsloadTemplate = GetMasterTemplates();           
             try
-            {
-                
-                if (dsloadTemplare.Tables[0].Rows.Count > 0)
-                {
+            {                
+                if (dsloadTemplate.Tables[0].Rows.Count > 0)
+                {                   
                     ddlMasterTemplate.Items.Clear();
                     ddlMasterTemplate.DataTextField = "file_name";
                     ddlMasterTemplate.DataValueField = "template_id";
                     ddlMasterTemplate.Items.Add(new ListItem("--Select a Template--"));
-                    ddlMasterTemplate.DataSource = dsloadTemplare.Tables[0];                    
+                    ddlMasterTemplate.DataSource = dsloadTemplate.Tables[0];                    
                     ddlMasterTemplate.DataBind();
                 }
             }
@@ -118,10 +119,10 @@ namespace In2InGlobal.presentation.admin
 
         private DataSet GetMasterTemplates()
         {
-            DataSet dsloadTemplare = new DataSet();
+            DataSet dsloadTemplate = new DataSet();
             TemplateMasterBl templateMasterBL = new TemplateMasterBl();
-            dsloadTemplare = templateMasterBL.PopulateUploadMasterTemplateName();
-            return dsloadTemplare;
+            dsloadTemplate = templateMasterBL.PopulateUploadMasterTemplateName();
+            return dsloadTemplate; 
         }
         
         
@@ -363,7 +364,7 @@ namespace In2InGlobal.presentation.admin
             TemplateMasterEntity tempalteEntity = new TemplateMasterEntity();
             string createdBy = Session["UserEmail"].ToString();
             string templateName = ddlMasterTemplate.SelectedItem.Text;
-            string instruction = txtInstruction.Value;
+            string instruction = txtInstruction.Value;           
             string _message = "Template Created Successfully.";
             try
             {
@@ -374,7 +375,7 @@ namespace In2InGlobal.presentation.admin
                 TemplateMasterBl templateMasterBl = new TemplateMasterBl();
                 if (hdnTID.Value != "")
                 {
-                    tempalteEntity.TemplateId = Convert.ToInt64(hdnTID.Value);
+                    tempalteEntity.TemplateId = Convert.ToInt32(hdnTID.Value);
                     templateMasterBl.UpdateTemplateMaster(tempalteEntity);
                     _message = "Template Updated Successfully";
                 }
@@ -568,15 +569,18 @@ namespace In2InGlobal.presentation.admin
         private string GetMaterTemplateId(string template_name)
         {
             string masterTemplateId = "";
-            DataTable masterTemplateDDLDT = (DataTable)ddlMasterTemplate.DataSource;
+            DataTable masterTemplateDDLDT = (DataTable)Session["TemplateInfo"];
             if (masterTemplateDDLDT == null)
                 BindMasterTemplate();
-            foreach (DataRow dr in masterTemplateDDLDT.Rows)
+            if (masterTemplateDDLDT.Rows.Count > 0)
             {
-                if(dr[1].ToString() == template_name)
+                foreach (DataRow dr in masterTemplateDDLDT.Rows)
                 {
-                    masterTemplateId = dr[0].ToString();
-                    break;
+                    if (dr[1].ToString() == template_name)
+                    {
+                        masterTemplateId = dr[0].ToString();
+                        break;
+                    }
                 }
             }
            

@@ -260,6 +260,37 @@ namespace In2InGlobal.datalink
             }
         }
 
+        public DataSet FMMasterTemplateName() 
+        {
+            BaseRepository baseRepo = new BaseRepository();
+            DataSet dsTemplate = new DataSet();
+            NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
+
+            string query = @"SELECT * FROM dbo.filemastertemplatename()";
+            using (var connection = baseRepo.GetDBConnection())
+            {
+                try
+                {
+                    connection.Open();
+                    NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
+                    npgsqlCommand.CommandType = CommandType.Text;
+                    npgsqlDataAdapter.SelectCommand = npgsqlCommand;
+                    npgsqlDataAdapter.Fill(dsTemplate);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Dispose();
+                    npgsqlDataAdapter.Dispose();
+                }
+                return dsTemplate;
+            }
+        }
+
+
 
         public DataSet PopulateTemplateGridForFileMagement(string userId, int projectId)
         {

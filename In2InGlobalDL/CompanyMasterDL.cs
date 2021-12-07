@@ -152,8 +152,7 @@ namespace In2InGlobal.datalink
                     var result = connection.Query(query, new
                     {
                         companyname = companyEntity.CompanyName,
-                        companylob = companyEntity.LOB, 
-                        //companyphone = companyEntity.CompanyPhone, //we are not capturing phone number anymore
+                        companylob = companyEntity.LOB,                         
                         companyid = companyEntity.CompanyId
                     }, commandType: CommandType.Text
                     );

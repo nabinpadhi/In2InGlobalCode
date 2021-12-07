@@ -156,7 +156,7 @@
                                                                             <td style="width: 30%;margin-left:0px;text-align:left;">
                                                                                 <b>Select Template</b>
                                                                                 <div style="text-align:left;">
-                                                                                    <asp:DropDownList OnSelectedIndexChanged="LoadInstruction" Enabled="false" DataTextField="TemplateName" AutoPostBack="true" DataValueField="Path"  ID="ddlTemplate" AppendDataBoundItems="true" runat="server">
+                                                                                    <asp:DropDownList OnSelectedIndexChanged="LoadInstruction" Enabled="false" DataTextField="file_name" AutoPostBack="true" DataValueField="file_path"  ID="ddlTemplate" AppendDataBoundItems="true" runat="server">
                                                                                         <asp:ListItem Text="--Select a Template--"></asp:ListItem>
                                                                                     </asp:DropDownList>
                                                                                 </div>

@@ -165,6 +165,24 @@ namespace In2InGlobal.businesslogic
         }
 
 
+        public DataSet FMMasterTemplateName() 
+        {
+            DataSet dsTemplategrid = new DataSet();
+            try
+            {
+                TemplateMasterDL objTemplategrid = new TemplateMasterDL();
+                dsTemplategrid = objTemplategrid.FMMasterTemplateName();
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
+            return dsTemplategrid;
+        }
+
+
+
+
         /// <summary>
         /// Populate Template Grid
         /// </summary>

@@ -135,7 +135,7 @@ namespace In2InGlobal.presentation.admin
                 CompanyMasterBL companyMasterBl = new CompanyMasterBL();
                 
                 if (hdnCompanyID.Value != "")
-                {
+                {                  
                     _message = "Company Updated Successfully";
                     companyEntity.CompanyId = Convert.ToInt64(hdnCompanyID.Value);
                     companyMasterBl.UpdateCompany(companyEntity);

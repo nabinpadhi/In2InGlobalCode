@@ -134,42 +134,64 @@ namespace In2InGlobal.presentation.admin
 
         private void LoadTemplates()
         {
-            DataTable dtTemplate = new DataTable();
-            dtTemplate.Columns.Add("TemplateName");
-            dtTemplate.Columns.Add("FilePath");
-            DataTable tblAssignedTemplate = new DataTable();
-            string AssignedTemplateJson = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Template.json");
-            tblAssignedTemplate = JsonConvert.DeserializeObject<DataTable>(AssignedTemplateJson);
-            if (tblAssignedTemplate.Rows.Count > 0)
+            //DataTable dtTemplate = new DataTable();
+            //dtTemplate.Columns.Add("TemplateName");
+            //dtTemplate.Columns.Add("FilePath");
+            //DataTable tblAssignedTemplate = new DataTable();
+            //string AssignedTemplateJson = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Template.json");
+            //tblAssignedTemplate = JsonConvert.DeserializeObject<DataTable>(AssignedTemplateJson);
+            //if (tblAssignedTemplate.Rows.Count > 0)
+            //{
+            //    if (ddlAssignedProject.SelectedIndex > 0)
+            //    {
+            //        if (JsonConvert.DeserializeObject<DataTable>(AssignedTemplateJson).Select("ProjectName='" + ddlAssignedProject.SelectedValue + "'").Length > 0)
+            //        {
+            //            tblAssignedTemplate = tblAssignedTemplate.Select("ProjectName='" + ddlAssignedProject.SelectedValue + "'").CopyToDataTable();
+            //        }
+            //    }
+            //    else
+            //    {
+            //        if (JsonConvert.DeserializeObject<DataTable>(AssignedTemplateJson).Select("Email='" + Session["UserEmail"].ToString() + "'").Length > 0)
+            //        {
+            //            tblAssignedTemplate = tblAssignedTemplate.Select("Email='" + Session["UserEmail"].ToString() + "'").CopyToDataTable();
+            //        }
+            //    }
+            //}
+            //tblAssignedTemplate.Columns.Add("FilePath");
+            //foreach (DataRow dr in tblAssignedTemplate.Rows)
+            //{
+            //    dr.BeginEdit();
+            //    dr["FilePath"] = Server.MapPath("MasterTemplate") + "\\" + dr["TemplateName"] + ".csv";
+            //    dr.EndEdit();
+            //    dr.AcceptChanges();
+            //}
+            //tblAssignedTemplate.AcceptChanges();
+            //ddlTemplate.DataSource = tblAssignedTemplate;
+            //ddlTemplate.DataTextField = "TemplateName";
+            //ddlTemplate.DataValueField = "FilePath";
+            //ddlTemplate.DataBind();
+
+            DataSet dsloadTemplate = new DataSet();
+            TemplateMasterBl templateMasterBL = new TemplateMasterBl();
+            dsloadTemplate = templateMasterBL.FMMasterTemplateName();
+            try
             {
-                if (ddlAssignedProject.SelectedIndex > 0)
+                if (dsloadTemplate.Tables[0].Rows.Count > 0)
                 {
-                    if (JsonConvert.DeserializeObject<DataTable>(AssignedTemplateJson).Select("ProjectName='" + ddlAssignedProject.SelectedValue + "'").Length > 0)
-                    {
-                        tblAssignedTemplate = tblAssignedTemplate.Select("ProjectName='" + ddlAssignedProject.SelectedValue + "'").CopyToDataTable();
-                    }
-                }
-                else
-                {
-                    if (JsonConvert.DeserializeObject<DataTable>(AssignedTemplateJson).Select("Email='" + Session["UserEmail"].ToString() + "'").Length > 0)
-                    {
-                        tblAssignedTemplate = tblAssignedTemplate.Select("Email='" + Session["UserEmail"].ToString() + "'").CopyToDataTable();
-                    }
+                    Session["FMTemplateName"] = dsloadTemplate.Tables[0];
+                    ddlTemplate.Items.Clear();
+                    ddlTemplate.DataTextField = "file_name";
+                    ddlTemplate.DataValueField = "file_path";
+                    ddlTemplate.Items.Add(new ListItem("--Select a Template--"));
+                    ddlTemplate.DataSource = dsloadTemplate.Tables[0];
+                    ddlTemplate.DataBind();
                 }
             }
-            tblAssignedTemplate.Columns.Add("FilePath");
-            foreach (DataRow dr in tblAssignedTemplate.Rows)
+            catch (Exception ex)
             {
-                dr.BeginEdit();
-                dr["FilePath"] = Server.MapPath("MasterTemplate") + "\\" + dr["TemplateName"] + ".csv";
-                dr.EndEdit();
-                dr.AcceptChanges();
+                ex.Message.ToString();
             }
-            tblAssignedTemplate.AcceptChanges();
-            ddlTemplate.DataSource = tblAssignedTemplate;
-            ddlTemplate.DataTextField = "TemplateName";
-            ddlTemplate.DataValueField = "FilePath";
-            ddlTemplate.DataBind();
+
         }
 
         private void LoadTemplatesFromDb()
@@ -236,7 +258,7 @@ namespace In2InGlobal.presentation.admin
             int projectID = 0;
             DataSet dsUserDetails = new DataSet();
             UploadTemplateBL projectBL = new UploadTemplateBL();
-            if (pid == "--Select a Project--")
+            if (pid == "--Select a Project--" || pid == string.Empty)
             {
                 projectID = 0;
             }
@@ -645,16 +667,14 @@ namespace In2InGlobal.presentation.admin
         {
             tplInstruction.InnerHtml = "";
             string templateName = ddlTemplate.SelectedItem.Text;
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/MasterTemplate.json");
+           
 
-            DataTable tblMasterTemple = JsonConvert.DeserializeObject<DataTable>(json);
+            DataTable tblMasterTemple =(DataTable)Session["FMTemplateName"];
             if (tblMasterTemple.Rows.Count > 0)
             {
-                if (tblMasterTemple.Select("TemplateName='" + templateName + "'").Length > 0)
+                if (tblMasterTemple.Select("file_name='" + templateName + "'").Length > 0)
                 {
-                    string instruction = tblMasterTemple.Select("TemplateName='" + templateName + "'")[0]["Instruction"].ToString();
+                    string instruction = tblMasterTemple.Select("file_name='" + templateName + "'")[0]["instruction"].ToString();
                     foreach (string li in instruction.Split('\n'))
                     {
                         tplInstruction.InnerHtml = tplInstruction.InnerHtml + "<li>" + li + "</li>";
