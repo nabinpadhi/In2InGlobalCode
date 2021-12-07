@@ -15,42 +15,135 @@ using System.Net;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Newtonsoft.Json;
-
-public class FileUploadHandler : IHttpHandler
+using System.Text;
+public class FileUploadHandler : IHttpHandler , System.Web.SessionState.IRequiresSessionState
 {
 
     public void ProcessRequest(HttpContext context)
     {
-        string filePath = "./MasterTemplate/";
+        string filePath = context.Request["targetfolder"].ToString(); //"./MasterTemplate/";
         if (context.Request.Files.Count > 0)
         {
-            string uploadedBy = context.Request.QueryString["upb"].ToString();
+            string uploadedBy = HttpContext.Current.Session["UserEmail"].ToString();
             HttpFileCollection files = context.Request.Files;
+            /* Uncomment below commented condition to apply for multiple files*/
             // for (int i = 0; i < files.Count; i++)
             //{
             HttpPostedFile file = files[0];
-            string filePathWithFileName = context.Server.MapPath(filePath + file.FileName);
-            if (CheckUploadedFileHaveOnlyHeader(file))
+
+            if (context.Request["ForScreen"] == "TemplateManagement")
             {
-                file.SaveAs(filePathWithFileName);
-                //call the function to db entry
-
-                SaveUploadMasterTemplateFile(filePath, file.FileName.Replace(".csv",""),uploadedBy);
-
-                context.Response.ContentType = "text/plain";
-                context.Response.Write(GetMasterTemplatesJSON());
-                context.Response.End();
+                StartTemplateManagementTask(context,file, filePath, uploadedBy);
             }
-            else
+            else if(context.Request["ForScreen"] == "FileManagement")
             {
-                context.Response.ContentType = "text/plain";
-                context.Response.Write("Upload Failed : File is not in correct format.");
-                context.Response.End();
+                StartFileManagementTask(context,file, filePath, uploadedBy);
             }
             //}
 
         }
 
+    }
+    private void StartTemplateManagementTask(HttpContext context,HttpPostedFile file,string filePath,string uploadedBy)
+    {
+        if (CheckUploadedFileHaveOnlyHeader(file))
+        {
+            string filePathWithFileName = context.Server.MapPath(filePath + file.FileName);
+            file.SaveAs(filePathWithFileName);
+            SaveUploadMasterTemplateFile(filePath, file.FileName.Replace(".csv", ""), uploadedBy);
+
+            context.Response.ContentType = "text/plain";
+            context.Response.Write(GetMasterTemplatesJSON());
+            context.Response.End();
+        }
+        else
+        {
+            context.Response.ContentType = "text/plain";
+            context.Response.Write("Upload Failed : File is not in correct format.");
+            context.Response.End();
+        }
+
+    }
+    private void StartFileManagementTask(HttpContext context, HttpPostedFile file, string filePath, string uploadedBy)
+    {
+        if (!CheckUploadedFileHaveOnlyHeader(file))
+        {
+            string projectName = context.Session["SelectedProjectName"].ToString();
+            string fileName = file.FileName;
+           
+            fileName = fileName.Replace(".csv", "~" + uploadedBy.Replace(" ", "") + "~" + projectName + ".csv");
+            string filePathWithFileName = context.Server.MapPath(filePath + fileName);
+
+            if (!System.IO.File.Exists(filePathWithFileName))
+            {
+                file.SaveAs(filePathWithFileName);
+                //call the function to db entry
+                SaveUploadTemplateInformationInDB(fileName, uploadedBy, projectName, context);
+
+                context.Response.ContentType = "text/plain";
+                context.Response.Write(GetUploadedFilesJSON(context));
+                context.Response.End();
+            }
+            else
+            {
+                if (IsBothCSVFileDataAreSame(filePathWithFileName, file))
+                {
+                    string tempfileName = "";
+                    int counter = 2;
+                    while (System.IO.File.Exists(filePathWithFileName))
+                    {
+
+                        tempfileName = "V-" + counter.ToString() + "-" + fileName;
+                        filePathWithFileName = filePath + tempfileName;
+                        counter++;
+                    }
+                    fileName = tempfileName;
+
+                    file.SaveAs(context.Server.MapPath(System.IO.Path.Combine(filePath, fileName)));
+                    SaveUploadTemplateInformationInDB(fileName, uploadedBy, projectName, context);
+                }
+                else
+                {
+                    file.SaveAs(filePathWithFileName);
+                    SaveUploadTemplateInformationInDB(fileName, uploadedBy, projectName, context);
+                }
+                context.Response.ContentType = "text/plain";
+                context.Response.Write(GetUploadedFilesJSON(context));
+                context.Response.End();
+
+            }
+        }
+        else
+        {
+            context.Response.ContentType = "text/plain";
+            context.Response.Write("Upload Failed : File is not in correct format.");
+            context.Response.End();
+        }
+
+    }
+
+    private void SaveUploadTemplateInformationInDB(string fileName, string uploadBy, string projectName,HttpContext context)
+    {
+        UploadTemplateEntity templateEntity = new UploadTemplateEntity();
+        try
+        {
+            if (projectName != null && fileName != null)
+            {
+                templateEntity.FileName = fileName;
+                templateEntity.ProjectName = projectName;
+                templateEntity.CreatedBy = uploadBy;
+                templateEntity.RoleName = context.Session["UserRole"].ToString(); ;
+                templateEntity.UserEmail = context.Session["UserEmail"].ToString(); ;
+                templateEntity.Status = "Success";
+
+                UploadTemplateBL uploadTemplateBl = new UploadTemplateBL();
+                uploadTemplateBl.SaveAssignedTemplate(templateEntity);
+            }
+        }
+        catch (Exception ex)
+        {
+            ex.ToString();
+        }
     }
 
     private bool CheckUploadedFileHaveOnlyHeader(HttpPostedFile templateUploadFile)
@@ -98,15 +191,65 @@ public class FileUploadHandler : IHttpHandler
             ex.ToString();
         }
     }
-
- private string GetMasterTemplatesJSON()
+    private bool IsBothCSVFileDataAreSame(string existingFileName,HttpPostedFile Uploadedfile)
     {
-            DataSet dsloadTemplare = new DataSet();
-            TemplateMasterBl templateMasterBL = new TemplateMasterBl();
-            dsloadTemplare = templateMasterBL.PopulateUploadMasterTemplateName();            
-             string JSONresult = JsonConvert.SerializeObject(dsloadTemplare.Tables[0]);
-            return JSONresult;
+        bool _result = true;
+        StreamReader fsOld = new StreamReader(existingFileName);
+        string _existingData = fsOld.ReadToEnd();
+        string _uploadedData = GetUploadedContent(Uploadedfile);
+        if (_existingData != null && _uploadedData != null)
+        {
+            if (_existingData == _uploadedData)
+            {
+                _result = true;
+            }
+            else
+            {
+                _result = false;
+            }
         }
-   
+
+        fsOld.Close();
+        return _result;
+    }
+
+    private string GetUploadedContent(HttpPostedFile file)
+    {
+        int BUFFER_SIZE = file.ContentLength;
+        int nBytesRead = 0;
+        Byte[] Buffer = new Byte[BUFFER_SIZE];
+        StringBuilder strUploadedContent = new StringBuilder("");
+        file.InputStream.Position = 0;
+        Stream theStream = file.InputStream;
+        nBytesRead = theStream.Read(Buffer, 0, BUFFER_SIZE);
+
+        while (0 != nBytesRead)
+        {
+            strUploadedContent.Append(Encoding.ASCII.GetString(Buffer, 0, nBytesRead));
+            nBytesRead = theStream.Read(Buffer, 0, BUFFER_SIZE);
+        }
+        return strUploadedContent.ToString();
+    }
+    private string GetMasterTemplatesJSON()
+    {
+        DataSet dsUploadedTempFiles= new DataSet();
+        TemplateMasterBl templateMasterBL = new TemplateMasterBl();
+        dsUploadedTempFiles = templateMasterBL.PopulateUploadMasterTemplateName();
+        string JSONresult = JsonConvert.SerializeObject(dsUploadedTempFiles.Tables[0]);
+        return JSONresult;
+    }
+    private string GetUploadedFilesJSON(HttpContext context)
+    {
+        string userEmail = context.Session["UserEmail"].ToString();
+        string userRole = context.Session["UserRole"].ToString();
+
+        DataSet dsUploadedFiles = new DataSet();
+        UploadTemplateBL uploadedTempBL = new UploadTemplateBL();
+        dsUploadedFiles = uploadedTempBL.LoadUploadFileTemplateGrid(userRole, userEmail, 0);
+
+        string JSONresult = JsonConvert.SerializeObject(dsUploadedFiles.Tables[0]);
+        return JSONresult;
+    }
+
 
 }  

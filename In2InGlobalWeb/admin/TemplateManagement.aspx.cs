@@ -27,6 +27,9 @@ namespace In2InGlobal.presentation.admin
                 {
                     txtcreatedB.InnerText = Session["UserEmail"].ToString();
                     string usrRole = Session["UserRole"].ToString();
+                    HttpContext.Current.Session["UserEmail"] = Session["UserEmail"].ToString();
+                    HttpContext.Current.Session["UserRole"] = Session["UserRole"].ToString();
+
                     if (usrRole == "Admin")
                     {
                         BindMasterTemplate();
@@ -400,69 +403,7 @@ namespace In2InGlobal.presentation.admin
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void btnUploader_Click(object sender, EventArgs e)
-        {
-            string fileName = "";
-            string _message = "";
-            string filePath = Server.MapPath("MasterTemplate\\");
-            string uploadedBy = "";
-            string today = DateTime.Now.ToShortDateString();
-            Session["servermessage"] = null;
-            hdnFake.Text = "";
-            if (Session["UserRow"] != null)
-            {
-                DataRow usrDataRow = (DataRow)Session["UserRow"];
-
-                uploadedBy = usrDataRow["first_name"].ToString() + " " + usrDataRow["last_name"].ToString();
-                try
-                {
-                    if (templateFileUpload.HasFile)
-                    {
-                        fileName = templateFileUpload.FileName;
-                        string pathToCheck = filePath + fileName;
-                        using (StreamReader uploadedFS = new StreamReader(templateFileUpload.PostedFile.InputStream))
-                        {
-                            TextReader uploaderFileTextReader = new StreamReader(uploadedFS.BaseStream);
-
-                            if (CheckUploadedFileHaveOnlyHeader(uploaderFileTextReader))
-                            {
-
-                                templateFileUpload.SaveAs(System.IO.Path.Combine(filePath, fileName));
-                                //Ganesh - Write function to save the file details.
-                                
-                                 SaveUploadMasterTemplateFile(filePath, fileName);
-                                
-                                _message = "File uploaded Successfully.";
-
-                            }
-                        }
-
-
-                    }
-                    else
-                    {
-                        _message = "Please choose a file again.";
-
-                    }
-                }
-                catch (Exception ex)
-                {
-                    
-                    _message = "Failed to upload choosed file.";
-                }
-                finally
-                {
-                    templateFileUpload.PostedFile.InputStream.Flush();
-                    templateFileUpload.Attributes.Clear();
-                    templateFileUpload = new FileUpload();                    
-                    BindMasterTemplate();
-                }
-                //Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString("X"), "<script type=\"text/javascript\">FUcallBack('" + _message + "');</script> ");
-            }
-            else { Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true); }
-        }
-
-
+       
         private void SaveUploadMasterTemplateFile(string filePath, string fileName)
         {
             try
@@ -511,23 +452,7 @@ namespace In2InGlobal.presentation.admin
             return _result;
         }
 
-        /// <summary>
-        /// hdnFake_Click
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void hdnFake_Click(object sender, EventArgs e)
-        {
-            if (Session["servermessage"] != null)
-            {
-                string servermessge = Session["servermessage"].ToString();
-                ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", servermessge), true);
-
-            }
-            Session["servermessage"] = null;
-            hdnFake.Text = "";
-        }
-
+       
         /// <summary>
         /// grdMasterTemplate RowDataBound
         /// </summary>

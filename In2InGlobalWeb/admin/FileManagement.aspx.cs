@@ -32,9 +32,11 @@ namespace In2InGlobal.presentation.admin
                     BindAssignedUser();
                     string usrRole = Session["UserRole"].ToString();
                     spnCreatedBy.InnerText = Session["UserEmail"].ToString();
-                    spnProjectName.InnerText = GenerateProjectName();
-                    hdnPName.Value = spnProjectName.InnerText;
-                    BindProjectGrid();
+                    spnProjectName.InnerText = GenerateProjectName();                    
+                    BindProjectGrid();                    
+                    HttpContext.Current.Session["SelectedProjectName"] = null;
+                    HttpContext.Current.Session["UserEmail"] = Session["UserEmail"].ToString();
+                    HttpContext.Current.Session["UserRole"] = Session["UserRole"].ToString();
 
                     if (usrRole == "Admin")
                     {
@@ -692,14 +694,14 @@ namespace In2InGlobal.presentation.admin
         {
             if (ddlAssignedProject.SelectedIndex > 0)
             {
-                btnUploader.Enabled = true;
+                btnUpload.Enabled = true;
                 fileUploader.Enabled = true;
                 ddlTemplate.Enabled = true;
                 btnDownload.Enabled = true;
             }
             else
             {
-                btnUploader.Enabled = false;
+                btnUpload.Enabled = false;
                 fileUploader.Enabled = false;
                 ddlTemplate.SelectedIndex = 0;
                 ddlTemplate.Enabled = false;
@@ -707,6 +709,8 @@ namespace In2InGlobal.presentation.admin
             }
 
             BindFileGrid(ddlAssignedProject.SelectedValue);
+            Session["SelectedProjectName"] = ddlAssignedProject.SelectedItem.Text;
+           
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "ShowFileMgnt();", true);
 
         }
@@ -727,7 +731,7 @@ namespace In2InGlobal.presentation.admin
 
             grdProject.DataSource = dsUserDetails.Tables[0];
             grdProject.DataBind();
-            ViewState["dirProject"] = dsUserDetails.Tables[0];
+            
         }
 
         private string GenerateProjectName()
@@ -781,20 +785,23 @@ namespace In2InGlobal.presentation.admin
             ProjectEntity projectEntitiy = new ProjectEntity();
             try
             {
-                projectEntitiy.ProjectName = spnProjectName.InnerText;
+               
                 projectEntitiy.CreatedBy = Session["UserEmail"].ToString();
                 projectEntitiy.Description = txtDescription.Value;
                 projectEntitiy.UserRole = Session["UserRole"].ToString();
                 projectEntitiy.UserEmail = Session["UserEmail"].ToString();
                 if (hdnProjectToEdit.Value == "")
                 {
+                    projectEntitiy.ProjectName = spnProjectName.InnerText;
                     projectBL.SaveProjectMaster(projectEntitiy);
                     _message = "Project Created Successfully.)";
                 }
                 else
                 {
+                    projectEntitiy.ProjectName = hdnProjectToEdit.Value;
                     projectBL.UpdateProjectMaster(projectEntitiy);
                     _message = "Project updated Successfully.)";
+                    hdnProjectToEdit.Value = "";
                 }
             }
             catch (Exception ex)
@@ -806,34 +813,17 @@ namespace In2InGlobal.presentation.admin
             if (grdProject.PageCount > 1)
                 grdProject.PageIndex = grdProject.PageCount - 1;
             spnProjectName.InnerText = GenerateProjectName();
-
+            txtDescription.Value = "";
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowProjectMgnt(); ", _message), true);
         }
 
         protected void grdProject_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-
-
-            if (ViewState["SortExpression"] == null)
-                ViewState["SortExpression"] = "project_name";
-            DataTable dtrslt = (DataTable)ViewState["dirProject"];
-            if (dtrslt.Rows.Count > 0)
-            {
-                if (Convert.ToString(ViewState["cursortdr"]) == "Asc")
-                {
-                    dtrslt.DefaultView.Sort = ViewState["SortExpression"] + " Desc";
-                    ViewState["sortdr"] = "Desc";
-                }
-                else
-                {
-                    dtrslt.DefaultView.Sort = ViewState["SortExpression"] + " Asc";
-                    ViewState["sortdr"] = "Asc";
-                }
+          
                 grdProject.PageIndex = e.NewPageIndex;
-                grdProject.DataSource = dtrslt;
+                BindProjectGrid();
                 grdProject.DataBind();
-            }
-
+           
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), "ShowProjectMgnt();", true);
 
         }
@@ -847,32 +837,7 @@ namespace In2InGlobal.presentation.admin
             string _message = "Project removed successfully.";
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowProjectMgnt();", _message), true);
         }
-        protected void grdProject_Sorting(object sender, GridViewSortEventArgs e)
-        {
-            DataTable dtrslt = (DataTable)ViewState["dirProject"];
-            ViewState["SortExpression"] = e.SortExpression;
-            if (dtrslt.Rows.Count > 0)
-            {
-                if (Convert.ToString(ViewState["sortdr"]) == "Asc")
-                {
-                    dtrslt.DefaultView.Sort = e.SortExpression + " Desc";
-                    ViewState["sortdr"] = "Desc";
-                    ViewState["cursortdr"] = "Asc";
-                }
-                else
-                {
-                    dtrslt.DefaultView.Sort = e.SortExpression + " Asc";
-                    ViewState["sortdr"] = "Asc";
-                    ViewState["cursortdr"] = "Desc";
-                }
-
-                grdProject.DataSource = dtrslt;
-                grdProject.DataBind();
-            }
-
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), "ShowProjectMgnt();", true);
-        }
-
+      
         protected void grdProject_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -922,18 +887,11 @@ namespace In2InGlobal.presentation.admin
                 DeleteProject(hdnPID.Value);
             }
             BindProjectGrid();
+            txtDescription.Value = "";
             string _message = "Project deleted successfully.";
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowProjectMgnt(); ", _message), true);
 
         }
-
-        protected void btnFUCalbk_Click(object sender, EventArgs e)
-        {
-            string _message = hdnFUCalBkMsg.Value;
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowFileMgnt(); ", _message), true);
-            hdnFUCalBkMsg.Value = "";
-        }
-
         protected void grdUploadedFiles_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -951,6 +909,12 @@ namespace In2InGlobal.presentation.admin
 
 
             }
+        }
+
+        protected void btnRefresh_Click(object sender, ImageClickEventArgs e)
+        {
+            BindFileGrid("");
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "ShowFileMgnt();", true);
         }
     }
 }

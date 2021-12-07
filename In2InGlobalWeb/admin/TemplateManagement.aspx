@@ -13,18 +13,7 @@
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
     <script src="../scripts/Validation.js" type="text/javascript" lang="javascript"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" />
-    <link href="css/Grid.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript">
-        function FUcallBack(msg) {
-
-            document.getElementById("hdnFUCalBkMsg").value = msg;
-            if (msg != "") {
-                document.getElementById('<%= btnFUCalbk.ClientID %>').click();
-            }
-            msg = "";
-            document.getElementById("hdnFUCalBkMsg").value = "";
-        }
-    </script>
+    <link href="css/Grid.css" rel="stylesheet" type="text/css" />   
 </head>
 <body>
     <form id="form1" runat="server">
@@ -33,8 +22,7 @@
                 <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height: 40px; padding-top: 10px;"><span class="menu_frame_title">Template Management</span></div>
                 <asp:ScriptManager ID="Templatescriptmanager" runat="server">                    
                 </asp:ScriptManager>              
-                <asp:UpdatePanel  ID="pdnlTemplate" runat="server">   
-                    <Triggers><asp:PostBackTrigger ControlID="btnUploader" /></Triggers>
+                <asp:UpdatePanel  ID="pdnlTemplate" runat="server">                    
                     <ContentTemplate>
                            <asp:Button style="display:none" Text="Delete" OnClientClick="return true;" OnClick="btnFUCalbk_Click" ID="btnFUCalbk" runat="server" />
                             <asp:HiddenField ID="hdnFUCalBkMsg" Value="" runat="server" />
@@ -51,15 +39,7 @@
                                     <td style="width:85%;">                                      
                                         <center>                                           
                                             <div style="width: 60%;border: 1px solid black; border-radius: 5px; margin-top: 5px;">
-                                                <table style="width:100%;">
-                                                    <tr><td style="width:25%">Template Files</td>
-                                                        <td style="width:5%">:</td>
-                                                        <td style="width:70%"><asp:FileUpload accept=".csv" ID="templateFileUpload" runat="server" /></td>
-                                                        <td>
-                                                            <asp:Button ID="btnUploader" class="button" OnClientClick="return VerifyFile();" OnClick="btnUploader_Click"  runat="server" Text="Upload" />
-                                                            <asp:Button ID="hdnFake" Text="" EnableViewState="true" runat="server" Visible="false" OnClick="hdnFake_Click" />
-                                                        </td>
-                                                    </tr>
+                                                <table style="width:100%;">                                                    
                                                      <tr><td style="width:25%">Template Files</td>
                                                         <td style="width:5%">:</td>
                                                         <td style="width:70%"><asp:FileUpload  accept=".csv" ID="tmpltFU" runat="server" /></td>
@@ -121,11 +101,12 @@
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2">
+                                                            <center>
                                                             <div style="margin-top: 0px;">
                                                                     <asp:Button  ID="btnCreate" runat="server" OnClientClick="return ValidateMasterTemplate();" OnClick="btnCreate_Click"  CssClass="button" Text="Create" />
-                                                                    <input type="button" class="button" style="margin-left: 10px;" value="Cancel" onclick="ClearAll();" />                                                                    
-                                                              
+                                                                    <input type="button" class="button" style="margin-left: 10px;" value="Cancel" onclick="ClearAll();" />                                                                                                                                  
                                                             </div>
+                                                            </center>
                                                         </td>
                                                     </tr>                                                    
                                                 </table>
@@ -324,8 +305,9 @@
             }
             $('#txtInstruction').val(instruction);
             document.getElementById("hdnMTName").value = templatename;
-            $('#btnCreate').val('Save');
-            $('#ddlMasterTemplate').val(master_template_id);
+            $('#btnCreate').val('Update');
+            $('#ddlMasterTemplate').prop('selectedIndex', 0);
+            $('#ddlMasterTemplate').enable = false;
         }
         function ClearAll() {
 
@@ -542,12 +524,15 @@
                 var files = fileUpload.files;
 
                 var data = new FormData();
+                data.append("targetfolder", "./MasterTemplate/");
+                data.append("UploadedBy", $('#txtcreatedB').text());
+                data.append("ForScreen", "TemplateManagement");
                 for (var i = 0; i < files.length; i++) {
                     data.append(files[i].name, files[i]);
                 }
-
+               
                 $.ajax({
-                    url: "FileUploadHandler.ashx?upb=" + $('#txtcreatedB').text(),
+                    url: "FileUploadHandler.ashx",
                     type: "POST",
                     data: data,
                     contentType: false,

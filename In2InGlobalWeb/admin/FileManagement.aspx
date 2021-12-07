@@ -24,14 +24,13 @@
                     <asp:ScriptManager ID="scriptmanager1" runat="server">
                 </asp:ScriptManager>                
                 <asp:UpdatePanel ID="pdnlFileMgnt" runat="server">
-                    <Triggers><asp:PostBackTrigger ControlID="btnDownload" /></Triggers>
-                    <Triggers><asp:PostBackTrigger ControlID="btnUploader" /></Triggers>
+                     <Triggers><asp:PostBackTrigger ControlID="btnDownload" /></Triggers>                    
                     <ContentTemplate> 
                          <div style="border-bottom:0 solid gray;display:flex;padding:2px;width:auto;">
                             <div id="btnProjectMgnt" onclick="ShowProjectMgnt();" class="PanelTab" style="background-color:azure;color:blue;">Project Management</div>
                             <div id="btnFileMgnt" onclick="ShowFileMgnt();" class="PanelTab">File Management</div>                          
                         </div>
-                        <asp:Button style="display:none" Text="Delete" OnClientClick="return true;" OnClick="btnFUCalbk_Click" ID="btnFUCalbk" runat="server"></asp:Button>
+                       
                         <asp:HiddenField ID="hdnFUCalBkMsg" Value="" runat="server" />
                         <div title="Project Management" class="projectmgnt" style="background-color: azure;color:blue;">
                                <table style="width: 100%; background-color: azure;">
@@ -94,11 +93,9 @@
                                         <center>
                                             <div style="width: 70%; border: 1px solid black; border-radius: 5px; margin-top:5px; margin-bottom:10px;"> 
                                                 <div class="AspNet-GridView">
-                                                <asp:GridView DataKeyNames="project_id" ID="grdProject" runat="server" Width="100%" AllowPaging="True" 
-                                                     AllowSorting="true" OnSorting="grdProject_Sorting" OnRowDataBound="grdProject_RowDataBound"
+                                                <asp:GridView DataKeyNames="project_id" ID="grdProject" runat="server" Width="100%" AllowPaging="True" OnRowDataBound="grdProject_RowDataBound"
                                                     OnPageIndexChanging="grdProject_PageIndexChanging"  AutoGenerateColumns="false" PageSize="4"
-                                                    HeaderStyle-CssClass="AspNet-GridView" EmptyDataText="No file has been uploaded." SortedAscendingCellStyle-CssClass="SortedAscendingHeaderStyle" 
-                                                    SortedDescendingCellStyle-CssClass="SortedDescendingHeaderStyle">
+                                                    HeaderStyle-CssClass="AspNet-GridView" EmptyDataText="No file has been uploaded." >
                                                      <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
                                                      <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
                                                     <Columns>                                                      
@@ -138,21 +135,22 @@
                                     <td style="width: 70%;">                                                                
                                         <table style="width: 100%;">                               
                                             <tr>
-                                                <td colspan="2" style="text-align: center;">
+                                                <td style="text-align: center;">
                                                     <div style="border: 1px solid black; margin-left: auto; margin-right: auto; border-radius: 5px">
                                                         <table style="width: 100%; margin-top: auto; margin-left: auto; margin-right: auto;">
                                                             <tr>
                                                                 <td style="width: 60%; vertical-align:top;">
                                                                     <table style="width: 100%;">
                                                                         <tr>
-                                                                            <td style="width: 30%;text-align:left;padding-left:25px;">
+                                                                            <td style="width: 25%;text-align:left;padding-left:25px;">
                                                                                  <b>Select Project</b>
                                                                                 <div style="width:100px;text-align:left;">
                                                                                     <asp:DropDownList AutoPostBack="true" OnSelectedIndexChanged="ddlAssignedProject_SelectedIndexChanged"  DataValueField="ProjectName" DataTextField="ProjectName"  ID="ddlAssignedProject" AppendDataBoundItems="true" runat="server">
                                                                                         <asp:ListItem Text="--Select a Project--"></asp:ListItem>
                                                                                     </asp:DropDownList>
                                                                                 </div>
-                                                                            </td>                                                                            
+                                                                            </td> 
+                                                                            
                                                                             <td style="width: 30%;margin-left:0px;text-align:left;">
                                                                                 <b>Select Template</b>
                                                                                 <div style="text-align:left;">
@@ -199,10 +197,11 @@
                                                                                 <asp:FileUpload ID="fileUploader" accept=".csv" Enabled="false" runat="server" />                                                                                                                                                    
                                                                             </td>
                                                                             <td>
-                                                                                <asp:Button ID="btnUploader" Enabled="false" class="button" OnClientClick="return VerifyFile();"  runat="server" Text="Upload" OnClick="btnUploader_Click" style="width:70px;padding-left:15px;" />
+                                                                                 <asp:Button ID="btnUpload" OnClientClick="javascript:StartUploading();return false;"  style="width:70px;padding-left:15px;" class="button" Enabled="false" runat="server" Text="Upload" />
                                                                             </td>
                                                                 
                                                                             <td>
+                                                                                <asp:ImageButton runat="server" ID="btnRefresh" ToolTip="Refresh" ImageUrl="~/admin/img/refresh.jpg" Width="30px" BorderStyle="None" OnClick="btnRefresh_Click" />
                                                                             </td>
 
                                                                         </tr>
@@ -313,6 +312,7 @@
         }); 
         ShowProjectMgnt();
         ClearProject();
+       
     });
      function In2InGlobalConfirm(pName, pID) {
 
@@ -367,7 +367,7 @@
          $('#txtDescription').val(description);
          $('#txtCreatedBy').val(createdby);
          $('#btnCreateProject').val('Update');
-
+         
          return false;
      }
      function AddProject() {
@@ -475,6 +475,7 @@
          $('.messager-body.panel-body.panel-body-noborder.window-body').css('height', '32px');
          $('.messager-body.panel-body.panel-body-noborder.window-body').css('width', '275px');
      }
+
      function ShowHidden() { }
 
      (function (i, s, o, g, r, a, m) {
@@ -486,6 +487,98 @@
 
      ga('create', 'UA-64633646-1', 'auto');
      ga('send', 'pageview');
+     /*
+     $("#btnUpload").click(function (evt) {
+         alert(evt);
+         if (VerifyFile()) {
+
+             var fileUpload = $("#fileUploader").get(0);
+             var files = fileUpload.files;
+
+             var data = new FormData();
+             data.append("targetfolder", "./uploadedFiles/");
+             data.append("UploadedBy", $('#txtcreatedB').text());
+             data.append("ForScreen", "FileManagement");
+
+             for (var i = 0; i < files.length; i++) {
+                 data.append(files[i].name, files[i]);
+             }
+
+             $.ajax({
+                 url: "FileUploadHandler.ashx",
+                 type: "POST",
+                 data: data,
+                 contentType: false,
+                 processData: false,
+                 success: function (result) {
+
+                     if (result != '') {
+
+                         alert(result);
+                         ShowServerMessage("File(s) Uploaded Successfully.");
+                         $("#fileUploader").val('');
+                     }
+
+                 },
+                 error: function (err) {
+                     ShowServerMessage(err.statusText);
+                 },
+                 complete: function (data) {
+
+                     ShowCreateTemplate();
+
+                 }
+             });
+
+         }
+
+         evt.preventDefault();
+     }); */
+     function StartUploading() {
+
+         if (VerifyFile()) {
+
+             var fileUpload = $("#fileUploader").get(0);
+             var files = fileUpload.files;
+
+             var data = new FormData();
+             data.append("targetfolder", "./uploadedFiles/");
+             data.append("UploadedBy", $('#spnCreatedBy').text());
+             data.append("ForScreen", "FileManagement");
+
+             for (var i = 0; i < files.length; i++) {
+                 data.append(files[i].name, files[i]);
+             }
+
+             $.ajax({
+                 url: "FileUploadHandler.ashx",
+                 type: "POST",
+                 data: data,
+                 contentType: false,
+                 processData: false,
+                 success: function (result) {
+
+                     if (result != '') {
+
+                       
+                         ShowServerMessage("File(s) Uploaded Successfully.");
+                         $("#fileUploader").val('');
+                     }
+
+                 },
+                 error: function (err) {
+                     ShowServerMessage(err.statusText);
+                 },
+                 complete: function (data) {
+
+                     ShowCreateTemplate();
+
+                 }
+             });
+
+         }
+
+     }
  </script>
        <style type="text/css">
         body {

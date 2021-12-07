@@ -40,15 +40,6 @@ namespace In2InGlobal.presentation.admin {
         protected global::System.Web.UI.UpdatePanel pdnlFileMgnt;
         
         /// <summary>
-        /// btnFUCalbk control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnFUCalbk;
-        
-        /// <summary>
         /// hdnFUCalBkMsg control.
         /// </summary>
         /// <remarks>
@@ -184,13 +175,22 @@ namespace In2InGlobal.presentation.admin {
         protected global::System.Web.UI.WebControls.FileUpload fileUploader;
         
         /// <summary>
-        /// btnUploader control.
+        /// btnUpload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUploader;
+        protected global::System.Web.UI.WebControls.Button btnUpload;
+        
+        /// <summary>
+        /// btnRefresh control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnRefresh;
         
         /// <summary>
         /// tplInstruction control.

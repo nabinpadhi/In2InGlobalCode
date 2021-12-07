@@ -105,13 +105,13 @@
     <Content Include="admin\img\loading.gif" />
     <Content Include="admin\img\no-pencil-sign.png" />
     <Content Include="admin\img\processing.gif" />
+    <Content Include="admin\img\refresh.jpg" />
     <Content Include="admin\img\success-alt.png" />
     <Content Include="admin\js\jquery-ui.js" />
     <Content Include="admin\js\jquery.easyui.min.js" />
     <Content Include="admin\js\jquery.min.js" />
     <Content Include="admin\js\jquery.panel.js" />
     <Content Include="admin\js\jquery.window.js" />
-    <Content Include="admin\ProjectManagement.aspx" />
     <Content Include="admin\css\multi-styles.css" />
     <Content Include="admin\DisplayCSV.aspx" />
     <Content Include="admin\dropzone\basic.css" />
@@ -1731,16 +1731,6 @@
     <Compile Include="admin\FileUploadHandler.ashx.cs">
       <DependentUpon>FileUploadHandler.ashx</DependentUpon>
     </Compile>
-    <Compile Include="admin\GetMasterDataHandler.ashx.cs">
-      <DependentUpon>GetMasterDataHandler.ashx</DependentUpon>
-    </Compile>
-    <Compile Include="admin\ProjectManagement.aspx.cs">
-      <DependentUpon>ProjectManagement.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="admin\ProjectManagement.aspx.designer.cs">
-      <DependentUpon>ProjectManagement.aspx</DependentUpon>
-    </Compile>
     <Compile Include="admin\DisplayCSV.aspx.cs">
       <DependentUpon>DisplayCSV.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1884,7 +1874,6 @@
     <Content Include="admin\MasterTemplate\Purchasing.csv" />
     <Content Include="admin\MasterTemplate\Spend_Analytics.csv" />
     <Content Include="admin\FileUploadHandler.ashx" />
-    <Content Include="admin\GetMasterDataHandler.ashx" />
     <None Include="font\fontawesome-webfont.ttf" />
     <None Include="font\fontawesome-webfont.woff" />
     <None Include="GoogleFont\2UX7WLTfW3W8TclTUvlFyQ.woff" />
