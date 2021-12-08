@@ -37,6 +37,9 @@ namespace In2InGlobal.presentation.admin
                     HttpContext.Current.Session["SelectedProjectName"] = null;
                     HttpContext.Current.Session["UserEmail"] = Session["UserEmail"].ToString();
                     HttpContext.Current.Session["UserRole"] = Session["UserRole"].ToString();
+                    HttpContext.Current.Session["targetfolder"] = "./uploadedFiles/";
+                    HttpContext.Current.Session["UploadedBy"] = Session["UserEmail"].ToString();
+                    HttpContext.Current.Session["ForScreen"] = "FileManagement";
 
                     if (usrRole == "Admin")
                     {
@@ -62,6 +65,10 @@ namespace In2InGlobal.presentation.admin
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
                 }
+            }
+            if(Request.Form["__EVENTTARGET"] == "ddlTemplate")
+            {
+                ddlTemplate_SelectedIndexChanged(ddlTemplate, null);
             }
         }
 
@@ -181,12 +188,10 @@ namespace In2InGlobal.presentation.admin
                 if (dsloadTemplate.Tables[0].Rows.Count > 0)
                 {
                     Session["FMTemplateName"] = dsloadTemplate.Tables[0];
-                    ddlTemplate.Items.Clear();
-                    ddlTemplate.DataTextField = "file_name";
-                    ddlTemplate.DataValueField = "file_path";
-                    ddlTemplate.Items.Add(new ListItem("--Select a Template--"));
+                    ddlTemplate.Items.Clear();                                     
                     ddlTemplate.DataSource = dsloadTemplate.Tables[0];
                     ddlTemplate.DataBind();
+                    ddlTemplate.Items.Insert(0, new ListItem("--Select a Template--"));
                 }
             }
             catch (Exception ex)
@@ -195,22 +200,6 @@ namespace In2InGlobal.presentation.admin
             }
 
         }
-
-        private void LoadTemplatesFromDb()
-        {
-            DataSet dsloadTemplare = new DataSet();
-            TemplateMasterBl templateMasterBL = new TemplateMasterBl();
-
-            dsloadTemplare = templateMasterBL.PopulateUploadMasterTemplateName();
-            if (dsloadTemplare.Tables[0].Rows.Count > 0)
-            {
-                ddlTemplate.DataSource = dsloadTemplare;
-                ddlTemplate.DataTextField = "file_name";
-                ddlTemplate.DataValueField = "file_path";
-                ddlTemplate.DataBind();
-            }
-        }
-
 
         private void BindFileGrid(string pid)
         {
@@ -646,7 +635,9 @@ namespace In2InGlobal.presentation.admin
             try
             {
                 System.IO.FileStream fs = null;
-                fs = System.IO.File.Open(ddlTemplate.SelectedValue, System.IO.FileMode.Open);
+               
+                string fileToOpen = Server.MapPath("MasterTemplate") + "\\" + ddlTemplate.SelectedItem.Text + ".csv";
+                fs = System.IO.File.Open(fileToOpen, System.IO.FileMode.Open);
                 byte[] btFile = new byte[fs.Length];
                 fs.Read(btFile, 0, Convert.ToInt32(fs.Length));
                 fs.Close();
@@ -665,31 +656,6 @@ namespace In2InGlobal.presentation.admin
         }
 
 
-        protected void LoadInstruction(object sender, EventArgs e)
-        {
-            tplInstruction.InnerHtml = "";
-            string templateName = ddlTemplate.SelectedItem.Text;
-           
-
-            DataTable tblMasterTemple =(DataTable)Session["FMTemplateName"];
-            if (tblMasterTemple.Rows.Count > 0)
-            {
-                if (tblMasterTemple.Select("file_name='" + templateName + "'").Length > 0)
-                {
-                    string instruction = tblMasterTemple.Select("file_name='" + templateName + "'")[0]["instruction"].ToString();
-                    foreach (string li in instruction.Split('\n'))
-                    {
-                        tplInstruction.InnerHtml = tplInstruction.InnerHtml + "<li>" + li + "</li>";
-                    }
-                }
-            }
-            else
-            {
-                tplInstruction.InnerHtml = "<li>No Instruction Found.</li>";
-            }
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "ShowFileMgnt();", true);
-        }
-
         protected void ddlAssignedProject_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlAssignedProject.SelectedIndex > 0)
@@ -703,13 +669,12 @@ namespace In2InGlobal.presentation.admin
             {
                 btnUpload.Enabled = false;
                 fileUploader.Enabled = false;
-                ddlTemplate.SelectedIndex = 0;
                 ddlTemplate.Enabled = false;
                 btnDownload.Enabled = false;
             }
 
             BindFileGrid(ddlAssignedProject.SelectedValue);
-            Session["SelectedProjectName"] = ddlAssignedProject.SelectedItem.Text;
+            HttpContext.Current.Session["SelectedProjectName"] = ddlAssignedProject.SelectedItem.Text;
            
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "ShowFileMgnt();", true);
 
@@ -847,11 +812,11 @@ namespace In2InGlobal.presentation.admin
                 string updatedBy = Session["UserEmail"].ToString();
                 DataTable grdDSTable = (DataTable)grdProject.DataSource;
 
-                string instuction = e.Row.Cells[2].Text.Replace("\n", "<br>");
+                string description = e.Row.Cells[2].Text.Replace("\n", "<br>");
                 foreach (Button editButton in e.Row.Cells[3].Controls.OfType<Button>())
                 {
                     editButton.UseSubmitBehavior = false;
-                    editButton.Attributes["onclick"] = "return PullDataToEdit('" + projectname + "','" + updatedBy + "','" + instuction + "');";
+                    editButton.Attributes["onclick"] = "return PullDataToEdit('" + projectname + "','" + updatedBy + "','" + description + "');";
                 }
                 foreach (Button delbutton in e.Row.Cells[4].Controls.OfType<Button>())
                 {
@@ -914,6 +879,32 @@ namespace In2InGlobal.presentation.admin
         protected void btnRefresh_Click(object sender, ImageClickEventArgs e)
         {
             BindFileGrid("");
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "ShowFileMgnt();", true);
+        }
+
+        protected void ddlTemplate_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tplInstruction.InnerHtml = "";
+            string templateName = ddlTemplate.SelectedItem.Text;
+            int _selIndex = ddlTemplate.SelectedIndex;
+
+            DataTable tblMasterTemple = (DataTable)Session["FMTemplateName"];
+            if (tblMasterTemple.Rows.Count > 0)
+            {
+                if (tblMasterTemple.Select("file_name='" + templateName + "'").Length > 0)
+                {
+                    string instruction = tblMasterTemple.Select("file_name='" + templateName + "'")[0]["instruction"].ToString();
+                    foreach (string li in instruction.Split('\n'))
+                    {
+                        tplInstruction.InnerHtml = tplInstruction.InnerHtml + "<li>" + li + "</li>";
+                    }
+                }
+            }
+            else
+            {
+                tplInstruction.InnerHtml = "<li>No Instruction Found.</li>";
+            }
+           
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "ShowFileMgnt();", true);
         }
     }

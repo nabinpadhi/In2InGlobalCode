@@ -42,7 +42,7 @@
                                                 <table style="width:100%;">                                                    
                                                      <tr><td style="width:25%">Template Files</td>
                                                         <td style="width:5%">:</td>
-                                                        <td style="width:70%"><asp:FileUpload  accept=".csv" ID="tmpltFU" runat="server" /></td>
+                                                        <td style="width:70%"><asp:FileUpload   accept=".csv" ID="tmpltFU" runat="server" /></td>
                                                         <td>
                                                             <asp:Button ID="btnUpload" class="button" runat="server" Text="Upload" />
                                                            
@@ -524,12 +524,14 @@
                 var files = fileUpload.files;
 
                 var data = new FormData();
-                data.append("targetfolder", "./MasterTemplate/");
-                data.append("UploadedBy", $('#txtcreatedB').text());
-                data.append("ForScreen", "TemplateManagement");
                 for (var i = 0; i < files.length; i++) {
                     data.append(files[i].name, files[i]);
                 }
+                //moved  below parameters to session variables.
+               /* data.append("targetfolder", "./mastertemplate/");
+                data.append("uploadedby", $('#txtcreatedb').text());
+                data.append("forscreen", "templatemanagement");*/
+               
                
                 $.ajax({
                     url: "FileUploadHandler.ashx",

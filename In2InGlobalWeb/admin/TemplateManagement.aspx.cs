@@ -21,6 +21,8 @@ namespace In2InGlobal.presentation.admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            
+
             if (!IsPostBack)
             {
                 if (Session["UserRole"] != null)
@@ -29,6 +31,9 @@ namespace In2InGlobal.presentation.admin
                     string usrRole = Session["UserRole"].ToString();
                     HttpContext.Current.Session["UserEmail"] = Session["UserEmail"].ToString();
                     HttpContext.Current.Session["UserRole"] = Session["UserRole"].ToString();
+                    HttpContext.Current.Session["targetfolder"] = "./MasterTemplate/";
+                    HttpContext.Current.Session["UploadedBy"] = Session["UserEmail"].ToString();
+                    HttpContext.Current.Session["ForScreen"] = "TemplateManagement";
 
                     if (usrRole == "Admin")
                     {

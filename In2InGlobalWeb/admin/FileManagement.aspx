@@ -30,8 +30,7 @@
                             <div id="btnProjectMgnt" onclick="ShowProjectMgnt();" class="PanelTab" style="background-color:azure;color:blue;">Project Management</div>
                             <div id="btnFileMgnt" onclick="ShowFileMgnt();" class="PanelTab">File Management</div>                          
                         </div>
-                       
-                        <asp:HiddenField ID="hdnFUCalBkMsg" Value="" runat="server" />
+                        
                         <div title="Project Management" class="projectmgnt" style="background-color: azure;color:blue;">
                                <table style="width: 100%; background-color: azure;">
                                 <tr>
@@ -145,7 +144,7 @@
                                                                             <td style="width: 25%;text-align:left;padding-left:25px;">
                                                                                  <b>Select Project</b>
                                                                                 <div style="width:100px;text-align:left;">
-                                                                                    <asp:DropDownList AutoPostBack="true" OnSelectedIndexChanged="ddlAssignedProject_SelectedIndexChanged"  DataValueField="ProjectName" DataTextField="ProjectName"  ID="ddlAssignedProject" AppendDataBoundItems="true" runat="server">
+                                                                                    <asp:DropDownList AutoPostBack="true" OnSelectedIndexChanged="ddlAssignedProject_SelectedIndexChanged" EnableViewState="true"  DataValueField="ProjectName" DataTextField="ProjectName"  ID="ddlAssignedProject" AppendDataBoundItems="true" runat="server">
                                                                                         <asp:ListItem Text="--Select a Project--"></asp:ListItem>
                                                                                     </asp:DropDownList>
                                                                                 </div>
@@ -154,7 +153,7 @@
                                                                             <td style="width: 30%;margin-left:0px;text-align:left;">
                                                                                 <b>Select Template</b>
                                                                                 <div style="text-align:left;">
-                                                                                    <asp:DropDownList OnSelectedIndexChanged="LoadInstruction" Enabled="false" DataTextField="file_name" AutoPostBack="true" DataValueField="file_path"  ID="ddlTemplate" AppendDataBoundItems="true" runat="server">
+                                                                                    <asp:DropDownList OnSelectedIndexChanged="ddlTemplate_SelectedIndexChanged" EnableViewState="true" Enabled="false" DataTextField="file_name" AutoPostBack="true" DataValueField="file_name"  ID="ddlTemplate" AppendDataBoundItems="true" runat="server">
                                                                                         <asp:ListItem Text="--Select a Template--"></asp:ListItem>
                                                                                     </asp:DropDownList>
                                                                                 </div>
@@ -170,7 +169,7 @@
                                                                                         <div class="AspNet-GridView">
                                                                                         <asp:GridView DataKeyNames="project_id" ID="grdUploadedFiles" runat="server" Width="100%" HeaderStyle-CssClass="AspNet-GridView"
                                                                                             AllowPaging="True" RowStyle-Wrap="false" HeaderStyle-Wrap="false" EmptyDataText="No file found uploaded by you." 
-                                                                                            OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" OnRowDataBound="grdUploadedFiles_RowDataBound" AutoGenerateColumns="false" PageSize="8">
+                                                                                            OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" OnRowDataBound="grdUploadedFiles_RowDataBound" AutoGenerateColumns="false" PageSize="6">
                                                                                             <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
                                                                                             <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
                                                                                             <Columns>
@@ -361,7 +360,7 @@
      }
      function PullDataToEdit(projectname, createdby, description) {
 
-
+         description = description.replaceAll("<br>", "\n");
          $('#spnProjectName').text(projectname);
          $('#hdnProjectToEdit').val(projectname);
          $('#txtDescription').val(description);
@@ -487,53 +486,7 @@
 
      ga('create', 'UA-64633646-1', 'auto');
      ga('send', 'pageview');
-     /*
-     $("#btnUpload").click(function (evt) {
-         alert(evt);
-         if (VerifyFile()) {
 
-             var fileUpload = $("#fileUploader").get(0);
-             var files = fileUpload.files;
-
-             var data = new FormData();
-             data.append("targetfolder", "./uploadedFiles/");
-             data.append("UploadedBy", $('#txtcreatedB').text());
-             data.append("ForScreen", "FileManagement");
-
-             for (var i = 0; i < files.length; i++) {
-                 data.append(files[i].name, files[i]);
-             }
-
-             $.ajax({
-                 url: "FileUploadHandler.ashx",
-                 type: "POST",
-                 data: data,
-                 contentType: false,
-                 processData: false,
-                 success: function (result) {
-
-                     if (result != '') {
-
-                         alert(result);
-                         ShowServerMessage("File(s) Uploaded Successfully.");
-                         $("#fileUploader").val('');
-                     }
-
-                 },
-                 error: function (err) {
-                     ShowServerMessage(err.statusText);
-                 },
-                 complete: function (data) {
-
-                     ShowCreateTemplate();
-
-                 }
-             });
-
-         }
-
-         evt.preventDefault();
-     }); */
      function StartUploading() {
 
          if (VerifyFile()) {
@@ -571,6 +524,7 @@
                  },
                  complete: function (data) {
 
+                     $ddlAssignedProject.attr('selectedIndex', 0);
                      ShowCreateTemplate();
 
                  }

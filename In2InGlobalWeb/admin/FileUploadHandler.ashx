@@ -21,7 +21,9 @@ public class FileUploadHandler : IHttpHandler , System.Web.SessionState.IRequire
 
     public void ProcessRequest(HttpContext context)
     {
-        string filePath = context.Request["targetfolder"].ToString(); //"./MasterTemplate/";
+       
+
+        string filePath = HttpContext.Current.Session["targetfolder"].ToString(); //"./MasterTemplate/";
         if (context.Request.Files.Count > 0)
         {
             string uploadedBy = HttpContext.Current.Session["UserEmail"].ToString();
@@ -31,7 +33,8 @@ public class FileUploadHandler : IHttpHandler , System.Web.SessionState.IRequire
             //{
             HttpPostedFile file = files[0];
 
-            if (context.Request["ForScreen"] == "TemplateManagement")
+
+            if (HttpContext.Current.Session["ForScreen"].ToString() == "TemplateManagement")
             {
                 StartTemplateManagementTask(context,file, filePath, uploadedBy);
             }
@@ -49,7 +52,7 @@ public class FileUploadHandler : IHttpHandler , System.Web.SessionState.IRequire
         if (CheckUploadedFileHaveOnlyHeader(file))
         {
             string filePathWithFileName = context.Server.MapPath(filePath + file.FileName);
-            file.SaveAs(filePathWithFileName);
+            file.SaveAs(filePathWithFileName);                
             SaveUploadMasterTemplateFile(filePath, file.FileName.Replace(".csv", ""), uploadedBy);
 
             context.Response.ContentType = "text/plain";
@@ -70,7 +73,7 @@ public class FileUploadHandler : IHttpHandler , System.Web.SessionState.IRequire
         {
             string projectName = context.Session["SelectedProjectName"].ToString();
             string fileName = file.FileName;
-           
+
             fileName = fileName.Replace(".csv", "~" + uploadedBy.Replace(" ", "") + "~" + projectName + ".csv");
             string filePathWithFileName = context.Server.MapPath(filePath + fileName);
 
@@ -138,6 +141,9 @@ public class FileUploadHandler : IHttpHandler , System.Web.SessionState.IRequire
 
                 UploadTemplateBL uploadTemplateBl = new UploadTemplateBL();
                 uploadTemplateBl.SaveAssignedTemplate(templateEntity);
+                //Extract the CSV data put into data Table and share with BL.
+                //uploadTemplateBl.SaveCSVData(CSNDatatable,filename{only master template name),projectname,uploadedby);
+
             }
         }
         catch (Exception ex)
