@@ -32,7 +32,8 @@ namespace In2InGlobal.presentation.admin
                     BindAssignedUser();
                     string usrRole = Session["UserRole"].ToString();
                     spnCreatedBy.InnerText = Session["UserEmail"].ToString();
-                    spnProjectName.InnerText = GenerateProjectName();                    
+                    spnProjectName.InnerText = GenerateProjectName();
+                    hdnPNVS.Value = spnProjectName.InnerText;
                     BindProjectGrid();                    
                     HttpContext.Current.Session["SelectedProjectName"] = null;
                     HttpContext.Current.Session["UserEmail"] = Session["UserEmail"].ToString();
@@ -767,6 +768,8 @@ namespace In2InGlobal.presentation.admin
                     projectBL.UpdateProjectMaster(projectEntitiy);
                     _message = "Project updated Successfully.)";
                     hdnProjectToEdit.Value = "";
+                    spnProjectName.InnerText = GenerateProjectName();
+                    btnCreateProject.Text = "Create";
                 }
             }
             catch (Exception ex)

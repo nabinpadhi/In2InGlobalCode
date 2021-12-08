@@ -47,7 +47,8 @@
                                                                        <span fieldtype="readonly" value="" runat="server" id="spnProjectName" />
                                                                         <asp:HiddenField ID="hdnPName" runat="server" Value="" />
                                                                         <asp:HiddenField ID="hdnPID" runat="server" Value="" />
-                                                                         <asp:HiddenField ID="hdnProjectToEdit" runat="server" Value="" />                                                                       
+                                                                         <asp:HiddenField ID="hdnProjectToEdit" runat="server" Value="" />  
+                                                                        <asp:HiddenField ID="hdnPNVS" runat="server" Value="" />
                                                                         <asp:Button style="display:none" Text="Delete" OnClientClick="return true;" OnClick="hdnDelBtn_Click" ID="hdnDelBtn" runat="server"></asp:Button>
                                                                     </td>
                                                                 </tr>
@@ -340,7 +341,7 @@
          window.parent.ShowDiv(fn);
      }
      function ClearProject() {
-
+         $('#spnProjectName').text($('#hdnPNVS').val());
          $('#txtDescription').val('');         
          $('#btnCreateProject').val('Create');
      }
@@ -368,34 +369,6 @@
          $('#btnCreateProject').val('Update');
          
          return false;
-     }
-     function AddProject() {
-         var return_status = function () {
-             var tmp = null;
-             var projectname = $('#txtProjectName').val();
-             var createdBy = $('#txtcreadtedBy').val();
-             var description = $('#txtDescription').val();
-             var dataValue = "{ ProjectName:'" + projectname + "', CreatedBy:'" + createdBy + "',Description:'" + description + "'}";
-             $.ajax({
-                 'async': false,
-                 'type': "POST",
-                 'global': false,
-                 'dataType': 'json',
-                 contentType: 'application/json; charset=utf-8',
-                 'url': "ProjectManagement.aspx/AddNewProject",
-                 'data': dataValue,
-                 data: "{ ProjectName:'" + projectname + "', CreatedBy:'" + createdBy + "',Description:'" + description + "'}",
-                 success: function (data) {
-                     tmp = data.d;
-                 }
-             });
-             return tmp;
-         }();
-
-         if (return_status == "Success") {
-
-             toastr.success('New Project created', 'Success', { timeOut: 1000, progressBar: true, onHidden: function () { window.location.href = BASE_URL; } });
-         }
      }
      function ShowProjectMgnt() {
          $('.projectmgnt').show();
