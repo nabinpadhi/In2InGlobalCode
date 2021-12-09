@@ -22,16 +22,16 @@ namespace In2InGlobal.presentation.admin
                 if (!IsPostBack)
                 {
                     string usrRole = Session["UserRole"].ToString();
-                    if (usrRole != "Admin")
-                    {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
+                    //if (usrRole != "Admin")
+                    //{
+                        //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
 
-                    }
-                    else
-                    {
+                    //}
+                    //else
+                    //{
                         BindCompany();
                         BindLOB();
-                    }
+                    //}
                 }                
             }
             else

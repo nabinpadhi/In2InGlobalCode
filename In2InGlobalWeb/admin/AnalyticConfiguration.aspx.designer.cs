@@ -10,7 +10,7 @@
 namespace In2InGlobal.presentation.admin {
     
     
-    public partial class InternalLanding {
+    public partial class AnalyticConfiguration {
         
         /// <summary>
         /// form1 control.
@@ -22,93 +22,66 @@ namespace In2InGlobal.presentation.admin {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// comMngmnt control.
+        /// analyticconfigurationscriptmanager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor comMngmnt;
+        protected global::System.Web.UI.ScriptManager analyticconfigurationscriptmanager;
         
         /// <summary>
-        /// usrMngmnt control.
+        /// pdnlanalyticconfiguration control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor usrMngmnt;
+        protected global::System.Web.UI.UpdatePanel pdnlanalyticconfiguration;
         
         /// <summary>
-        /// projtMngmt control.
+        /// ddlCompany control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor projtMngmt;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCompany;
         
         /// <summary>
-        /// tmpltMngmnt control.
+        /// ddlUser control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor tmpltMngmnt;
+        protected global::System.Web.UI.WebControls.DropDownList ddlUser;
         
         /// <summary>
-        /// ancFileMan control.
+        /// txtlink control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor ancFileMan;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtlink;
         
         /// <summary>
-        /// liAnalytics control.
+        /// btnSave control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liAnalytics;
+        protected global::System.Web.UI.WebControls.Button btnSave;
         
         /// <summary>
-        /// ancAnalytics control.
+        /// grdAnalyticsLink control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor ancAnalytics;
-        
-        /// <summary>
-        /// divConfiguration control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divConfiguration;
-        
-        /// <summary>
-        /// ancConfiguration control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor ancConfiguration;
-        
-        /// <summary>
-        /// AnalyticsProjectList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AnalyticsProjectList;
+        protected global::System.Web.UI.WebControls.GridView grdAnalyticsLink;
     }
 }

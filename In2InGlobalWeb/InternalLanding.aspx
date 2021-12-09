@@ -72,9 +72,10 @@
                   <li class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children">
                         <a href="#" id="ancFileMan" runat="server">File Management</a>
                     </li>
-                    <li class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children">
+                    <li runat="server" id="liAnalytics" class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children">
                         <a href="#" id="ancAnalytics" runat="server">Analytics</a>
-                        <div class="foo" style="margin-left: 30px; padding-top: 4px;height:200px;width:120px;overflow-y:scroll;overflow-x:hidden;">
+                        <div runat="server" id="divConfiguration" class="cd-side__item" style="margin-left: 25px; padding-top: 4px;padding-bottom: 4px;"><a href="#" id="ancConfiguration" style="font-size:small;color:aqua;" runat="server">Configuration</a></div>
+                        <div class="foo" style="margin-left: 30px; padding-top: 4px;height:170px;width:120px;overflow-y:auto;overflow-x:hidden;">
                             <ul class="js-cd-side__list" runat="server" id="AnalyticsProjectList">
                             </ul>
                         </div>

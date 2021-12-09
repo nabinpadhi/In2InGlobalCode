@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="admin\assets\img\mobile.png" />
+    <Content Include="admin\AnalyticConfiguration.aspx" />
     <Content Include="admin\css\images\ui-icons_555555_256x240.png" />
     <Content Include="admin\css\images\ui-icons_777777_256x240.png" />
     <Content Include="admin\css\jquery-ui.css" />
@@ -1728,6 +1729,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="admin\AnalyticConfiguration.aspx.cs">
+      <DependentUpon>AnalyticConfiguration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\AnalyticConfiguration.aspx.designer.cs">
+      <DependentUpon>AnalyticConfiguration.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\FileUploadHandler.ashx.cs">
       <DependentUpon>FileUploadHandler.ashx</DependentUpon>
     </Compile>

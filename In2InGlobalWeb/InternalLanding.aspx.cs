@@ -16,16 +16,19 @@ namespace In2InGlobal.presentation.admin
                 if (LoggedInUsrRole == "User")
                 {
                     usrMngmnt.Visible = false;
-                    comMngmnt.Visible = false;
-                    tmpltMngmnt.Visible = false;
-                    ancAnalytics.Attributes.Add("onclick", "javascript:OpenPage('https://analytics.zoho.in/open-view/210664000000009321');");
+                    //comMngmnt.Visible = false;
+                    //tmpltMngmnt.Visible = false;
+                    divConfiguration.Visible = false;
+                    ancAnalytics.Attributes.Add("onclick", "javascript:return false;");
                 }
                 else if (LoggedInUsrRole == "Admin")
                 {
                     usrMngmnt.Visible = true;
-                    comMngmnt.Visible = true;
-                    tmpltMngmnt.Visible = true;
+                    //comMngmnt.Visible = true;
+                    //tmpltMngmnt.Visible = true;
+                    divConfiguration.Visible = true;
                     ancAnalytics.Attributes.Add("onclick", "javascript:return false;");
+                    ancConfiguration.Attributes.Add("onclick", "javascript:OpenPage('admin/AnalyticConfiguration.aspx');");
                 }
                 BuildAnalyticsProjectList();
                 ancFileMan.Attributes.Add("onclick", "javascript:OpenPage('admin/FileManagement.aspx');");
@@ -33,6 +36,8 @@ namespace In2InGlobal.presentation.admin
                 comMngmnt.Attributes.Add("onclick", "javascript:OpenPage('admin/CompanyManagement.aspx');");
                 tmpltMngmnt.Attributes.Add("onclick", "javascript:OpenPage('admin/TemplateManagement.aspx');");
                 projtMngmt.Attributes.Add("onclick", "javascript:OpenPage('admin/ProjectManagement.aspx');");
+                
+                
             }
             else
             { Response.Redirect("login.aspx"); }
@@ -42,6 +47,13 @@ namespace In2InGlobal.presentation.admin
         {
             DataTable dtUserProjectList = GetUserAssignedProjects();
             StringBuilder analyticsProjectLinkLiString = new StringBuilder();
+            if (dtUserProjectList.Rows.Count == 0)
+            {
+                liAnalytics.Visible = false;
+            }
+            else {
+                liAnalytics.Visible = true;
+            }
             foreach (DataRow dr in dtUserProjectList.Rows)
             {
                 string liForProject = " <li class='cd-side__item'><a href = '#UsrAnaliLnkForPro' id = '" + dr["project_name"].ToString() + "' runat = 'server' >" + dr["project_name"].ToString() + "</a></li>";
