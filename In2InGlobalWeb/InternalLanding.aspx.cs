@@ -1,4 +1,7 @@
-﻿using System;
+﻿using In2InGlobalBL;
+using System;
+using System.Data;
+using System.Text;
 
 namespace In2InGlobal.presentation.admin
 {
@@ -22,8 +25,9 @@ namespace In2InGlobal.presentation.admin
                     usrMngmnt.Visible = true;
                     comMngmnt.Visible = true;
                     tmpltMngmnt.Visible = true;
-                    ancAnalytics.Attributes.Add("onclick", "javascript:OpenPage('https://analytics.zoho.in/workspace/210664000000004003');");
+                    ancAnalytics.Attributes.Add("onclick", "javascript:return false;");
                 }
+                BuildAnalyticsProjectList();
                 ancFileMan.Attributes.Add("onclick", "javascript:OpenPage('admin/FileManagement.aspx');");
                 usrMngmnt.Attributes.Add("onclick", "javascript:OpenPage('admin/UserManagement.aspx');");
                 comMngmnt.Attributes.Add("onclick", "javascript:OpenPage('admin/CompanyManagement.aspx');");
@@ -33,6 +37,39 @@ namespace In2InGlobal.presentation.admin
             else
             { Response.Redirect("login.aspx"); }
         }
-      
+
+        private void BuildAnalyticsProjectList()
+        {
+            DataTable dtUserProjectList = GetUserAssignedProjects();
+            StringBuilder analyticsProjectLinkLiString = new StringBuilder();
+            foreach (DataRow dr in dtUserProjectList.Rows)
+            {
+                string liForProject = " <li class='cd-side__item'><a href = '#UsrAnaliLnkForPro' id = '" + dr["project_name"].ToString() + "' runat = 'server' >" + dr["project_name"].ToString() + "</a></li>";
+                string ancLink = "javascript:alert(\"" + dr["project_name"].ToString() + "\");";
+                liForProject = liForProject.Replace("#UsrAnaliLnkForPro", ancLink);
+                analyticsProjectLinkLiString.AppendLine(liForProject);
+            }
+            AnalyticsProjectList.InnerHtml = analyticsProjectLinkLiString.ToString();
+        }
+
+        private DataTable GetUserAssignedProjects()
+        {
+            DataSet dsUserAssignedProject = new DataSet();
+            try
+            {
+                string userEmail = Session["UserEmail"].ToString();
+                string userRole = Session["UserRole"].ToString();
+
+
+                ProjectMasterBL projectBL = new ProjectMasterBL();
+                dsUserAssignedProject = projectBL.getAssignedProject(userRole, userEmail);
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
+            }
+            return dsUserAssignedProject.Tables[0];
+        }
     }
+    
 }

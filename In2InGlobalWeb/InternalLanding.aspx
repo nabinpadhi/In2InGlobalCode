@@ -10,6 +10,28 @@
     <link rel="stylesheet" href="css/style.css" />
       <link rel="stylesheet" type="text/css" href="NewJEasyUI/themes/black/easyui.css" />
     <link rel="stylesheet" type="text/css" href="NewJEasyUI/themes/icon.css" />
+    <style type="text/css">
+        
+        ::-webkit-scrollbar {
+
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+        }
+
+        div.foo:hover::-webkit-scrollbar {
+            background: lightblue;
+             border-radius: 10px;
+        }
+    </style>
 </head>
 <body onload="loadIframe();">
     <form status="1" id="form1" runat="server">
@@ -52,6 +74,10 @@
                     </li>
                     <li class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children">
                         <a href="#" id="ancAnalytics" runat="server">Analytics</a>
+                        <div class="foo" style="margin-left: 30px; padding-top: 4px;height:200px;width:120px;overflow-y:scroll;overflow-x:hidden;">
+                            <ul class="js-cd-side__list" runat="server" id="AnalyticsProjectList">
+                            </ul>
+                        </div>
                     </li>
                 </ul>
             </nav>
