@@ -16,23 +16,23 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Newtonsoft.Json;
 using System.Text;
-public class FileUploadHandler : IHttpHandler , System.Web.SessionState.IRequiresSessionState
+using System.Web.SessionState;
+using System.Reflection;
+public class FileUploadHandler : IHttpHandler , IReadOnlySessionState
 {
 
     public void ProcessRequest(HttpContext context)
     {
-       
+
 
         string filePath = HttpContext.Current.Session["targetfolder"].ToString(); //"./MasterTemplate/";
         if (context.Request.Files.Count > 0)
         {
             string uploadedBy = HttpContext.Current.Session["UserEmail"].ToString();
-            HttpFileCollection files = context.Request.Files;
             /* Uncomment below commented condition to apply for multiple files*/
             // for (int i = 0; i < files.Count; i++)
             //{
-            HttpPostedFile file = files[0];
-
+            HttpPostedFile file = context.Request.Files[0];
 
             if (HttpContext.Current.Session["ForScreen"].ToString() == "TemplateManagement")
             {
@@ -47,12 +47,15 @@ public class FileUploadHandler : IHttpHandler , System.Web.SessionState.IRequire
         }
 
     }
+
     private void StartTemplateManagementTask(HttpContext context,HttpPostedFile file,string filePath,string uploadedBy)
     {
+
+        //HttpPostedFile csvfileChecker = file;
         if (CheckUploadedFileHaveOnlyHeader(file))
         {
             string filePathWithFileName = context.Server.MapPath(filePath + file.FileName);
-            file.SaveAs(filePathWithFileName);                
+            file.SaveAs(filePathWithFileName);
             SaveUploadMasterTemplateFile(filePath, file.FileName.Replace(".csv", ""), uploadedBy);
 
             context.Response.ContentType = "text/plain";
@@ -155,18 +158,17 @@ public class FileUploadHandler : IHttpHandler , System.Web.SessionState.IRequire
     private bool CheckUploadedFileHaveOnlyHeader(HttpPostedFile templateUploadFile)
     {
         bool _result = true;
-        using (StreamReader uploadedFS = new StreamReader(templateUploadFile.InputStream))
-        {
-            TextReader uploaderFileTextReader = new StreamReader(uploadedFS.BaseStream);
-            using (DataTable table = new CSVReader(uploaderFileTextReader).CreateDataTable(true))
-            {
+        StreamReader uploadedFS = new StreamReader(templateUploadFile.InputStream);
 
-                if (table.Rows.Count > 0)
-                {
-                    _result = false;
-                }
-            }
+        TextReader uploaderFileTextReader = new StreamReader(uploadedFS.BaseStream);
+
+        DataTable table = new CSVReader(uploaderFileTextReader).CreateDataTable(true);
+        if (table.Rows.Count > 0)
+        {
+            _result = false;
         }
+
+        templateUploadFile.InputStream.Position = 0;
         return _result;
     }
     public bool IsReusable

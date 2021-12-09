@@ -42,7 +42,7 @@
                                                 <table style="width:100%;">                                                    
                                                      <tr><td style="width:25%">Template Files</td>
                                                         <td style="width:5%">:</td>
-                                                        <td style="width:70%"><asp:FileUpload   accept=".csv" ID="tmpltFU" runat="server" /></td>
+                                                        <td style="width:70%"><asp:FileUpload  AllowMultiple="true"  accept=".csv" ID="tmpltFU" runat="server" /></td>
                                                         <td>
                                                             <asp:Button ID="btnUpload" class="button" runat="server" Text="Upload" />
                                                            
