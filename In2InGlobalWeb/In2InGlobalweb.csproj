@@ -1882,6 +1882,7 @@
     <Content Include="admin\MasterTemplate\Purchasing.csv" />
     <Content Include="admin\MasterTemplate\Spend_Analytics.csv" />
     <Content Include="admin\FileUploadHandler.ashx" />
+    <Content Include="admin\json-data\AnalyticDashboard.json" />
     <None Include="font\fontawesome-webfont.ttf" />
     <None Include="font\fontawesome-webfont.woff" />
     <None Include="GoogleFont\2UX7WLTfW3W8TclTUvlFyQ.woff" />

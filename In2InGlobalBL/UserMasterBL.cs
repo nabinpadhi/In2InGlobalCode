@@ -147,6 +147,20 @@ namespace In2InGlobal.businesslogic
 
             return response;
         }
+        public DataSet GetUsers(long companyid)
+        {
+            DataSet dsUsers = new DataSet();
+            try
+            {
+                UserMasterDL objUsers = new UserMasterDL();
+                dsUsers = objUsers.GetUsers(companyid);
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
 
+            return dsUsers;
+        }
     }
 }

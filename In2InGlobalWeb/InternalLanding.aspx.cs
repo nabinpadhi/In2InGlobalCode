@@ -16,18 +16,18 @@ namespace In2InGlobal.presentation.admin
                 if (LoggedInUsrRole == "User")
                 {
                     usrMngmnt.Visible = false;
-                    //comMngmnt.Visible = false;
-                    //tmpltMngmnt.Visible = false;
+                    comMngmnt.Visible = false;
+                    tmpltMngmnt.Visible = false;
                     divConfiguration.Visible = false;
                     ancAnalytics.Attributes.Add("onclick", "javascript:return false;");
                 }
                 else if (LoggedInUsrRole == "Admin")
                 {
                     usrMngmnt.Visible = true;
-                    //comMngmnt.Visible = true;
-                    //tmpltMngmnt.Visible = true;
+                    comMngmnt.Visible = true;
+                    tmpltMngmnt.Visible = true;
                     divConfiguration.Visible = true;
-                    ancAnalytics.Attributes.Add("onclick", "javascript:return false;");
+                    ancAnalytics.Attributes.Add("onclick", "javascript:OpenPage('https://analytics.zoho.in/workspace/210664000000004003');");
                     ancConfiguration.Attributes.Add("onclick", "javascript:OpenPage('admin/AnalyticConfiguration.aspx');");
                 }
                 BuildAnalyticsProjectList();

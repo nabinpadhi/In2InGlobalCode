@@ -27,30 +27,40 @@
                     <ContentTemplate> 
                        <div style="width:100%" id="analyticconfigurationDiv">
                        
-                        <table style="width: 70%; background-color: azure;">
+                        <table style="width: 90%; background-color: azure;">
                             <tr>
                                 <td>
                                     <center>
-                                        <div style="width: 50%; border: 1px solid black; border-radius: 5px; margin-top: 10px;">
-                                            <table style="padding-top:10px;">
-                                                <tr>
-                                                     <td>Company : </td>
-                                                    <td>
-                                                       <asp:DropDownList ID="ddlCompany" runat="server" Width="94%" AppendDataBoundItems="true" DataValueField="com_id" DataTextField="company_name">
+                                        <div style="width: 80%; border: 1px solid black; border-radius: 5px; margin-top: 10px;">
+                                            <table style="width:80%;padding-top:10px;">
+                                                <tr>                                                    
+                                                    <td style="width:30%;">
+                                                       <span style="font-size:small;font-weight:bold;">Select Company(<span style="color: red">*</span>)</span>
+                                                       <asp:DropDownList ID="ddlCompany" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlCompany_SelectedIndexChanged" Width="94%" AppendDataBoundItems="true" DataValueField="com_id" DataTextField="company_name">
                                                            <asp:ListItem>--Select a Company</asp:ListItem>
                                                        </asp:DropDownList>
-                                                    </td>
-                                                     <td>User : </td>
-                                                    <td>
-                                                       <asp:DropDownList ID="ddlUser" runat="server" Width="94%" AppendDataBoundItems="true" DataValueField="user_id" DataTextField="user_email">
+                                                    </td>                                                    
+                                                    <td style="width:35%;">
+                                                       <span style="font-size:small;font-weight:bold;">Select User(<span style="color: red">*</span>)</span>
+                                                       <asp:DropDownList ID="ddlUser" AutoPostBack="true" OnSelectedIndexChanged="ddlUser_SelectedIndexChanged" runat="server" Width="94%" AppendDataBoundItems="true" DataValueField="user_id" DataTextField="user_email">
                                                            <asp:ListItem>--Select a User--</asp:ListItem>
+                                                       </asp:DropDownList>
+                                                    </td>                                                   
+                                                    <td style="width:35%;">
+                                                        <span style="font-size:small;font-weight:bold;">Select Project(<span style="color: red">*</span>)</span>
+                                                       <asp:DropDownList ID="ddlProject" runat="server" Width="94%" AppendDataBoundItems="true" DataValueField="user_id" DataTextField="user_email">
+                                                           <asp:ListItem>--Select a Project--</asp:ListItem>
                                                        </asp:DropDownList>
                                                     </td>
                                                 </tr>     
                                                  <tr>                                                                                                       
-                                                    <td>Link : </td>
-                                                     <td colspan="3">
-                                                         <input type="text" value="" style="width:90%" runat="server" id="txtlink" name="txtlink" class="txtlink" />
+                                                    <td colspan="3">
+                                                        <table style="width:100%">
+                                                            <tr>
+                                                                <td style="width:18%;"><span style="font-size:small;font-weight:bold;">Dashboard Link</span>(<span style="color: red">*</span>)</td>
+                                                                <td style="width:82%;"><input type="text" value="" style="width:96%" runat="server" id="txtlink" name="txtlink" class="txtlink" /></td>
+                                                            </tr>
+                                                        </table>
                                                     </td>
                                                 </tr>     
                                                 <tr>
@@ -69,17 +79,21 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="width: 50%;">                                    
+                                <td style="width: 80%;">                                    
                                     <center>
-                                        <div style="width: 50%; height: 90%; border: 1px solid black; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;"> 
+                                        <div style="width: 85%; height: 90%; border: 1px solid black; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;"> 
                                             <div class="AspNet-GridView">
-                                                 <asp:GridView runat="server" ID="grdAnalyticsLink" Width="100%"  
-                                                     HeaderStyle-CssClass="AspNet-GridView" AllowPaging="True" DataKeyNames="company_id" PageSize="5" AutoGenerateColumns="false">
+                                                 <asp:GridView runat="server" ID="grdAnalyticsLink" Width="100%" OnPageIndexChanging="grdAnalyticsLink_PageIndexChanging"  
+                                                     HeaderStyle-CssClass="AspNet-GridView" AllowPaging="True" DataKeyNames="dashboard_id" PageSize="4" AutoGenerateColumns="false">
                                                      <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
                                                     <Columns>
-                                                        <asp:BoundField DataField="company_id" ControlStyle-Width="94%" HeaderText="CompanyID" Visible="false" />                                                    
-                                                        <asp:BoundField DataField="company_name" ControlStyle-Width="94%" HeaderText="Company Name" />
-                                                        <asp:BoundField DataField="lob" ControlStyle-Width="94%" HeaderText="LOB" />                                                                                    
+                                                        <asp:BoundField DataField="company_id" HeaderText="" Visible="false" />                                                    
+                                                        <asp:BoundField DataField="user_id" HeaderText="" Visible="false" /> 
+                                                        <asp:BoundField DataField="project_id" HeaderText="" Visible="false" /> 
+                                                        <asp:BoundField DataField="company_name"  HeaderText="Company Name" />
+                                                        <asp:BoundField DataField="user_email"  HeaderText="User Email" />         
+                                                        <asp:BoundField DataField="project_name" HeaderText="Project Name" />  
+                                                         <asp:BoundField DataField="dashboard_link" HeaderText="Dashboard Link" />  
                                                         <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Edit" >
                                                             <ItemTemplate>
                                                                 <asp:Button ID="EditButton" CssClass="GridEditButton" runat="server" Text="" />               

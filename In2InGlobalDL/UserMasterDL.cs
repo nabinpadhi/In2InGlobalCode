@@ -302,6 +302,37 @@ namespace In2InGlobal.datalink
             return userEntity.UserId;
         }
 
+        public DataSet GetUsers(long companyid)
+        {
+            BaseRepository baseRepo = new BaseRepository();
+            DataSet dsuser = new DataSet();
+            NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
 
+            string query = @"SELECT * FROM dbo.getusers(@companyid)";
+            using (var connection = baseRepo.GetDBConnection())
+            {
+                try
+                {
+                    connection.Open();
+                    NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
+                    npgsqlCommand.Parameters.AddWithValue("@companyid", companyid);
+                    npgsqlCommand.CommandType = CommandType.Text;
+                    npgsqlDataAdapter.SelectCommand = npgsqlCommand;
+                    npgsqlDataAdapter.Fill(dsuser);
+
+                    return dsuser;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Dispose();
+                    npgsqlDataAdapter.Dispose();
+                }
+
+            }
+        }
     }
 }

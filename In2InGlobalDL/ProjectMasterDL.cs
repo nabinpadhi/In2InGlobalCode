@@ -112,15 +112,15 @@ namespace In2InGlobal.datalink
             DataSet dsProject = new DataSet();
             NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
 
-            string query = @"SELECT * FROM dbo.fillprojectgrid()";
+            string query = @"SELECT * FROM dbo.fillprojectgrid(@userrole,@useremail)";
             using (var connection = baseRepo.GetDBConnection())
             {
                 try
                 {
                     connection.Open();
                     NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
-                    //npgsqlCommand.Parameters.AddWithValue("@userrole", userRole);
-                    //npgsqlCommand.Parameters.AddWithValue("@useremail", userEmail);
+                    npgsqlCommand.Parameters.AddWithValue("@userrole", userRole);
+                    npgsqlCommand.Parameters.AddWithValue("@useremail", userEmail);
                     npgsqlCommand.CommandType = CommandType.Text;
                     npgsqlDataAdapter.SelectCommand = npgsqlCommand;
                     npgsqlDataAdapter.Fill(dsProject);
