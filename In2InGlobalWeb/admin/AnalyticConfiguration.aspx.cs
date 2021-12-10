@@ -32,13 +32,13 @@ namespace In2InGlobal.presentation.admin
         private void BindCompany()
         {
             DataSet dsCompany = new DataSet();
-            CompanyMasterBL projectBL = new CompanyMasterBL();
-            dsCompany = projectBL.getCompanyName();
+            AnalyticsBL analyticsBL = new AnalyticsBL();
+            dsCompany = analyticsBL.getCompanyName();
+
             ddlCompany.DataTextField = "company_name";
             ddlCompany.DataValueField = "company_id";
             ddlCompany.DataSource = dsCompany.Tables[0];
             ddlCompany.DataBind();
-            
         }
 
         private void BindUsers(long companyID)
@@ -46,8 +46,8 @@ namespace In2InGlobal.presentation.admin
             try
             {
                 DataSet dsUsers = new DataSet();
-                UserMasterBL userBL = new UserMasterBL();
-                dsUsers = userBL.GetUsers(companyID);
+                AnalyticsBL userBL = new AnalyticsBL();
+                dsUsers = userBL.getUserEmailByCompany(companyID);
                 ddlUser.Items.Clear();
                 ddlUser.DataTextField = "user_email";
                 ddlUser.DataValueField = "user_id";
@@ -55,19 +55,19 @@ namespace In2InGlobal.presentation.admin
                 ddlUser.DataBind();
                 ddlUser.Items.Insert(0, "--Select a User--");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.Write(ex.Message);
             }
         }
         private void BindProjects(string userEmail)
         {
+            int companyId = 0;
             try
             {
-                
                 DataSet dsUsersPrject = new DataSet();
-                ProjectMasterBL projectBL = new ProjectMasterBL();
-                dsUsersPrject = projectBL.getAssignedProject("", userEmail);
+                AnalyticsBL projectBL = new AnalyticsBL();
+                dsUsersPrject = projectBL.getProjectNameByUserEmail(companyId, userEmail);
                 ddlProject.DataTextField = "project_name";
                 ddlProject.DataValueField = "project_id";
                 ddlProject.Items.Clear();
@@ -83,12 +83,10 @@ namespace In2InGlobal.presentation.admin
 
         private void BindDashboardGrid()
         {
-
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString(Server.MapPath("json-data/AnalyticDashboard.json"));
-            DataTable tblProject = JsonConvert.DeserializeObject<DataTable>(json);//.Select("user_email='"+Session["UserEmail"].ToString()+"'").CopyToDataTable(); 
-            grdAnalyticsLink.DataSource = tblProject;
+            DataSet dsUsersPrject = new DataSet();
+            AnalyticsBL projectBL = new AnalyticsBL();
+            dsUsersPrject = projectBL.getAnalyticsGridDetails();
+            grdAnalyticsLink.DataSource = dsUsersPrject.Tables[0];
             grdAnalyticsLink.DataBind();
         }
         protected void grdAnalyticsLink_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -97,7 +95,7 @@ namespace In2InGlobal.presentation.admin
             grdAnalyticsLink.PageIndex = e.NewPageIndex;
             BindDashboardGrid();
             grdAnalyticsLink.DataBind();
-            
+
         }
 
         protected void ddlCompany_SelectedIndexChanged(object sender, EventArgs e)
@@ -109,6 +107,78 @@ namespace In2InGlobal.presentation.admin
         {
             BindProjects(ddlUser.SelectedItem.Text);
         }
+
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            bool isSave = false;
+            AnalyticsEntity analyticsEntity = new AnalyticsEntity();
+            string _message = "Analytics Configuration Saved Successfully";
+            try
+            {
+                analyticsEntity.ProjectId = Convert.ToInt32(ddlProject.SelectedValue);
+                analyticsEntity.UserId = Convert.ToInt32(ddlUser.SelectedValue);
+                analyticsEntity.CompanyId = Convert.ToInt32(ddlCompany.SelectedValue);
+                analyticsEntity.CreatedBy = Session["UserEmail"].ToString();
+                analyticsEntity.DashboardUrl = txtlink.Value;
+
+                AnalyticsBL analyticsBl = new AnalyticsBL();
+
+                if (isSave)//(hdnAnalyticID.Value != "")
+                {
+                    _message = "Analytics Configuration Updated Successfully";
+                    //analyticsEntity.CompanyId = Convert.ToInt64(hdnAnalyticID.Value);
+                    analyticsBl.UpdateAnalyticConfiguration(analyticsEntity);
+                }
+                else
+                {
+                    analyticsBl.SaveAnalyticConfiguration(analyticsEntity);
+                }
+                txtlink.Value = "";
+                ddlUser.SelectedIndex = 0;
+                ddlProject.SelectedIndex = 0;
+                ddlCompany.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
+
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);
+        }
+
+        private void DeleteAnalyticConfiguration(string companyid, string userid, string projectid)
+        {
+            AnalyticsEntity analyticsEntity = new AnalyticsEntity();
+
+            if (projectid != null && companyid != null && userid != null)
+            {
+                try
+                {
+                    analyticsEntity.CompanyId = Convert.ToInt32(companyid);
+                    analyticsEntity.UserId = Convert.ToInt32(userid);
+                    analyticsEntity.ProjectId = Convert.ToInt32(projectid);
+                    AnalyticsBL analyticsBL = new AnalyticsBL();
+                    analyticsBL.DeleteAnalyticConfiguration(analyticsEntity);
+                }
+                catch (Exception ex)
+                {
+                    ex.Message.ToString();
+                }
+            }
+        }
+
+        //protected void UpdateAnalyticConfiguration(string companyid, string userid, string projectid ,string dashboardUrl) 
+        //{
+        //    AnalyticsEntity analyticsEntity = new AnalyticsEntity();
+        //    if (projectid != null && companyid != null && userid != null)
+        //    {
+        //        analyticsEntity.CompanyId = Convert.ToInt32(companyid);
+        //        analyticsEntity.UserId = Convert.ToInt32(userid);
+        //        analyticsEntity.ProjectId = Convert.ToInt32(projectid);
+        //        analyticsEntity.DashboardUrl = dashboardUrl;
+        //        AnalyticsBL analyticsBL = new AnalyticsBL();
+        //        analyticsBL.UpdateAnalyticConfiguration(analyticsEntity);
+        //    }
+        //}  
     }
-    
 }

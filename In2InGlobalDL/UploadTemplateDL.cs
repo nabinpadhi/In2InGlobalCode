@@ -300,8 +300,31 @@ namespace In2InGlobal.datalink
             BaseRepository baseRepo = new BaseRepository();
             var connection = baseRepo.GetDBConnection();
 
+            DataTable dt = new DataTable();
+            dt.Clear();
+            dt.Columns.Add("vender");
+            dt.Columns.Add("spend_category");
+            dt.Columns.Add("spend_amount");
+            dt.Columns.Add("template_id");
+            dt.Columns.Add("project_id");
+            dt.Columns.Add("user_id");
+            dt.Columns.Add("dashboard_url");
+            dt.Columns.Add("isprocessed");
+            DataRow _ravi = dt.NewRow();
+            _ravi["vender"] = "Ravi";
+            _ravi["spend_category"] = "Software";
+            _ravi["spend_amount"] = "5000";
+            _ravi["template_id"] = "1";
+            _ravi["project_id"] = "1";
+            _ravi["user_id"] = "1";
+            _ravi["dashboard_url"] = "c://dashboard";
+            _ravi["isprocessed"] = 1;
+             dt.Rows.Add(_ravi);
+                     
+
             using (var transaction = connection.BeginTransaction())
             {
+                connection.Open();
                 foreach (DataRow row in dtUploadTemplate.Rows)
                 {
                     // Create an NpgsqlParameter for every field in the column
@@ -314,7 +337,7 @@ namespace In2InGlobal.datalink
 
                     // Create an INSERT SQL query which inserts the data from the current row into PostgreSql table
                     var command = new NpgsqlCommand(
-                        $"INSERT INTO dbo.spend_analytics VALUES ({parameterNames})",
+                        $"INSERT INTO dbo.spend_analytics_staging VALUES ({parameterNames})",
                         connection);
                     command.Parameters.AddRange(parameters.ToArray());
                     command.ExecuteNonQuery();

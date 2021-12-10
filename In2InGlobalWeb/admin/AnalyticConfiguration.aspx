@@ -67,7 +67,7 @@
                                                     <td colspan="4">
                                                         <div style="margin-top: 30px;">
                                                             <center>
-                                                                <asp:Button runat="server" ID="btnSave" CssClass="button" Text="Save" OnClientClick="return false" />
+                                                                <asp:Button runat="server" ID="btnSave" CssClass="button" Text="Save" OnClientClick="return ValidateDashboardConfiguration();" />
                                                                 <input type="button" class="button" style="margin-left: 10px;" value="Cancel" onclick="ClearAll();" />
                                                             </center>
                                                         </div>
@@ -84,7 +84,7 @@
                                         <div style="width: 85%; height: 90%; border: 1px solid black; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;"> 
                                             <div class="AspNet-GridView">
                                                  <asp:GridView runat="server" ID="grdAnalyticsLink" Width="100%" OnPageIndexChanging="grdAnalyticsLink_PageIndexChanging"  
-                                                     HeaderStyle-CssClass="AspNet-GridView" AllowPaging="True" DataKeyNames="dashboard_id" PageSize="4" AutoGenerateColumns="false">
+                                                     HeaderStyle-CssClass="AspNet-GridView" AllowPaging="True" DataKeyNames="project_id" PageSize="4" AutoGenerateColumns="false">
                                                      <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
                                                     <Columns>
                                                         <asp:BoundField DataField="company_id" HeaderText="" Visible="false" />                                                    
@@ -93,7 +93,7 @@
                                                         <asp:BoundField DataField="company_name"  HeaderText="Company Name" />
                                                         <asp:BoundField DataField="user_email"  HeaderText="User Email" />         
                                                         <asp:BoundField DataField="project_name" HeaderText="Project Name" />  
-                                                         <asp:BoundField DataField="dashboard_link" HeaderText="Dashboard Link" />  
+                                                         <asp:BoundField DataField="dashboard_url" HeaderText="Dashboard Link" />  
                                                         <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Edit" >
                                                             <ItemTemplate>
                                                                 <asp:Button ID="EditButton" CssClass="GridEditButton" runat="server" Text="" />               

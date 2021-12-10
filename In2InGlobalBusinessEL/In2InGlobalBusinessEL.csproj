@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnalyticsDto.cs" />
+    <Compile Include="AnalyticsEntity.cs" />
     <Compile Include="AssignedTemplateDto.cs" />
     <Compile Include="AssignedTemplateEntity.cs" />
     <Compile Include="CompanyDto.cs" />

@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnalyticsBL.cs" />
     <Compile Include="AssignedTemplateBL.cs" />
     <Compile Include="CompanyMasterBL.cs" />
     <Compile Include="FileManagementBL.cs" />
