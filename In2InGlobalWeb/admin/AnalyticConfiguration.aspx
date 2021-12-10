@@ -36,7 +36,7 @@
                                                 <tr>                                                    
                                                     <td style="width:30%;">
                                                        <span style="font-size:small;font-weight:bold;">Select Company(<span style="color: red">*</span>)</span>
-                                                       <asp:DropDownList ID="ddlCompany" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlCompany_SelectedIndexChanged" Width="94%" AppendDataBoundItems="true" DataValueField="com_id" DataTextField="company_name">
+                                                       <asp:DropDownList ID="ddlCompany" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlCompany_SelectedIndexChanged" Width="94%" AppendDataBoundItems="true"  DataValueField="com_id" DataTextField="company_name">
                                                            <asp:ListItem>--Select a Company</asp:ListItem>
                                                        </asp:DropDownList>
                                                     </td>                                                    
@@ -129,6 +129,71 @@
      <link rel="stylesheet" href="css/jquery-ui.css">    
     <script src="js/jquery.min.js"></script>    
     <script src="js/jquery.easyui.min.js"></script>   
+    <script type="text/javascript">
+        $(document).ready(function () {         
+            ClearAll();
+            $('.aspNetDisabled').css('color', 'darkgray');
+            $('.aspNetDisabled:hover').css('text-decoration', 'none');
+        });
+        function ClearAll() {
+                        
+            $('#ddlCompany').prop('selectedIndex', 0);
+            $('#ddlUser').prop('selectedIndex', 0);
+            $('#ddlProject').prop('selectedIndex', 0);          
+            $('#txtlink').val('');
+            $('#btnSave').val('Save');
+            $('#ddlUser').prop('disabled', 'disabled');
+            $('#ddlProject').prop('disabled', 'disabled');
+
+        }
+        function ValidateDashboardConfiguration() {
+
+            Error_Message = "";
+            Error_Count = 1;
+
+            //company
+            //user
+            //project
+            //link
+
+            if (Error_Message != "") {
+                ShowError(Error_Message, 80);
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        function PullDataToEdit(cid, uid, pid,link) {
+
+            $('#ddlCompany').val(cid);
+            $("#ddlUser").val(uid);
+            $('#ddlProject').val(pid);
+            $('#txtLink').val(link);
+            $('#btnSave').val('Update');
+
+        }
+        function ShowServerMessage(servermessage) {
+
+            if (servermessage != "") {
+                $.messager.show({
+                    title: 'In2In Global',
+                    msg: servermessage,
+                    showType: 'slide',
+                    style: {
+                        right: '',
+                        top: '',
+                        bottom: -document.body.scrollTop - document.documentElement.scrollTop
+                    }
+                });
+            }
+
+
+        }
+        function ShowHidden() {
+
+        }
+    </script>
     <style type="text/css">
         body {
             background-color: azure;

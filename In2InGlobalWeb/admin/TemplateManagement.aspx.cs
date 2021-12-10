@@ -114,7 +114,7 @@ namespace In2InGlobal.presentation.admin
                     ddlMasterTemplate.Items.Clear();
                     ddlMasterTemplate.DataTextField = "file_name";
                     ddlMasterTemplate.DataValueField = "template_id";
-                    ddlMasterTemplate.Items.Add(new ListItem("--Select a Template--"));
+                    ddlMasterTemplate.Items.Insert(0,new ListItem("--Select a Template--"));
                     ddlMasterTemplate.DataSource = dsloadTemplate.Tables[0];                    
                     ddlMasterTemplate.DataBind();
                 }
@@ -240,7 +240,7 @@ namespace In2InGlobal.presentation.admin
             BindTemplate();
 
             ddlTemplates.Items.Clear();
-            ddlTemplates.Items.Add(new ListItem("--Select a Template--"));
+            ddlTemplates.Items.Insert(0,new ListItem("--Select a Template--"));
             BindTemplateToAssign();
             string _message = "Template assignment removed.";
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowAssignTemplate();", _message), true);
@@ -354,7 +354,7 @@ namespace In2InGlobal.presentation.admin
             BindUsers();
 
             ddlTemplates.Items.Clear();
-            ddlTemplates.Items.Add(new ListItem("--Select a Template--"));
+            ddlTemplates.Items.Insert(0,new ListItem("--Select a Template--"));
 
             BindTemplateToAssign();
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowAssignTemplate();", _message), true);

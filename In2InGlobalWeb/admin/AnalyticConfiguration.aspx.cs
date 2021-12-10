@@ -38,6 +38,7 @@ namespace In2InGlobal.presentation.admin
             ddlCompany.DataValueField = "company_id";
             ddlCompany.DataSource = dsCompany.Tables[0];
             ddlCompany.DataBind();
+            
         }
 
         private void BindUsers(long companyID)
@@ -47,10 +48,12 @@ namespace In2InGlobal.presentation.admin
                 DataSet dsUsers = new DataSet();
                 UserMasterBL userBL = new UserMasterBL();
                 dsUsers = userBL.GetUsers(companyID);
+                ddlUser.Items.Clear();
                 ddlUser.DataTextField = "user_email";
                 ddlUser.DataValueField = "user_id";
                 ddlUser.DataSource = dsUsers.Tables[0];
                 ddlUser.DataBind();
+                ddlUser.Items.Insert(0, "--Select a User--");
             }
             catch(Exception ex)
             {
@@ -67,8 +70,10 @@ namespace In2InGlobal.presentation.admin
                 dsUsersPrject = projectBL.getAssignedProject("", userEmail);
                 ddlProject.DataTextField = "project_name";
                 ddlProject.DataValueField = "project_id";
+                ddlProject.Items.Clear();
                 ddlProject.DataSource = dsUsersPrject.Tables[0];
                 ddlProject.DataBind();
+                ddlProject.Items.Insert(0, "--Select a Project--");
             }
             catch (Exception ex)
             {
