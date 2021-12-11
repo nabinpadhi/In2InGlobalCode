@@ -118,6 +118,28 @@ namespace In2InGlobalBL
         /// get Project Details
         /// </summary>
         /// <returns></returns>
+        public DataSet getProjectNameForDashboard(string userRole, string userEmail)
+        {
+            DataSet dsProject = new DataSet();
+            try
+            {
+                ProjectMasterDL objProject = new ProjectMasterDL();
+                dsProject = objProject.getProjectNameForDashboard(userRole, userEmail);
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
+
+            return dsProject;
+        }
+
+
+
+        /// <summary>
+        /// get Project Details
+        /// </summary>
+        /// <returns></returns>
         public DataSet getProjectId()
         {
             DataSet dsProject = new DataSet();

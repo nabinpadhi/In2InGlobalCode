@@ -72,9 +72,8 @@ namespace In2InGlobal.presentation.admin
                 string userEmail = Session["UserEmail"].ToString();
                 string userRole = Session["UserRole"].ToString();
 
-
                 ProjectMasterBL projectBL = new ProjectMasterBL();
-                dsUserAssignedProject = projectBL.getAssignedProject(userRole, userEmail);
+                dsUserAssignedProject = projectBL.getProjectNameForDashboard(userRole, userEmail);
             }
             catch (Exception ex)
             {

@@ -19,7 +19,7 @@ using System.Text;
 using System.Web.SessionState;
 using System.Reflection;
 using LumenWorks.Framework.IO.Csv;
-public class FileUploadHandler : IHttpHandler , IRequiresSessionState
+public class FileUploadHandler : IHttpHandler, IRequiresSessionState
 {
 
     public void ProcessRequest(HttpContext context)
@@ -37,11 +37,11 @@ public class FileUploadHandler : IHttpHandler , IRequiresSessionState
 
             if (HttpContext.Current.Session["ForScreen"].ToString() == "TemplateManagement")
             {
-                StartTemplateManagementTask(context,file, filePath, uploadedBy);
+                StartTemplateManagementTask(context, file, filePath, uploadedBy);
             }
-            else if(context.Request["ForScreen"] == "FileManagement")
+            else if (context.Request["ForScreen"] == "FileManagement")
             {
-                StartFileManagementTask(context,file, filePath, uploadedBy);
+                StartFileManagementTask(context, file, filePath, uploadedBy);
             }
             //}
 
@@ -49,7 +49,7 @@ public class FileUploadHandler : IHttpHandler , IRequiresSessionState
 
     }
 
-    private void StartTemplateManagementTask(HttpContext context,HttpPostedFile file,string filePath,string uploadedBy)
+    private void StartTemplateManagementTask(HttpContext context, HttpPostedFile file, string filePath, string uploadedBy)
     {
 
         //HttpPostedFile csvfileChecker = file;
@@ -57,7 +57,7 @@ public class FileUploadHandler : IHttpHandler , IRequiresSessionState
         {
             string filePathWithFileName = context.Server.MapPath(filePath + file.FileName);
             file.SaveAs(filePathWithFileName);
-            string _templateTableScript= GenerateTemplateTableScript(file.FileName.Replace(".csv", ""),filePathWithFileName).ToString();
+            string _templateTableScript = GenerateTemplateTableScript(file.FileName.Replace(".csv", ""), filePathWithFileName).ToString();
 
             SaveUploadMasterTemplateFile(filePath, file.FileName.Replace(".csv", ""), uploadedBy);
 
@@ -73,11 +73,11 @@ public class FileUploadHandler : IHttpHandler , IRequiresSessionState
         }
 
     }
-    private StringBuilder GenerateTemplateTableScript(string templateName,string fileNameWithPath)
+    private StringBuilder GenerateTemplateTableScript(string templateName, string fileNameWithPath)
     {
         StringBuilder _tableScript = new StringBuilder();
         DataTable _uploadedTemplateDataTable = new DataTable(templateName);
-        using (CsvReader.CsvReader _csvTableLoader = new CsvReader.CsvReader(new StreamReader(System.IO.File.OpenRead(fileNameWithPath)), true))
+        using (CsvReader _csvTableLoader = new CsvReader(new StreamReader(System.IO.File.OpenRead(fileNameWithPath)), true))
         {
             _uploadedTemplateDataTable.Load(_csvTableLoader);
         }
@@ -85,30 +85,61 @@ public class FileUploadHandler : IHttpHandler , IRequiresSessionState
         _tableScript.AppendLine("CREATE TABLE dbo." + templateName);
         _tableScript.AppendLine("(");
         _tableScript.AppendLine("");
+        _tableScript.AppendLine("id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 100000000000 CACHE 1 ) " + ",");
+        _tableScript.AppendLine("project_id bigint NOT NULL" + ",");
+        _tableScript.AppendLine("user_id bigint NOT NULL" + ",");
+        _tableScript.AppendLine("template_id bigint NOT NULL" + ",");
+        _tableScript.AppendLine("uploadedby character varying(200)" + ",");
+        _tableScript.AppendLine("uploadedon character varying(200)" + ",");
+        _tableScript.AppendLine("isprocessed character varying(50)" + ",");
+
         int colIndex = 1;
-        foreach(DataColumn _dc in _uploadedTemplateDataTable.Columns)
+        foreach (DataColumn _dc in _uploadedTemplateDataTable.Columns)
         {
             string _columnScriptRow = "";
+
             if (colIndex < _uploadedTemplateDataTable.Columns.Count)
             {
                 _columnScriptRow = _dc.ColumnName.Replace(" / ", "_or_").Replace(" ", "_") + " " + _dc.DataType.ToString() + ",";
             }
             else
             {
-                _columnScriptRow = _dc.ColumnName.Replace(" / ", "_or_").Replace(" ", "_") + " " + _dc.DataType.ToString() ;
+                _columnScriptRow = _dc.ColumnName.Replace(" / ", "_or_").Replace(" ", "_") + " " + _dc.DataType.ToString();
             }
             _columnScriptRow = _columnScriptRow.ToLower().Replace("system.string", "character varying");
+
             _tableScript.AppendLine(_columnScriptRow);
             colIndex = colIndex + 1;
 
         }
         _tableScript.AppendLine(")");
-        _tableScript.AppendLine("TABLESPACE pg_default;");
-        _tableScript.AppendLine("ALTER TABLE dbo." + templateName);
-        _tableScript.AppendLine("OWNER to postgres;");
+        _tableScript.AppendLine("");
+        _tableScript.AppendLine("" + " " + "TABLESPACE pg_default;");       
+        _tableScript.AppendLine("ALTER TABLE dbo." + templateName + " " + "OWNER to postgres;");
+
+        CreateMasterTemplateTable(_tableScript.ToString());
 
         return _tableScript;
     }
+
+    private void CreateMasterTemplateTable(string createTable)
+    {
+        try
+        {
+            if (createTable != null)
+            {
+                UploadTemplateBL uploadTemplateBl = new UploadTemplateBL();
+                uploadTemplateBl.CreateTableForMasterTemplate(createTable); 
+            }
+        }
+        catch (Exception ex)
+        {
+            ex.ToString();
+        }
+    }
+
+
+
     private void StartFileManagementTask(HttpContext context, HttpPostedFile file, string filePath, string uploadedBy)
     {
         if (!CheckUploadedFileHaveOnlyHeader(file))
@@ -167,7 +198,7 @@ public class FileUploadHandler : IHttpHandler , IRequiresSessionState
 
     }
 
-    private void SaveUploadTemplateInformationInDB(string fileName, string uploadBy, string projectName,HttpContext context)
+    private void SaveUploadTemplateInformationInDB(string fileName, string uploadBy, string projectName, HttpContext context)
     {
         UploadTemplateEntity templateEntity = new UploadTemplateEntity();
         try
@@ -233,7 +264,7 @@ public class FileUploadHandler : IHttpHandler , IRequiresSessionState
                 TemplateMasterEntity templateEntity = new TemplateMasterEntity();
                 templateEntity.FileName = fileName;
                 templateEntity.FilePath = filePath;
-                templateEntity.CreatedBy = createdby ;
+                templateEntity.CreatedBy = createdby;
                 TemplateMasterBl templateMasterBl = new TemplateMasterBl();
                 templateMasterBl.SaveUploadTemplateMaster(templateEntity);
             }
@@ -243,7 +274,7 @@ public class FileUploadHandler : IHttpHandler , IRequiresSessionState
             ex.ToString();
         }
     }
-    private bool IsBothCSVFileDataAreSame(string existingFileName,HttpPostedFile Uploadedfile)
+    private bool IsBothCSVFileDataAreSame(string existingFileName, HttpPostedFile Uploadedfile)
     {
         bool _result = true;
         StreamReader fsOld = new StreamReader(existingFileName);
@@ -284,7 +315,7 @@ public class FileUploadHandler : IHttpHandler , IRequiresSessionState
     }
     private string GetMasterTemplatesJSON()
     {
-        DataSet dsUploadedTempFiles= new DataSet();
+        DataSet dsUploadedTempFiles = new DataSet();
         TemplateMasterBl templateMasterBL = new TemplateMasterBl();
         dsUploadedTempFiles = templateMasterBL.PopulateUploadMasterTemplateName();
         string JSONresult = JsonConvert.SerializeObject(dsUploadedTempFiles.Tables[0]);

@@ -38,7 +38,7 @@ namespace In2InGlobal.presentation.admin
             AnalyticsBL analyticsBL = new AnalyticsBL();
             dsCompany = analyticsBL.getCompanyName();
             ddlCompany.Items.Clear();
-           
+
             ddlCompany.DataTextField = "company_name";
             ddlCompany.DataValueField = "company_id";
             ddlCompany.DataSource = dsCompany.Tables[0];
@@ -115,7 +115,6 @@ namespace In2InGlobal.presentation.admin
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            bool isSave = false;
             AnalyticsEntity analyticsEntity = new AnalyticsEntity();
             string _message = "Analytics Configuration Saved Successfully";
             try
@@ -131,7 +130,7 @@ namespace In2InGlobal.presentation.admin
                 if (hdnDBID.Value != "")
                 {
                     _message = "Analytics Configuration Updated Successfully";
-                    //analyticsEntity.CompanyId = Convert.ToInt64(hdnAnalyticID.Value);
+                    analyticsEntity.Id = Convert.ToInt64(hdnDBID.Value);
                     analyticsBl.UpdateAnalyticConfiguration(analyticsEntity);
                 }
                 else
@@ -161,7 +160,7 @@ namespace In2InGlobal.presentation.admin
             {
                 try
                 {
-               
+
                     analyticsEntity.Id = _id;
                     AnalyticsBL analyticsBL = new AnalyticsBL();
                     analyticsBL.DeleteAnalyticConfiguration(analyticsEntity);
@@ -185,7 +184,7 @@ namespace In2InGlobal.presentation.admin
                     string uid = ((System.Web.UI.WebControls.Label)e.Row.Cells[1].Controls[1]).Text;
                     string pid = ((System.Web.UI.WebControls.Label)e.Row.Cells[2].Controls[1]).Text;
                     string link = e.Row.Cells[6].Text;
-                   
+
                     foreach (Button editbutton in e.Row.Cells[7].Controls.OfType<Button>())
                     {
 

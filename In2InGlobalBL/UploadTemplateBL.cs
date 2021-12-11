@@ -74,6 +74,27 @@ namespace In2InGlobalBL
             return dsUplaodProject;
         }
 
+
+        /// <summary>
+        /// Load Project Name For Template
+        /// </summary>
+        /// <returns></returns>
+        public DataSet CreateTableForMasterTemplate(string queryTable)   
+        {
+            DataSet dsUplaodProject = new DataSet();
+            try
+            {
+                UploadTemplateDL objUploadProject = new UploadTemplateDL();
+                dsUplaodProject = objUploadProject.CreateTableForMasterTemplate(queryTable);
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
+            return dsUplaodProject;
+        }
+
+
         public DataSet LoadUploadFileTemplateGrid(string userRole, string userEmail, int pid)
         {
             DataSet dsUplaodProject = new DataSet();

@@ -16,7 +16,45 @@ namespace In2InGlobal.datalink
     /// Upload Template
     /// </summary>
     public class UploadTemplateDL
-    {
+    {    
+      
+        /// <summary>
+        /// Load Project Name For Template
+        /// </summary>
+        /// <returns></returns>
+        public DataSet CreateTableForMasterTemplate(string tableQuery) 
+        {
+            BaseRepository baseRepo = new BaseRepository();
+            DataSet dsProject = new DataSet();
+            NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
+
+            string query = tableQuery;
+            using (var connection = baseRepo.GetDBConnection())
+            {
+                try
+                {
+                    connection.Open();
+                    var result = connection.Query(query, commandType: CommandType.Text);
+
+                    if (result == null || !result.Any())
+                    {
+                        //  throw (" failed to create company").ToString();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Dispose();
+                    npgsqlDataAdapter.Dispose();
+                }
+                return dsProject;
+            }
+        }
+
+
         /// <summary>
         /// Load Project Name For Template
         /// </summary>

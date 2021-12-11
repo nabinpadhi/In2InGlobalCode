@@ -180,6 +180,47 @@ namespace In2InGlobal.datalink
             }
         }
 
+        public DataSet getProjectNameForDashboard(string userRole, string userEmail) 
+        {
+            BaseRepository baseRepo = new BaseRepository();
+            DataSet dsProject = new DataSet();
+            NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
+            string query = string.Empty;
+            if (userRole == "Admin")
+            {
+                query = @"SELECT * FROM dbo.getdashboardprojectforadmin(@useremail)";
+            }
+            else
+            {
+                query = @"SELECT * FROM dbo.getdashboardprojectforuser(@useremail)"; 
+            }
+            using (var connection = baseRepo.GetDBConnection())
+            {
+                try
+                {
+                    connection.Open();
+                    NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
+                    npgsqlCommand.Parameters.AddWithValue("@useremail", userEmail);
+                    npgsqlCommand.CommandType = CommandType.Text;
+                    npgsqlDataAdapter.SelectCommand = npgsqlCommand;
+                    npgsqlDataAdapter.Fill(dsProject);
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Dispose();
+                    connection.Dispose();
+                    npgsqlDataAdapter.Dispose();
+                }
+                return dsProject;
+            }
+        }
+
+
         public DataSet getProjectId()
         {
             BaseRepository baseRepo = new BaseRepository();

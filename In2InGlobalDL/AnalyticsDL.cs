@@ -222,7 +222,7 @@ namespace In2InGlobal.datalink
         public long UpdateAnalyticConfiguration(AnalyticsEntity analyticsEntity)
         {
             BaseRepository baseRepo = new BaseRepository();
-            var query = @"SELECT * FROM dbo.updateanalyticconfiguration(@companyid,@userid,@projectid,@dashboardurl)";
+            var query = @"SELECT * FROM dbo.updateanalyticconfiguration(@id,@dashboardurl)";
             using (var connection = baseRepo.GetDBConnection())
             {
                 try
@@ -230,9 +230,7 @@ namespace In2InGlobal.datalink
                     connection.Open();
                     var result = connection.Query(query, new
                     {
-                        userid = analyticsEntity.UserId,
-                        companyid = analyticsEntity.CompanyId,
-                        projectid = analyticsEntity.ProjectId,
+                        id = analyticsEntity.Id,                       
                         dashboardurl = analyticsEntity.DashboardUrl
                     }, commandType: CommandType.Text
                     );
@@ -264,7 +262,7 @@ namespace In2InGlobal.datalink
         public long DeleteAnalyticConfiguration(AnalyticsEntity analyticsEntity) 
         {
             BaseRepository baseRepo = new BaseRepository();
-            var query = @"SELECT * FROM dbo.deleteanalyticconfiguration(@companyid,@userid,@projectid)";
+            var query = @"SELECT * FROM dbo.deleteanalyticconfiguration(@id)";
             using (var connection = baseRepo.GetDBConnection())
             {
                 try
@@ -272,9 +270,8 @@ namespace In2InGlobal.datalink
                     connection.Open();
                     var result = connection.Query(query, new
                     {
-                        companyid = analyticsEntity.CompanyId,
-                        userid  = analyticsEntity.UserId,
-                        projectid = analyticsEntity.ProjectId 
+                        id = analyticsEntity.CompanyId 
+
                     }, commandType: CommandType.Text
                     );
 
