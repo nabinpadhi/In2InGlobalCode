@@ -69,7 +69,8 @@
                                                           <center>
                                                                 <asp:Button runat="server" ID="btnSave" CssClass="button" Text="Save" OnClick="btnSave_Click"  OnClientClick="return ValidateDashboardConfiguration();" />
                                                                 <input type="button" class="button" style="margin-left: 10px;" value="Cancel" onclick="ClearAll();" />
-                                                              </center>
+                                                              <asp:Button runat="server" ID="hdnDelBtn" CssClass="button" Text="" OnClick="hdnDelBtn_Click" />
+                                                           </center>   
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -83,13 +84,26 @@
                                     <center>
                                         <div style="width: 85%; height: 90%; border: 1px solid black; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;"> 
                                             <div class="AspNet-GridView">
+                                                <asp:HiddenField ID="hdnDBID" Value="" runat="server" />   
                                                  <asp:GridView runat="server" ID="grdAnalyticsLink" Width="100%" OnPageIndexChanging="grdAnalyticsLink_PageIndexChanging"  
-                                                     HeaderStyle-CssClass="AspNet-GridView" AllowPaging="True" DataKeyNames="project_id" PageSize="4" AutoGenerateColumns="false">
+                                                     HeaderStyle-CssClass="AspNet-GridView" AllowPaging="True" OnRowDataBound="grdAnalyticsLink_RowDataBound" DataKeyNames="id" PageSize="4" AutoGenerateColumns="false">
                                                      <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
-                                                    <Columns>
-                                                        <asp:BoundField DataField="company_id" HeaderText="" Visible="false" />                                                    
-                                                        <asp:BoundField DataField="user_id" HeaderText="" Visible="false" /> 
-                                                        <asp:BoundField DataField="project_id" HeaderText="" Visible="false" /> 
+                                                    <Columns>                                                        
+                                                        <asp:TemplateField Visible="false" ItemStyle-CssClass="hideGridColumn" HeaderStyle-CssClass="hideGridColumn">
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblCompanyid" runat="server" Text='<%#Eval("company_id") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                         <asp:TemplateField Visible="false" ItemStyle-CssClass="hideGridColumn" HeaderStyle-CssClass="hideGridColumn">
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblUserid" runat="server" Text='<%#Eval("user_id") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                         <asp:TemplateField Visible="false" ItemStyle-CssClass="hideGridColumn" HeaderStyle-CssClass="hideGridColumn">
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblProjectid" runat="server" Text='<%#Eval("project_id") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>                                                      
                                                         <asp:BoundField DataField="company_name"  HeaderText="Company Name" />
                                                         <asp:BoundField DataField="user_email"  HeaderText="User Email" />         
                                                         <asp:BoundField DataField="project_name" HeaderText="Project Name" />  
@@ -150,15 +164,16 @@
 
             Error_Message = "";
             Error_Count = 1;
+            if ($('#btnSave').val() != 'Update') {
+                if (CheckNullDropdown($("select[name='ddlCompany'] option:selected").index(), in2in21)) {
+                    if (CheckNullDropdown($("select[name='ddlUser'] option:selected").index(), in2in16)) {
 
-            //company
-            if (CheckNullDropdown($("select[name='ddlCompany'] option:selected").index(), in2in21)) {
-                if (CheckNullDropdown($("select[name='ddlUser'] option:selected").index(), in2in16)) {
+                        CheckNullDropdown($("select[name='ddlProject'] option:selected").index(), in2in17);
+                    }
 
-                    CheckNullDropdown($("select[name='ddlProject'] option:selected").index(), in2in17);
                 }
             }
-            CheckNull($('#txtlink').val())
+            CheckNull($('#txtlink').val(), in2in27);
             if (Error_Message != "") {
                 ShowError(Error_Message, 80);
                 return false;
@@ -167,14 +182,31 @@
                 return true;
             }
         }
-        function PullDataToEdit(cid, uid, pid,link) {
+        function PullDataToEdit(link, DBID) {
 
-            $('#ddlCompany').val(cid);
-            $("#ddlUser").val(uid);
-            $('#ddlProject').val(pid);
-            $('#txtLink').val(link);
+            $('#ddlUser').prop('disabled', 'disabled');
+            $('#ddlProject').prop('disabled', 'disabled');
+            $('#ddlCompany').prop('disabled', 'disabled');
+            $('#hdnDBID').val(DBID);
+            $('#txtlink').val(link);
             $('#btnSave').val('Update');
 
+        }
+        
+        function In2InGlobalConfirm(id) {
+
+            $.messager.confirm({
+                title: 'In2In Global Confirmation',
+                msg: 'Are you sure you want to delete this?',
+                ok: 'Yes',
+                cancel: 'No',
+                fn: function (r) {
+                    if (r) {
+                        $('#hdnDBID').val(id);
+                        $('#hdnDelBtn').trigger("click");
+                    }
+                }
+            });
         }
         function ShowServerMessage(servermessage) {
 
@@ -204,7 +236,7 @@
         .window-body.panel-body {
                color:silver;              
                padding-top:30px;
-               text-align:center;
+               text-align:left;
         }
         .panel-title
         {
@@ -228,6 +260,10 @@
         word-wrap: break-word;
         display: block;
     }
+          .hideGridColumn
+        {
+            display: none;
+        }
     </style>
 </body>
 </html>

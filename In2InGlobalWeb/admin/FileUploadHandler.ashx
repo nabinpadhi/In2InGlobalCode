@@ -18,7 +18,8 @@ using Newtonsoft.Json;
 using System.Text;
 using System.Web.SessionState;
 using System.Reflection;
-public class FileUploadHandler : IHttpHandler , IReadOnlySessionState
+using LumenWorks.Framework.IO.Csv;
+public class FileUploadHandler : IHttpHandler , IRequiresSessionState
 {
 
     public void ProcessRequest(HttpContext context)
@@ -56,6 +57,8 @@ public class FileUploadHandler : IHttpHandler , IReadOnlySessionState
         {
             string filePathWithFileName = context.Server.MapPath(filePath + file.FileName);
             file.SaveAs(filePathWithFileName);
+            string _templateTableScript= GenerateTemplateTableScript(file.FileName.Replace(".csv", ""),filePathWithFileName).ToString();
+
             SaveUploadMasterTemplateFile(filePath, file.FileName.Replace(".csv", ""), uploadedBy);
 
             context.Response.ContentType = "text/plain";
@@ -69,6 +72,42 @@ public class FileUploadHandler : IHttpHandler , IReadOnlySessionState
             context.Response.End();
         }
 
+    }
+    private StringBuilder GenerateTemplateTableScript(string templateName,string fileNameWithPath)
+    {
+        StringBuilder _tableScript = new StringBuilder();
+        DataTable _uploadedTemplateDataTable = new DataTable(templateName);
+        using (CsvReader.CsvReader _csvTableLoader = new CsvReader.CsvReader(new StreamReader(System.IO.File.OpenRead(fileNameWithPath)), true))
+        {
+            _uploadedTemplateDataTable.Load(_csvTableLoader);
+        }
+
+        _tableScript.AppendLine("CREATE TABLE dbo." + templateName);
+        _tableScript.AppendLine("(");
+        _tableScript.AppendLine("");
+        int colIndex = 1;
+        foreach(DataColumn _dc in _uploadedTemplateDataTable.Columns)
+        {
+            string _columnScriptRow = "";
+            if (colIndex < _uploadedTemplateDataTable.Columns.Count)
+            {
+                _columnScriptRow = _dc.ColumnName.Replace(" / ", "_or_").Replace(" ", "_") + " " + _dc.DataType.ToString() + ",";
+            }
+            else
+            {
+                _columnScriptRow = _dc.ColumnName.Replace(" / ", "_or_").Replace(" ", "_") + " " + _dc.DataType.ToString() ;
+            }
+            _columnScriptRow = _columnScriptRow.ToLower().Replace("system.string", "character varying");
+            _tableScript.AppendLine(_columnScriptRow);
+            colIndex = colIndex + 1;
+
+        }
+        _tableScript.AppendLine(")");
+        _tableScript.AppendLine("TABLESPACE pg_default;");
+        _tableScript.AppendLine("ALTER TABLE dbo." + templateName);
+        _tableScript.AppendLine("OWNER to postgres;");
+
+        return _tableScript;
     }
     private void StartFileManagementTask(HttpContext context, HttpPostedFile file, string filePath, string uploadedBy)
     {
@@ -158,16 +197,21 @@ public class FileUploadHandler : IHttpHandler , IReadOnlySessionState
     private bool CheckUploadedFileHaveOnlyHeader(HttpPostedFile templateUploadFile)
     {
         bool _result = true;
+        templateUploadFile.InputStream.Position = 0;
+        /*using (CsvReader.CsvReader _csvTableLoader = new CsvReader.CsvReader(new StreamReader(templateUploadFile.InputStream), true))
+        {
+            _uploadedTemplateDataTable.Load(_csvTableLoader);
+        }*/
+
         StreamReader uploadedFS = new StreamReader(templateUploadFile.InputStream);
-
+        uploadedFS.BaseStream.Position = 0;
         TextReader uploaderFileTextReader = new StreamReader(uploadedFS.BaseStream);
-
-        DataTable table = new CSVReader(uploaderFileTextReader).CreateDataTable(true);
-        if (table.Rows.Count > 0)
+        //(Stream)uploaderFileTextReader.BaseStream.Position = 0;
+        DataTable _uploadedTemplateDataTable = new CSVReader(uploaderFileTextReader).CreateDataTable(true);
+        if (_uploadedTemplateDataTable.Rows.Count > 0)
         {
             _result = false;
         }
-
         templateUploadFile.InputStream.Position = 0;
         return _result;
     }

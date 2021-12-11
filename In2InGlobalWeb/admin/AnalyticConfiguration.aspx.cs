@@ -20,8 +20,11 @@ namespace In2InGlobal.presentation.admin
         {
             if (Session["UserRole"] != null)
             {
-                BindCompany();
-                BindDashboardGrid();
+                if (!IsPostBack)
+                {
+                    BindCompany();
+                    BindDashboardGrid();
+                }
             }
             else
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
@@ -34,11 +37,13 @@ namespace In2InGlobal.presentation.admin
             DataSet dsCompany = new DataSet();
             AnalyticsBL analyticsBL = new AnalyticsBL();
             dsCompany = analyticsBL.getCompanyName();
-
+            ddlCompany.Items.Clear();
+           
             ddlCompany.DataTextField = "company_name";
             ddlCompany.DataValueField = "company_id";
             ddlCompany.DataSource = dsCompany.Tables[0];
             ddlCompany.DataBind();
+            ddlCompany.Items.Insert(0, "--Select a Company--");
         }
 
         private void BindUsers(long companyID)
@@ -123,7 +128,7 @@ namespace In2InGlobal.presentation.admin
 
                 AnalyticsBL analyticsBl = new AnalyticsBL();
 
-                if (isSave)//(hdnAnalyticID.Value != "")
+                if (hdnDBID.Value != "")
                 {
                     _message = "Analytics Configuration Updated Successfully";
                     //analyticsEntity.CompanyId = Convert.ToInt64(hdnAnalyticID.Value);
@@ -131,32 +136,33 @@ namespace In2InGlobal.presentation.admin
                 }
                 else
                 {
+                    analyticsEntity.Id = Convert.ToInt64(hdnDBID.Value);
                     analyticsBl.SaveAnalyticConfiguration(analyticsEntity);
                 }
                 txtlink.Value = "";
                 ddlUser.SelectedIndex = 0;
                 ddlProject.SelectedIndex = 0;
                 ddlCompany.SelectedIndex = 0;
+                hdnDBID.Value = "";
             }
             catch (Exception ex)
             {
                 ex.Message.ToString();
             }
-
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);
+            BindDashboardGrid();
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}'); ", _message), true);
         }
 
-        private void DeleteAnalyticConfiguration(string companyid, string userid, string projectid)
+        private void DeleteAnalyticConfiguration(int _id)
         {
             AnalyticsEntity analyticsEntity = new AnalyticsEntity();
 
-            if (projectid != null && companyid != null && userid != null)
+            if (_id != 0)
             {
                 try
                 {
-                    analyticsEntity.CompanyId = Convert.ToInt32(companyid);
-                    analyticsEntity.UserId = Convert.ToInt32(userid);
-                    analyticsEntity.ProjectId = Convert.ToInt32(projectid);
+               
+                    analyticsEntity.Id = _id;
                     AnalyticsBL analyticsBL = new AnalyticsBL();
                     analyticsBL.DeleteAnalyticConfiguration(analyticsEntity);
                 }
@@ -165,6 +171,48 @@ namespace In2InGlobal.presentation.admin
                     ex.Message.ToString();
                 }
             }
+        }
+
+        protected void grdAnalyticsLink_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            try
+            {
+                if (e.Row.RowType == DataControlRowType.DataRow)
+                {
+                    string dashboardID = grdAnalyticsLink.DataKeys[e.Row.RowIndex].Value.ToString();
+
+                    string cid = ((System.Web.UI.WebControls.Label)e.Row.Cells[0].Controls[1]).Text;//
+                    string uid = ((System.Web.UI.WebControls.Label)e.Row.Cells[1].Controls[1]).Text;
+                    string pid = ((System.Web.UI.WebControls.Label)e.Row.Cells[2].Controls[1]).Text;
+                    string link = e.Row.Cells[6].Text;
+                   
+                    foreach (Button editbutton in e.Row.Cells[7].Controls.OfType<Button>())
+                    {
+
+                        editbutton.UseSubmitBehavior = false;
+                        editbutton.Attributes["onclick"] = "return PullDataToEdit('" + link + "','" + link + "');";
+
+                    }
+                    foreach (Button delbutton in e.Row.Cells[8].Controls.OfType<Button>())
+                    {
+
+                        delbutton.UseSubmitBehavior = false;
+                        delbutton.Attributes["onclick"] = "javascript:In2InGlobalConfirm('" + dashboardID + "');return false;";
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        protected void hdnDelBtn_Click(object sender, EventArgs e)
+        {
+            DeleteAnalyticConfiguration(Convert.ToInt32(hdnDBID.Value));
+            string _message = "Analytics Configuration Deleted Successfully.";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}'); ", _message), true);
         }
 
         //protected void UpdateAnalyticConfiguration(string companyid, string userid, string projectid ,string dashboardUrl) 
