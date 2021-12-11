@@ -56,9 +56,9 @@ namespace In2InGlobal.presentation.admin
             }
             foreach (DataRow dr in dtUserProjectList.Rows)
             {
-                string liForProject = " <li class='cd-side__item'><a href = '#UsrAnaliLnkForPro' id = '" + dr["project_name"].ToString() + "' runat = 'server' >" + dr["project_name"].ToString() + "</a></li>";
-                string ancLink = "javascript:alert(\"" + dr["project_name"].ToString() + "\");";
-                liForProject = liForProject.Replace("#UsrAnaliLnkForPro", ancLink);
+                string ancLink = " onclick = \"OpenPage('https://analytics.zoho.in/open-view/210664000000009321/60a0a9d9d2953abc7eab81953595f3ac');\"";
+                string liForProject = " <li class='cd-side__item'><a href = '#'  id = '" + dr["project_name"].ToString() + "'" + ancLink + "' runat = 'server' >" + dr["project_name"].ToString() + "</a></li>";
+                              
                 analyticsProjectLinkLiString.AppendLine(liForProject);
             }
             AnalyticsProjectList.InnerHtml = analyticsProjectLinkLiString.ToString();
