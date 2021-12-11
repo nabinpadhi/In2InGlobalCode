@@ -485,9 +485,7 @@
                  success: function (result) {
 
                      if (result != '') {
-
-                       
-                         ShowServerMessage("File(s) Uploaded Successfully.");
+                         ShowServerMessage("File Uploaded Successfully.");
                          $("#fileUploader").val('');
                      }
 
@@ -497,8 +495,9 @@
                  },
                  complete: function (data) {
 
-                     $ddlAssignedProject.attr('selectedIndex', 0);
-                     ShowCreateTemplate();
+                     $('#ddlAssignedProject').attr('selectedIndex', 0);
+                     ShowFileMgnt();
+                     //alert(data);
 
                  }
              });

@@ -66,10 +66,10 @@
                                                 <tr>
                                                     <td colspan="4">
                                                         <div style="margin-top: 30px;">
-                                                            <center>
-                                                                <asp:Button runat="server" ID="btnSave" CssClass="button" Text="Save" OnClientClick="return ValidateDashboardConfiguration();" />
+                                                          <center>
+                                                                <asp:Button runat="server" ID="btnSave" CssClass="button" Text="Save" OnClick="btnSave_Click"  OnClientClick="return ValidateDashboardConfiguration();" />
                                                                 <input type="button" class="button" style="margin-left: 10px;" value="Cancel" onclick="ClearAll();" />
-                                                            </center>
+                                                              </center>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -152,10 +152,13 @@
             Error_Count = 1;
 
             //company
-            //user
-            //project
-            //link
+            if (CheckNullDropdown($("select[name='ddlCompany'] option:selected").index(), in2in21)) {
+                if (CheckNullDropdown($("select[name='ddlUser'] option:selected").index(), in2in16)) {
 
+                    CheckNullDropdown($("select[name='ddlProject'] option:selected").index(), in2in17);
+                }
+            }
+            CheckNull($('#txtlink').val())
             if (Error_Message != "") {
                 ShowError(Error_Message, 80);
                 return false;

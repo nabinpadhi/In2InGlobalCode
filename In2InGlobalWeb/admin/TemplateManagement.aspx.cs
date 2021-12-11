@@ -35,8 +35,8 @@ namespace In2InGlobal.presentation.admin
                     HttpContext.Current.Session["UploadedBy"] = Session["UserEmail"].ToString();
                     HttpContext.Current.Session["ForScreen"] = "TemplateManagement";
 
-                    //if (usrRole == "Admin")
-                    //{
+                    if (usrRole == "Admin")
+                    {
                         BindMasterTemplate();
                         BindMasterTemplateGrid();
                         if (Session["servermessage"] != null && Session["servermessage"].ToString() != "")
@@ -44,11 +44,11 @@ namespace In2InGlobal.presentation.admin
                             string servermessge = Session["servermessage"].ToString();
                             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowCreateTemplate();ShowUploadMasterTemplate();ShowServerMessage('{0}'); ", servermessge), true);
                         }
-                    //}
-                    //else
-                    //{
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
-                    //}
+                    }
+                    else
+                    {
+                       Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
+                    }
                 }
                 else
                 {
