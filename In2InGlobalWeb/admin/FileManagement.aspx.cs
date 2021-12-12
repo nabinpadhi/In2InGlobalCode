@@ -878,12 +878,7 @@ namespace In2InGlobal.presentation.admin
 
             }
         }
-
-        protected void btnRefresh_Click(object sender, ImageClickEventArgs e)
-        {
-            BindFileGrid("");
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "ShowFileMgnt();", true);
-        }
+        
 
         protected void ddlTemplate_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -908,6 +903,13 @@ namespace In2InGlobal.presentation.admin
                 tplInstruction.InnerHtml = "<li>No Instruction Found.</li>";
             }
            
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "ShowFileMgnt();", true);
+        }
+
+        protected void btnReload_Click(object sender, EventArgs e)
+        {
+            BindFileGrid("");
+            ddlAssignedProject.SelectedIndex = 0;
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "ShowFileMgnt();", true);
         }
     }

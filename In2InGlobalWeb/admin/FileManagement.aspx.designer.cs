@@ -166,6 +166,15 @@ namespace In2InGlobal.presentation.admin {
         protected global::System.Web.UI.WebControls.GridView grdUploadedFiles;
         
         /// <summary>
+        /// btnReload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnReload;
+        
+        /// <summary>
         /// fileUploader control.
         /// </summary>
         /// <remarks>
@@ -182,15 +191,6 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUpload;
-        
-        /// <summary>
-        /// btnRefresh control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnRefresh;
         
         /// <summary>
         /// tplInstruction control.

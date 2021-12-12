@@ -19,6 +19,7 @@ using System.Text;
 using System.Web.SessionState;
 using System.Reflection;
 using LumenWorks.Framework.IO.Csv;
+using CsvReader;
 public class FileUploadHandler : IHttpHandler, IRequiresSessionState
 {
 
@@ -77,7 +78,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
     {
         StringBuilder _tableScript = new StringBuilder();
         DataTable _uploadedTemplateDataTable = new DataTable(templateName);
-        using (CsvReader _csvTableLoader = new CsvReader(new StreamReader(System.IO.File.OpenRead(fileNameWithPath)), true))
+        using (CsvReader.CsvReader _csvTableLoader = new CsvReader.CsvReader(new StreamReader(System.IO.File.OpenRead(fileNameWithPath)), true))
         {
             _uploadedTemplateDataTable.Load(_csvTableLoader);
         }
@@ -114,7 +115,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
         }
         _tableScript.AppendLine(")");
         _tableScript.AppendLine("");
-        _tableScript.AppendLine("" + " " + "TABLESPACE pg_default;");       
+        _tableScript.AppendLine("" + " " + "TABLESPACE pg_default;");
         _tableScript.AppendLine("ALTER TABLE dbo." + templateName + " " + "OWNER to postgres;");
 
         CreateMasterTemplateTable(_tableScript.ToString());
@@ -129,7 +130,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
             if (createTable != null)
             {
                 UploadTemplateBL uploadTemplateBl = new UploadTemplateBL();
-                uploadTemplateBl.CreateTableForMasterTemplate(createTable); 
+                uploadTemplateBl.CreateTableForMasterTemplate(createTable);
             }
         }
         catch (Exception ex)
@@ -154,7 +155,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
             {
                 file.SaveAs(filePathWithFileName);
                 //call the function to db entry
-                SaveUploadTemplateInformationInDB(fileName, uploadedBy, projectName, context);
+                SaveUploadTemplateInformationInDB(fileName, uploadedBy, projectName, context,filePathWithFileName);
 
                 context.Response.ContentType = "text/plain";
                 context.Response.Write(GetUploadedFilesJSON(context));
@@ -176,12 +177,12 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
                     fileName = tempfileName;
 
                     file.SaveAs(context.Server.MapPath(System.IO.Path.Combine(filePath, fileName)));
-                    SaveUploadTemplateInformationInDB(fileName, uploadedBy, projectName, context);
+                    SaveUploadTemplateInformationInDB(fileName, uploadedBy, projectName, context,filePathWithFileName);
                 }
                 else
                 {
                     file.SaveAs(filePathWithFileName);
-                    SaveUploadTemplateInformationInDB(fileName, uploadedBy, projectName, context);
+                    SaveUploadTemplateInformationInDB(fileName, uploadedBy, projectName, context,filePathWithFileName);
                 }
                 context.Response.ContentType = "text/plain";
                 context.Response.Write(GetUploadedFilesJSON(context));
@@ -198,7 +199,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
 
     }
 
-    private void SaveUploadTemplateInformationInDB(string fileName, string uploadBy, string projectName, HttpContext context)
+    private void SaveUploadTemplateInformationInDB(string fileName, string uploadBy, string projectName, HttpContext context,string filePathWithFileName)
     {
         UploadTemplateEntity templateEntity = new UploadTemplateEntity();
         try
@@ -214,8 +215,16 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
 
                 UploadTemplateBL uploadTemplateBl = new UploadTemplateBL();
                 uploadTemplateBl.SaveAssignedTemplate(templateEntity);
-                //Extract the CSV data put into data Table and share with BL.
-                //uploadTemplateBl.SaveCSVData(CSNDatatable,filename{only master template name),projectname,uploadedby);
+                string templateName = fileName.Replace(".csv", "");
+                string masterTemplateName = GenerateMasterTemplateName(templateName);
+                DataTable _uploadedTemplateDataTable = new DataTable(masterTemplateName);
+                using (CsvReader.CsvReader _csvTableLoader = new CsvReader.CsvReader(new StreamReader(System.IO.File.OpenRead(filePathWithFileName)), true))
+                {
+                    _uploadedTemplateDataTable.Load(_csvTableLoader);
+                }
+                
+                //Table name will tell u where tp insert data;
+                //uploadTemplateBl.SaveCSVData(_uploadedTemplateDataTable,projectname,uploadedby);
 
             }
         }
@@ -224,7 +233,31 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
             ex.ToString();
         }
     }
-
+    private string GenerateMasterTemplateName(string uploadedFileName)
+    {
+        string _result = "";
+        if (uploadedFileName.Contains("Spend_Analytics"))
+        {
+            _result = "Spend_Analytics";
+        }
+        else if(uploadedFileName.Contains("Purchasing"))
+        {
+            _result = "Purchasing";
+        }
+        else if (uploadedFileName.Contains("Procurement"))
+        {
+            _result = "Procurement";
+        }
+        else if (uploadedFileName.Contains("Business_Travel_Hotel"))
+        {
+            _result = "Business_Travel_Hotel";
+        }
+        else if (uploadedFileName.Contains("Business_Travel_Air"))
+        {
+            _result = "Business_Travel_Air";
+        }
+        return _result;
+    }
     private bool CheckUploadedFileHaveOnlyHeader(HttpPostedFile templateUploadFile)
     {
         bool _result = true;

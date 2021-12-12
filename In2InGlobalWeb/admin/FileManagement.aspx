@@ -159,7 +159,7 @@
                                                                                     </asp:DropDownList>
                                                                                 </div>
                                                                             </td>
-                                                                            <td style="width:40%;vertical-align:top;padding-top:20px;">
+                                                                            <td style="width:40%;vertical-align:top;padding-top:20px;text-align: end;">
                                                                                 <asp:Button CssClass="button" Enabled="false" OnClientClick="return ValidateDownload();" OnClick="btnDownload_Click" Text="Download" ID="btnDownload" runat="server" style="width:70px;padding-left:5px;"></asp:Button>
                                                                             </td>
                                                                         </tr>                                                                       
@@ -193,17 +193,19 @@
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
-                                                                            <td style="text-align: left;">
+                                                                            <td style="text-align: left;padding-left:20px;">
+                                                                                <asp:Button runat="server" ID="btnReload" Text="" style="display:none;" OnClientClick="return true;" OnClick="btnReload_Click" />
                                                                                 <asp:FileUpload ID="fileUploader" accept=".csv" Enabled="false" runat="server" />                                                                                                                                                    
                                                                             </td>
-                                                                            <td>
-                                                                                 <asp:Button ID="btnUpload" OnClientClick="javascript:StartUploading();return false;"  style="width:70px;padding-left:15px;" class="button" Enabled="false" runat="server" Text="Upload" />
+                                                                            <td colspan="2" style="text-align: end;">
+                                                                                 <asp:Button ID="btnUpload" OnClientClick="javascript:StartUploading();return false;"  style="width:70px;padding-left:15px;margin-top:4px;" CssClass="button" Enabled="false" runat="server" Text="Upload" />
+                                                                            </td>                                                                
+                                                                                                                                                    
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="3" style="text-align:left;font-weight:">
+                                                                                <span style="color:darkgreen;font-size:smaller;"><i>To upload a template file , please select a <b style="color:blue;">Project</b> then a <b style="color:blue;">Template</b>.</i></span>
                                                                             </td>
-                                                                
-                                                                            <td>
-                                                                                <asp:ImageButton runat="server" ID="btnRefresh" ToolTip="Refresh" ImageUrl="~/admin/img/refresh.jpg" Width="30px" BorderStyle="None" OnClick="btnRefresh_Click" />
-                                                                            </td>
-
                                                                         </tr>
                                                                     </table>
                                                                 </td>
@@ -495,7 +497,7 @@
                  },
                  complete: function (data) {
 
-                     $('#ddlAssignedProject').attr('selectedIndex', 0);
+                     $('#btnReload').trigger("click");
                      ShowFileMgnt();
                      //alert(data);
 
