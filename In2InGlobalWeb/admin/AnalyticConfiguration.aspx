@@ -69,7 +69,7 @@
                                                           <center>
                                                                 <asp:Button runat="server" ID="btnSave" CssClass="button" Text="Save" OnClick="btnSave_Click"  OnClientClick="return ValidateDashboardConfiguration();" />
                                                                 <input type="button" class="button" style="margin-left: 10px;" value="Cancel" onclick="ClearAll();" />
-                                                              <asp:Button runat="server" ID="hdnDelBtn" CssClass="button" Text="" OnClick="hdnDelBtn_Click" />
+                                                               <asp:Button runat="server" ID="hdnDelBtn" Text="" style="display:none;" OnClientClick="return true;" OnClick="hdnDelBtn_Click" />
                                                            </center>   
                                                         </div>
                                                     </td>
@@ -107,7 +107,7 @@
                                                         <asp:BoundField DataField="company_name"  HeaderText="Company Name" />
                                                         <asp:BoundField DataField="user_email"  HeaderText="User Email" />         
                                                         <asp:BoundField DataField="project_name" HeaderText="Project Name" />  
-                                                         <asp:BoundField DataField="dashboard_url" HeaderText="Dashboard Link" />  
+                                                         <asp:BoundField HeaderStyle-CssClass="specifyCol" ItemStyle-CssClass="specify" ItemStyle-Width="396px" HeaderStyle-Width="398px" DataField="dashboard_url" HeaderText="Dashboard Link" />  
                                                         <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Edit" >
                                                             <ItemTemplate>
                                                                 <asp:Button ID="EditButton" CssClass="GridEditButton" runat="server" Text="" />               
@@ -184,6 +184,7 @@
         }
         function PullDataToEdit(link, DBID) {
 
+            
             $('#ddlUser').prop('disabled', 'disabled');
             $('#ddlProject').prop('disabled', 'disabled');
             $('#ddlCompany').prop('disabled', 'disabled');
@@ -253,12 +254,25 @@
         }
          .specify {
         overflow: hidden;
-        text-overflow: ellipsis;
-        max-height: 90px;
-        height: 90px;
+        text-overflow: ellipsis;  
+        max-height:20px;
+        height: 20px;
         word-break: break-all;
         word-wrap: break-word;
-        display: block;
+      display:inline-block;     
+         white-space: nowrap;
+
+    }
+         .specifyCol {
+        overflow: hidden;
+        text-overflow: ellipsis;  
+        max-height:20px;
+        height: 20px;
+        word-break: break-all;
+        word-wrap: break-word;
+      display:inline-block;     
+         white-space: nowrap;
+
     }
           .hideGridColumn
         {

@@ -119,10 +119,6 @@ namespace In2InGlobal.presentation.admin
             string _message = "Analytics Configuration Saved Successfully";
             try
             {
-                analyticsEntity.ProjectId = Convert.ToInt32(ddlProject.SelectedValue);
-                analyticsEntity.UserId = Convert.ToInt32(ddlUser.SelectedValue);
-                analyticsEntity.CompanyId = Convert.ToInt32(ddlCompany.SelectedValue);
-                analyticsEntity.CreatedBy = Session["UserEmail"].ToString();
                 analyticsEntity.DashboardUrl = txtlink.Value;
 
                 AnalyticsBL analyticsBl = new AnalyticsBL();
@@ -135,7 +131,10 @@ namespace In2InGlobal.presentation.admin
                 }
                 else
                 {
-                    analyticsEntity.Id = Convert.ToInt64(hdnDBID.Value);
+                    analyticsEntity.ProjectId = Convert.ToInt32(ddlProject.SelectedValue);
+                    analyticsEntity.UserId = Convert.ToInt32(ddlUser.SelectedValue);
+                    analyticsEntity.CompanyId = Convert.ToInt32(ddlCompany.SelectedValue);
+                    analyticsEntity.CreatedBy = Session["UserEmail"].ToString();
                     analyticsBl.SaveAnalyticConfiguration(analyticsEntity);
                 }
                 txtlink.Value = "";
@@ -161,7 +160,7 @@ namespace In2InGlobal.presentation.admin
                 try
                 {
 
-                    analyticsEntity.Id = _id;
+                    analyticsEntity.Id = Convert.ToInt64(_id);
                     AnalyticsBL analyticsBL = new AnalyticsBL();
                     analyticsBL.DeleteAnalyticConfiguration(analyticsEntity);
                 }
@@ -189,7 +188,7 @@ namespace In2InGlobal.presentation.admin
                     {
 
                         editbutton.UseSubmitBehavior = false;
-                        editbutton.Attributes["onclick"] = "return PullDataToEdit('" + link + "','" + link + "');";
+                        editbutton.Attributes["onclick"] = "return PullDataToEdit('" + link + "','" + dashboardID + "');";
 
                     }
                     foreach (Button delbutton in e.Row.Cells[8].Controls.OfType<Button>())
@@ -211,6 +210,7 @@ namespace In2InGlobal.presentation.admin
         {
             DeleteAnalyticConfiguration(Convert.ToInt32(hdnDBID.Value));
             string _message = "Analytics Configuration Deleted Successfully.";
+            BindDashboardGrid();
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}'); ", _message), true);
         }
 
