@@ -16,13 +16,13 @@ namespace In2InGlobal.datalink
     /// Upload Template
     /// </summary>
     public class UploadTemplateDL
-    {    
-      
+    {
+
         /// <summary>
         /// Load Project Name For Template
         /// </summary>
         /// <returns></returns>
-        public DataSet CreateTableForMasterTemplate(string tableQuery) 
+        public DataSet CreateTableForMasterTemplate(string tableQuery)
         {
             BaseRepository baseRepo = new BaseRepository();
             DataSet dsProject = new DataSet();
@@ -204,7 +204,7 @@ namespace In2InGlobal.datalink
 
         public DataSet LoadSearchTemplateGrid(string userRole, string userEmail, int pid)
         {
-            string query = string.Empty;            
+            string query = string.Empty;
             BaseRepository baseRepo = new BaseRepository();
             DataSet dsEmail = new DataSet();
             NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
@@ -332,57 +332,48 @@ namespace In2InGlobal.datalink
         }
 
 
-
-        private void SaveUploadTemplate(DataTable dtUploadTemplate)
+        public long SaveUploadTemplate(DataTable dtUploadTemplate,UploadTemplateEntity uploadTemplateEntity) 
         {
             BaseRepository baseRepo = new BaseRepository();
             var connection = baseRepo.GetDBConnection();
-
+            string tableName = uploadTemplateEntity.FileName;
             DataTable dt = new DataTable();
-            dt.Clear();
-            dt.Columns.Add("vender");
-            dt.Columns.Add("spend_category");
-            dt.Columns.Add("spend_amount");
-            dt.Columns.Add("template_id");
-            dt.Columns.Add("project_id");
-            dt.Columns.Add("user_id");
-            dt.Columns.Add("dashboard_url");
-            dt.Columns.Add("isprocessed");
-            DataRow _ravi = dt.NewRow();
-            _ravi["vender"] = "Ravi";
-            _ravi["spend_category"] = "Software";
-            _ravi["spend_amount"] = "5000";
-            _ravi["template_id"] = "1";
-            _ravi["project_id"] = "1";
-            _ravi["user_id"] = "1";
-            _ravi["dashboard_url"] = "c://dashboard";
-            _ravi["isprocessed"] = 1;
-             dt.Rows.Add(_ravi);
-                     
-
-            using (var transaction = connection.BeginTransaction())
+            try
             {
-                connection.Open();
-                foreach (DataRow row in dtUploadTemplate.Rows)
+                using (var transaction = connection.BeginTransaction())
                 {
-                    // Create an NpgsqlParameter for every field in the column
-                    var parameters = new List<DbParameter>();
-                    for (var i = 0; i < dtUploadTemplate.Columns.Count; i++)
+                    connection.Open();
+                    foreach (DataRow row in dtUploadTemplate.Rows)
                     {
-                        parameters.Add(new NpgsqlParameter($"@p{i}", row[i]));
-                    }
-                    var parameterNames = string.Join(", ", parameters.Select(p => p.ParameterName));
+                        // Create an NpgsqlParameter for every field in the column
+                        var parameters = new List<DbParameter>();
+                        for (var i = 0; i < dtUploadTemplate.Columns.Count; i++)
+                        {
+                            parameters.Add(new NpgsqlParameter($"@p{i}", row[i]));
+                        }
+                        var parameterNames = string.Join(", ", parameters.Select(p => p.ParameterName));
 
-                    // Create an INSERT SQL query which inserts the data from the current row into PostgreSql table
-                    var command = new NpgsqlCommand(
-                        $"INSERT INTO dbo.spend_analytics_staging VALUES ({parameterNames})",
-                        connection);
-                    command.Parameters.AddRange(parameters.ToArray());
-                    command.ExecuteNonQuery();
+                        // Create an INSERT SQL query which inserts the data from the current row into PostgreSql table
+                        var command = new NpgsqlCommand(
+                            $"INSERT INTO dbo.{tableName} VALUES ({parameterNames})",
+                            connection);
+                        command.Parameters.AddRange(parameters.ToArray());
+                        command.ExecuteNonQuery();
+                    }
+                    transaction.Commit();
                 }
 
             }
+            catch (Exception ex)
+            {
+                ex.ToString();
+            }
+            finally
+            {
+                connection.Dispose();
 
+            }
+            return uploadTemplateEntity.TemplateId;
         }
 
         private void SaveUploadTemplateDataInTable(DataTable dtUploadTemplate)

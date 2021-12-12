@@ -12,7 +12,7 @@ namespace kss.ra.dataaccess
     {
         public NpgsqlConnection GetDBConnection()
         {
-            var connectionString = "Host=localhost;port=5432;Username=postgres;Password=bhptpl@79;Database=In2InGlobal";
+            var connectionString = "Host=localhost;port=5432;Username=postgres;Password=admin;Database=postgres";
             var databaseConnection = new NpgsqlConnection(connectionString);
             return databaseConnection;
 

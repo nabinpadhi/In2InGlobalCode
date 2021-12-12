@@ -222,7 +222,7 @@ namespace In2InGlobal.datalink
         public long UpdateAnalyticConfiguration(AnalyticsEntity analyticsEntity)
         {
             BaseRepository baseRepo = new BaseRepository();
-            var query = @"SELECT * FROM dbo.updateanalyticconfiguration(@id,@dashboardurl)";
+            var query = @"SELECT * FROM dbo.updateanalyticconfiguration(@ids,@dashboardurl)";
             using (var connection = baseRepo.GetDBConnection())
             {
                 try
@@ -230,7 +230,7 @@ namespace In2InGlobal.datalink
                     connection.Open();
                     var result = connection.Query(query, new
                     {
-                        id = analyticsEntity.Id,                       
+                        ids = analyticsEntity.Id,                       
                         dashboardurl = analyticsEntity.DashboardUrl
                     }, commandType: CommandType.Text
                     );

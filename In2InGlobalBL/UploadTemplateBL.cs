@@ -35,9 +35,22 @@ namespace In2InGlobalBL
             };
             return response;
         }
+        public UploadTemplateDto SaveUploadTemplate(DataTable dtUploadTemplate, UploadTemplateEntity uploadTemplateEntity)
+        {
+            UploadTemplateDto response = null;
+            UploadTemplateDL tempuploadDL = new UploadTemplateDL();
 
+            if (uploadTemplateEntity == null) return response;
 
-        public UploadTemplateDto UpdateAssignedTemplate(UploadTemplateEntity tempEntity) 
+            var varTemplateId = tempuploadDL.SaveUploadTemplate(dtUploadTemplate, uploadTemplateEntity);
+
+            response = new UploadTemplateDto
+            {
+                TemplateId = varTemplateId
+            };
+            return response;
+        }
+        public UploadTemplateDto UpdateAssignedTemplate(UploadTemplateEntity tempEntity)
         {
             UploadTemplateDto response = null;
             UploadTemplateDL tempuploadDL = new UploadTemplateDL();
@@ -59,7 +72,7 @@ namespace In2InGlobalBL
         /// Load Project Name For Template
         /// </summary>
         /// <returns></returns>
-        public DataSet LoadProjectNameForTemplate() 
+        public DataSet LoadProjectNameForTemplate()
         {
             DataSet dsUplaodProject = new DataSet();
             try
@@ -79,7 +92,7 @@ namespace In2InGlobalBL
         /// Load Project Name For Template
         /// </summary>
         /// <returns></returns>
-        public DataSet CreateTableForMasterTemplate(string queryTable)   
+        public DataSet CreateTableForMasterTemplate(string queryTable)
         {
             DataSet dsUplaodProject = new DataSet();
             try
@@ -109,7 +122,7 @@ namespace In2InGlobalBL
             }
             return dsUplaodProject;
         }
-       
+
         public DataSet LoadSearchTemplateGrid(string userRole, string userEmail, int pid)
         {
             DataSet dsUplaodProject = new DataSet();
@@ -134,11 +147,11 @@ namespace In2InGlobalBL
         /// </summary>
         /// <param name="projectid"></param> 
         /// <returns></returns>
-        public DataSet LoadAllUserEmailForAssignedProject(long projectid)  
+        public DataSet LoadAllUserEmailForAssignedProject(long projectid)
         {
-            DataSet dsUplaodUser = new DataSet();  
+            DataSet dsUplaodUser = new DataSet();
             try
-            { 
+            {
                 UploadTemplateDL objUploadUser = new UploadTemplateDL();
                 dsUplaodUser = objUploadUser.LoadAllUserEmailForNotAssignedProject(projectid);
             }
@@ -154,12 +167,12 @@ namespace In2InGlobalBL
         /// Populate TemplateName For Assigned Project  And User
         /// </summary>
         /// <returns></returns>
-        public DataSet LoadTemplateForNotAssignedProjectAndUser(long projectid, string userid)   
+        public DataSet LoadTemplateForNotAssignedProjectAndUser(long projectid, string userid)
         {
-            DataSet dsUplaodTemplate = new DataSet(); 
+            DataSet dsUplaodTemplate = new DataSet();
             try
             {
-                UploadTemplateDL objUploadTemplate = new UploadTemplateDL(); 
+                UploadTemplateDL objUploadTemplate = new UploadTemplateDL();
                 dsUplaodTemplate = objUploadTemplate.LoadTemplateForNotAssignedProjectAndUser(projectid, userid);
             }
             catch (Exception ex)
