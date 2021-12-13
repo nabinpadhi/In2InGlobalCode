@@ -1,4 +1,5 @@
-﻿using InGlobal.presentation;
+﻿using In2InGlobal.businesslogic;
+using InGlobal.presentation;
 using Newtonsoft.Json;
 using System;
 using System.Data;
@@ -18,24 +19,19 @@ namespace In2InGlobal.presentation.admin
                 string forwhom = Request.QueryString["fw"];
                 if (forwhom != null)
                 {
-                    string userData = StringUtil.Decrypt(forwhom);
+                    string userEmail = StringUtil.Decrypt(forwhom);
+                    LoginBl loginbL = new LoginBl();
+                    DataSet dsUser = loginbL.getMyLogin(userEmail);
 
-                    ServicePointManager.Expect100Continue = true;
-                    ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-                    string json = (new WebClient()).DownloadString(Server.MapPath("admin/json-data/Users.json"));
-                    DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);                 
-                    DataRow[] userRows = usrTable.Select("Email ='" + userData + "'");
-                    
-                    if (userRows.Length == 0)
+                    if (dsUser.Tables.Count == 0)
                     {
                         Response.Redirect("admin/login.aspx");
                     }
                     else
                     {
-                        ps_user_id.Value = userData;
+                        ps_user_id.Value = dsUser.Tables[0].Rows[0]["user_email"].ToString();
                     }
-                    ps_user_id.Value = userData;
-
+                  
                 }
             }
         }
@@ -43,23 +39,14 @@ namespace In2InGlobal.presentation.admin
         public static string ChangePass(string emailid, string password)
         {
             string result = "";
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString(HttpContext.Current.Server.MapPath("admin/json-data/Users.json"));
-            DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
-            password = new EncryptField().Encrypt(password);
-            DataRow[] userRow = usrTable.Select("Email ='" + emailid + "'");
-            if (userRow.Length > 0)
-            {
-                userRow[0]["Password"] = password;                
-                usrTable.AcceptChanges();
-                userRow[0].SetModified();
-                string output = Newtonsoft.Json.JsonConvert.SerializeObject(usrTable, Newtonsoft.Json.Formatting.Indented);
-                File.WriteAllText(HttpContext.Current.Server.MapPath("admin/json-data/Users.json"), output);
-                result = "{\"msg\":\"Password changed Successfully\",\"status\":\"1\" }";
-
-            }
             
+            password = new EncryptField().Encrypt(password);
+
+            LoginBl loginbl = new LoginBl();
+            loginbl.UpdateUserLoginPwd(emailid, password);
+            
+            result = "{\"msg\":\"Password changed Successfully\",\"status\":\"1\" }";
+
             return result;
         }
 

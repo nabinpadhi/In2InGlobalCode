@@ -49,7 +49,42 @@ namespace In2InGlobal.datalink
 
             }
 
-        }        
+        }
 
+        public long UpdateUserLoginPwd(string usremail,string pwd)
+        {
+            long _result = 0;
+            BaseRepository baseRepo = new BaseRepository();
+            var query = @"SELECT * FROM dbo.updateuserloginpwd(@email,@paawrd)";
+            using (var connection = baseRepo.GetDBConnection())
+            {
+                try
+                {
+                    connection.Open();
+                    var result = connection.Query(query, new
+                    {
+                        email = usremail,
+                        paawrd = pwd
+                       
+                    }, commandType: CommandType.Text
+                    );
+
+                    if (result == null || !result.Any())
+                    {
+                        _result = Convert.ToInt64(result);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Dispose();
+                }
+
+            }
+            return _result;
+        }
     }
 }

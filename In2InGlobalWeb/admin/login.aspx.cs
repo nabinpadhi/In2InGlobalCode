@@ -49,17 +49,18 @@ namespace In2InGlobal.presentation.admin
         public static string SendPassword(string emailid)
         {
             string result = "";
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString("http://localhost:26677/admin/json-data/Users.json");
-            DataTable usrTable = JsonConvert.DeserializeObject<DataTable>(json);
-            DataRow[] userRows = usrTable.Select("Email ='" + emailid + "'");
-            if (userRows.Length > 0)
+            LoginBl loginbL = new LoginBl();
+            DataSet dsUser = loginbL.getMyLogin(emailid);
+
+            if (dsUser.Tables.Count > 0)
             {
-                string password = userRows[0]["Password"].ToString();
+                DataTable usrTable = dsUser.Tables[0];
+
+
+                string password = usrTable.Rows[0]["paawrd"].ToString();
                 password = new EncryptField().Decrypt(password);
-                string userName = userRows[0]["FirstName"].ToString();
-                string bodyText = GetForgotPasswordHTMLBody(userName, emailid);// "Dear " + userName + ",<br><p>As requested here we are sending your password to login In2In Global App.</p><br><b>Password :</b><i>" + password + "</i>";
+                string userName = usrTable.Rows[0]["first_name"].ToString();
+                string bodyText = GetForgotPasswordHTMLBody(userName, emailid);
                 try
                 {
                     MailMessage message = new MailMessage("in2inglobalapp@gmail.com", emailid, "In2In Global Login Credential", bodyText);
@@ -81,6 +82,7 @@ namespace In2InGlobal.presentation.admin
             {
                 result = "Provided email not found.";
             }
+            
             return result;
 
         }
@@ -132,24 +134,32 @@ namespace In2InGlobal.presentation.admin
             string result = "";
            
             LoginBl userMasterBL = new LoginBl();
-            DataSet dsUser = new DataSet();
-            if (HttpContext.Current.Session["dsUser"] == null)
-                dsUser = userMasterBL.getMyLogin(emailid);            
-            else
-                dsUser = (DataSet)HttpContext.Current.Session["dsUser"];
-            DataTable usrTable = dsUser.Tables[0];
-            ///and paawrd = '" + password + "'"
-            password = new EncryptField().Encrypt(password);
+            DataSet dsUser = new DataSet();            
+            dsUser = userMasterBL.getMyLogin(emailid);
             if (dsUser.Tables[0].Rows.Count > 0)
             {
-                DataRow userRow = dsUser.Tables[0].Rows[0];
+                DataTable usrTable = dsUser.Tables[0];
+            ///and paawrd = '" + password + "'"
+            password = new EncryptField().Encrypt(password);
 
-                result = "Success";
-                HttpContext.Current.Session["UserRole"] = dsUser.Tables[0].Rows[0]["role_name"].ToString();
-                HttpContext.Current.Session["UserEmail"] = dsUser.Tables[0].Rows[0]["user_email"].ToString();
-                HttpContext.Current.Session["UserRow"] = userRow;
-                HttpContext.Current.Session["dsUser"] = dsUser;
+                if (usrTable.Select("paawrd='" + password + "'").Length > 0)
+                {
+                    DataRow userRow = dsUser.Tables[0].Rows[0];
 
+                    result = "Success";
+                    HttpContext.Current.Session["UserRole"] = dsUser.Tables[0].Rows[0]["role_name"].ToString();
+                    HttpContext.Current.Session["UserEmail"] = dsUser.Tables[0].Rows[0]["user_email"].ToString();
+                    HttpContext.Current.Session["UserRow"] = userRow;
+                    HttpContext.Current.Session["dsUser"] = dsUser;
+                }
+                else
+                {
+                    result = "Invalid email / password";
+                    HttpContext.Current.Session["UserRole"] = null;
+                    HttpContext.Current.Session["UserRow"] = null;
+                    HttpContext.Current.Session["UserEmail"] = null;
+                    HttpContext.Current.Session["dsUser"] = null;
+                }
 
                
             }

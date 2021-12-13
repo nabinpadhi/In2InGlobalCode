@@ -24,5 +24,19 @@ namespace In2InGlobal.businesslogic
             }
             return dsLogin;
         }
+        public long UpdateUserLoginPwd(string email,string paawrd)
+        {
+            long _result = 0;
+            try
+            {
+                LoginDL objLogin = new LoginDL();
+                _result = objLogin.UpdateUserLoginPwd(email, paawrd);
+            }
+            catch(Exception ex)
+            {
+
+            }
+            return _result;
+        }
     }
 }

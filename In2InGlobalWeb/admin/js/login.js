@@ -123,12 +123,12 @@ $('#forgotForm input').keypress(function (e) {
 
 });
 
-$('body').on('click','#forget_ps',function(){
+$('#forget_ps').click(function(){
 	$('#sign_in_div').hide();
 	$('#forgot_ps_div').show();
 });
 
-$('body').on('click','#sign_in',function(){
+$('#sign_in').click(function(){
 	$('#forgot_ps_div').hide();
 	$('#sign_in_div').show();
 });
