@@ -18,7 +18,6 @@ using Newtonsoft.Json;
 using System.Text;
 using System.Web.SessionState;
 using System.Reflection;
-using LumenWorks.Framework.IO.Csv;
 using CsvReader;
 public class FileUploadHandler : IHttpHandler, IRequiresSessionState
 {
@@ -31,7 +30,9 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
         if (context.Request.Files.Count > 0)
         {
             string uploadedBy = HttpContext.Current.Session["UserEmail"].ToString();
-            /* Uncomment below commented condition to apply for multiple files*/
+           //using LumenWorks.Framework.IO.Csv;
+
+                /* Uncomment below commented condition to apply for multiple files*/
             // for (int i = 0; i < files.Count; i++)
             //{
             HttpPostedFile file = context.Request.Files[0];
