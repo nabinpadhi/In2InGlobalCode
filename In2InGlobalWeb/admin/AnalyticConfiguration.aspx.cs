@@ -214,18 +214,5 @@ namespace In2InGlobal.presentation.admin
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}'); ", _message), true);
         }
 
-        //protected void UpdateAnalyticConfiguration(string companyid, string userid, string projectid ,string dashboardUrl) 
-        //{
-        //    AnalyticsEntity analyticsEntity = new AnalyticsEntity();
-        //    if (projectid != null && companyid != null && userid != null)
-        //    {
-        //        analyticsEntity.CompanyId = Convert.ToInt32(companyid);
-        //        analyticsEntity.UserId = Convert.ToInt32(userid);
-        //        analyticsEntity.ProjectId = Convert.ToInt32(projectid);
-        //        analyticsEntity.DashboardUrl = dashboardUrl;
-        //        AnalyticsBL analyticsBL = new AnalyticsBL();
-        //        analyticsBL.UpdateAnalyticConfiguration(analyticsEntity);
-        //    }
-        //}  
     }
 }
