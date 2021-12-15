@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Npgsql;
 using Dapper;
+using System.Configuration;
 
 namespace kss.ra.dataaccess
 {
@@ -12,7 +13,7 @@ namespace kss.ra.dataaccess
     {
         public NpgsqlConnection GetDBConnection()
         {
-            var connectionString = "Host=localhost;port=5432;Username=postgres;Password=bhptpl@79;Database=In2InGlobal";           
+            var connectionString = ConfigurationManager.ConnectionStrings["In2InDBConnection"].ConnectionString;                   
             var databaseConnection = new NpgsqlConnection(connectionString);
             return databaseConnection;
 
