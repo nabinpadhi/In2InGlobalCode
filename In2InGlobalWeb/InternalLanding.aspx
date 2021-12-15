@@ -90,6 +90,12 @@
                         <iframe style="width: 99.9%;height:93%;" id="frmCSVPage" src="about:blank"></iframe>
                     </div>
                  </center>
+                  <center>
+                    <div class="zohoPageDivParent" style="display:none; text-align:left; border: 1px solid black;border-radius:5px; width:99%;height:530px;margin-left:5px;margin-right:5px; margin-bottom:30px;background-color:silver;">                
+                        <div class="panel-header panel-header-noborder window-header" style="width:100%;"><div class="panel-title panel-with-icon" style="">Analytics Data Viewer</div><div class="panel-icon icon-readfile"></div><div class="panel-tool"><a class="panel-tool-close" href="#"></a></div></div>
+                        <iframe style="width: 99.9%;height:93%;" id="frmZohoPage" src="about:blank"></iframe>
+                    </div>
+                 </center>
                 <iframe style="width: 100%; height: 84.8%" id="frmTarget" src="about:blank"></iframe>
             <div style="position: sticky; margin-left: auto;">
                     <div style="background: #212121;padding: 30px 0;">
@@ -123,6 +129,7 @@
                     var iframe = $("#frmCSVPage");
                     iframe.attr("src", "about:blank"); 
                     $('.csvPageDivParent').hide();
+                    $('.zohoPageDivParent').hide();
                     $("#frmTarget").show();
                 });
             });
@@ -142,6 +149,14 @@
                 var iframe = $("#frmCSVPage");
                 iframe.attr("src", "admin/DisplayCSV.aspx?csvfp=" + fn); 
                 $('.csvPageDivParent').show();               
+                $("#frmTarget").hide();
+
+            }
+            function ShowZohoAnalytics(pageLink) {
+
+                var iframe = $("#frmZohoPage");
+                iframe.attr("src", pageLink);
+                $('.zohoPageDivParent').show();
                 $("#frmTarget").hide();
 
             }

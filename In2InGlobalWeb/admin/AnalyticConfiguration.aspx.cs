@@ -198,6 +198,9 @@ namespace In2InGlobal.presentation.admin
                         delbutton.Attributes["onclick"] = "javascript:In2InGlobalConfirm('" + dashboardID + "');return false;";
 
                     }
+                    string ancLink = " onclick = \"window.parent.ShowZohoAnalytics('" + link + "');\"";
+
+                    e.Row.Cells[6].Text = "<a href='#' "+ancLink+">" + link + "</a>";
                 }
             }
             catch (Exception ex)

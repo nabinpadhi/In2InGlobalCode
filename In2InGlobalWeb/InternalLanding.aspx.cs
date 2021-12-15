@@ -50,19 +50,25 @@ namespace In2InGlobal.presentation.admin
             if (dtUserProjectList.Rows.Count == 0 && LoggedInUsrRole == "User")
             {
                 liAnalytics.Visible = false;
+              
             }
             else {
                 liAnalytics.Visible = true;
             }
-            foreach (DataRow dr in dtUserProjectList.Rows)
+
+            if(LoggedInUsrRole == "User")
             {
-                //string ancLink = " onclick = \"OpenPage('https://analytics.zoho.in/open-view/210664000000009321/60a0a9d9d2953abc7eab81953595f3ac');\"";
-                string ancLink = " onclick = \"OpenPage('"+dr["dashboard_url"].ToString()+"');\"";
-                
-                string liForProject = " <li class='cd-side__item'><a href = '#'  id = '" + dr["project_name"].ToString() + "'" + ancLink + "' runat = 'server' >" + dr["project_name"].ToString() + "</a></li>";
-                              
-                analyticsProjectLinkLiString.AppendLine(liForProject);
+                foreach (DataRow dr in dtUserProjectList.Rows)
+                {
+                    //string ancLink = " onclick = \"OpenPage('https://analytics.zoho.in/open-view/210664000000009321/60a0a9d9d2953abc7eab81953595f3ac');\"";
+                    string ancLink = " onclick = \"OpenPage('" + dr["dashboard_url"].ToString() + "');\"";
+
+                    string liForProject = " <li class='cd-side__item'><a href = '#'  id = '" + dr["project_name"].ToString() + "'" + ancLink + "' runat = 'server' >" + dr["project_name"].ToString() + "</a></li>";
+
+                    analyticsProjectLinkLiString.AppendLine(liForProject);
+                }
             }
+
             AnalyticsProjectList.InnerHtml = analyticsProjectLinkLiString.ToString();
         }
 
