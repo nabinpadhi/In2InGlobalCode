@@ -198,6 +198,8 @@ namespace In2InGlobal.presentation.admin
                 DeleteCompany(hdnCompanyID.Value);
             }
             BindCompany();
+             hdnCName.Value="";
+            hdnCompanyID.Value = "";
             string _message = "Company deleted successfully.";
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}')", _message), true);
 

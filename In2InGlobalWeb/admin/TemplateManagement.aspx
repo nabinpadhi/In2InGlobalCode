@@ -119,8 +119,10 @@
                                         <center>                                           
                                             <div style="width:60%; border: 1px solid black; border-radius: 5px; margin-top: 5px; margin-bottom: 5px;"> 
                                                  <div class="AspNet-GridView">
-                                                <asp:GridView DataKeyNames="template_id" ID="grdMasterTemplate" runat="server" Width="100%" HeaderStyle-CssClass="AspNet-GridView"
-                                                    AllowPaging="True" OnRowDataBound="grdMasterTemplate_RowDataBound" OnRowDeleting="grdMasterTemplate_RowDeleting" OnPageIndexChanging="grdMasterTemplate_PageIndexChanging"  AutoGenerateColumns="false" PageSize="4">
+                                                <asp:GridView DataKeyNames="template_id" ID="grdMasterTemplate" runat="server" Width="100%" 
+                                                    HeaderStyle-CssClass="AspNet-GridView" EmptyDataRowStyle-HorizontalAlign="Center" EmptyDataText ="No Template has been created."
+                                                    AllowPaging="True" OnRowDataBound="grdMasterTemplate_RowDataBound" OnRowDeleting="grdMasterTemplate_RowDeleting" 
+                                                    OnPageIndexChanging="grdMasterTemplate_PageIndexChanging"  AutoGenerateColumns="false" PageSize="4">
                                                     <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
                                                     <Columns>
                                                         <asp:BoundField HeaderText="Template Name" ItemStyle-Width="25%" DataField="template_name" />
@@ -306,8 +308,8 @@
             $('#txtInstruction').val(instruction);
             document.getElementById("hdnMTName").value = templatename;
             $('#btnCreate').val('Update');
-            $('#ddlMasterTemplate').prop('selectedIndex', 0);
-            $('#ddlMasterTemplate').enable = false;
+            $('#ddlMasterTemplate').val(master_template_id);
+            $('#ddlMasterTemplate').prop('disabled', 'disabled');
         }
         function ClearAll() {
 
@@ -317,7 +319,7 @@
             $("#txtInstruction").val('');
             $('#btnCreate').val('Create');
             $('#txtMasterTemplateName').invisible();
-            $('#ddlMasterTemplate').visible();
+            $('#ddlMasterTemplate').removeAttr("disabled");           
             $('#ddlMasterTemplate').prop('selectedIndex', 0);
 
 

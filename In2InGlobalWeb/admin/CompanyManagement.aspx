@@ -165,6 +165,7 @@
                     }
                     else {
                         $('#hdnCompanyID').val('');
+                        $('#hdnCName').val('');
 
                     }
                 }

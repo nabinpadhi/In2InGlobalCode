@@ -30,7 +30,7 @@ namespace In2InGlobal.presentation.admin
                     ancAnalytics.Attributes.Add("onclick", "javascript:OpenPage('https://analytics.zoho.in/workspace/210664000000004003');");
                     ancConfiguration.Attributes.Add("onclick", "javascript:OpenPage('admin/AnalyticConfiguration.aspx');");
                 }
-                BuildAnalyticsProjectList();
+                BuildAnalyticsProjectList(LoggedInUsrRole);
                 ancFileMan.Attributes.Add("onclick", "javascript:OpenPage('admin/FileManagement.aspx');");
                 usrMngmnt.Attributes.Add("onclick", "javascript:OpenPage('admin/UserManagement.aspx');");
                 comMngmnt.Attributes.Add("onclick", "javascript:OpenPage('admin/CompanyManagement.aspx');");
@@ -43,11 +43,11 @@ namespace In2InGlobal.presentation.admin
             { Response.Redirect("login.aspx"); }
         }
 
-        private void BuildAnalyticsProjectList()
+        private void BuildAnalyticsProjectList(string LoggedInUsrRole)
         {
             DataTable dtUserProjectList = GetUserAssignedProjects();
             StringBuilder analyticsProjectLinkLiString = new StringBuilder();
-            if (dtUserProjectList.Rows.Count == 0)
+            if (dtUserProjectList.Rows.Count == 0 && LoggedInUsrRole == "User")
             {
                 liAnalytics.Visible = false;
             }

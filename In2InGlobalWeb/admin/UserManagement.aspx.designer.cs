@@ -112,15 +112,6 @@ namespace In2InGlobal.presentation.admin {
         protected global::System.Web.UI.WebControls.HiddenField hdnUserEmail;
         
         /// <summary>
-        /// hdnUID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnUID;
-        
-        /// <summary>
         /// hdnDelBtn control.
         /// </summary>
         /// <remarks>

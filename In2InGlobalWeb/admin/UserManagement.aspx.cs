@@ -230,6 +230,7 @@ namespace In2InGlobal.presentation.admin
             companyMasterBl.DeleteUser(userEntity);
             BindUsers();
             string _message = "User Deleted Successfully";
+            hdnUserEmail.Value = "";
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);
         }
 
@@ -321,6 +322,7 @@ namespace In2InGlobal.presentation.admin
                 UpdateUser(userEntity);
                 BindUsers();
                 ClearAll();
+                hdnUserEmail.Value = "";
                 _message = "User Updated Successfully";
             }
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);

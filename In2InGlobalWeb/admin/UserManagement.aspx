@@ -75,8 +75,7 @@
                                                     <td>Email ID(<span style="color: red">*</span>)</td>
                                                     <td>
                                                         <input type="text" id="txtEmail" runat="server" value="" />
-                                                        <asp:HiddenField ID="hdnUserEmail" runat="server" Value="" />
-                                                        <asp:HiddenField ID="hdnUID" runat="server" Value="" />
+                                                        <asp:HiddenField ID="hdnUserEmail" runat="server" Value="" />                                                        
                                                         <asp:Button runat="server" ID="hdnDelBtn" style="display:none;" OnClientClick="return true;" OnClick="hdnDelBtn_Click" />
                                                     </td>
                                                     <td>Password(<span style="color: red">*</span>)</td>
@@ -161,7 +160,7 @@
             ClearAll(); 
             
         });
-        function In2InGlobalConfirm(email,uid) {
+        function In2InGlobalConfirm(email) {
 
             $.messager.confirm({
                 title: 'In2In Global Confirmation',
@@ -172,12 +171,11 @@
 
                     if (r) {
                         $('#hdnUserEmail').val(email);
-                        $('#hdnUID').val(UID);
+                        
                         $('#hdnDelBtn').trigger('click');
                     }
                     else {
-                        $('#hdnUserEmail').val('');
-                        $('#hdnUID').val('');
+                        $('#hdnUserEmail').val('');                        
 
                     }
                 }

@@ -270,7 +270,7 @@ namespace In2InGlobal.datalink
                     connection.Open();
                     var result = connection.Query(query, new
                     {
-                        id = analyticsEntity.CompanyId 
+                        id = analyticsEntity.Id
 
                     }, commandType: CommandType.Text
                     );

@@ -86,7 +86,7 @@
                                             <div class="AspNet-GridView">
                                                 <asp:HiddenField ID="hdnDBID" Value="" runat="server" />   
                                                  <asp:GridView runat="server" ID="grdAnalyticsLink" Width="100%" OnPageIndexChanging="grdAnalyticsLink_PageIndexChanging"  
-                                                     HeaderStyle-CssClass="AspNet-GridView" AllowPaging="True" OnRowDataBound="grdAnalyticsLink_RowDataBound" DataKeyNames="id" PageSize="4" AutoGenerateColumns="false">
+                                                     HeaderStyle-CssClass="AspNet-GridView" EmptyDataRowStyle-HorizontalAlign="Center" EmptyDataText="No Configuration data found" AllowPaging="True" OnRowDataBound="grdAnalyticsLink_RowDataBound" DataKeyNames="id" PageSize="4" AutoGenerateColumns="false">
                                                      <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
                                                     <Columns>                                                        
                                                         <asp:TemplateField Visible="false" ItemStyle-CssClass="hideGridColumn" HeaderStyle-CssClass="hideGridColumn">
@@ -151,6 +151,7 @@
         });
         function ClearAll() {
                         
+            $('#ddlCompany').removeAttr("disabled");    
             $('#ddlCompany').prop('selectedIndex', 0);
             $('#ddlUser').prop('selectedIndex', 0);
             $('#ddlProject').prop('selectedIndex', 0);          
@@ -195,7 +196,7 @@
         }
         
         function In2InGlobalConfirm(id) {
-
+           
             $.messager.confirm({
                 title: 'In2In Global Confirmation',
                 msg: 'Are you sure you want to delete this?',
