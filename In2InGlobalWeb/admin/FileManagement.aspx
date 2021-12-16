@@ -498,9 +498,7 @@
                  complete: function (data) {
 
                      $('#btnReload').trigger("click");
-                     ShowFileMgnt();
-                     //alert(data);
-
+                     
                  }
              });
 

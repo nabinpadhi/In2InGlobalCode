@@ -592,6 +592,15 @@ namespace In2InGlobal.presentation.admin
         {
             BindFileGrid("");
             ddlAssignedProject.SelectedIndex = 0;
+            //$('#fileUploader').prop('disabled', 'disabled');
+            //     $('#fileUploader').addClass('aspNetDisabled');
+            //$('#ddlTemplate').prop('disabled', true);
+            //$('#btnDownload').prop('disabled', true);
+            //$('#btnUpload').prop('disabled', true);
+            fileUploader.Enabled = false;
+            ddlTemplate.Enabled = false;
+            btnDownload.Enabled = false;
+            btnUpload.Enabled = false;
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "ShowFileMgnt();", true);
         }
     }

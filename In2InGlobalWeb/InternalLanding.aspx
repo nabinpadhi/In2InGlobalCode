@@ -88,6 +88,7 @@
                     <div class="csvPageDivParent" style="display:none; text-align:left; border: 1px solid black;border-radius:5px; width:47.5%;height:450px;margin-bottom:30px;background-color:silver;">                
                         <div class="panel-header panel-header-noborder window-header" style="width:100%;"><div class="panel-title panel-with-icon" style="">CSV Data Viewer</div><div class="panel-icon icon-readfile"></div><div class="panel-tool"><a class="panel-tool-close" href="#"></a></div></div>
                         <iframe style="width: 99.9%;height:93%;" id="frmCSVPage" src="about:blank"></iframe>
+                        <center><img src="admin/img/processing.gif" style="z-index:1000" /></center>
                     </div>
                  </center>
                   <center>

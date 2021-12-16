@@ -49,16 +49,10 @@
                         <asp:Button ID="btnLoadNewPage" runat="server" OnClientClick="return true;" OnClick="btnLoadNewPage_Click" style="display:none;" />
                         <center>
                             <div id='table-container'>
-                                <asp:GridView ID="grdCSVData" runat="server" GridLines="Both" CellPadding="3" AutoGenerateColumns="false"
-                                    BackColor="WhiteSmoke" AlternatingRowStyle-BackColor="Silver" HeaderStyle-Font-Size="Medium"
+                                <asp:GridView ID="grdCSVData" runat="server" GridLines="Both" CellPadding="3" AutoGenerateColumns="true"
+                                    BackColor="WhiteSmoke" HeaderStyle-CssClass="specify" OnRowDataBound="grdCSVData_RowDataBound" AlternatingRowStyle-BackColor="Silver" HeaderStyle-Font-Size="Medium"
                                     OnPreRender="grdCSVData_PreRender" CssClass="gvTheGrid">
-                                        <Columns>
-                                            <asp:BoundField DataField="Date" HeaderText="Date" HeaderStyle-Width="60" ItemStyle-Width="60" />
-                                            <asp:BoundField DataField="Vendor" HeaderText="Vendor" HeaderStyle-Width="60" ItemStyle-Width="60" />
-                                            <asp:BoundField DataField="SpendCategory" HeaderText="Spend Category" HeaderStyle-Width="200" ItemStyle-Width="200" />
-                                            <asp:BoundField DataField="SpendAmount" HeaderText="Spend Amount" HeaderStyle-Width="200"
-                                                ItemStyle-Width="200" />
-                                        </Columns>
+                                     
                                     </asp:GridView>
                         </center>
                                     <table id="gridPageTable" style="font-size:12px;text-align:center;vertical-align:middle;"><tr></tr></table>
@@ -114,5 +108,13 @@
         }
 
     </script>
+    <style type="text/css">
+         .specify {
+       
+        word-break: keep-all;       
+        white-space: nowrap;
+    }
+
+    </style>
 </body>
 </html>

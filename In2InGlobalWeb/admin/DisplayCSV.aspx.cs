@@ -64,7 +64,7 @@ namespace In2InGlobal.presentation.admin
                 }
                 foreach (DataColumn dc in csvTable.Columns)
                 {
-                    dc.ColumnName = dc.ColumnName.Replace(" ", "");
+                    dc.ColumnName = dc.ColumnName.Replace(" ", "~");
 
                 }
                 csvTable.AcceptChanges();               
@@ -121,6 +121,20 @@ namespace In2InGlobal.presentation.admin
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "BuildPagination();" , true);
 
 
+        }
+
+        protected void grdCSVData_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+                foreach (TableCell tc in e.Row.Cells)
+                {
+                    if (tc.Text.IndexOf('~') > 0)
+                    {
+                        tc.Text = tc.Text.Replace('~', ' ');
+                    }
+                }
+            }
         }
     }
 }

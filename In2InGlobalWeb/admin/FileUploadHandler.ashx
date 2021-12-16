@@ -30,9 +30,9 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
         if (context.Request.Files.Count > 0)
         {
             string uploadedBy = HttpContext.Current.Session["UserEmail"].ToString();
-           //using LumenWorks.Framework.IO.Csv;
+            //using LumenWorks.Framework.IO.Csv;
 
-                /* Uncomment below commented condition to apply for multiple files*/
+            /* Uncomment below commented condition to apply for multiple files*/
             // for (int i = 0; i < files.Count; i++)
             //{
             HttpPostedFile file = context.Request.Files[0];
@@ -164,15 +164,16 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
             }
             else
             {
-                if (IsBothCSVFileDataAreSame(filePathWithFileName, file))
+                if (!IsBothCSVFileDataAreSame(filePathWithFileName, file))
                 {
                     string tempfileName = "";
-                    int counter = 2;
+                    int counter = 1;
                     while (System.IO.File.Exists(filePathWithFileName))
                     {
-
-                        tempfileName = "V-" + counter.ToString() + "-" + fileName;
+                        fileName = fileName.Replace(".csv", "");
+                        tempfileName = fileName+ "-" + "V-" + counter.ToString() +".csv" ;
                         filePathWithFileName = filePath + tempfileName;
+                            filePathWithFileName = context.Server.MapPath(filePathWithFileName);
                         counter++;
                     }
                     fileName = tempfileName;
@@ -223,7 +224,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
                 {
                     _uploadedTemplateDataTable.Load(_csvTableLoader);
                 }
-                
+
                 //Table name will tell u where tp insert data;
                 //uploadTemplateBl.SaveCSVData(_uploadedTemplateDataTable,projectname,uploadedby);
 
