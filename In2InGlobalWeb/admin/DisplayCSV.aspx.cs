@@ -15,30 +15,29 @@ namespace In2InGlobal.presentation.admin
 {
     public partial class DisplayCSV : System.Web.UI.Page
     {
+        int _globalSkip = 0;
+        int _globalTake = 1000;
         protected void Page_Load(object sender, EventArgs e)
         {
            
-            //DataTable csvTable = ConvertCSVtoDataTable(csvPath);
+           if(!IsPostBack)
+            {
+                Session["csvTable"] = null;
+              
+            }
+
             
         }
 
         private void LoadCSVData(string csvFName)
         {
-            DataTable csvTable = new DataTable();
+            
             try
             {
-                csvTable = CSVReader.ReadCSVFile(HttpContext.Current.Server.MapPath("uploadedfiles\\" + csvFName), true);
-                Session["csvTable"] = csvTable;
-                foreach (DataColumn dc in csvTable.Columns)
-                {
-                    dc.ColumnName = dc.ColumnName.Replace(" ", "");
-
-                }
-                csvTable.AcceptChanges();
-                grdCSVData.DataSource = csvTable.AsEnumerable().Skip(0).Take(1000).CopyToDataTable(); ;
+                DataTable csvTable = GetCSVPageData(0, 1000, csvFName);
+                grdCSVData.DataSource = csvTable;
                 grdCSVData.DataBind();
-                lblRecordCnt.Text = "Record Count :-" + csvTable.Rows.Count;
-                ancDownload.HRef = "uploadedfiles\\" + csvFName;
+               
             }
             catch(Exception ex)
             {
@@ -46,19 +45,40 @@ namespace In2InGlobal.presentation.admin
                 lblRecordCnt.Text = ex.Message;
                 ancDownload.InnerText = "";
               
+            }          
+        }
+        private DataTable GetCSVPageData(int skip,int take, string csvFName)
+        {
+            DataTable csvTable = new DataTable();
+            try
+            {
+                if (Session["csvTable"] == null)
+                {
+                    csvTable = CSVReader.ReadCSVFile(HttpContext.Current.Server.MapPath("uploadedfiles\\" + csvFName), true);
+                    Session["csvTable"] = csvTable;
+                    lblRecordCnt.Text = "Record Count :-" + csvTable.Rows.Count;
+                    ancDownload.HRef = "uploadedfiles\\" + csvFName;
+                }
+                else {
+                    csvTable = (DataTable)Session["csvTable"];
+                }
+                foreach (DataColumn dc in csvTable.Columns)
+                {
+                    dc.ColumnName = dc.ColumnName.Replace(" ", "");
+
+                }
+                csvTable.AcceptChanges();               
             }
-            //DataTable csvTable = CSVReader.ReadCSVFile(HttpContext.Current.Server.MapPath("uploadedfiles\\" + csvFName), true);
-            //HttpContext.Current.Session["csvTable"] = csvTable;
-            //grdCSVData.DataSource = csvTable;
-            //grdCSVData.DataBind();
-            //lblRecordCnt.Text = "Record Count :- " + csvTable.Rows.Count;
-            //ancDownload.HRef = "uploadedfiles\\" + csvFName;
-            //dataTable.AsEnumerable().Skip(100).Take(25);
+            catch (Exception ex)
+            {
 
+                lblRecordCnt.Text = ex.Message;
+                ancDownload.InnerText = "";
 
+            }
+            return csvTable.AsEnumerable().Skip(skip).Take(take).CopyToDataTable();
 
         }
-
         protected void grdCSVData_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             grdCSVData.PageIndex = e.NewPageIndex;
@@ -90,6 +110,16 @@ namespace In2InGlobal.presentation.admin
                 //Remove if you don't have a footer row
                 //gvTheGrid.FooterRow.TableSection = TableRowSection.TableFooter;
             }
+
+        }
+
+        protected void btnLoadNewPage_Click(object sender, EventArgs e)
+        {
+            DataTable csvTable = GetCSVPageData(Convert.ToInt32(hdnSkip.Value), Convert.ToInt32(hdnTake.Value), "");
+            grdCSVData.DataSource = csvTable;
+            grdCSVData.DataBind();
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "BuildPagination();" , true);
+
 
         }
     }

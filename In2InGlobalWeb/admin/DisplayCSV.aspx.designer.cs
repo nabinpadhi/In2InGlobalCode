@@ -58,6 +58,33 @@ namespace In2InGlobal.presentation.admin {
         protected global::System.Web.UI.HtmlControls.HtmlAnchor ancDownload;
         
         /// <summary>
+        /// hdnSkip control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnSkip;
+        
+        /// <summary>
+        /// hdnTake control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnTake;
+        
+        /// <summary>
+        /// btnLoadNewPage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnLoadNewPage;
+        
+        /// <summary>
         /// grdCSVData control.
         /// </summary>
         /// <remarks>

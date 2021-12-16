@@ -20,7 +20,8 @@
     <style type="text/css">
         .PageNavLink{
             
-            vertical-align:middle;           
+            vertical-align:middle;    
+            
         }
         .PageNavLink:link { COLOR: black; TEXT-DECORATION: none; font-weight: normal }
         .PageNavLink:visited { COLOR: black; TEXT-DECORATION: none; font-weight: normal }
@@ -42,7 +43,10 @@
                                 <a runat="server" id="ancDownload" href="#" name="ancDownload">Download</a>
                             </div> 
                     <div style="float:left; border: 1px solid black; border-radius: 5px; margin-top: 20px; display: block;width:100%;min-height:300px;">
-                            
+                            <asp:HiddenField ID="hdnSkip" runat="server" Value="0" />
+                        <asp:HiddenField ID="hdnTake" runat="server" Value="1000" />
+                       
+                        <asp:Button ID="btnLoadNewPage" runat="server" OnClientClick="return true;" OnClick="btnLoadNewPage_Click" style="display:none;" />
                         <center>
                             <div id='table-container'>
                                 <asp:GridView ID="grdCSVData" runat="server" GridLines="Both" CellPadding="3" AutoGenerateColumns="false"
@@ -65,26 +69,48 @@
         </form>
     </center>
     <script >
+        var currentPage = 1;
         $(document).ready(function () {
 
-            var recCnt = $('#lblRecordCnt').text().split('-')[1];          
-            var dynamicRequiredTD = "";           
-            var noTDRequired = parseFloat(recCnt / 1000);
-           
-            if (noTDRequired > 10) {
-                for (i = 1; i <= 10; i++) {
-                    dynamicRequiredTD = dynamicRequiredTD + "<td><div style=\"width:20px;height:20px;boder:1px solid black;border-radius:2px;background-color:gray;\"><a class=\"PageNavLink\" href='#' onclick=LoadGridPage(" + i + ")>[" + i + "]</a></div></td>";
-                }
-            }
-            var PageRow = "<tr cellpadding=\"5px\" style=\"color: black;height:50px;\">" + dynamicRequiredTD +"</tr>";
-             $('#gridPageTable tr:last').after(PageRow);
+            BuildPagination();
             
         });
+        function BuildPagination() {
+
+            var recCnt = $('#lblRecordCnt').text().split('-')[1];
+           
+            var dynamicRequiredTD = "";
+            var noTDRequired = Math.round(recCnt / 1000);
+         
+            if (noTDRequired > 10) {
+                for (i = 1; i <= 10; i++) {
+                    dynamicRequiredTD = dynamicRequiredTD + "<td><div id='pDiv" + i + "' style=\"width:20px;height:20px;boder:1px solid black;border-radius:2px;background-color:gray;\"><a class=\"PageNavLink\" href='#' onclick=LoadGridPage(" + i + ")>[" + i + "]</a></div></td>";
+                }
+            }
+            else {
+
+                for (i = 1; i <= noTDRequired; i++) {
+                    dynamicRequiredTD = dynamicRequiredTD + "<td><div id='pDiv" + i + "' style=\"width:20px;height:20px;boder:1px solid black;border-radius:2px;background-color:gray;\"><a class=\"PageNavLink\" href='#' onclick=LoadGridPage(" + i + ")>[" + i + "]</a></div></td>";
+                }
+            }
+            var PageRow = "<tr cellpadding=\"5px\" style=\"color: black;height:50px;\">" + dynamicRequiredTD + "</tr>";
+            $('#gridPageTable tr:last').after(PageRow);
+            $(currentPage).css("background-color", "yellow");
+            $(currentPage).css("color", "blue");
+
+        }
         function LoadGridPage(pageNo) {
 
             var skip = (parseInt(pageNo) * 1000) - 1000;
-            var get =  1000;
-            alert("Skip:-" + skip + "  &&  Get:-" + get);
+            var take =  1000;
+            $('#hdnSkip').val(skip);
+            $('#hdnTake').val(take);
+
+            $('#btnLoadNewPage').trigger("click");
+            var clickedPage = pageNo;
+            clickedPage = "#pDiv" + pageNo;
+            currentPage = clickedPage;
+           
         }
 
     </script>
