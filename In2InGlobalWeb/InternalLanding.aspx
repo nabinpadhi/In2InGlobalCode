@@ -31,6 +31,9 @@
             background: lightblue;
              border-radius: 10px;
         }
+        .holds-the-iframe{
+            background:url(admin/img/processing.gif) center center no-repeat;
+        }
     </style>
 </head>
 <body onload="loadIframe();">
@@ -87,17 +90,17 @@
                  <center>
                     <div class="csvPageDivParent" style="display:none; text-align:left; border: 1px solid black;border-radius:5px; width:47.5%;height:450px;margin-bottom:30px;background-color:silver;">                
                         <div class="panel-header panel-header-noborder window-header" style="width:100%;"><div class="panel-title panel-with-icon" style="">CSV Data Viewer</div><div class="panel-icon icon-readfile"></div><div class="panel-tool"><a class="panel-tool-close" href="#"></a></div></div>
-                        <iframe style="width: 99.9%;height:93%;" id="frmCSVPage" src="about:blank"></iframe>
-                        <center><img src="admin/img/processing.gif" style="z-index:1000" /></center>
+                         <div class="holds-the-iframe" style="width: 99.9%;height:93%;"><iframe style="width: inherit;height:inherit" id="frmCSVPage" src="about:blank"></iframe></div>
+                       
                     </div>
                  </center>
                   <center>
                     <div class="zohoPageDivParent" style="display:none; text-align:left; border: 1px solid black;border-radius:5px; width:99%;height:530px;margin-left:5px;margin-right:5px; margin-bottom:30px;background-color:silver;">                
                         <div class="panel-header panel-header-noborder window-header" style="width:100%;"><div class="panel-title panel-with-icon" style="">Analytics Data Viewer</div><div class="panel-icon icon-readfile"></div><div class="panel-tool"><a class="panel-tool-close" href="#"></a></div></div>
-                        <iframe style="width: 99.9%;height:93%;" id="frmZohoPage" src="about:blank"></iframe>
+                        <div class="holds-the-iframe" style="width: 99.9%;height:93%;"><iframe style="width: inherit;height:inherit;" id="frmZohoPage" src="about:blank"></iframe></div>
                     </div>
                  </center>
-                <iframe style="width: 100%; height: 84.8%" id="frmTarget" src="about:blank"></iframe>
+                <div class="holds-the-iframe"  style="width: 100%; height: 90%"><iframe style="width: inherit; height: inherit" id="frmTarget" src="about:blank"></iframe></div>
             <div style="position: sticky; margin-left: auto;">
                     <div style="background: #212121;padding: 30px 0;">
                     <center>

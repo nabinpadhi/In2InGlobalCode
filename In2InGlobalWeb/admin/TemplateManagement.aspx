@@ -18,7 +18,7 @@
 <body>
     <form id="form1" runat="server">
         <center>
-            <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
+            <div style="width: 100%;height:435px; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
                 <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height: 40px; padding-top: 10px;"><span class="menu_frame_title">Template Management</span></div>
                 <asp:ScriptManager ID="Templatescriptmanager" runat="server">                    
                 </asp:ScriptManager>              
@@ -55,7 +55,7 @@
                                     </tr>
                                  </table>
                             </div>
-                        <div title="Create Template" class="crtpnl" style="background-color: azure;padding:10px;display:none;">
+                        <div title="Create Template" class="crtpnl" style="background-color: azure;padding:5px;display:none;">
                              <table style="width: 100%; background-color: azure;">
                                 <tr>                                   
                                     <td style="width:85%;">                                      
@@ -117,7 +117,7 @@
                                   <tr>
                                     <td>
                                         <center>                                           
-                                            <div style="width:60%; border: 1px solid black; border-radius: 5px; margin-top: 5px; margin-bottom: 5px;"> 
+                                            <div style="width:60%; border: 1px solid black; border-radius: 5px; margin-top: 2px; margin-bottom: 2px;"> 
                                                  <div class="AspNet-GridView">
                                                 <asp:GridView DataKeyNames="template_id" ID="grdMasterTemplate" runat="server" Width="100%" 
                                                     HeaderStyle-CssClass="AspNet-GridView" EmptyDataRowStyle-HorizontalAlign="Center" EmptyDataText ="No Template has been created."

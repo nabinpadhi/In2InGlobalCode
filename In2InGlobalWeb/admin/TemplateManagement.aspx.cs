@@ -63,7 +63,7 @@ namespace In2InGlobal.presentation.admin
         /// </summary>
         private void BindMasterTemplateGrid()
         {
-            Session["TemplateInfo"] = null;
+            
             DataSet dsloadTemplate = null;
             TemplateMasterBl templateMasterBL = new TemplateMasterBl();
             try
@@ -71,7 +71,7 @@ namespace In2InGlobal.presentation.admin
                 dsloadTemplate = templateMasterBL.PopulateTemplateGrid();
                 if (dsloadTemplate != null || dsloadTemplate.Tables.Count != 0)
                 {
-                    Session["TemplateInfo"] = dsloadTemplate.Tables[0];
+                    
                     grdMasterTemplate.DataSource = dsloadTemplate.Tables[0];
                     grdMasterTemplate.DataBind();
                 }
@@ -117,6 +117,7 @@ namespace In2InGlobal.presentation.admin
                     ddlMasterTemplate.Items.Insert(0,new ListItem("--Select a Template--"));
                     ddlMasterTemplate.DataSource = dsloadTemplate.Tables[0];                    
                     ddlMasterTemplate.DataBind();
+                    Session["TemplateInfo"] = dsloadTemplate.Tables[0];
                 }
             }
             catch (Exception ex)
