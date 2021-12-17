@@ -1835,6 +1835,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="admin\uploadedFiles\" />
     <Folder Include="App_Data\" />
     <Folder Include="scripts\jquery\jqMenu\css\" />
     <Folder Include="scripts\jquery\jqMenu\images\" />

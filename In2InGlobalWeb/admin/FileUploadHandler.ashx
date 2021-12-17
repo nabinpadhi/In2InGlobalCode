@@ -173,7 +173,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
                         fileName = fileName.Replace(".csv", "");
                         tempfileName = fileName+ "-" + "V-" + counter.ToString() +".csv" ;
                         filePathWithFileName = filePath + tempfileName;
-                            filePathWithFileName = context.Server.MapPath(filePathWithFileName);
+                        filePathWithFileName = context.Server.MapPath(filePathWithFileName);
                         counter++;
                     }
                     fileName = tempfileName;
@@ -211,8 +211,8 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
                 templateEntity.FileName = fileName;
                 templateEntity.ProjectName = projectName;
                 templateEntity.CreatedBy = uploadBy;
-                templateEntity.RoleName = context.Session["UserRole"].ToString(); ;
-                templateEntity.UserEmail = context.Session["UserEmail"].ToString(); ;
+                templateEntity.RoleName = context.Session["UserRole"].ToString() ;
+                templateEntity.UserEmail = context.Session["UserEmail"].ToString() ;
                 templateEntity.Status = "Success";
 
                 UploadTemplateBL uploadTemplateBl = new UploadTemplateBL();
@@ -222,9 +222,10 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
                 DataTable _uploadedTemplateDataTable = new DataTable(masterTemplateName);
                 using (CsvReader.CsvReader _csvTableLoader = new CsvReader.CsvReader(new StreamReader(System.IO.File.OpenRead(filePathWithFileName)), true))
                 {
+
                     _uploadedTemplateDataTable.Load(_csvTableLoader);
                 }
-
+                _uploadedTemplateDataTable = AddOptionalColumns(_uploadedTemplateDataTable,context.Session["UserEmail"].ToString() );
                 //Table name will tell u where tp insert data;
                 //uploadTemplateBl.SaveCSVData(_uploadedTemplateDataTable,projectname,uploadedby);
 
@@ -234,6 +235,27 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
         {
             ex.ToString();
         }
+    }
+    private DataTable AddOptionalColumns(DataTable uploadedTemplateDataTable,string uploadedBy)
+    {
+
+        uploadedTemplateDataTable.Columns.Add("project_id",typeof(long));
+        uploadedTemplateDataTable.Columns.Add("user_id",typeof(long));
+        uploadedTemplateDataTable.Columns.Add("template_id",typeof(long));
+        uploadedTemplateDataTable.Columns.Add("uploadedby",typeof(string));
+        uploadedTemplateDataTable.Columns.Add("uploadedon",typeof(DateTime));
+        uploadedTemplateDataTable.Columns.Add("isprocessed",typeof(Boolean));
+        uploadedTemplateDataTable.AcceptChanges();
+        foreach(DataRow dr in uploadedTemplateDataTable.Rows)
+        {
+            dr["uploadedby"] = uploadedBy;
+        }
+        foreach(DataColumn dc in uploadedTemplateDataTable.Columns)
+        {
+            dc.ColumnName = dc.ColumnName.Replace(" ", "").ToLower();
+        }
+        uploadedTemplateDataTable.AcceptChanges();
+        return uploadedTemplateDataTable;
     }
     private string GenerateMasterTemplateName(string uploadedFileName)
     {
