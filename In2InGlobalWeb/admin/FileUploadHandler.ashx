@@ -159,7 +159,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
                 SaveUploadTemplateInformationInDB(fileName, uploadedBy, projectName, context,filePathWithFileName);
 
                 context.Response.ContentType = "text/plain";
-                context.Response.Write(GetUploadedFilesJSON(context));
+                context.Response.Write("File Uploaded Successfully.");
                 context.Response.End();
             }
             else
@@ -187,7 +187,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
                     SaveUploadTemplateInformationInDB(fileName, uploadedBy, projectName, context,filePathWithFileName);
                 }
                 context.Response.ContentType = "text/plain";
-                context.Response.Write(GetUploadedFilesJSON(context));
+                context.Response.Write("File Uploaded Successfully.");
                 context.Response.End();
 
             }

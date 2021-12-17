@@ -169,7 +169,7 @@
                                                                                     <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
                                                                                         <div class="AspNet-GridView">
                                                                                         <asp:GridView DataKeyNames="project_id" ID="grdUploadedFiles" runat="server" Width="100%" HeaderStyle-CssClass="AspNet-GridView"
-                                                                                            AllowPaging="True" RowStyle-Wrap="false" HeaderStyle-Wrap="false" EmptyDataText="No file found uploaded by you." 
+                                                                                            AllowPaging="True" RowStyle-Wrap="false" HeaderStyle-Wrap="false" EmptyDataText="No files uploaded for selected Project." 
                                                                                             OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" OnRowDataBound="grdUploadedFiles_RowDataBound" AutoGenerateColumns="false" PageSize="6">
                                                                                             <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
                                                                                             <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
@@ -183,7 +183,7 @@
                                                                                                     </asp:TemplateField>                                                                                                
                                                                                                 <asp:BoundField ItemStyle-Width="150px" HeaderStyle-Width="150px" HeaderText="Project Name" DataField="project_name" />
                                                                                                 <asp:BoundField ItemStyle-Width="150px" HeaderStyle-Width="150px" HeaderText="Uploaded By" DataField="uploaded_by" />
-                                                                                                <asp:BoundField ItemStyle-Width="150px" HeaderStyle-Width="150px" HeaderText="Uploaded On" DataField="uploaded_on" />
+                                                                                                <asp:BoundField ItemStyle-Width="150px" HeaderStyle-Width="150px" HeaderText="Uploaded On" DataField="uploaded_on" DataFormatString= "{0:d}" />
                                                                                                 <asp:ImageField ItemStyle-Width="50px" HeaderStyle-Width="50px" ItemStyle-CssClass ="GridViewImageAlignment" HeaderText="Status" ControlStyle-Height="20px" ControlStyle-Width="20px" DataImageUrlField="uploadstatus"></asp:ImageField>                                                                                             
                                                                                             </Columns>
                                                                                         </asp:GridView>
@@ -256,7 +256,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">
-                                                        <div style="width: 100%">
+                                                        <div style="width: 98%">
                                                             <table id="tblTemplateDetail" runat="server" style="width: 100%;">
                                                     
                                                                 <tr>
@@ -264,14 +264,14 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td >
-                                                                        <div class="AspNet-GridView">
-                                                                            <asp:GridView ID="grdTemplate" EmptyDataText="No Template Found..."  runat="server" Width="100%" HeaderStyle-CssClass="AspNet-GridView"
-                                                                                AllowPaging="True" OnPageIndexChanging="grdTemplate_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
+                                                                        <div class="AspNet-GridView">                                                                          
+                                                                            <asp:GridView ID="grdTemplate"  runat="server" Width="100%" HeaderStyle-CssClass="AspNet-GridView"
+                                                                                AllowPaging="True" OnPageIndexChanging="grdTemplate_PageIndexChanging" AutoGenerateColumns="false" RowStyle-Wrap="false" HeaderStyle-Wrap="false" EmptyDataText="No Template Found." PageSize="4">
                                                                                <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
                                                                                 <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
                                                                                 <Columns>
                                                                                     <asp:BoundField HeaderStyle-CssClass="specifySearchCol" ItemStyle-CssClass="specifySearch" ItemStyle-Width="160px" HeaderStyle-Width="165px"  HeaderText="Template Name" DataField="template_file_name" />
-                                                                                    <asp:BoundField ItemStyle-Width="200px" HeaderStyle-Width="200px" HeaderText="On Date" DataField="uploaded_on" />
+                                                                                    <asp:BoundField ItemStyle-Width="200px" HeaderStyle-Width="200px" DataFormatString= "{0:d}" HeaderText="On Date" DataField="uploaded_on" />
                                                                                 </Columns>
                                                                             </asp:GridView>
                                                                             </div>

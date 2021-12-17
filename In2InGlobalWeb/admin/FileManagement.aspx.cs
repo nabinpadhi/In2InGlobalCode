@@ -42,25 +42,19 @@ namespace In2InGlobal.presentation.admin
                     HttpContext.Current.Session["UploadedBy"] = Session["UserEmail"].ToString();
                     HttpContext.Current.Session["ForScreen"] = "FileManagement";
 
+                    ddlUsrEmailId.Items.FindByText(Session["UserEmail"].ToString()).Selected = true;
+
                     if (usrRole == "Admin")
                     {
                         usrEmailTR.Visible = true;
-                        tblTemplateDetail.Visible = true;
-                        BindTemplateGrid(ddlProjects.SelectedValue, "");
-
-
+                        BindTemplateGrid("", ddlUsrEmailId.SelectedItem.Text);
                     }
                     else
                     {
-                        ddlUsrEmailId.Text = Session["UserEmail"].ToString();
-                        ddlUsrEmailId.Enabled = false;
-                        if (Session["ProjectID"] != null)
-                        {
-                            ddlProjects.SelectedValue = Session["ProjectID"].ToString();
-                        }
-                        tblTemplateDetail.Visible = true;
-                        BindTemplateGrid("", ddlUsrEmailId.Text);
+                        usrEmailTR.Visible = false;
+                        BindTemplateGrid("", Session["UserEmail"].ToString());
                     }
+                    
                 }
                 else
                 {
@@ -77,17 +71,14 @@ namespace In2InGlobal.presentation.admin
         {
             try
             {
-                string userEmail = Session["UserEmail"].ToString();
-                string userRole = Session["UserRole"].ToString();
+                //string userEmail = Session["UserEmail"].ToString();
+                //string userRole = Session["UserRole"].ToString();
 
-                DataSet dsUserDetails = new DataSet();
-                ProjectMasterBL projectBL = new ProjectMasterBL();
-                dsUserDetails = projectBL.getAssignedProject(userRole, userEmail);
+                //DataSet dsUserDetails = new DataSet();
+                //ProjectMasterBL projectBL = new ProjectMasterBL();
+                //dsUserDetails = projectBL.getAssignedProject(userRole, userEmail);
 
-                ddlProjects.DataSource = dsUserDetails;
-                ddlProjects.DataTextField = "project_name";
-                ddlProjects.DataValueField = "project_id";
-                ddlProjects.DataBind();
+              
             }
             catch (Exception ex)
             {
@@ -106,10 +97,21 @@ namespace In2InGlobal.presentation.admin
                 ProjectMasterBL projectBL = new ProjectMasterBL();
                 dsUserDetails = projectBL.getAssignedProject(userRole, userEmail);
 
+                ddlAssignedProject.Items.Clear();
+                ddlAssignedProject.Items.Add("--Select a Project--");
+
                 ddlAssignedProject.DataSource = dsUserDetails;
                 ddlAssignedProject.DataTextField = "project_name";
                 ddlAssignedProject.DataValueField = "project_id";
                 ddlAssignedProject.DataBind();
+
+                ddlProjects.Items.Clear();
+                ddlProjects.Items.Add("--Select a Project--");
+
+                ddlProjects.DataSource = dsUserDetails;
+                ddlProjects.DataTextField = "project_name";
+                ddlProjects.DataValueField = "project_id";
+                ddlProjects.DataBind();
             }
             catch (Exception ex)
             {
@@ -210,6 +212,7 @@ namespace In2InGlobal.presentation.admin
         private void BindTemplateGrid(string pid, string _email)
         {
             grdTemplate.Visible = true;
+            
             int projectID = 0;
             DataSet dsUserDetails = new DataSet();
             UploadTemplateBL projectBL = new UploadTemplateBL();
@@ -230,12 +233,14 @@ namespace In2InGlobal.presentation.admin
                 }
                 else
                 {
-                    var projectUploadRows = dsUserDetails.Tables[0].Select("project_id='" + pid + "'");
+                    string filterstr = "project_id = " + projectID;
+                    var projectUploadRows = dsUserDetails.Tables[0].Select(filterstr);
                     if (projectUploadRows.Length > 0)
                     {
                         grdTemplate.DataSource = projectUploadRows.CopyToDataTable();
                         grdTemplate.DataBind();
                     }
+                    else { grdTemplate.DataSource = null;grdTemplate.DataBind(); }
                 }
             }
             catch (Exception ex)
@@ -469,6 +474,7 @@ namespace In2InGlobal.presentation.admin
             }
 
             BindProjectGrid();
+            BindAssignedProjects();
             if (grdProject.PageCount > 1)
                 grdProject.PageIndex = grdProject.PageCount - 1;
             spnProjectName.InnerText = GenerateProjectName();
