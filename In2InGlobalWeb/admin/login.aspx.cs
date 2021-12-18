@@ -142,7 +142,7 @@ namespace In2InGlobal.presentation.admin
             ///and paawrd = '" + password + "'"
             password = new EncryptField().Encrypt(password);
 
-                if (dsUser.Tables[0].Rows.Count > 0)
+                if (usrTable.Select("paawrd='" + password + "'").Length > 0)
                 {
                     DataRow userRow = dsUser.Tables[0].Rows[0];
 
