@@ -84,13 +84,15 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
             _uploadedTemplateDataTable.Load(_csvTableLoader);
         }
 
-        _tableScript.AppendLine("CREATE TABLE IF NOT EXISTS dbo." + templateName);
+        _tableScript.AppendLine("CREATE TABLE dbo." + templateName);
         _tableScript.AppendLine("(");
         _tableScript.AppendLine("");
         _tableScript.AppendLine("id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 100000000000 CACHE 1 ) " + ",");
-        _tableScript.AppendLine("project_name character varying(200) NOT NULL" + ",");
-        _tableScript.AppendLine("user_email character varying(200) NOT NULL" + ",");
+        _tableScript.AppendLine("project_id bigint NOT NULL" + ",");
+        _tableScript.AppendLine("user_id bigint NOT NULL" + ",");
+        _tableScript.AppendLine("template_id bigint NOT NULL" + ",");
         _tableScript.AppendLine("uploadedby character varying(200)" + ",");
+        _tableScript.AppendLine("uploadedon character varying(200)" + ",");
         _tableScript.AppendLine("isprocessed character varying(50)" + ",");
 
         int colIndex = 1;
@@ -223,10 +225,10 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
 
                     _uploadedTemplateDataTable.Load(_csvTableLoader);
                 }
-                templateEntity.FileName = HttpContext.Current.Session["TemplateName"].ToString();
-                _uploadedTemplateDataTable = AddOptionalColumns(_uploadedTemplateDataTable,templateEntity );
+                _uploadedTemplateDataTable = AddOptionalColumns(_uploadedTemplateDataTable,context.Session["UserEmail"].ToString() );
                 //Table name will tell u where tp insert data;
-                uploadTemplateBl.SaveUploadTemplate(_uploadedTemplateDataTable,templateEntity);
+                //uploadTemplateBl.SaveCSVData(_uploadedTemplateDataTable,projectname,uploadedby);
+
             }
         }
         catch (Exception ex)
@@ -234,19 +236,19 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
             ex.ToString();
         }
     }
-    private DataTable AddOptionalColumns(DataTable uploadedTemplateDataTable,UploadTemplateEntity templateEntity)
+    private DataTable AddOptionalColumns(DataTable uploadedTemplateDataTable,string uploadedBy)
     {
-        uploadedTemplateDataTable.Columns.Add("project_name",typeof(string));
-        uploadedTemplateDataTable.Columns.Add("user_email",typeof(string));
+
+        uploadedTemplateDataTable.Columns.Add("project_id",typeof(long));
+        uploadedTemplateDataTable.Columns.Add("user_id",typeof(long));
+        uploadedTemplateDataTable.Columns.Add("template_id",typeof(long));
         uploadedTemplateDataTable.Columns.Add("uploadedby",typeof(string));
-        uploadedTemplateDataTable.Columns.Add("isprocessed",typeof(string));
+        uploadedTemplateDataTable.Columns.Add("uploadedon",typeof(DateTime));
+        uploadedTemplateDataTable.Columns.Add("isprocessed",typeof(Boolean));
         uploadedTemplateDataTable.AcceptChanges();
         foreach(DataRow dr in uploadedTemplateDataTable.Rows)
         {
-            dr["project_name"] = templateEntity.ProjectName;
-            dr["user_email"] = templateEntity.UserEmail;
-            dr["uploadedby"] = templateEntity.UserEmail;
-            dr["isprocessed"] = false;
+            dr["uploadedby"] = uploadedBy;
         }
         foreach(DataColumn dc in uploadedTemplateDataTable.Columns)
         {
@@ -380,11 +382,10 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
     {
         string userEmail = context.Session["UserEmail"].ToString();
         string userRole = context.Session["UserRole"].ToString();
-        string projectName = HttpContext.Current.Session["SelectedProjectName"].ToString();
 
         DataSet dsUploadedFiles = new DataSet();
         UploadTemplateBL uploadedTempBL = new UploadTemplateBL();
-        dsUploadedFiles = uploadedTempBL.LoadUploadFileTemplateGrid(userRole, userEmail, projectName);
+        dsUploadedFiles = uploadedTempBL.LoadUploadFileTemplateGrid(userRole, userEmail, 0);
 
         string JSONresult = JsonConvert.SerializeObject(dsUploadedFiles.Tables[0]);
         return JSONresult;
