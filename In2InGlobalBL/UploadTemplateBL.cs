@@ -108,13 +108,13 @@ namespace In2InGlobalBL
         }
 
 
-        public DataSet LoadUploadFileTemplateGrid(string userRole, string userEmail, int pid)
+        public DataSet LoadUploadFileTemplateGrid(string userRole, string userEmail, string projectName)
         {
             DataSet dsUplaodProject = new DataSet();
             try
             {
                 UploadTemplateDL objUploadProject = new UploadTemplateDL();
-                dsUplaodProject = objUploadProject.LoadUploadFileTemplateGrid(userRole, userEmail, pid);
+                dsUplaodProject = objUploadProject.LoadUploadFileTemplateGrid(userRole, userEmail, projectName);
             }
             catch (Exception ex)
             {
@@ -138,7 +138,20 @@ namespace In2InGlobalBL
             return dsUplaodProject;
         }
 
-
+        public DataSet LoadSearchTemplate(string userRole, string userEmail, string projectName)
+        {
+            DataSet dsUplaodProject = new DataSet();
+            try
+            {
+                UploadTemplateDL objUploadProject = new UploadTemplateDL();
+                dsUplaodProject = objUploadProject.LoadSearchTemplate(userRole, userEmail, projectName); 
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
+            return dsUplaodProject;
+        }
 
 
 

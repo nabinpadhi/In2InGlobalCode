@@ -161,7 +161,7 @@ namespace In2InGlobal.datalink
             }
         }
 
-        public DataSet LoadUploadFileTemplateGrid(string userRole, string userEmail, int pid)
+        public DataSet LoadUploadFileTemplateGrid(string userRole, string userEmail, string ProjectName) 
         {
             string query = string.Empty;
             BaseRepository baseRepo = new BaseRepository();
@@ -184,7 +184,7 @@ namespace In2InGlobal.datalink
                     NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
                     npgsqlCommand.Parameters.AddWithValue("@useremail", userEmail);
                     npgsqlCommand.Parameters.AddWithValue("@userrole", userRole);
-                    npgsqlCommand.Parameters.AddWithValue("@projectname", pid);
+                    npgsqlCommand.Parameters.AddWithValue("@projectname", ProjectName);
                     npgsqlCommand.CommandType = CommandType.Text;
                     npgsqlDataAdapter.SelectCommand = npgsqlCommand;
                     npgsqlDataAdapter.Fill(dsEmail);
@@ -198,7 +198,7 @@ namespace In2InGlobal.datalink
                     connection.Dispose();
                     npgsqlDataAdapter.Dispose();
                 }
-                return dsEmail;
+                 return dsEmail;
             }
         }
 
@@ -225,6 +225,48 @@ namespace In2InGlobal.datalink
                     npgsqlCommand.Parameters.AddWithValue("@useremail", userEmail);
                     npgsqlCommand.Parameters.AddWithValue("@userrole", userRole);
                     npgsqlCommand.Parameters.AddWithValue("@projectname", pid);
+
+                    npgsqlCommand.CommandType = CommandType.Text;
+                    npgsqlDataAdapter.SelectCommand = npgsqlCommand;
+                    npgsqlDataAdapter.Fill(dsEmail);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Dispose();
+                    npgsqlDataAdapter.Dispose();
+                }
+                return dsEmail;
+            }
+        }
+
+
+        public DataSet LoadSearchTemplate(string userRole, string userEmail, string ProjectName)  
+        {
+            string query = string.Empty;
+            BaseRepository baseRepo = new BaseRepository();
+            DataSet dsEmail = new DataSet();
+            NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
+            if (userRole == "Admin")
+            {
+                query = @"SELECT * FROM dbo.searchadmintemplategrid(@useremail,@userrole,@projectname)";
+            }
+            else
+            {
+                query = @"SELECT * FROM dbo.searchusertemplategrid(@useremail,@userrole,@projectname)";
+            }
+            using (var connection = baseRepo.GetDBConnection())
+            {
+                try
+                {
+                    connection.Open();
+                    NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
+                    npgsqlCommand.Parameters.AddWithValue("@useremail", userEmail);
+                    npgsqlCommand.Parameters.AddWithValue("@userrole", userRole);
+                    npgsqlCommand.Parameters.AddWithValue("@projectname", ProjectName);
 
                     npgsqlCommand.CommandType = CommandType.Text;
                     npgsqlDataAdapter.SelectCommand = npgsqlCommand;
@@ -331,50 +373,46 @@ namespace In2InGlobal.datalink
             return uploadTemplateEntity.TemplateId;
         }
 
-
-        public long SaveUploadTemplate(DataTable dtUploadTemplate,UploadTemplateEntity uploadTemplateEntity) 
-        {
-            BaseRepository baseRepo = new BaseRepository();
-            var connection = baseRepo.GetDBConnection();
-            string tableName = uploadTemplateEntity.FileName;
-            DataTable dt = new DataTable();
-            try
+        public long SaveUploadTemplate(DataTable dtUploadTemplate, UploadTemplateEntity uploadTemplateEntity)
             {
-                using (var transaction = connection.BeginTransaction())
+                BaseRepository baseRepo = new BaseRepository();
+                var connection = baseRepo.GetDBConnection();
+                string tableName = uploadTemplateEntity.FileName;
+                DataTable dt = new DataTable();
+                try
                 {
                     connection.Open();
-                    foreach (DataRow row in dtUploadTemplate.Rows)
+                    using (var transaction = connection.BeginTransaction())
                     {
-                        // Create an NpgsqlParameter for every field in the column
-                        var parameters = new List<DbParameter>();
-                        for (var i = 0; i < dtUploadTemplate.Columns.Count; i++)
+                        string columns = string.Join(",", dtUploadTemplate.Columns.Cast<DataColumn>().Select(c => c.ColumnName));
+                        string values = string.Join(",", dtUploadTemplate.Columns.Cast<DataColumn>().Select(c => string.Format("@{0}", c.ColumnName)));
+                        string query = $"INSERT INTO dbo.{tableName} ({columns}) VALUES ({values})";
+                        var cmd = new NpgsqlCommand(query, connection);
+
+                        foreach (DataRow row in dtUploadTemplate.Rows)
                         {
-                            parameters.Add(new NpgsqlParameter($"@p{i}", row[i]));
+                            cmd.Parameters.Clear();
+                            foreach (DataColumn col in dtUploadTemplate.Columns)
+                                cmd.Parameters.AddWithValue("@" + col.ColumnName, row[col]);
+                            int inserted = cmd.ExecuteNonQuery();
                         }
-                        var parameterNames = string.Join(", ", parameters.Select(p => p.ParameterName));
 
-                        // Create an INSERT SQL query which inserts the data from the current row into PostgreSql table
-                        var command = new NpgsqlCommand(
-                            $"INSERT INTO dbo.{tableName} VALUES ({parameterNames})",
-                            connection);
-                        command.Parameters.AddRange(parameters.ToArray());
-                        command.ExecuteNonQuery();
+                        transaction.Commit();
                     }
-                    transaction.Commit();
+
                 }
+                catch (Exception ex)
+                {
+                    ex.ToString();
+                }
+                finally
+                {
+                    connection.Dispose();
 
+                }
+                return uploadTemplateEntity.TemplateId;
             }
-            catch (Exception ex)
-            {
-                ex.ToString();
-            }
-            finally
-            {
-                connection.Dispose();
-
-            }
-            return uploadTemplateEntity.TemplateId;
-        }
+        
 
         private void SaveUploadTemplateDataInTable(DataTable dtUploadTemplate)
         {

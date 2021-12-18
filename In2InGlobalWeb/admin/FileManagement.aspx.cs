@@ -172,7 +172,7 @@ namespace In2InGlobal.presentation.admin
             grdUploadedFiles.DataSource = null;
             grdUploadedFiles.DataBind();
             int projectID = 0;
-            DataSet dsUserDetails = new DataSet();
+            DataSet dsuploadTemplate = new DataSet(); 
             UploadTemplateBL projectBL = new UploadTemplateBL();
             if (pid == string.Empty || pid.ToLower() =="--select a project--") 
             {
@@ -181,23 +181,23 @@ namespace In2InGlobal.presentation.admin
             else { projectID = Convert.ToInt32(pid); }
             string userEmail = Session["UserEmail"].ToString();
             string userRole = Session["UserRole"].ToString();
-
+            string projectName = ddlAssignedProject.SelectedItem.Text;
             try
             {
-                dsUserDetails = projectBL.LoadUploadFileTemplateGrid(userRole, userEmail, projectID);
-                if (projectID == 0 && dsUserDetails.Tables[0].Rows.Count > 0)
+                dsuploadTemplate = projectBL.LoadUploadFileTemplateGrid(userRole, userEmail, projectName);
+                if (projectID == 0 && dsuploadTemplate.Tables[0].Rows.Count > 0)
                 {
-                    grdUploadedFiles.DataSource = dsUserDetails.Tables[0];
+                    grdUploadedFiles.DataSource = dsuploadTemplate.Tables[0];
                     grdUploadedFiles.DataBind();
                 }
                 else
                 {
-                    var projectUploadRows = dsUserDetails.Tables[0].Select("project_id='" + pid + "'");
+                    var projectUploadRows = dsuploadTemplate.Tables[0].Select("project_name='" + projectName + "'");
                     if (projectUploadRows.Length > 0)
                     {
                         grdUploadedFiles.DataSource = projectUploadRows.CopyToDataTable();
                         grdUploadedFiles.DataBind();
-                    }                   
+                    }                    
                 }
 
             }
@@ -354,7 +354,7 @@ namespace In2InGlobal.presentation.admin
 
 
         protected void ddlAssignedProject_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        {             
             if (ddlAssignedProject.SelectedIndex > 0)
             {
                 btnUpload.Enabled = true;
@@ -373,6 +373,8 @@ namespace In2InGlobal.presentation.admin
             BindFileGrid(ddlAssignedProject.SelectedValue);
             HttpContext.Current.Session["SelectedProjectName"] = ddlAssignedProject.SelectedItem.Text;
            
+
+
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "ShowFileMgnt();", true);
 
         }
@@ -572,6 +574,10 @@ namespace In2InGlobal.presentation.admin
         {
             tplInstruction.InnerHtml = "";
             string templateName = ddlTemplate.SelectedItem.Text;
+
+            //Puting in session due to File upload time this will consider as a Table Name
+            HttpContext.Current.Session["TemplateName"] = ddlTemplate.SelectedItem.Text;
+
             int _selIndex = ddlTemplate.SelectedIndex;
 
             DataTable tblMasterTemple = (DataTable)Session["FMTemplateName"];
