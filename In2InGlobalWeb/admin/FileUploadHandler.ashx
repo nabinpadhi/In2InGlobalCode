@@ -30,11 +30,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
         if (context.Request.Files.Count > 0)
         {
             string uploadedBy = HttpContext.Current.Session["UserEmail"].ToString();
-            //using LumenWorks.Framework.IO.Csv;
 
-            /* Uncomment below commented condition to apply for multiple files*/
-            // for (int i = 0; i < files.Count; i++)
-            //{
             HttpPostedFile file = context.Request.Files[0];
 
             if (HttpContext.Current.Session["ForScreen"].ToString() == "TemplateManagement")
@@ -45,7 +41,6 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
             {
                 StartFileManagementTask(context, file, filePath, uploadedBy);
             }
-            //}
 
         }
 
@@ -90,8 +85,8 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
         _tableScript.AppendLine("id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 100000000000 CACHE 1 ) " + ",");
         _tableScript.AppendLine("project_name character varying(200) NOT NULL" + ",");
         _tableScript.AppendLine("user_email character varying(200) NOT NULL" + ",");
-        _tableScript.AppendLine("uploadedby character varying(200)" + ",");
-        _tableScript.AppendLine("isprocessed character varying(50)" + ",");
+        _tableScript.AppendLine("uploaded_by character varying(200)" + ",");
+        _tableScript.AppendLine("is_processed character varying(50)" + ",");
 
         int colIndex = 1;
         foreach (DataColumn _dc in _uploadedTemplateDataTable.Columns)
@@ -218,13 +213,19 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
                 string templateName = fileName.Replace(".csv", "");
                 string masterTemplateName = GenerateMasterTemplateName(templateName);
                 DataTable _uploadedTemplateDataTable = new DataTable(masterTemplateName);
+                _uploadedTemplateDataTable = AddOptionalColumns(_uploadedTemplateDataTable );
                 using (CsvReader.CsvReader _csvTableLoader = new CsvReader.CsvReader(new StreamReader(System.IO.File.OpenRead(filePathWithFileName)), true))
                 {
 
                     _uploadedTemplateDataTable.Load(_csvTableLoader);
                 }
-                templateEntity.FileName = HttpContext.Current.Session["TemplateName"].ToString();
-                _uploadedTemplateDataTable = AddOptionalColumns(_uploadedTemplateDataTable,templateEntity );
+                foreach (DataColumn _dc in _uploadedTemplateDataTable.Columns)
+                {
+                    _dc.ColumnName = _dc.ColumnName.Replace(" / ", "_or_").Replace(" ", "_");
+                }
+                templateEntity.FileName = masterTemplateName;//HttpContext.Current.Session["TemplateName"].ToString();
+                
+               _uploadedTemplateDataTable = UpdateOptionalColumnValue(_uploadedTemplateDataTable,templateEntity );
                 //Table name will tell u where tp insert data;
                 uploadTemplateBl.SaveUploadTemplate(_uploadedTemplateDataTable,templateEntity);
             }
@@ -234,25 +235,28 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
             ex.ToString();
         }
     }
-    private DataTable AddOptionalColumns(DataTable uploadedTemplateDataTable,UploadTemplateEntity templateEntity)
+    private DataTable UpdateOptionalColumnValue(DataTable uploadedTemplateDataTable,UploadTemplateEntity templateEntity)
     {
-        uploadedTemplateDataTable.Columns.Add("project_name",typeof(string));
-        uploadedTemplateDataTable.Columns.Add("user_email",typeof(string));
-        uploadedTemplateDataTable.Columns.Add("uploadedby",typeof(string));
-        uploadedTemplateDataTable.Columns.Add("isprocessed",typeof(string));
-        uploadedTemplateDataTable.AcceptChanges();
-        foreach(DataRow dr in uploadedTemplateDataTable.Rows)
+        foreach (DataRow dr in uploadedTemplateDataTable.Rows)
         {
             dr["project_name"] = templateEntity.ProjectName;
             dr["user_email"] = templateEntity.UserEmail;
-            dr["uploadedby"] = templateEntity.UserEmail;
-            dr["isprocessed"] = false;
+            dr["uploaded_by"] = templateEntity.UserEmail;
+            dr["is_processed"] = false;
         }
-        foreach(DataColumn dc in uploadedTemplateDataTable.Columns)
-        {
-            dc.ColumnName = dc.ColumnName.Replace(" ", "").ToLower();
-        }
+
         uploadedTemplateDataTable.AcceptChanges();
+        return uploadedTemplateDataTable;
+    }
+    private DataTable AddOptionalColumns(DataTable uploadedTemplateDataTable)
+    {
+        uploadedTemplateDataTable.Columns.Add("project_name",typeof(string));
+        uploadedTemplateDataTable.Columns.Add("user_email",typeof(string));
+        uploadedTemplateDataTable.Columns.Add("uploaded_by",typeof(string));
+        uploadedTemplateDataTable.Columns.Add("is_processed",typeof(string));
+
+        uploadedTemplateDataTable.AcceptChanges();
+
         return uploadedTemplateDataTable;
     }
     private string GenerateMasterTemplateName(string uploadedFileName)
@@ -376,19 +380,5 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
         string JSONresult = JsonConvert.SerializeObject(dsUploadedTempFiles.Tables[0]);
         return JSONresult;
     }
-    private string GetUploadedFilesJSON(HttpContext context)
-    {
-        string userEmail = context.Session["UserEmail"].ToString();
-        string userRole = context.Session["UserRole"].ToString();
-        string projectName = HttpContext.Current.Session["SelectedProjectName"].ToString();
-
-        DataSet dsUploadedFiles = new DataSet();
-        UploadTemplateBL uploadedTempBL = new UploadTemplateBL();
-        dsUploadedFiles = uploadedTempBL.LoadUploadFileTemplateGrid(userRole, userEmail, projectName);
-
-        string JSONresult = JsonConvert.SerializeObject(dsUploadedFiles.Tables[0]);
-        return JSONresult;
-    }
-
 
 }  

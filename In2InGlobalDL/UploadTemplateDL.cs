@@ -340,13 +340,15 @@ namespace In2InGlobal.datalink
             DataTable dt = new DataTable();
             try
             {
+                connection.Open();
                 using (var transaction = connection.BeginTransaction())
                 {
-                    connection.Open();
+                    
                     foreach (DataRow row in dtUploadTemplate.Rows)
                     {
                         // Create an NpgsqlParameter for every field in the column
-                        var parameters = new List<DbParameter>();
+                        var parameters = new List<DbParameter>();                        
+                      
                         for (var i = 0; i < dtUploadTemplate.Columns.Count; i++)
                         {
                             parameters.Add(new NpgsqlParameter($"@p{i}", row[i]));
@@ -355,7 +357,7 @@ namespace In2InGlobal.datalink
 
                         // Create an INSERT SQL query which inserts the data from the current row into PostgreSql table
                         var command = new NpgsqlCommand(
-                            $"INSERT INTO dbo.{tableName} VALUES ({parameterNames})",
+                            $"INSERT INTO dbo.{tableName} VALUES (DEFAULT,{parameterNames})",
                             connection);
                         command.Parameters.AddRange(parameters.ToArray());
                         command.ExecuteNonQuery();
