@@ -356,18 +356,17 @@ namespace In2InGlobal.presentation.admin
         protected void ddlAssignedProject_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlAssignedProject.SelectedIndex > 0)
-            {
-                btnUpload.Enabled = true;
-                fileUploader.Enabled = true;
+            {  
                 ddlTemplate.Enabled = true;
-                btnDownload.Enabled = true;
+                ddlTemplate.SelectedIndex = 0;
             }
             else
-            {
-                btnUpload.Enabled = false;
-                fileUploader.Enabled = false;
+            {                
                 ddlTemplate.Enabled = false;
+                ddlTemplate.SelectedIndex = 0;
+                btnUpload.Enabled = false;
                 btnDownload.Enabled = false;
+                fileUploader.Enabled = false;
             }
 
             BindFileGrid(ddlAssignedProject.SelectedValue);
@@ -573,7 +572,7 @@ namespace In2InGlobal.presentation.admin
             tplInstruction.InnerHtml = "";
             string templateName = ddlTemplate.SelectedItem.Text;
             int _selIndex = ddlTemplate.SelectedIndex;
-
+            Session["TemplateName"] = templateName;
             DataTable tblMasterTemple = (DataTable)Session["FMTemplateName"];
             if (tblMasterTemple.Rows.Count > 0)
             {
@@ -590,7 +589,20 @@ namespace In2InGlobal.presentation.admin
             {
                 tplInstruction.InnerHtml = "<li>No Instruction Found.</li>";
             }
+            if (ddlTemplate.SelectedIndex > 0)
+            {
+                btnUpload.Enabled = true;
+                btnDownload.Enabled = true;
+                fileUploader.Enabled = true;
+                
 
+            }
+            else
+            {
+                btnUpload.Enabled = false;
+                fileUploader.Enabled = false;                
+                btnDownload.Enabled = false;
+            }
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "ShowFileMgnt();", true);
         }
 

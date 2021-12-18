@@ -415,9 +415,14 @@
          var fileName = $('#fileUploader').val();
          var idxDot = fileName.lastIndexOf(".") + 1;
          var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
-
+         var selectedTemplate = jQuery("#ddlTemplate option:selected").text();
+       
          if (CheckNull(fileName, in2in23)) {
              CheckFileExtension(extFile, "csv", in2in24);
+             if (fileName.indexOf(selectedTemplate) < 0) {
+                 Error_Message = Error_Message + Error_Count + " . Please upload a valid file for selected template<br>";
+                 Error_Count = Error_Count + 1;                 
+             }
          }
 
          

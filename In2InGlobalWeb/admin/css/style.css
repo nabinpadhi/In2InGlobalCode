@@ -479,7 +479,7 @@ select:disabled {
     background: #b2aaaa no-repeat 2px 2px;
     padding: 1px 1px 1px 5px;
     border: 1px solid #1c4f8a;
-    width: 90%;
+    width: auto;
     color: black;
     display: inline-block;
     cursor: url("../img/no-pencil-sign.png"),auto;

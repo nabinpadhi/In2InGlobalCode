@@ -211,7 +211,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
                 UploadTemplateBL uploadTemplateBl = new UploadTemplateBL();
                 uploadTemplateBl.SaveAssignedTemplate(templateEntity);
                 string templateName = fileName.Replace(".csv", "");
-                string masterTemplateName = GenerateMasterTemplateName(templateName);
+                string masterTemplateName = HttpContext.Current.Session["TemplateName"].ToString();
                 DataTable _uploadedTemplateDataTable = new DataTable(masterTemplateName);
                 _uploadedTemplateDataTable = AddOptionalColumns(_uploadedTemplateDataTable );
                 using (CsvReader.CsvReader _csvTableLoader = new CsvReader.CsvReader(new StreamReader(System.IO.File.OpenRead(filePathWithFileName)), true))
@@ -223,7 +223,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
                 {
                     _dc.ColumnName = _dc.ColumnName.Replace(" / ", "_or_").Replace(" ", "_");
                 }
-                templateEntity.FileName = masterTemplateName;//HttpContext.Current.Session["TemplateName"].ToString();
+                templateEntity.FileName = masterTemplateName;
                 
                _uploadedTemplateDataTable = UpdateOptionalColumnValue(_uploadedTemplateDataTable,templateEntity );
                 //Table name will tell u where tp insert data;
@@ -259,31 +259,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
 
         return uploadedTemplateDataTable;
     }
-    private string GenerateMasterTemplateName(string uploadedFileName)
-    {
-        string _result = "";
-        if (uploadedFileName.Contains("Spend_Analytics"))
-        {
-            _result = "Spend_Analytics";
-        }
-        else if(uploadedFileName.Contains("Purchasing"))
-        {
-            _result = "Purchasing";
-        }
-        else if (uploadedFileName.Contains("Procurement"))
-        {
-            _result = "Procurement";
-        }
-        else if (uploadedFileName.Contains("Business_Travel_Hotel"))
-        {
-            _result = "Business_Travel_Hotel";
-        }
-        else if (uploadedFileName.Contains("Business_Travel_Air"))
-        {
-            _result = "Business_Travel_Air";
-        }
-        return _result;
-    }
+   
     private bool CheckUploadedFileHaveOnlyHeader(HttpPostedFile templateUploadFile)
     {
         bool _result = true;
