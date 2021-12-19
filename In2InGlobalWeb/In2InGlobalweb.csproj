@@ -1836,6 +1836,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="admin\uploadedFiles\" />
     <Folder Include="App_Data\" />
     <Folder Include="scripts\jquery\jqMenu\css\" />
     <Folder Include="scripts\jquery\jqMenu\images\" />
@@ -1886,17 +1887,6 @@
     <Content Include="admin\MasterTemplate\Spend_Analytics.csv" />
     <Content Include="admin\FileUploadHandler.ashx" />
     <Content Include="admin\json-data\AnalyticDashboard.json" />
-    <Content Include="admin\uploadedFiles\Business_Travel_Air-1-rec~ganesh%40gmail.com~PRO-0003.csv" />
-    <Content Include="admin\uploadedFiles\Business_Travel_Hotel-1-rec~nabinpadhi%40gmail.com~PRO-0004.csv" />
-    <Content Include="admin\uploadedFiles\Business_Travel_Hotel_1rec~ganesh%40gmail.com~PRO-0004.csv" />
-    <Content Include="admin\uploadedFiles\Purchasing_1_rec~ganesh%40gmail.com~PRO-0001.csv" />
-    <Content Include="admin\uploadedFiles\Purchasing_1_rec~ganesh%40gmail.com~PRO-0005.csv" />
-    <Content Include="admin\uploadedFiles\Spend_Analytics-1-rec~ganesh%40gmail.com~PRO-0001.csv" />
-    <Content Include="admin\uploadedFiles\Spend_Analytics-1-rec~nabinpadhi%40gmail.com~PRO-0002.csv" />
-    <Content Include="admin\uploadedFiles\Spend_Analytics-145~nabinpadhi%40gmail.com~PRO-0002.csv" />
-    <Content Include="admin\uploadedFiles\Spend_Analytics-2000rec~nabinpadhi%40gmail.com~PRO-0003.csv" />
-    <Content Include="admin\uploadedFiles\Spend_Analytics-2~nabinpadhi%40gmail.com~PRO-0002.csv" />
-    <Content Include="admin\uploadedFiles\Spend_Analytics-2~nabinpadhi%40gmail.com~PRO-0003.csv" />
     <None Include="font\fontawesome-webfont.ttf" />
     <None Include="font\fontawesome-webfont.woff" />
     <None Include="GoogleFont\2UX7WLTfW3W8TclTUvlFyQ.woff" />
