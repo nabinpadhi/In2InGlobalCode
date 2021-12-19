@@ -26,6 +26,7 @@
                 <asp:UpdatePanel ID="pdnlFileMgnt" runat="server">
                      <Triggers><asp:PostBackTrigger ControlID="btnDownload" /></Triggers>                    
                     <ContentTemplate> 
+                       <div id="overlay" style="display:none"><center><img src="admin/img/LoadingTrans.gif" /></center></div>
                          <div style="border-bottom:0 solid gray;display:flex;padding:2px;width:auto;">
                             <div id="btnProjectMgnt" onclick="ShowProjectMgnt();" class="PanelTab" style="background-color:azure;color:blue;">Project Management</div>
                             <div id="btnFileMgnt" onclick="ShowFileMgnt();" class="PanelTab">File Management</div>                          
@@ -308,6 +309,10 @@
     
     $(document).ready(function () {
        // $('select:not(.ignore)').niceSelect();
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+        prm.add_initializeRequest(InitializeRequest);
+        prm.add_endRequest(EndRequest);
+
         FastClick.attach(document.body);
         $("#projectids").change(function () {
             $('#projectid').val($("#projectids").val());
@@ -316,6 +321,15 @@
         ClearProject();
        
     });
+     function InitializeRequest(sender, args) {
+         // Open the full wait screen
+         $("#overlay").show();
+     }
+
+     function EndRequest(sender, args) {
+         // close the full wait screen
+        $("#overlay").hide();
+     }
      function In2InGlobalConfirm(pName, pID) {
 
          $.messager.confirm({
@@ -489,6 +503,9 @@
                  data: data,
                  contentType: false,
                  processData: false,
+                 beforeSend: function () {
+                     $("#overlay").show();
+                 },
                  success: function (result) {
 
                      if (result != '') {
@@ -502,6 +519,7 @@
                  },
                  complete: function (data) {
 
+                     $("#overlay").hide();
                      $('#btnReload').trigger("click");
                      
                  }

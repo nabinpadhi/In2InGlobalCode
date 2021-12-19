@@ -108,6 +108,7 @@
     <Content Include="admin\img\HB-Pencil-edit-disabled.png" />
     <Content Include="admin\img\HB-Pencil-edit.png" />
     <Content Include="admin\img\loading.gif" />
+    <Content Include="admin\img\LoadingTrans.gif" />
     <Content Include="admin\img\no-pencil-sign.png" />
     <Content Include="admin\img\processing.gif" />
     <Content Include="admin\img\refresh.jpg" />

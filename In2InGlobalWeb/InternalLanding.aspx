@@ -37,6 +37,7 @@
     </style>
 </head>
 <body onload="loadIframe();">
+    
     <form status="1" id="form1" runat="server">
         <div class="new-container">
         <header class="cd-main-header js-cd-main-header" style="background-color: #03989e;height:83px;">           
@@ -54,6 +55,7 @@
         </header>
        
         <main class="cd-main-content" style="width:100%; position:fixed;left:0px;top:10px;">
+             
             <nav class="cd-side-nav js-cd-side-nav" style="padding-top: 70px;height:100%;">
                 <ul class="cd-side__list js-cd-side__list">                    
                     <li class="cd-side__item cd-side__item--has-children cd-side__item--user js-cd-item--has-children">
@@ -101,6 +103,7 @@
                     </div>
                  </center>
                 <div class="holds-the-iframe"  style="width: 100%; height: 90%"><iframe style="width: inherit; height: inherit" id="frmTarget" src="about:blank"></iframe></div>
+                
             <div style="position: sticky; margin-left: auto;">
                     <div style="background: #212121;padding: 30px 0;">
                     <center>
