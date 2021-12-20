@@ -94,8 +94,17 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="admin\assets\img\analytics.svg" />
+    <Content Include="admin\assets\img\companymgnt.svg" />
+    <Content Include="admin\assets\img\configuration.svg" />
+    <Content Include="admin\assets\img\csv-file.svg" />
+    <Content Include="admin\assets\img\file.svg" />
+    <Content Include="admin\assets\img\filesmgnt.svg" />
     <Content Include="admin\assets\img\mobile.png" />
     <Content Include="admin\AnalyticConfiguration.aspx" />
+    <Content Include="admin\assets\img\template.svg" />
+    <Content Include="admin\assets\img\user-management-22.svg" />
+    <Content Include="admin\assets\img\usermgnt.svg" />
     <Content Include="admin\css\images\ui-icons_555555_256x240.png" />
     <Content Include="admin\css\images\ui-icons_777777_256x240.png" />
     <Content Include="admin\css\jquery-ui.css" />
@@ -207,6 +216,13 @@
     <Content Include="images\LoginScreenImg1.png" />
     <Content Include="css\garagedoor.css" />
     <Content Include="css\style.css" />
+    <Content Include="img\cd-arrow.svg" />
+    <Content Include="img\cd-avatar.svg" />
+    <Content Include="img\cd-logo.svg" />
+    <Content Include="img\cd-nav-icons.svg" />
+    <Content Include="img\cd-search.svg" />
+    <Content Include="img\loggedInAvatar.jpg" />
+    <Content Include="img\mobile.png" />
     <Content Include="jqdashboard\themes\icons\read_file.png" />
     <Content Include="jquery\jqdashboard\themes\icons\read_file.png" />
     <Content Include="NewJEasyUI\themes\icons\read_file.png" />
@@ -1866,7 +1882,6 @@
     <Content Include="admin\vendor\fontawesome-free\webfonts\fa-solid-900.woff" />
     <Content Include="admin\vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="admin\vendor\fontawesome-free\webfonts\fa-solid-900d41d.eot" />
-    <Content Include="admin\assets\css\style.scss" />
     <Content Include="admin\scss\nice-select.scss" />
     <Content Include="admin\scss\style.scss" />
     <Content Include="admin\scss\_nice-select-prefixed.scss" />

@@ -3859,7 +3859,7 @@ a {
 			width: 16px;
 			margin-right: .5em;
 			margin-right: var(--space-xs);
-			background: url(../img/cd-nav-icons.svg) no-repeat 0 0
+			background: url(../admin/assets/img/cd-nav-icons.svg) no-repeat 0 0
 		}
 
 @media(min-width:64rem) {
@@ -3883,11 +3883,41 @@ a {
 }
 
 .cd-side__item--overview > a::before {
-	background-position: -64px 0
+    background: url(../admin/assets/img/user-management-22.svg) no-repeat 0 0;
+    background-position: 0px 0;
 }
-
-.cd-side__item--notifications > a::before {
-	background-position: -80px 0
+.cd-side__item--usermgnt > a::before {
+    background: url(../admin/assets/img/usermgnt.svg) no-repeat 0 0;
+    background-size:16px;
+    background-position: 0px 0;
+}
+.cd-side__item--companymgnt > a::before {
+    background: url(../admin/assets/img/companymgnt.svg) no-repeat 0 0;
+    background-size: 16px;
+    background-position: 0px 0;
+}
+.cd-side__item--template > a::before {
+    background: url(../admin/assets/img/template.svg) no-repeat 0 0;
+    background-size: 16px;
+    background-position: 0px 0;
+}
+.cd-side__item--file > a::before {
+    background: url(../admin/assets/img/filesmgnt.svg) no-repeat 0 0;
+    background-size: 16px;
+    background-position: 0px 0;
+}
+.cd-side__item--analytics > a::before {
+    background: url(../admin/assets/img/analytics.svg) no-repeat 0 0;
+    background-size: 16px;
+    background-position: 0px 0;
+}
+.cd-side__item--configuration > a::before {
+    background: url(../admin/assets/img/configuration.svg) no-repeat 0 0;
+    background-size: 16px;
+    background-position: 0px 0;
+}
+    .cd-side__item--notifications > a::before {
+    background-position: -80px 0
 }
 
 .cd-side__item--comments > a::before {
@@ -3903,18 +3933,19 @@ a {
 }
 
 .cd-side__item--users > a::before {
+
 	background-position: -16px 0
 }
 
 .cd-side__item--has-children > a::after, .cd-nav__item--has-children > a::after {
-	content: '';
-	position: absolute;
-	top: calc(50% - 8px);
-	height: 16px;
-	width: 16px;
-	right: 1.25em;
-	right: var(--space-md);
-	background: url(../img/cd-arrow.svg)
+    content: '';
+    position: absolute;
+    top: calc(50% - 8px);
+    height: 16px;
+    width: 16px;
+    right: 1.25em;
+    right: var(--space-md);
+    background: url(../img/cd-arrow.svg)
 }
 
 @media(min-width:64rem) {

@@ -58,28 +58,28 @@
              
             <nav class="cd-side-nav js-cd-side-nav" style="padding-top: 70px;height:100%;">
                 <ul class="cd-side__list js-cd-side__list">                    
-                    <li class="cd-side__item cd-side__item--has-children cd-side__item--user js-cd-item--has-children">
+                    <li class="cd-side__item cd-side__item--has-children cd-side__item--users js-cd-item--has-children">
                         <a href="#" onclick="javascript:OpenPage('admin/MyProfile.aspx');">My Profile</a>
                     </li>
-                     <li class="cd-side__item cd-side__item--has-children cd-side__item--overview js-cd-item--has-children">
+                     <li class="cd-side__item cd-side__item--has-children cd-side__item--companymgnt js-cd-item--has-children">
                     <a href="#" id="comMngmnt" runat="server">Company Management</a>
                     </li>
                     
-                    <li class="cd-side__item cd-side__item--has-children cd-side__item--overview js-cd-item--has-children">
+                    <li class="cd-side__item cd-side__item--has-children cd-side__item--usermgnt js-cd-item--has-children">
                          <a href="#" id="usrMngmnt" runat="server">User Management</a>                       
                     </li>                      
                     <li class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children" style="display:none;">
                         <a href="#" id="projtMngmt" runat="server">Project Management</a>
                     </li>
-                     <li class="cd-side__item cd-side__item--has-children cd-side__item--overview js-cd-item--has-children">
+                     <li class="cd-side__item cd-side__item--has-children cd-side__item--template js-cd-item--has-children">
                     <a href="#" id="tmpltMngmnt" runat="server">Template Management</a>
                     </li>
-                  <li class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children">
+                  <li class="cd-side__item cd-side__item--has-children cd-side__item--file js-cd-item--has-children">
                         <a href="#" id="ancFileMan" runat="server">File Management</a>
                     </li>
-                    <li runat="server" id="liAnalytics" class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children">
+                    <li runat="server" id="liAnalytics" class="cd-side__item cd-side__item--has-children cd-side__item--analytics js-cd-item--has-children">
                         <a href="#" id="ancAnalytics" runat="server">Analytics</a>
-                        <div runat="server" id="divConfiguration" class="cd-side__item" style="margin-left: 25px; padding-top: 4px;padding-bottom: 4px;"><a href="#" id="ancConfiguration" style="font-size:small;color:aqua;" runat="server">Configuration</a></div>
+                        <div runat="server" id="divConfiguration" class="cd-side__item cd-side__item--configuration" style="margin-left: 25px; padding-top: 4px;padding-bottom: 4px;"><a href="#" id="ancConfiguration" style="font-size:small;color:aqua;" runat="server">Configuration</a></div>
                         <div class="foo" style="margin-left: 30px; padding-top: 4px;height:150px;width:120px;overflow-y:auto;overflow-x:hidden;">
                             <ul class="js-cd-side__list" runat="server" id="AnalyticsProjectList">
                             </ul>
