@@ -21,39 +21,45 @@ namespace In2InGlobal.presentation.admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-
-            if (!IsPostBack)
+            try
             {
-                if (Session["UserRole"] != null)
-                {
-                    txtcreatedB.InnerText = Session["UserEmail"].ToString();
-                    string usrRole = Session["UserRole"].ToString();
-                    HttpContext.Current.Session["UserEmail"] = Session["UserEmail"].ToString();
-                    HttpContext.Current.Session["UserRole"] = Session["UserRole"].ToString();
-                    HttpContext.Current.Session["targetfolder"] = "./MasterTemplate/";
-                    HttpContext.Current.Session["UploadedBy"] = Session["UserEmail"].ToString();
-                    HttpContext.Current.Session["ForScreen"] = "TemplateManagement";
 
-                    if (usrRole == "Admin")
+                if (!IsPostBack)
+                {
+                    if (Session["UserRole"] != null)
                     {
-                        BindMasterTemplate();
-                        BindMasterTemplateGrid();
-                        if (Session["servermessage"] != null && Session["servermessage"].ToString() != "")
+                        txtcreatedB.InnerText = Session["UserEmail"].ToString();
+                        string usrRole = Session["UserRole"].ToString();
+                        HttpContext.Current.Session["UserEmail"] = Session["UserEmail"].ToString();
+                        HttpContext.Current.Session["UserRole"] = Session["UserRole"].ToString();
+                        HttpContext.Current.Session["targetfolder"] = "./MasterTemplate/";
+                        HttpContext.Current.Session["UploadedBy"] = Session["UserEmail"].ToString();
+                        HttpContext.Current.Session["ForScreen"] = "TemplateManagement";
+
+                        if (usrRole == "Admin")
                         {
-                            string servermessge = Session["servermessage"].ToString();
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowCreateTemplate();ShowUploadMasterTemplate();ShowServerMessage('{0}'); ", servermessge), true);
+                            BindMasterTemplate();
+                            BindMasterTemplateGrid();
+                            if (Session["servermessage"] != null && Session["servermessage"].ToString() != "")
+                            {
+                                string servermessge = Session["servermessage"].ToString();
+                                ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowCreateTemplate();ShowUploadMasterTemplate();ShowServerMessage('{0}'); ", servermessge), true);
+                            }
+                        }
+                        else
+                        {
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
                         }
                     }
                     else
                     {
-                       Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
                     }
                 }
-                else
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
-                }
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
 
         }
@@ -78,7 +84,7 @@ namespace In2InGlobal.presentation.admin
             }
             catch (Exception ex)
             {
-                ex.Message.ToString();
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
         }
 
@@ -97,7 +103,7 @@ namespace In2InGlobal.presentation.admin
             }
             catch (Exception ex)
             {
-                ex.Message.ToString();
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
         }
 
@@ -122,16 +128,24 @@ namespace In2InGlobal.presentation.admin
             }
             catch (Exception ex)
             {
-                ex.Message.ToString();
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
         }
 
         private DataSet GetMasterTemplates()
         {
             DataSet dsloadTemplate = new DataSet();
+            try { 
+            
             TemplateMasterBl templateMasterBL = new TemplateMasterBl();
             dsloadTemplate = templateMasterBL.PopulateUploadMasterTemplateName();
-            return dsloadTemplate; 
+          
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
+            }
+            return dsloadTemplate;
         }
         
         
@@ -140,6 +154,7 @@ namespace In2InGlobal.presentation.admin
         /// </summary>
         private void BindTemplateToAssign()
         {
+            try { 
             int projectId = 0;
             if (ddlProjects.SelectedIndex > 0)
             {
@@ -153,8 +168,7 @@ namespace In2InGlobal.presentation.admin
 
             DataSet dsUserDetails = new DataSet();
             AssignedTemplateBL projectBL = new AssignedTemplateBL();
-            try
-            {
+            
                 dsUserDetails = projectBL.PopulateTemplateNameForAssignedProjectAndUser(projectId, userId);
                 ddlTemplates.DataSource = dsUserDetails;
                 ddlTemplates.DataTextField = "user_name";
@@ -163,37 +177,17 @@ namespace In2InGlobal.presentation.admin
             }
             catch (Exception ex)
             {
-                ex.Message.ToString();
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
         }
 
-        /// <summary>
-        /// Bind Projects
-        /// </summary>
-        private void BindProjects()
-        {
-            DataSet dsUserDetails = new DataSet();
-            AssignedTemplateBL projectBL = new AssignedTemplateBL();
-            try
-            {
-
-                //dsUserDetails = projectBL.PopulateProjectNameForTemplate(userrole, useremail);
-                //ddlProjects.DataSource = dsUserDetails;
-                //ddlProjects.DataTextField = "project_name";
-                //ddlProjects.DataValueField = "project_id";
-                //ddlProjects.DataBind();
-            }
-            catch (Exception ex)
-            {
-                ex.Message.ToString();
-            }
-        }
 
         /// <summary>
         /// Bind Users
         /// </summary>
         private void BindUsers()
         {
+            try { 
             int projectId = 0;
             if (ddlProjects.SelectedIndex > 0)
             {
@@ -201,9 +195,7 @@ namespace In2InGlobal.presentation.admin
             }
             DataSet dsUserDetails = new DataSet();
             AssignedTemplateBL projectBL = new AssignedTemplateBL();
-            try
-            {
-
+         
                 dsUserDetails = projectBL.PopulateAllUserEmailForAssignedProject(projectId);
                 ddlUserEmail.DataSource = dsUserDetails;
                 ddlUserEmail.DataTextField = "user_name";
@@ -212,7 +204,7 @@ namespace In2InGlobal.presentation.admin
             }
             catch (Exception ex)
             {
-                ex.Message.ToString();
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
         }
 
@@ -223,10 +215,17 @@ namespace In2InGlobal.presentation.admin
         /// <param name="e"></param>
         protected void grdTemplate_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            BindTemplate();
-            grdTemplate.PageIndex = e.NewPageIndex;
-            grdTemplate.DataBind();
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), "ShowAssignTemplate();", true);
+            try
+            {
+                BindTemplate();
+                grdTemplate.PageIndex = e.NewPageIndex;
+                grdTemplate.DataBind();
+                ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), "ShowAssignTemplate();", true);
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
+            }
         }
 
         /// <summary>
@@ -236,15 +235,22 @@ namespace In2InGlobal.presentation.admin
         /// <param name="e"></param>
         protected void grdTemplate_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            string ID = grdTemplate.DataKeys[e.RowIndex].Value.ToString();
-            DeleteTemplate(ID);
-            BindTemplate();
+            try
+            {
+                string ID = grdTemplate.DataKeys[e.RowIndex].Value.ToString();
+                DeleteTemplate(ID);
+                BindTemplate();
 
-            ddlTemplates.Items.Clear();
-            ddlTemplates.Items.Insert(0,new ListItem("--Select a Template--"));
-            BindTemplateToAssign();
-            string _message = "Template assignment removed.";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowAssignTemplate();", _message), true);
+                ddlTemplates.Items.Clear();
+                ddlTemplates.Items.Insert(0, new ListItem("--Select a Template--"));
+                BindTemplateToAssign();
+                string _message = "Template assignment removed.";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowAssignTemplate();", _message), true);
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
+            }
         }
 
         /// <summary>
@@ -254,11 +260,18 @@ namespace In2InGlobal.presentation.admin
         /// <param name="e"></param>
         protected void grdMasterTemplate_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            BindMasterTemplateGrid();
-            grdMasterTemplate.PageIndex = e.NewPageIndex;
-            grdMasterTemplate.DataBind();
-            //
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), "ShowCreateTemplate();", true);
+            try
+            {
+                BindMasterTemplateGrid();
+                grdMasterTemplate.PageIndex = e.NewPageIndex;
+                grdMasterTemplate.DataBind();
+
+                ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), "ShowCreateTemplate();", true);
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
+            }
 
         }
 
@@ -269,12 +282,19 @@ namespace In2InGlobal.presentation.admin
         /// <param name="e"></param>
         protected void grdMasterTemplate_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            string ID = grdMasterTemplate.DataKeys[e.RowIndex].Value.ToString();
-            DeleteMasterTemplate(ID);
-            BindMasterTemplateGrid();
-            BindMasterTemplate();
-            string _message = "Template removed successfully.";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", _message), true);
+            try
+            {
+                string ID = grdMasterTemplate.DataKeys[e.RowIndex].Value.ToString();
+                DeleteMasterTemplate(ID);
+                BindMasterTemplateGrid();
+                BindMasterTemplate();
+                string _message = "Template removed successfully.";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", _message), true);
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
+            }
         }
 
         /// <summary>
@@ -295,7 +315,7 @@ namespace In2InGlobal.presentation.admin
             }
             catch (Exception ex)
             {
-                ex.ToString();
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
 
         }
@@ -318,7 +338,7 @@ namespace In2InGlobal.presentation.admin
             }
             catch (Exception ex)
             {
-                ex.ToString();
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
 
         }
@@ -330,36 +350,42 @@ namespace In2InGlobal.presentation.admin
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString(Server.MapPath("json-data/Template.json"));
-            DataTable templateTable = JsonConvert.DeserializeObject<DataTable>(json);
-            if (templateTable.Rows.Count == 0)
+            try
             {
-                templateTable.Columns.Add("ID");
-                templateTable.Columns.Add("TemplateName");
-                templateTable.Columns.Add("DateAdded");
-                templateTable.Columns.Add("ProjectName");
-                templateTable.Columns.Add("Email");
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+                string json = (new WebClient()).DownloadString(Server.MapPath("json-data/Template.json"));
+                DataTable templateTable = JsonConvert.DeserializeObject<DataTable>(json);
+                if (templateTable.Rows.Count == 0)
+                {
+                    templateTable.Columns.Add("ID");
+                    templateTable.Columns.Add("TemplateName");
+                    templateTable.Columns.Add("DateAdded");
+                    templateTable.Columns.Add("ProjectName");
+                    templateTable.Columns.Add("Email");
+                }
+                int _templateID = templateTable.Rows.Count + 1;
+                string today = DateTime.Now.ToShortDateString();
+                DataRow dr = templateTable.Rows.Add(_templateID, ddlTemplates.Text, today, ddlProjects.Text, ddlUserEmail.SelectedItem.Text);
+                templateTable.AcceptChanges();
+                dr.SetModified();
+                string output = Newtonsoft.Json.JsonConvert.SerializeObject(templateTable, Newtonsoft.Json.Formatting.Indented);
+                File.WriteAllText(Server.MapPath("json-data/Template.json"), output);
+                string _message = "Selected Template Assigned Successfully)";
+                BindTemplate();
+
+                BindUsers();
+
+                ddlTemplates.Items.Clear();
+                ddlTemplates.Items.Insert(0, new ListItem("--Select a Template--"));
+
+                BindTemplateToAssign();
+                ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowAssignTemplate();", _message), true);
             }
-            int _templateID = templateTable.Rows.Count + 1;
-            string today = DateTime.Now.ToShortDateString();
-            DataRow dr = templateTable.Rows.Add(_templateID, ddlTemplates.Text, today, ddlProjects.Text, ddlUserEmail.SelectedItem.Text);
-            templateTable.AcceptChanges();
-            dr.SetModified();
-            string output = Newtonsoft.Json.JsonConvert.SerializeObject(templateTable, Newtonsoft.Json.Formatting.Indented);
-            File.WriteAllText(Server.MapPath("json-data/Template.json"), output);
-            string _message = "Selected Template Assigned Successfully)";
-            BindTemplate();
-
-            BindUsers();
-
-            ddlTemplates.Items.Clear();
-            ddlTemplates.Items.Insert(0,new ListItem("--Select a Template--"));
-
-            BindTemplateToAssign();
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowAssignTemplate();", _message), true);
-
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
+            }
         }
 
 
@@ -394,11 +420,11 @@ namespace In2InGlobal.presentation.admin
                     _message = "Template Created Successfully";
                 }
 
-               
+
             }
             catch (Exception ex)
             {
-                ex.ToString();
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
             BindMasterTemplateGrid();
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate(); ", _message), true);
@@ -426,7 +452,7 @@ namespace In2InGlobal.presentation.admin
             }
             catch (Exception ex)
             {
-                ex.ToString();
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
         }
 
@@ -439,25 +465,7 @@ namespace In2InGlobal.presentation.admin
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowUploadMasterTemplate(); ", _message), true);
             hdnFUCalBkMsg.Value = "";
         }
-        /// <summary>
-        /// Check Uploaded File Have Only Header
-        /// </summary>
-        /// <param name="trold"></param>
-        /// <returns></returns>
-        private bool CheckUploadedFileHaveOnlyHeader(TextReader trold)
-        {
-            bool _result = true;
-            using (DataTable table = new CSVReader(trold).CreateDataTable(true))
-            {
-
-                if (table.Rows.Count > 0)
-                {
-                    return false;
-                }
-            }
-            return _result;
-        }
-
+        
        
         /// <summary>
         /// grdMasterTemplate RowDataBound
@@ -491,30 +499,37 @@ namespace In2InGlobal.presentation.admin
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
         }
 
         private string GetMaterTemplateId(string template_name)
         {
             string masterTemplateId = "";
-            DataTable masterTemplateDDLDT = (DataTable)Session["TemplateInfo"];
-            if (masterTemplateDDLDT == null)
-                BindMasterTemplate();
-            if (masterTemplateDDLDT.Rows.Count > 0)
+            try
             {
-                foreach (DataRow dr in masterTemplateDDLDT.Rows)
+                
+                DataTable masterTemplateDDLDT = (DataTable)Session["TemplateInfo"];
+                if (masterTemplateDDLDT == null)
+                    BindMasterTemplate();
+                if (masterTemplateDDLDT.Rows.Count > 0)
                 {
-                    if (dr[1].ToString() == template_name)
+                    foreach (DataRow dr in masterTemplateDDLDT.Rows)
                     {
-                        masterTemplateId = dr[0].ToString();
-                        break;
+                        if (dr[1].ToString() == template_name)
+                        {
+                            masterTemplateId = dr[0].ToString();
+                            break;
+                        }
                     }
                 }
             }
-           
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
+            }
             return masterTemplateId;
         }
 
@@ -525,16 +540,23 @@ namespace In2InGlobal.presentation.admin
         /// <param name="e"></param>
         protected void grdTemplate_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            if (e.Row.RowType == DataControlRowType.DataRow)
+            try
             {
-                string item = e.Row.Cells[0].Text;
-                foreach (LinkButton button in e.Row.Cells[4].Controls.OfType<LinkButton>())
+                if (e.Row.RowType == DataControlRowType.DataRow)
                 {
-                    if (button.CommandName == "Delete")
+                    string item = e.Row.Cells[0].Text;
+                    foreach (LinkButton button in e.Row.Cells[4].Controls.OfType<LinkButton>())
                     {
-                        button.Attributes["onclick"] = "if(!confirm('Do you want to delete " + item + "?')){ return false; };";
+                        if (button.CommandName == "Delete")
+                        {
+                            button.Attributes["onclick"] = "if(!confirm('Do you want to delete " + item + "?')){ return false; };";
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
         }
 
@@ -545,37 +567,45 @@ namespace In2InGlobal.presentation.admin
         /// <param name="e"></param>
         protected void ddlProjects_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            string json = (new WebClient()).DownloadString(Server.MapPath("json-data/Users.json"));
-            DataTable userTable = JsonConvert.DeserializeObject<DataTable>(json);
-            DataRow[] userRows = userTable.Select("ProjectID='" + ddlProjects.SelectedValue + "'");
-            if (userRows.Length > 0)
+            try
             {
-                ddlUserEmail.Items.Clear();
-                ddlUserEmail.DataSource = userRows.CopyToDataTable();
-                ddlUserEmail.DataBind();
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+                string json = (new WebClient()).DownloadString(Server.MapPath("json-data/Users.json"));
+                DataTable userTable = JsonConvert.DeserializeObject<DataTable>(json);
+                DataRow[] userRows = userTable.Select("ProjectID='" + ddlProjects.SelectedValue + "'");
+                if (userRows.Length > 0)
+                {
+                    ddlUserEmail.Items.Clear();
+                    ddlUserEmail.DataSource = userRows.CopyToDataTable();
+                    ddlUserEmail.DataBind();
+                }
+                ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), "ShowAssignTemplate();", true);
             }
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), "ShowAssignTemplate();", true);
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
+            }
         }
 
         protected void hdnDelBtn_Click(object sender, EventArgs e)
         {
-            if (hdnTID.Value != "")
+            try
             {
-                DeleteMasterTemplate(hdnTID.Value);
+                if (hdnTID.Value != "")
+                {
+                    DeleteMasterTemplate(hdnTID.Value);
+                }
+                BindMasterTemplateGrid();
+                string _message = "Template deleted successfully.";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", _message), true);
             }
-            BindMasterTemplateGrid();
-            string _message = "Template deleted successfully.";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", _message), true);
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
+            }
         }
-
-       /* protected void btnReloadMTDdl_Click(object sender, EventArgs e)
-        {
-            BindMasterTemplate();
-            string _message = "Master Template Uploaded successfully.";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", _message), true);
-        }*/
+     
     }
 
 }

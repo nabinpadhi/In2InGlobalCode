@@ -38,10 +38,17 @@ namespace In2InGlobal.presentation.admin
                     }
                     else
                     {
-                        BindUsers();
-                        BindCompany();                       
-                        BindRoles();
-                        BindActivity();
+                        try
+                        {
+                            BindUsers();
+                            BindCompany();
+                            BindRoles();
+                            BindActivity();
+                        }
+                        catch(Exception ex)
+                        {
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
+                        }
                     }
                 }
                 else
@@ -54,11 +61,17 @@ namespace In2InGlobal.presentation.admin
         /// </summary>
         private void BindUsers()
         {
+            try { 
             UserMasterBL userMasterBL = new UserMasterBL();
             DataSet dsUser = new DataSet();
             dsUser = userMasterBL.FillUserGridInfo();
             grdUsers.DataSource = dsUser;
             grdUsers.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
+            }
         }
 
         /// <summary>
@@ -78,7 +91,7 @@ namespace In2InGlobal.presentation.admin
             }
             catch (Exception ex)
             {
-                ex.Message.ToString();
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
         }
         private DataSet GetCompany()
@@ -90,11 +103,11 @@ namespace In2InGlobal.presentation.admin
 
                 dsCompanies = userMasterBL.getCompanyNameForUser();
                 Session["dsCompanies"] = dsCompanies;
-              
+
             }
             catch (Exception ex)
             {
-                ex.Message.ToString();
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
             return dsCompanies;
         }
@@ -109,7 +122,7 @@ namespace In2InGlobal.presentation.admin
             }
             catch (Exception ex)
             {
-                ex.Message.ToString();
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
             return dsActivityAccess;
         }
@@ -124,7 +137,7 @@ namespace In2InGlobal.presentation.admin
             }
             catch (Exception ex)
             {
-                ex.Message.ToString();
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
             return dsRoles;
         }
@@ -145,7 +158,7 @@ namespace In2InGlobal.presentation.admin
             }
             catch (Exception ex)
             {
-                ex.Message.ToString();
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
         }
 
@@ -176,7 +189,7 @@ namespace In2InGlobal.presentation.admin
             }
             catch (Exception ex)
             {
-                ex.Message.ToString();
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
         }
 
@@ -213,8 +226,14 @@ namespace In2InGlobal.presentation.admin
         /// <param name="email"></param>
         private void UpdateUser(UserEntity userEntity)
         {
+            try { 
             UserMasterBL userMasterBl = new UserMasterBL();
             userMasterBl.UpdateUser(userEntity);
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
+            }
         }
 
         /// <summary>
@@ -223,16 +242,24 @@ namespace In2InGlobal.presentation.admin
         /// <param name="email"></param>
         private void DeleteUser(string email)
         {
-            UserEntity userEntity = new UserEntity();
-            userEntity.Email = email;
+            try
+            {
+                UserEntity userEntity = new UserEntity();
+                userEntity.Email = email;
 
-            UserMasterBL companyMasterBl = new UserMasterBL();
-            companyMasterBl.DeleteUser(userEntity);
-            BindUsers();
-            string _message = "User Deleted Successfully";
-            hdnUserEmail.Value = "";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);
-        }
+                UserMasterBL companyMasterBl = new UserMasterBL();
+                companyMasterBl.DeleteUser(userEntity);
+                BindUsers();
+                string _message = "User Deleted Successfully";
+                hdnUserEmail.Value = "";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);
+
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
+            }
+    }
 
         /// <summary>
         /// grdUsers RowCancelingEdit
@@ -247,47 +274,54 @@ namespace In2InGlobal.presentation.admin
 
         protected void grdUsers_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            if (e.Row.RowType == DataControlRowType.DataRow)
+            try
             {
-                DataTable dtCompany = GetCompany().Tables[0];
-                DataTable dtRole = GetRoles().Tables[0];
-                DataTable dtActivity = GetActivityAccess().Tables[0];
-               
-                string fname = e.Row.Cells[0].Text;
-                string lname = e.Row.Cells[1].Text;
-                string companyid = dtCompany.Select("company_name = '"+ e.Row.Cells[2].Text + "'")[0]["company_id"].ToString();
-                string email = grdUsers.DataKeys[e.Row.RowIndex].Value.ToString();
-                string roleid = dtRole.Select("role_name = '" + e.Row.Cells[4].Text + "'")[0]["role_id"].ToString(); //e.Row.Cells[4].Text; ;
-                string activityid= dtActivity.Select("activity_name = '" + e.Row.Cells[5].Text + "'")[0]["activity_id"].ToString(); //e.Row.Cells[5].Text; ;                
-                string phone = e.Row.Cells[6].Text;
-
-                foreach (Button editbutton in e.Row.Cells[7].Controls.OfType<Button>())
+                if (e.Row.RowType == DataControlRowType.DataRow)
                 {
-                    if (email == Session["UserEmail"].ToString())
-                    {
-                        editbutton.Enabled = false;
-                    }
-                    else
-                    {
-                        editbutton.UseSubmitBehavior = false;
-                        editbutton.Attributes["onclick"] = "return PullDataToEdit('" + fname + "', '" + lname + "', '" + companyid + "', '" + email + "', '" + roleid + "', '" + activityid + "', '" + phone + "'); ";
-                    }
-                   
-                }
-                foreach (Button delbutton in e.Row.Cells[8].Controls.OfType<Button>())
-                {
-                   
-                    if (email == Session["UserEmail"].ToString())
-                    {
-                        delbutton.Enabled = false;
-                    }
-                    else
-                    {
-                        delbutton.UseSubmitBehavior = false;
-                        delbutton.Attributes["onclick"] = "javascript:In2InGlobalConfirm('" + email + "');return false;";
-                    }
+                    DataTable dtCompany = GetCompany().Tables[0];
+                    DataTable dtRole = GetRoles().Tables[0];
+                    DataTable dtActivity = GetActivityAccess().Tables[0];
 
+                    string fname = e.Row.Cells[0].Text;
+                    string lname = e.Row.Cells[1].Text;
+                    string companyid = dtCompany.Select("company_name = '" + e.Row.Cells[2].Text + "'")[0]["company_id"].ToString();
+                    string email = grdUsers.DataKeys[e.Row.RowIndex].Value.ToString();
+                    string roleid = dtRole.Select("role_name = '" + e.Row.Cells[4].Text + "'")[0]["role_id"].ToString(); //e.Row.Cells[4].Text; ;
+                    string activityid = dtActivity.Select("activity_name = '" + e.Row.Cells[5].Text + "'")[0]["activity_id"].ToString(); //e.Row.Cells[5].Text; ;                
+                    string phone = e.Row.Cells[6].Text;
+
+                    foreach (Button editbutton in e.Row.Cells[7].Controls.OfType<Button>())
+                    {
+                        if (email == Session["UserEmail"].ToString())
+                        {
+                            editbutton.Enabled = false;
+                        }
+                        else
+                        {
+                            editbutton.UseSubmitBehavior = false;
+                            editbutton.Attributes["onclick"] = "return PullDataToEdit('" + fname + "', '" + lname + "', '" + companyid + "', '" + email + "', '" + roleid + "', '" + activityid + "', '" + phone + "'); ";
+                        }
+
+                    }
+                    foreach (Button delbutton in e.Row.Cells[8].Controls.OfType<Button>())
+                    {
+
+                        if (email == Session["UserEmail"].ToString())
+                        {
+                            delbutton.Enabled = false;
+                        }
+                        else
+                        {
+                            delbutton.UseSubmitBehavior = false;
+                            delbutton.Attributes["onclick"] = "javascript:In2InGlobalConfirm('" + email + "');return false;";
+                        }
+
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
         }
 
@@ -298,34 +332,42 @@ namespace In2InGlobal.presentation.admin
         /// <param name="e"></param>
         protected void AddNewUser(object sender, EventArgs e)
         {
-            UserEntity userEntity = new UserEntity();
-            userEntity.FirstName = txtFName.Value;
-            userEntity.LastName = txtLName.Value;
-            userEntity.Email = txtEmail.Value;
-            userEntity.PhoneNumber = txtPhoneNo.Value;
-            userEntity.RoleId = Convert.ToInt64(ddlRoleName.SelectedValue);
-            userEntity.ActivityId = Convert.ToInt64(ddlActivityAccess.SelectedValue);
-            userEntity.CompanyId = Convert.ToInt64(ddlCompanyName.SelectedValue);            
-            userEntity.CreatedBy = Session["UserEmail"].ToString();//"gsahoo2011@gmail.com";
-            string _message = "";
-            if (hdnUserEmail.Value == "")
+            try
             {
-                userEntity.Password = new EncryptField().Encrypt(txtPassword.Value);
-                UserMasterBL companyMasterBl = new UserMasterBL();
-                companyMasterBl.SaveUserMasterDetails(userEntity);
-                BindUsers();
-                ClearAll();
-                _message = "User Created Successfully";
+                UserEntity userEntity = new UserEntity();
+                userEntity.FirstName = txtFName.Value;
+                userEntity.LastName = txtLName.Value;
+                userEntity.Email = txtEmail.Value;
+                userEntity.PhoneNumber = txtPhoneNo.Value;
+                userEntity.RoleId = Convert.ToInt64(ddlRoleName.SelectedValue);
+                userEntity.ActivityId = Convert.ToInt64(ddlActivityAccess.SelectedValue);
+                userEntity.CompanyId = Convert.ToInt64(ddlCompanyName.SelectedValue);
+                userEntity.CreatedBy = Session["UserEmail"].ToString();//"gsahoo2011@gmail.com";
+                string _message = "";
+                if (hdnUserEmail.Value == "")
+                {
+                    userEntity.Password = new EncryptField().Encrypt(txtPassword.Value);
+                    UserMasterBL companyMasterBl = new UserMasterBL();
+                    companyMasterBl.SaveUserMasterDetails(userEntity);
+                    BindUsers();
+                    ClearAll();
+                    _message = "User Created Successfully";
+                }
+                else
+                {
+                    userEntity.CompanyName = ddlCompanyName.SelectedItem.Text;
+                    UpdateUser(userEntity);
+                    BindUsers();
+                    ClearAll();
+                    hdnUserEmail.Value = "";
+                    _message = "User Updated Successfully";
+                }
+                ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);
             }
-            else {
-                userEntity.CompanyName = ddlCompanyName.SelectedItem.Text;
-                UpdateUser(userEntity);
-                BindUsers();
-                ClearAll();
-                hdnUserEmail.Value = "";
-                _message = "User Updated Successfully";
+            catch(Exception ex)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);
         }
 
         /// <summary>

@@ -92,8 +92,17 @@
                  <center>
                     <div class="csvPageDivParent" style="display:none; text-align:left; border: 1px solid black;border-radius:5px; width:47.5%;height:450px;margin-bottom:30px;background-color:silver;">                
                         <div class="panel-header panel-header-noborder window-header" style="width:100%;"><div class="panel-title panel-with-icon" style="">CSV Data Viewer</div><div class="panel-icon icon-readfile"></div><div class="panel-tool"><a class="panel-tool-close" href="#"></a></div></div>
-                         <div class="holds-the-iframe" style="width: 99.9%;height:93%;"><iframe style="width: inherit;height:inherit" id="frmCSVPage" src="about:blank"></iframe></div>
-                       
+                         <div class="holds-the-iframe" style="width: 99.9%;height:93%;"><iframe style="width: inherit;height:inherit" id="frmCSVPage" src="about:blank"></iframe></div>                       
+                    </div>
+                 </center>
+                 <center>
+                    <div class="exceptionDivParent" style="display:none; text-align:left; border: 1px solid black;border-radius:5px; width:400px;height:300px;margin-top:100px;background-color:silver;">                
+                        <div class="panel-header panel-header-noborder window-header" style="width:100%;">
+                            <div class="panel-title panel-with-icon" style="">Error While Processing Request</div>
+                            <div class="panel-icon icon-no"></div>
+                            <div class="panel-tool"><a class="panel-tool-close" href="#"></a></div>
+                        </div>                       
+                             <div style="width:inherit;height:inherit;text-align: center;"><img style="margin-top:30px;" src="img/ohNo.png" /><br /><span style="color:red;font-size:medium;font-weight:bold"><i>Oh No!</i> Something has gone wrong</span></div>
                     </div>
                  </center>
                   <center>
@@ -137,6 +146,7 @@
                     iframe.attr("src", "about:blank"); 
                     $('.csvPageDivParent').hide();
                     $('.zohoPageDivParent').hide();
+                    $('.exceptionDivParent').hide();
                     $("#frmTarget").show();
                 });
             });
@@ -166,6 +176,10 @@
                 $('.zohoPageDivParent').show();
                 $("#frmTarget").hide();
 
+            }
+            function ShowException() {
+                $('.exceptionDivParent').show();
+                $("#frmTarget").hide();
             }
         </script>     
 </body>

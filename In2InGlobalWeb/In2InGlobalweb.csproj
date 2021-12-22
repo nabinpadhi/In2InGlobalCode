@@ -223,6 +223,7 @@
     <Content Include="img\cd-search.svg" />
     <Content Include="img\loggedInAvatar.jpg" />
     <Content Include="img\mobile.png" />
+    <Content Include="img\ohNo.png" />
     <Content Include="jqdashboard\themes\icons\read_file.png" />
     <Content Include="jquery\jqdashboard\themes\icons\read_file.png" />
     <Content Include="NewJEasyUI\themes\icons\read_file.png" />

@@ -509,12 +509,18 @@
                  success: function (result) {
 
                      if (result != '') {
-                         ShowServerMessage("File Uploaded Successfully.");
+                         if (result == "ShowException") {
+                             window.parent.ShowException();
+                         }
+                         else {
+                             ShowServerMessage("File Uploaded Successfully.");
+                         }
                          $("#fileUploader").val('');
                      }
 
                  },
                  error: function (err) {
+                    
                      ShowServerMessage(err.statusText);
                  },
                  complete: function (data) {

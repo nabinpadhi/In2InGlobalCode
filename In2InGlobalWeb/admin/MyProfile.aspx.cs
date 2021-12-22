@@ -30,6 +30,7 @@ namespace In2InGlobal.presentation.admin
 
             try
             {
+               
                 dsMyProfile = (DataSet)Session["dsUser"];
                 if (dsMyProfile.Tables[0].Rows.Count > 0)
                 {
@@ -52,7 +53,7 @@ namespace In2InGlobal.presentation.admin
             }
             catch (Exception ex)
             {
-                ex.Message.ToString();
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
 
         }
