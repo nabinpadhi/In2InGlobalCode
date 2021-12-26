@@ -26,7 +26,7 @@
                 <asp:UpdatePanel ID="pdnlFileMgnt" runat="server">
                      <Triggers><asp:PostBackTrigger ControlID="btnDownload" /></Triggers>                    
                     <ContentTemplate> 
-                       <div id="overlay" style="display:none"><center><img src="admin/img/LoadingTrans.gif" /></center></div>
+                       
                          <div style="border-bottom:0 solid gray;display:flex;padding:2px;width:auto;">
                             <div id="btnProjectMgnt" onclick="ShowProjectMgnt();" class="PanelTab" style="background-color:azure;color:blue;">Project Management</div>
                             <div id="btnFileMgnt" onclick="ShowFileMgnt();" class="PanelTab">File Management</div>                          
@@ -138,7 +138,7 @@
                                             <tr>
                                                 <td style="text-align: center;">
                                                     <div style="border: 1px solid black; margin-left: auto; margin-right: auto; border-radius: 5px">
-                                                        <table style="width: 100%; margin-top: auto; margin-left: auto; margin-right: auto;">
+                                                        <table id="tblFileuploader" style="width: 100%; margin-top: auto; margin-left: auto; margin-right: auto;">
                                                             <tr>
                                                                 <td style="width: 60%; vertical-align:top;">
                                                                     <table style="width: 100%;">
@@ -220,7 +220,7 @@
                                                                     </div>
                                                                 </td>
                                                             </tr>
-                                                        </table>
+                                                        </table>                                                          
                                                     </div>
                                                 </td>
                                             </tr>
@@ -228,7 +228,8 @@
                                                                                 
                                     </td>
                                     <td style="width: 30%; vertical-align: top;">
-                                        <div style="margin-top: 10px; margin-left: 20px;margin-bottom:20px;border-radius:5px; border: 1px solid gray; height: 280px;">
+                                        <div style="margin-top: 14px; margin-left: 20px;margin-bottom:20px;border-radius:5px; border: 1px solid gray; height: 300px;">
+                                            <div id="searchDIV">
                                             <span style="margin-left: 10px;"><b>Search Template </b></span>
                                             <table style="width: 100%; margin-left: 5px;margin-right: 5px;">
                                                 <tr id="usrEmailTR" runat="server">
@@ -283,6 +284,7 @@
                                                     </td>
                                                 </tr>
                                             </table>
+                                                </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -322,13 +324,15 @@
        
     });
      function InitializeRequest(sender, args) {
-         // Open the full wait screen
-         $("#overlay").show();
+         window.parent.$('#navOverlayImg').show();
+         window.parent.$('#navOverlay').show();
+         
      }
 
      function EndRequest(sender, args) {
-         // close the full wait screen
-        $("#overlay").hide();
+         window.parent.$('#navOverlayImg').hide();
+         window.parent.$('#navOverlay').hide();
+         
      }
      function In2InGlobalConfirm(pName, pID) {
 
@@ -504,7 +508,11 @@
                  contentType: false,
                  processData: false,
                  beforeSend: function () {
-                     $("#overlay").show();
+                                                             
+                     window.parent.$('#navOverlay').show();
+                     window.parent.$('#navOverlayImg').show();
+                     window.parent.$('#navOverlay').css('opacity', '0.25');
+                     
                  },
                  success: function (result) {
 
@@ -521,12 +529,16 @@
                  },
                  error: function (err) {
                     
+                     window.parent.$('#navOverlayImg').hide();
+                     window.parent.$('#navOverlay').hide();
                      ShowServerMessage(err.statusText);
                  },
                  complete: function (data) {
 
-                     $("#overlay").hide();
+                     window.parent.$('#navOverlayImg').hide();
+                     window.parent.$('#navOverlay').hide();
                      $('#btnReload').trigger("click");
+                                     
                      
                  }
              });

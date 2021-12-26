@@ -116,12 +116,15 @@
     <Content Include="admin\img\edit.png" />
     <Content Include="admin\img\HB-Pencil-edit-disabled.png" />
     <Content Include="admin\img\HB-Pencil-edit.png" />
+    <Content Include="admin\img\load-indicator.gif" />
     <Content Include="admin\img\loading.gif" />
     <Content Include="admin\img\LoadingTrans.gif" />
     <Content Include="admin\img\no-pencil-sign.png" />
+    <Content Include="admin\img\processing-1.gif" />
     <Content Include="admin\img\processing.gif" />
     <Content Include="admin\img\refresh.jpg" />
     <Content Include="admin\img\success-alt.png" />
+    <Content Include="admin\img\uploading-trans.gif" />
     <Content Include="admin\js\jquery-ui.js" />
     <Content Include="admin\js\jquery.easyui.min.js" />
     <Content Include="admin\js\jquery.min.js" />

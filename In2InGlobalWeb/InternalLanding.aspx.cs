@@ -40,7 +40,7 @@ namespace In2InGlobal.presentation.admin
                 
             }
             else
-            { Response.Redirect("login.aspx"); }
+            { Response.Redirect("./admin/login.aspx"); }
         }
 
         private void BuildAnalyticsProjectList(string LoggedInUsrRole)

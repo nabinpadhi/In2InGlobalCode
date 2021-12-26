@@ -32,7 +32,7 @@
              border-radius: 10px;
         }
         .holds-the-iframe{
-            background:url(admin/img/processing.gif) center center no-repeat;
+            background:url(admin/img/load-indicator.gif) center center no-repeat;
         }
     </style>
 </head>
@@ -55,7 +55,10 @@
         </header>
        
         <main class="cd-main-content" style="width:100%; position:fixed;left:0px;top:10px;">
-             
+            <img id="navOverlayImg" style="display:none;z-index: 9999;width:150px;height:auto;position: fixed;top:350px;left:800px;" src="admin/img/load-indicator.gif" />
+             <div id="navOverlay" style="display:none;z-index: 9991;padding-top: 70px;width:100%;background-color: lightgray;height:100%;position:fixed;left:0px;top:10px;">
+               
+             </div>
             <nav class="cd-side-nav js-cd-side-nav" style="padding-top: 70px;height:100%;">
                 <ul class="cd-side__list js-cd-side__list">                    
                     <li class="cd-side__item cd-side__item--has-children cd-side__item--users js-cd-item--has-children">
@@ -114,7 +117,7 @@
                 <div class="holds-the-iframe"  style="width: 100%; height: 90%"><iframe style="width: inherit; height: inherit" id="frmTarget" src="about:blank"></iframe></div>
                 
             <div style="position: sticky; margin-left: auto;">
-                    <div style="background: #212121;padding: 30px 0;">
+                    <div style="background: #212121;padding: 10px 0;height:50px;">
                     <center>
                         <footer style="font-size: small;color:#96a1b5"><i>Copyright © In2In Global 2021</i></footer>
                     </center>
