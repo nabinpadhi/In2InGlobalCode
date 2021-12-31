@@ -117,8 +117,24 @@ namespace In2InGlobal.presentation.admin
         {
             DataTable dtLOB = new DataTable();
             dtLOB.Columns.Add("lob_id"); dtLOB.Columns.Add("lob_name");
-            dtLOB.Rows.Add("1", "Software"); dtLOB.Rows.Add("2", "Marketing"); dtLOB.Rows.Add("3", "Manufacturing");
-            dtLOB.Rows.Add("4", "Hospitality"); dtLOB.Rows.Add("5", "Realestate");
+            dtLOB.Rows.Add("1", "Automobiles");
+            dtLOB.Rows.Add("2", "Aviation");
+            dtLOB.Rows.Add("3", "Finance");
+            dtLOB.Rows.Add("4", "Chemical");
+            dtLOB.Rows.Add("5", "Electricity");
+            dtLOB.Rows.Add("6", "Education");
+            dtLOB.Rows.Add("7", "Food & Beverages");
+            dtLOB.Rows.Add("8", "Transportation");
+            dtLOB.Rows.Add("9", "Logistics");
+            dtLOB.Rows.Add("10", "Information Technology");
+            dtLOB.Rows.Add("11", "Medical");
+            dtLOB.Rows.Add("12", "Mining");
+            dtLOB.Rows.Add("13", "Pharmaceutical");
+            dtLOB.Rows.Add("14", "Rent & Leasing");
+            dtLOB.Rows.Add("15", "Supermarket");
+            dtLOB.Rows.Add("16", "Steel");
+            dtLOB.Rows.Add("17", "Telecom");
+            dtLOB.Rows.Add("18", "Textile");
             Session["dtLOB"]=dtLOB;
             return dtLOB;            
         }
@@ -156,8 +172,7 @@ namespace In2InGlobal.presentation.admin
            
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);
 
-        }
-        
+        }       
 
         private void DeleteCompany(string companyID)
         {
