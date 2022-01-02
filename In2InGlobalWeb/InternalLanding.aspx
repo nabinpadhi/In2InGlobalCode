@@ -41,13 +41,14 @@
     <form status="1" id="form1" runat="server">
         <div class="new-container">
         <header class="cd-main-header js-cd-main-header" style="background-color: #03989e;height:83px;">           
-            <div style="position:fixed;left:10px;top:10px;color:yellow;"><img src="../images/in2ingloballogo.png" style="width:40%;" /></div>
+            <div style="position:fixed;left:10px;top:2px;color:yellow;">  <img src="images/in2ingloballogo.png" style="width:27%;">
+             </div>
             <ul class="cd-nav__list js-cd-nav__list">
 
                 <li class="cd-nav__item cd-nav__item--has-children cd-nav__item--account js-cd-item--has-children">
                     <div class="rounded-circle">
                          <div style="position: sticky; margin-left: auto;">                             
-                        <img style="margin-left:15px;" alt="Logged In.." src="admin/assets/img/loggedInAvatar.jpg" /></div>
+                        <img style="margin-left:23px;" alt="Logged In.." src="admin/assets/img/loggedInAvatar.jpg" /></div>
                         <a href="admin/login.aspx"><span>Logout</span></a>
                     </div>                   
                 </li>
