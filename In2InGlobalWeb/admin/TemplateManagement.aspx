@@ -541,10 +541,18 @@
                     data: data,
                     contentType: false,
                     processData: false,
+                    beforeSend: function () {
+
+                        window.parent.$('#navOverlay').show();
+                        window.parent.$('#navOverlayImg').show();
+                        window.parent.$('#navOverlay').css('opacity', '0.25');
+
+                    },
                     success: function (result) {
 
                         if (result != '') {
-
+                                                        
+                            result = result.replace('ShowException', '');
                             RefreshTemplateNames(result);
                             ShowServerMessage("Master Template Uploaded Successfully.");                          
                             $("#tmpltFU").val('');
@@ -555,9 +563,13 @@
                     },
                     error: function (err) {
                         ShowServerMessage(err.statusText);
+                        window.parent.$('#navOverlayImg').hide();
+                        window.parent.$('#navOverlay').hide();
                     },
                     complete: function (data) {
                         
+                        window.parent.$('#navOverlayImg').hide();
+                        window.parent.$('#navOverlay').hide();
                         ShowCreateTemplate();
 
                     }

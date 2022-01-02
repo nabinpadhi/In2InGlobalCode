@@ -48,12 +48,13 @@ namespace In2InGlobal.presentation.admin
                         if (usrRole == "Admin")
                         {
                             usrEmailTR.Visible = true;
+                            searchTemplatePanel.Visible = true;
                             BindTemplateGrid("", ddlUsrEmailId.SelectedItem.Text);
                         }
                         else
                         {
-                            usrEmailTR.Visible = false;
-                            BindTemplateGrid("", Session["UserEmail"].ToString());
+                            searchTemplatePanel.Visible = false;
+                                                        
                         }
 
                     }

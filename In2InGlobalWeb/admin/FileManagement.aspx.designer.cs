@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace In2InGlobal.presentation.admin {
-    
-    
-    public partial class FileManagement {
-        
+namespace In2InGlobal.presentation.admin
+{
+
+
+    public partial class FileManagement
+    {
+
         /// <summary>
         /// form1 control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-        
+
         /// <summary>
         /// scriptmanager1 control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager scriptmanager1;
-        
+
         /// <summary>
         /// pdnlFileMgnt control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel pdnlFileMgnt;
-        
+
         /// <summary>
         /// spnProjectName control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl spnProjectName;
-        
+
         /// <summary>
         /// hdnPName control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnPName;
-        
+
         /// <summary>
         /// hdnPID control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnPID;
-        
+
         /// <summary>
         /// hdnProjectToEdit control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnProjectToEdit;
-        
+
         /// <summary>
         /// hdnPNVS control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnPNVS;
-        
+
         /// <summary>
         /// hdnDelBtn control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button hdnDelBtn;
-        
+
         /// <summary>
         /// spnCreatedBy control.
         /// </summary>
@@ -101,7 +103,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl spnCreatedBy;
-        
+
         /// <summary>
         /// txtDescription control.
         /// </summary>
@@ -110,7 +112,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTextArea txtDescription;
-        
+
         /// <summary>
         /// btnCreateProject control.
         /// </summary>
@@ -119,7 +121,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCreateProject;
-        
+
         /// <summary>
         /// grdProject control.
         /// </summary>
@@ -128,7 +130,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grdProject;
-        
+
         /// <summary>
         /// ddlAssignedProject control.
         /// </summary>
@@ -137,7 +139,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlAssignedProject;
-        
+
         /// <summary>
         /// ddlTemplate control.
         /// </summary>
@@ -146,7 +148,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlTemplate;
-        
+
         /// <summary>
         /// btnDownload control.
         /// </summary>
@@ -155,7 +157,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnDownload;
-        
+
         /// <summary>
         /// grdUploadedFiles control.
         /// </summary>
@@ -164,7 +166,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grdUploadedFiles;
-        
+
         /// <summary>
         /// btnReload control.
         /// </summary>
@@ -173,7 +175,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnReload;
-        
+
         /// <summary>
         /// fileUploader control.
         /// </summary>
@@ -182,7 +184,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload fileUploader;
-        
+
         /// <summary>
         /// btnUpload control.
         /// </summary>
@@ -191,7 +193,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUpload;
-        
+
         /// <summary>
         /// tplInstruction control.
         /// </summary>
@@ -200,7 +202,16 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl tplInstruction;
-        
+
+        /// <summary>
+        /// searchTemplatePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell searchTemplatePanel;
+
         /// <summary>
         /// usrEmailTR control.
         /// </summary>
@@ -209,7 +220,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow usrEmailTR;
-        
+
         /// <summary>
         /// ddlUsrEmailId control.
         /// </summary>
@@ -218,7 +229,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlUsrEmailId;
-        
+
         /// <summary>
         /// ddlProjects control.
         /// </summary>
@@ -227,7 +238,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlProjects;
-        
+
         /// <summary>
         /// tblTemplateDetail control.
         /// </summary>
@@ -236,7 +247,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTable tblTemplateDetail;
-        
+
         /// <summary>
         /// grdTemplate control.
         /// </summary>

@@ -227,7 +227,7 @@
                                         </table>
                                                                                 
                                     </td>
-                                    <td style="width: 30%; vertical-align: top;">
+                                    <td runat="server" id="searchTemplatePanel" style="width: 30%; vertical-align: top;">
                                         <div style="margin-top: 14px; margin-left: 20px;margin-bottom:20px;border-radius:5px; border: 1px solid gray; height: 300px;">
                                             <div id="searchDIV">
                                             <span style="margin-left: 10px;"><b>Search Template </b></span>
