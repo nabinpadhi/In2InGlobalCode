@@ -1933,6 +1933,11 @@
     <Content Include="NewJEasyUI\themes\gray\images\Thumbs.db" />
     <Content Include="NewJEasyUI\themes\metro\images\Thumbs.db" />
     <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\In2Inspendapp - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\In2Inspendapp - Web Deploy1.pubxml" />
+    <None Include="Properties\PublishProfiles\In2Inspendapp - Web Deploy2.pubxml" />
+    <None Include="Properties\PublishProfiles\In2Inspendapp - Web Deploy3.pubxml" />
     <None Include="Properties\PublishProfiles\ITTPM.pubxml" />
     <None Include="scripts\jquery\eHelp\loginPaths.json" />
     <None Include="scripts\jquery\eHelp\RAAssetPaths.json" />

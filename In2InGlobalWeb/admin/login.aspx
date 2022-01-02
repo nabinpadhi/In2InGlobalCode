@@ -20,7 +20,7 @@
 
 </head> 
 <body class="bg-gradient-primary">
-    <div style="position:fixed;left:10px;top:10px;color:yellow;"><img src="../images/in2ingloballogo.png" style="width:50%;" /></div>
+    <div style="position:fixed;left:10px;top:10px;"><img src="../images/in2ingloballogo.png" style="width:27%;" /></div>
 	<div class="login-page">        
 		<div class="container m-auto">            
 			<div class="row justify-content-center">
