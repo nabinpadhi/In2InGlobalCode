@@ -1741,6 +1741,7 @@
     <Content Include="scripts\risktree-script.js" />
     <Content Include="scripts\ToolTip.js" />
     <Content Include="scripts\Validation.js" />
+    <Content Include="Tools\CompareDataTable.aspx" />
     <Content Include="Tools\fgpwdhtmlformat.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1839,6 +1840,13 @@
     <Compile Include="Tools\Common.cs" />
     <Compile Include="Tools\Cryptograpymanager.cs" />
     <Compile Include="Tools\CSVReader.cs" />
+    <Compile Include="Tools\CompareDataTable.aspx.cs">
+      <DependentUpon>CompareDataTable.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tools\CompareDataTable.aspx.designer.cs">
+      <DependentUpon>CompareDataTable.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Tools\EncryptField.cs" />
     <Compile Include="Tools\FingerPrint.cs" />
     <Compile Include="Tools\GridUtils.cs" />
