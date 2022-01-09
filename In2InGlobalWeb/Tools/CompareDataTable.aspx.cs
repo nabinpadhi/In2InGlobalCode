@@ -34,7 +34,7 @@ namespace In2InGlobal.presentation.admin
             {
                 DataTable _olddataTable=GetOldData();
                 DataTable _newDatatable=GetNewData();
-                DataTable _modifiedDataTable =CompareDatatable(_newDatatable, _olddataTable);// Tools.CSVReader.LoadModifiedData(_newDatatable, _olddataTable);
+                DataTable _modifiedDataTable = Tools.CSVReader.LoadModifiedData(_newDatatable, _olddataTable);//CompareDatatable(_newDatatable,_olddataTable);
                 grdOldData.DataSource = _olddataTable;
                 grdOldData.DataBind();
                 grdNewData.DataSource = _newDatatable;
@@ -57,9 +57,8 @@ namespace In2InGlobal.presentation.admin
             DataTable table2 = new DataTable("articletable");
             table2.Columns.Add("articleID");
             table2.Columns.Add("title");
-            table2.Columns.Add("content");
-
-            for(Int64 i = 1; i < 40010; i++)
+            table2.Columns.Add("content");           
+            for (Int64 i = 1; i < 410; i++)
             {
                 DataRow row = table2.NewRow();
                 row[0] = i;
@@ -72,6 +71,7 @@ namespace In2InGlobal.presentation.admin
                     row[1] = "article name" + i.ToString();
                 }
                 row[2] = "article written by nabin" + i.ToString();
+
                 table2.Rows.Add(row);
             }
             return table2;
@@ -84,7 +84,7 @@ namespace In2InGlobal.presentation.admin
             table2.Columns.Add("title");
             table2.Columns.Add("content");
 
-            for (Int64 i = 1; i < 40000; i++)
+            for (Int64 i = 1; i < 400; i++)
             {
                 DataRow row = table2.NewRow();
                 row[0] = i;
