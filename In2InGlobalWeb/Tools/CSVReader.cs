@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Data;
 using System.Text;
+using System.Linq;
 
 namespace In2InGlobal.presentation.Tools
 {
@@ -251,7 +252,15 @@ namespace In2InGlobal.presentation.Tools
                 return reader.CreateDataTable(headerRow);
         }
 
+        public static DataTable LoadModifiedData(DataTable newDatatable, DataTable olddataTable)
+        {
+            DataTable _modifiedDataOnly = new DataTable("modifiedDataOnly");
 
+            var differences = newDatatable.AsEnumerable().Except(olddataTable.AsEnumerable(), DataRowComparer.Default);
+            return differences.Any() ? differences.CopyToDataTable() : new DataTable();
+
+
+        }
 
         #region IDisposable Members
 

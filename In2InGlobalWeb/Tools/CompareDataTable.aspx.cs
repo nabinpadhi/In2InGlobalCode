@@ -34,11 +34,12 @@ namespace In2InGlobal.presentation.admin
             {
                 DataTable _olddataTable=GetOldData();
                 DataTable _newDatatable=GetNewData();
+                DataTable _modifiedDataTable = Tools.CSVReader.LoadModifiedData(_newDatatable, _olddataTable);//CompareDatatable(_newDatatable, _olddataTable);
                 grdOldData.DataSource = _olddataTable;
                 grdOldData.DataBind();
                 grdNewData.DataSource = _newDatatable;
                 grdNewData.DataBind();
-                grdDiffData.DataSource = LoadModifiedData(_newDatatable, _olddataTable);//CompareDatatable(_newDatatable, _olddataTable);
+                grdDiffData.DataSource = _modifiedDataTable;
                 grdDiffData.DataBind();
 
             }
@@ -49,15 +50,7 @@ namespace In2InGlobal.presentation.admin
             }          
         }
 
-        private DataTable LoadModifiedData(DataTable newDatatable, DataTable olddataTable)
-        {
-            DataTable _modifiedDataOnly = new DataTable("modifiedDataOnly");
-            
-            var differences = newDatatable.AsEnumerable().Except(olddataTable.AsEnumerable(), DataRowComparer.Default);
-            return differences.Any() ? differences.CopyToDataTable() : new DataTable();
-           
-           
-        }
+      
 
         private DataTable GetNewData()
         {
@@ -66,7 +59,7 @@ namespace In2InGlobal.presentation.admin
             table2.Columns.Add("title");
             table2.Columns.Add("content");
 
-            for(Int64 i = 1; i < 40000; i++)
+            for(Int64 i = 1; i < 40010; i++)
             {
                 DataRow row = table2.NewRow();
                 row[0] = i;

@@ -3,6 +3,8 @@ using System.Web;
 using System;
 using System.Security.Cryptography;
 using System.Text;
+using System.Data;
+using System.Linq;
 
 namespace InGlobal.presentation
 {
@@ -39,6 +41,7 @@ namespace InGlobal.presentation
                 smtp.Send(mailMessage);
             }
         }
+       
     }
 
    
@@ -64,5 +67,6 @@ public static class StringUtil
             byte[] outputBuffer = transform.TransformFinalBlock(inputbuffer, 0, inputbuffer.Length);
             return Encoding.Unicode.GetString(outputBuffer);
         }
+      
     }
 }
