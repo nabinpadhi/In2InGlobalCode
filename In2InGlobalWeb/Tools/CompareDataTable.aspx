@@ -36,10 +36,11 @@
             </asp:ScriptManager>           
             <asp:UpdatePanel ID="pdnlTemplate" runat="server">
                 <ContentTemplate>
-                    <table>
+                    <table style="vertical-align:top;">
                         <tr>
-                            <td>
-                                OLD data
+                            <td style="vertical-align:top;">
+                                
+                                <h2>OLD data</h2>
                                 <div id='oldTable-container'>
                                     <asp:GridView ID="grdOldData" runat="server" GridLines="Both" CellPadding="3" AutoGenerateColumns="true"
                                         BackColor="WhiteSmoke" HeaderStyle-CssClass="specify" AlternatingRowStyle-BackColor="Silver" HeaderStyle-Font-Size="Medium"
@@ -47,8 +48,8 @@
                                     </asp:GridView>
                                 </div>
                             </td>
-                            <td>
-                                Difference Data
+                            <td style="vertical-align:top;">
+                                <h2>Difference Data</h2>
                                  <div id='diffTable-container'>
                                     <asp:GridView ID="grdDiffData" runat="server" GridLines="Both" CellPadding="3" AutoGenerateColumns="true"
                                         BackColor="WhiteSmoke" HeaderStyle-CssClass="specify" AlternatingRowStyle-BackColor="Silver" HeaderStyle-Font-Size="Medium"
@@ -56,8 +57,8 @@
                                     </asp:GridView>
                                 </div>
                             </td>
-                            <td>
-                                New Data
+                            <td style="vertical-align:top;">
+                               <h2> New Data</h2>
                                 <div id='newTable-container'>
                                     <asp:GridView ID="grdNewData" runat="server" GridLines="Both" CellPadding="3" AutoGenerateColumns="true"
                                         BackColor="WhiteSmoke" HeaderStyle-CssClass="specify" AlternatingRowStyle-BackColor="Silver" HeaderStyle-Font-Size="Medium"
@@ -65,8 +66,22 @@
                                     </asp:GridView>
                                 </div>
                             </td>
-                        </tr>                     
-                    </table>                   
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+
+                                <h2>Modified Data</h2>
+                                 <div id='modifiedTable-container'>
+                                    <asp:GridView ID="grdModifiedData" runat="server" GridLines="Both" CellPadding="3" AutoGenerateColumns="true"
+                                        BackColor="WhiteSmoke" HeaderStyle-CssClass="specify" AlternatingRowStyle-BackColor="Silver" HeaderStyle-Font-Size="Medium"
+                                        CssClass="gvTheGrid">
+                                    </asp:GridView>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </table>
+                    
                                
                 </ContentTemplate>
             </asp:UpdatePanel>

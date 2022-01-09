@@ -38,7 +38,7 @@ namespace In2InGlobal.presentation.admin
                 grdOldData.DataBind();
                 grdNewData.DataSource = _newDatatable;
                 grdNewData.DataBind();
-                grdDiffData.DataSource = CompareDatatable(_newDatatable, _olddataTable);
+                grdDiffData.DataSource = LoadModifiedData(_newDatatable, _olddataTable);//CompareDatatable(_newDatatable, _olddataTable);
                 grdDiffData.DataBind();
 
             }
@@ -49,7 +49,16 @@ namespace In2InGlobal.presentation.admin
             }          
         }
 
-       
+        private DataTable LoadModifiedData(DataTable newDatatable, DataTable olddataTable)
+        {
+            DataTable _modifiedDataOnly = new DataTable("modifiedDataOnly");
+            
+            var differences = newDatatable.AsEnumerable().Except(olddataTable.AsEnumerable(), DataRowComparer.Default);
+            return differences.Any() ? differences.CopyToDataTable() : new DataTable();
+           
+           
+        }
+
         private DataTable GetNewData()
         {
             DataTable table2 = new DataTable("articletable");
@@ -57,7 +66,7 @@ namespace In2InGlobal.presentation.admin
             table2.Columns.Add("title");
             table2.Columns.Add("content");
 
-            for (int i = 1; i < 13; i++)
+            for(Int64 i = 1; i < 40000; i++)
             {
                 DataRow row = table2.NewRow();
                 row[0] = i;
@@ -82,7 +91,7 @@ namespace In2InGlobal.presentation.admin
             table2.Columns.Add("title");
             table2.Columns.Add("content");
 
-            for (int i = 1; i < 11; i++)
+            for (Int64 i = 1; i < 40000; i++)
             {
                 DataRow row = table2.NewRow();
                 row[0] = i;
