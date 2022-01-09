@@ -66,20 +66,7 @@
                                     </asp:GridView>
                                 </div>
                             </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">
-
-                                <h2>Modified Data</h2>
-                                 <div id='modifiedTable-container'>
-                                    <asp:GridView ID="grdModifiedData" runat="server" GridLines="Both" CellPadding="3" AutoGenerateColumns="true"
-                                        BackColor="WhiteSmoke" HeaderStyle-CssClass="specify" AlternatingRowStyle-BackColor="Silver" HeaderStyle-Font-Size="Medium"
-                                        CssClass="gvTheGrid">
-                                    </asp:GridView>
-                                </div>
-
-                            </td>
-                        </tr>
+                        </tr>                      
                     </table>
                     
                                

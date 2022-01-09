@@ -34,7 +34,7 @@ namespace In2InGlobal.presentation.admin
             {
                 DataTable _olddataTable=GetOldData();
                 DataTable _newDatatable=GetNewData();
-                DataTable _modifiedDataTable = Tools.CSVReader.LoadModifiedData(_newDatatable, _olddataTable);//CompareDatatable(_newDatatable, _olddataTable);
+                DataTable _modifiedDataTable =CompareDatatable(_newDatatable, _olddataTable);// Tools.CSVReader.LoadModifiedData(_newDatatable, _olddataTable);
                 grdOldData.DataSource = _olddataTable;
                 grdOldData.DataBind();
                 grdNewData.DataSource = _newDatatable;
