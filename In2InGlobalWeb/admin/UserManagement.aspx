@@ -59,18 +59,6 @@
 
                                                     </td>
                                                 </tr>
-                                                <tr>                                                    
-                                                    <td>Phone Number</td>
-                                                    <td>
-                                                        <input type="text" id="txtPhoneNo" runat="server" value="" />
-                                                    </td>
-                                                    <td>Activity Name</td>
-                                                    <td>
-                                                        <asp:DropDownList  AppendDataBoundItems="true" ID="ddlActivityAccess" style="width:95%;" runat="server" DataTextField="ActivityAccess">                                                            
-                                                                                                              
-                                                        </asp:DropDownList>
-                                                    </td>
-                                                </tr>
                                                 <tr>
                                                     <td>Email ID(<span style="color: red">*</span>)</td>
                                                     <td>
@@ -82,8 +70,14 @@
                                                     <td>
                                                         <input type="password" id="txtPassword" autocomplete="off" runat="server" value="" /></td>
                                                 </tr>
-                                                <tr>                                                    
-                                                    <td colspan="4">
+                                                <tr> 
+                                                    <td>Activity Name</td>
+                                                    <td>
+                                                        <asp:DropDownList  AppendDataBoundItems="true" ID="ddlActivityAccess" style="width:95%;" runat="server" DataTextField="ActivityAccess">                                                            
+                                                                                                              
+                                                        </asp:DropDownList>
+                                                    </td>
+                                                    <td colspan="3">
                                                         <div style="margin-top: 10px;">
                                                             <center>
                                                                 <asp:Button runat="server" id="btnSave" CssClass="button" Text="Save" OnClientClick="return ValidateUser();" OnClick="AddNewUser" />
@@ -187,8 +181,7 @@
             $('#txtFName').val(fname);
             $('#hdnUserEmail').val(email);
             $('#txtLName').val(lname);  
-            $('#txtEmail').val(email);  
-            $('#txtPhoneNo').val(phone);           
+            $('#txtEmail').val(email);                         
             $("#ddlRoleName").val(role);
             $("#ddlCompanyName").val(company);           
             $("#ddlActivityAccess").val(activity);
@@ -228,9 +221,7 @@
             CheckNull($("#txtLName").val(), in2in11);
             CheckNullDropdown($("select[name='ddlCompanyName'] option:selected").index(), in2in21);
             CheckNullDropdown($("select[name='ddlRoleName'] option:selected").index(), in2in12);            
-            if ($('#txtPhoneNo').val() != "") {
-                ValidatePhoneNumber($('#txtPhoneNo').val(), in2in20);
-            }
+         
             CheckNull($("#txtEmail").val(), in2in6)
 
             if ($("#txtEmail").val() != "") {
@@ -256,7 +247,7 @@
             $('#txtFName').val('');
             $('#txtLName').val('');
             $('#txtEmail').val('');
-            $('#txtPhoneNo').val('');
+            
             $('#ddlRoleName').prop('selectedIndex', 0);
             $('#ddlCompanyName').prop('selectedIndex', 0);
             $('#ddlActivityAccess').prop('selectedIndex', 0);           

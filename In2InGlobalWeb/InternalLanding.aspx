@@ -53,9 +53,10 @@
                     </div>                   
                 </li>
             </ul>
+           
         </header>
-       
-        <main class="cd-main-content" style="width:100%; position:fixed;left:0px;top:10px;">
+        <div class="NavViewer" style="position:fixed;left:0px;top:80px;width:30px;height:20px;font-weight:bolder;color:brown;z-index:99999;cursor:pointer">...</div>
+        <main class="cd-main-content" style="width:100%; position:fixed;left:0px;top:30px;background-color:azure;">
             <img id="navOverlayImg" style="display:none;z-index: 9999;width:150px;height:auto;position: fixed;top:350px;left:800px;" src="admin/img/load-indicator.gif" />
              <div id="navOverlay" style="display:none;z-index: 9991;padding-top: 70px;width:100%;background-color: lightgray;height:100%;position:fixed;left:0px;top:10px;">
                
@@ -92,7 +93,7 @@
                 </ul>
             </nav>
            
-            <div class="mainPageDiv" style="padding-top:20px;bottom:0px; background-color:azure;">  
+            <div class="mainPageDiv" style="padding-top:0px;bottom:0px; background-color:azure;">  
                  <center>
                     <div class="csvPageDivParent" style="display:none; text-align:left; border: 1px solid black;border-radius:5px; width:47.5%;height:450px;margin-bottom:30px;background-color:silver;">                
                         <div class="panel-header panel-header-noborder window-header" style="width:100%;"><div class="panel-title panel-with-icon" style="">CSV Data Viewer</div><div class="panel-icon icon-readfile"></div><div class="panel-tool"><a class="panel-tool-close" href="#"></a></div></div>
@@ -115,10 +116,10 @@
                         <div class="holds-the-iframe" style="width: 99.9%;height:93%;"><iframe style="width: inherit;height:inherit;" id="frmZohoPage" src="about:blank"></iframe></div>
                     </div>
                  </center>
-                <div class="holds-the-iframe"  style="width: 100%; height: 90%"><iframe style="width: inherit; height: inherit" id="frmTarget" src="about:blank"></iframe></div>
+                <div class="holds-the-iframe"  style="width: 100%; height: 90%"><iframe style="width: inherit; height: inherit;background-color:azure;" id="frmTarget" src="about:blank"></iframe></div>
                 
             <div style="position: sticky; margin-left: auto;">
-                    <div style="background: #212121;padding: 10px 0;height:50px;">
+                    <div class="footerDiv" style="background: #212121;padding: 10px 0;height:50px;">
                     <center>
                         <footer style="font-size: small;color:#96a1b5"><i>Copyright © In2In Global 2021</i></footer>
                     </center>
@@ -142,7 +143,27 @@
      <script src="../NewJEasyUI/jquery.min.js" type="text/javascript" lang="javascript"></script>
     <script src="../NewJEasyUI/jquery.easyui.min.js" type="text/javascript" lang="javascript"></script>
         <script type="text/javascript">
+            var width = $(window).width();
+            var height = $(window).height();
+
             $(document).ready(function () {
+                $('.NavViewer').hide();
+                $('.footerDiv').css('width',width)
+                $('.NavViewer').click(function () {
+                    $('.cd-side-nav').show();
+                    $('.NavViewer').hide();
+                    $('.cd-side-nav').css('top:0px;')
+                    $('.holds-the-iframe').css("width", width - 320);
+                    $('.zohoPageDivParent').css("width", width - 320);
+                });
+               
+                $('.cd-side-nav a').click(function () {
+                    $('.cd-side-nav').hide();
+                    $('.NavViewer').show();
+                    $('.holds-the-iframe').css("width", width - 20);
+                    $('.zohoPageDivParent').css("width", width - 20);
+                });
+               
                 $('.csvPageDivParent').hide();
                 $('.panel-tool-close').click(function () {
 

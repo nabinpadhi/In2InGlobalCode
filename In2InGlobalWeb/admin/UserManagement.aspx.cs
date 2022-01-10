@@ -288,7 +288,7 @@ namespace In2InGlobal.presentation.admin
                     string email = grdUsers.DataKeys[e.Row.RowIndex].Value.ToString();
                     string roleid = dtRole.Select("role_name = '" + e.Row.Cells[4].Text + "'")[0]["role_id"].ToString(); //e.Row.Cells[4].Text; ;
                     string activityid = dtActivity.Select("activity_name = '" + e.Row.Cells[5].Text + "'")[0]["activity_id"].ToString(); //e.Row.Cells[5].Text; ;                
-                    string phone = e.Row.Cells[6].Text;
+                   
 
                     foreach (Button editbutton in e.Row.Cells[7].Controls.OfType<Button>())
                     {
@@ -299,7 +299,7 @@ namespace In2InGlobal.presentation.admin
                         else
                         {
                             editbutton.UseSubmitBehavior = false;
-                            editbutton.Attributes["onclick"] = "return PullDataToEdit('" + fname + "', '" + lname + "', '" + companyid + "', '" + email + "', '" + roleid + "', '" + activityid + "', '" + phone + "'); ";
+                            editbutton.Attributes["onclick"] = "return PullDataToEdit('" + fname + "', '" + lname + "', '" + companyid + "', '" + email + "', '" + roleid + "', '" + activityid + "'); ";
                         }
 
                     }
@@ -338,7 +338,7 @@ namespace In2InGlobal.presentation.admin
                 userEntity.FirstName = txtFName.Value;
                 userEntity.LastName = txtLName.Value;
                 userEntity.Email = txtEmail.Value;
-                userEntity.PhoneNumber = txtPhoneNo.Value;
+                userEntity.PhoneNumber = "";
                 userEntity.RoleId = Convert.ToInt64(ddlRoleName.SelectedValue);
                 userEntity.ActivityId = Convert.ToInt64(ddlActivityAccess.SelectedValue);
                 userEntity.CompanyId = Convert.ToInt64(ddlCompanyName.SelectedValue);
@@ -381,7 +381,7 @@ namespace In2InGlobal.presentation.admin
             ddlCompanyName.SelectedIndex = 0;
             ddlActivityAccess.SelectedIndex = 0;
             ddlRoleName.SelectedIndex = 0;
-            txtPhoneNo.Value = "";
+            
             txtPassword.Value = "";
         }
         protected void hdnDelBtn_Click(object sender, EventArgs e)
