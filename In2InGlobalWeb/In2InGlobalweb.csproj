@@ -216,9 +216,11 @@
     <Content Include="css\zistyle.css" />
     <Content Include="Global.asax" />
     <Content Include="images\in2ingloballogo.png" />
+    <Content Include="images\in2ingloballogo1.png" />
     <Content Include="images\LoginScreenImg1.png" />
     <Content Include="css\garagedoor.css" />
     <Content Include="css\style.css" />
+    <Content Include="images\op-menu.png" />
     <Content Include="img\cd-arrow.svg" />
     <Content Include="img\cd-avatar.svg" />
     <Content Include="img\cd-logo.svg" />

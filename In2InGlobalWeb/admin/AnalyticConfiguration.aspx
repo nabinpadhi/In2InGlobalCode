@@ -82,10 +82,10 @@
                             <tr>
                                 <td style="width: 80%;">                                    
                                     <center>
-                                        <div style="width: 85%; height: 90%; border: 1px solid black; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;"> 
-                                            <div class="AspNet-GridView">
+                                        <%--<div style="width: 72%; height: 90%; border: 1px solid black; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;"> </div>--%>
+                                            <div>
                                                 <asp:HiddenField ID="hdnDBID" Value="" runat="server" />   
-                                                 <asp:GridView runat="server" ID="grdAnalyticsLink" Width="100%" OnPageIndexChanging="grdAnalyticsLink_PageIndexChanging"  
+                                                 <asp:GridView runat="server" ID="grdAnalyticsLink" Width="72%" OnPageIndexChanging="grdAnalyticsLink_PageIndexChanging"  
                                                      HeaderStyle-CssClass="AspNet-GridView" EmptyDataRowStyle-HorizontalAlign="Center" EmptyDataText="No Configuration data found" 
                                                      AllowPaging="True" OnRowDataBound="grdAnalyticsLink_RowDataBound" DataKeyNames="id" PageSize="4" AutoGenerateColumns="false">
                                                      <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
@@ -108,7 +108,7 @@
                                                         <asp:BoundField DataField="company_name"  HeaderText="Company Name" />
                                                         <asp:BoundField DataField="user_email"  HeaderText="User Email" />         
                                                         <asp:BoundField DataField="project_name" HeaderText="Project Name" />  
-                                                         <asp:BoundField HeaderStyle-CssClass="specifyCol" ItemStyle-CssClass="specify" ItemStyle-Width="396px" HeaderStyle-Width="398px" DataField="dashboard_url" HeaderText="Dashboard Link" />  
+                                                         <asp:BoundField  HeaderStyle-CssClass="specifyCol" ItemStyle-CssClass="specify" DataField="dashboard_url" HeaderText="Dashboard Link" />  
                                                         <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Edit" >
                                                             <ItemTemplate>
                                                                 <asp:Button ID="EditButton" CssClass="GridEditButton" runat="server" Text="" />               
@@ -123,7 +123,7 @@
                                                     <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
                                                 </asp:GridView>
                                                     </div>
-                                        </div>
+                                        
                                     </center>
                                 </td>
                             </tr>
@@ -263,6 +263,7 @@
         word-wrap: break-word;
       display:inline-block;     
          white-space: nowrap;
+         Width:386px;
 
     }
          .specifyCol {
@@ -272,8 +273,9 @@
         height: 20px;
         word-break: break-all;
         word-wrap: break-word;
-      display:inline-block;     
+        display:flex;     
          white-space: nowrap;
+         Width:388px;
 
     }
           .hideGridColumn

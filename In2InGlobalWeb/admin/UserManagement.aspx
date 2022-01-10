@@ -78,7 +78,12 @@
                                                         </asp:DropDownList>
                                                     </td>
                                                     <td colspan="3">
-                                                        <div style="margin-top: 10px;">
+                                                       
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4">
+                                                         <div style="margin-top: 10px;">
                                                             <center>
                                                                 <asp:Button runat="server" id="btnSave" CssClass="button" Text="Save" OnClientClick="return ValidateUser();" OnClick="AddNewUser" />
                                                                 <input type="button" class="button" style="margin-left: 10px;" value="Cancel" onclick="ClearAll();" />
