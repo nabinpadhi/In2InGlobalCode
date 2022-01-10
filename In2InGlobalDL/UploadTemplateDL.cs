@@ -331,39 +331,94 @@ namespace In2InGlobal.datalink
             return uploadTemplateEntity.TemplateId;
         }
 
-
+        /// <summary>
+        /// Save Upload Template
+        /// </summary>
+        /// <param name="dtUploadTemplate"></param>
+        /// <param name="uploadTemplateEntity"></param>
+        /// <returns></returns>
         public long SaveUploadTemplate(DataTable dtUploadTemplate, UploadTemplateEntity uploadTemplateEntity)
         {
             BaseRepository baseRepo = new BaseRepository();
+
+            //The below table to hold the old analytics data
+            DataSet analyticsProcessedData = new DataSet();
+
+            //The below table to hold new data after compare
+            DataTable dtComapareTable = new DataTable();
+
             var connection = baseRepo.GetDBConnection();
+
+            //The below vatriable hold actual table name in db
             string tableName = uploadTemplateEntity.FileName;
-            DataTable dt = new DataTable();
+
+
+            if (tableName != string.Empty)
+            {
+                //Delete Previous Data
+                DeleteAnalysisData(uploadTemplateEntity);
+
+                //Get old data from processed table based on ProjectName and UserEmail
+                analyticsProcessedData = LoadAnalyticsProcessedData(uploadTemplateEntity);
+
+                //Check if the procesesed table having the data
+                if (analyticsProcessedData.Tables[0].Rows.Count > 0)
+                {
+                    dtComapareTable = CompareDatatable(analyticsProcessedData.Tables[0], dtUploadTemplate);
+                }
+            }
+
             try
             {
                 connection.Open();
                 using (var transaction = connection.BeginTransaction())
                 {
-                    
-                    foreach (DataRow row in dtUploadTemplate.Rows)
+                    if (analyticsProcessedData.Tables[0].Rows.Count > 0 && dtComapareTable.Rows.Count > 0)
                     {
-                        // Create an NpgsqlParameter for every field in the column
-                        var parameters = new List<DbParameter>();                        
-                      
-                        for (var i = 0; i < dtUploadTemplate.Columns.Count; i++)
+                        foreach (DataRow row in dtComapareTable.Rows)
                         {
-                            parameters.Add(new NpgsqlParameter($"@p{i}", row[i]));
-                        }
-                        var parameterNames = string.Join(", ", parameters.Select(p => p.ParameterName));
+                            // Create an NpgsqlParameter for every field in the column
+                            var parameters = new List<DbParameter>();
 
-                        // Create an INSERT SQL query which inserts the data from the current row into PostgreSql table
-                        var command = new NpgsqlCommand(
-                            $"INSERT INTO dbo.{tableName} VALUES (DEFAULT,{parameterNames})",
-                            connection);
-                        command.Parameters.AddRange(parameters.ToArray());
-                        command.ExecuteNonQuery();
+                            for (var i = 0; i < dtComapareTable.Columns.Count; i++)
+                            {
+                                parameters.Add(new NpgsqlParameter($"@p{i}", row[i]));
+                            }
+                            var parameterNames = string.Join(", ", parameters.Select(p => p.ParameterName));
+
+                            // Create an INSERT SQL query which inserts the data from the current row into PostgreSql table
+                            var command = new NpgsqlCommand(
+                                $"INSERT INTO dbo.{tableName} VALUES (DEFAULT,{parameterNames})",
+                                connection);
+                            command.Parameters.AddRange(parameters.ToArray());
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                    else
+                    {
+                        foreach (DataRow row in dtUploadTemplate.Rows)
+                        {
+                            // Create an NpgsqlParameter for every field in the column
+                            var parameters = new List<DbParameter>();
+
+                            for (var i = 0; i < dtUploadTemplate.Columns.Count; i++)
+                            {
+                                parameters.Add(new NpgsqlParameter($"@p{i}", row[i]));
+                            }
+                            var parameterNames = string.Join(", ", parameters.Select(p => p.ParameterName));
+
+                            // Create an INSERT SQL query which inserts the data from the current row into PostgreSql table
+                            var command = new NpgsqlCommand(
+                                $"INSERT INTO dbo.{tableName} VALUES (DEFAULT,{parameterNames})",
+                                connection);
+                            command.Parameters.AddRange(parameters.ToArray());
+                            command.ExecuteNonQuery();
+                        }
                     }
                     transaction.Commit();
                 }
+
+                InsertDataInProcessedTable(uploadTemplateEntity);
 
             }
             catch (Exception ex)
@@ -373,10 +428,146 @@ namespace In2InGlobal.datalink
             finally
             {
                 connection.Dispose();
-
             }
+
             return uploadTemplateEntity.TemplateId;
         }
+
+
+        /// <summary>
+        /// Delete Analysis Data
+        /// </summary>
+        /// <param name="uploadTemplateEntity"></param>
+        /// <returns></returns>
+        public long DeleteAnalysisData(UploadTemplateEntity uploadTemplateEntity)
+        {
+            string tableName = uploadTemplateEntity.FileName;
+            BaseRepository baseRepo = new BaseRepository();
+            var query = $"Delete FROM dbo.{tableName} where user_email ='{uploadTemplateEntity.UserEmail}' AND project_name ='{uploadTemplateEntity.ProjectName}'";
+            using (var connection = baseRepo.GetDBConnection())
+            {
+                try
+                {
+                    connection.Open();
+                    var result = connection.Query(query, new
+                    {
+                    }, commandType: CommandType.Text
+                    );
+
+                    if (result == null || !result.Any())
+                    {
+                        //  throw (" failed to create company").ToString();
+                    }
+                    // companyEntity.CompanyId = Convert.ToInt64(result.First().CompanyId);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Dispose();
+                }
+            }
+            return uploadTemplateEntity.Id;
+        }
+
+        /// <summary>
+        /// Load Analytics Processed Data
+        /// </summary>
+        /// <param name="uploadTemplateEntity"></param>
+        /// <returns></returns>
+        public DataSet LoadAnalyticsProcessedData(UploadTemplateEntity uploadTemplateEntity)
+        {
+            string tableName = uploadTemplateEntity.FileName;
+
+            tableName = tableName + "_" + "Processed";
+            BaseRepository baseRepo = new BaseRepository();
+            DataSet dsAnalyticsProcessedData = new DataSet();
+            NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
+
+            string query = $"SELECT * FROM dbo.{tableName}  where user_email ='{uploadTemplateEntity.UserEmail}' AND project_name ='{uploadTemplateEntity.ProjectName}' ";
+            using (var connection = baseRepo.GetDBConnection())
+            {
+                try
+                {
+                    connection.Open();
+                    NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
+                    npgsqlCommand.CommandType = CommandType.Text;
+                    npgsqlDataAdapter.SelectCommand = npgsqlCommand;
+                    npgsqlDataAdapter.Fill(dsAnalyticsProcessedData);
+
+                    if (dsAnalyticsProcessedData.Tables[0].Columns.Count > 0)
+                    {
+                        if (dsAnalyticsProcessedData.Tables[0].Columns.Contains("id"))
+                            dsAnalyticsProcessedData.Tables[0].Columns.Remove("id");
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Dispose();
+                    npgsqlDataAdapter.Dispose();
+                }
+
+                return dsAnalyticsProcessedData;
+            }
+        }
+
+        private DataTable CompareDatatable(DataTable oldTable, DataTable newTable)
+        {
+            DataTable _modifiedDataOnly = new DataTable("dtComapareTable");
+
+            var differences = newTable.AsEnumerable().Except(oldTable.AsEnumerable(), DataRowComparer.Default);
+            return differences.Any() ? differences.CopyToDataTable() : new DataTable();
+
+        }
+
+        private void InsertDataInProcessedTable(UploadTemplateEntity uploadTemplateEntity)
+        {
+            BaseRepository baseRepo = new BaseRepository();
+            string tableName = uploadTemplateEntity.FileName;
+
+            tableName = tableName + "_" + "Processed";
+
+            string query = $"INSERT INTO dbo.{tableName}" + " " +
+                           $"SELECT * FROM dbo.{uploadTemplateEntity.FileName} " +
+                           $"where user_email ='{uploadTemplateEntity.UserEmail}' " +
+                           $"AND project_name ='{uploadTemplateEntity.ProjectName}' ";
+
+            using (var connection = baseRepo.GetDBConnection())
+            {
+                try
+                {
+                    connection.Open();
+                    var result = connection.Query(query, new
+                    {
+                    }, commandType: CommandType.Text
+                    );
+
+                    if (result == null || !result.Any())
+                    {
+                        // throw (" failed to create company").ToString();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Dispose();
+                }
+
+            }
+
+        }
+
 
         private void SaveUploadTemplateDataInTable(DataTable dtUploadTemplate)
         {
