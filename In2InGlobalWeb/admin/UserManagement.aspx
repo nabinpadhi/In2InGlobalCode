@@ -113,8 +113,7 @@
                                                 <asp:BoundField DataField="company_name" ControlStyle-Width="94%" HeaderText="Company" />
                                                 <asp:BoundField DataField="user_email" ReadOnly="true" ControlStyle-Width="94%" HeaderText="Email ID" />
                                                 <asp:BoundField DataField="role_name" ReadOnly="true" ControlStyle-Width="94%" HeaderText="Role" />
-                                                <asp:BoundField DataField="activity_name" ControlStyle-Width="94%" HeaderText="Activity Name" />
-                                                <asp:BoundField DataField="phone" ControlStyle-Width="94%" HeaderText="Phone Number" />
+                                                <asp:BoundField DataField="activity_name" ControlStyle-Width="94%" HeaderText="Activity Name" />                                                
                                                <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Edit" >
                                                 <ItemTemplate>
                                                     <asp:Button ID="EditButton" CssClass="GridEditButton" runat="server" Text="" />               

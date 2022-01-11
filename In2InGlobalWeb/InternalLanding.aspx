@@ -145,7 +145,7 @@
         <script type="text/javascript">
             var width = $(window).width();
             var height = $(window).height();
-
+            
             $(document).ready(function () {
                 var gridcol = $("#frmTarget").contents().find('.AspNet-GridView.specifyCol');//.css('width',520);
                 gridcol.css('width', 520);
@@ -156,8 +156,8 @@
                     $('.cd-side-nav').show();
                     $('.NavViewer').hide();
                     $('.cd-side-nav').css('top:0px;')
-                    $('.holds-the-iframe').css("width", width - 320);
-                    $('.zohoPageDivParent').css("width", width - 320);
+                    $('.holds-the-iframe').css("width", width - 220);
+                    $('.zohoPageDivParent').css("width", width - 220);
                  
                 });
 
@@ -178,6 +178,7 @@
                     $('.csvPageDivParent').hide();
                     $('.zohoPageDivParent').hide();
                     $('.exceptionDivParent').hide();
+                   
                     $("#frmTarget").show();
                 });
             });
@@ -190,6 +191,7 @@
                 const urlParams = new URLSearchParams(window.location.search);
                 const myParam = urlParams.get('target');
                 var uri = "admin/MyProfile.aspx?target=" + myParam;
+                $('.holds-the-iframe').css("width", width - 220);
                 OpenPage(uri);
             }
             function ShowDiv(fn) {

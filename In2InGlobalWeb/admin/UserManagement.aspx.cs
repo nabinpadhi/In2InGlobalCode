@@ -290,7 +290,7 @@ namespace In2InGlobal.presentation.admin
                     string activityid = dtActivity.Select("activity_name = '" + e.Row.Cells[5].Text + "'")[0]["activity_id"].ToString(); //e.Row.Cells[5].Text; ;                
                    
 
-                    foreach (Button editbutton in e.Row.Cells[7].Controls.OfType<Button>())
+                    foreach (Button editbutton in e.Row.Cells[6].Controls.OfType<Button>())
                     {
                         if (email == Session["UserEmail"].ToString())
                         {
@@ -303,7 +303,7 @@ namespace In2InGlobal.presentation.admin
                         }
 
                     }
-                    foreach (Button delbutton in e.Row.Cells[8].Controls.OfType<Button>())
+                    foreach (Button delbutton in e.Row.Cells[7].Controls.OfType<Button>())
                     {
 
                         if (email == Session["UserEmail"].ToString())
