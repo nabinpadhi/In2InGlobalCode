@@ -364,7 +364,7 @@ namespace In2InGlobal.datalink
                 //Check if the procesesed table having the data
                 if (analyticsProcessedData.Tables[0].Rows.Count > 0)
                 {
-                   dtComapareTable = CompareDatatable(analyticsProcessedData.Tables[0], dtUploadTemplate);//CompareDatatable(analyticsProcessedData.Tables[0], dtUploadTemplate);
+                   dtComapareTable = CompareDatatable(analyticsProcessedData.Tables[0], dtUploadTemplate);
                 }
             }
 
@@ -518,64 +518,78 @@ namespace In2InGlobal.datalink
             }
         }
 
-        private DataTable CompareDatatable(DataTable oldTable, DataTable newTable)
+       /* private DataTable CompareDatatable(DataTable oldTable, DataTable newTable)
         {
-            DataTable _modifiedDataOnly = new DataTable("modifiedDataOnly");
-
             var differences = newTable.AsEnumerable().Except(oldTable.AsEnumerable(), DataRowComparer.Default);
             return differences.Any() ? differences.CopyToDataTable() : new DataTable();
-        }
+        }*/
 
-        private DataTable getDataDifference(DataTable oldTable, DataTable newTable)
+        private DataTable CompareDatatable(DataTable oldTable, DataTable newTable)
         {
-            DataTable returnTable = new DataTable("returnTable");
+            oldTable.TableName = "oldTable";
+            newTable.TableName = "newTable";
 
-            using (DataSet ds = new DataSet())
+            //Create Empty Table
+            DataTable diffTable = new DataTable("Difference");
+
+            try
             {
-                ds.Tables.AddRange(new DataTable[] { oldTable.Copy(), newTable.Copy() });
-
-                DataColumn[] firstColumns = new DataColumn[ds.Tables[0].Columns.Count];
-                for (int i = 0; i < firstColumns.Length; i++)
+                //Must use a Dataset to make use of a DataRelation object
+                using (DataSet ds = new DataSet())
                 {
-                    firstColumns[i] = ds.Tables[0].Columns[i];
+                    //Add tables
+                    ds.Tables.AddRange(new DataTable[] {newTable.Copy(), oldTable.Copy()});
+
+                    //Get Columns for DataRelation
+                    DataColumn[] firstcolumns = new DataColumn[ds.Tables[0].Columns.Count];
+
+                    for (int i = 0; i < firstcolumns.Length; i++)
+                    {
+                        firstcolumns[i] = ds.Tables[0].Columns[i];
+                    }
+
+                    DataColumn[] secondcolumns = new DataColumn[ds.Tables[1].Columns.Count];
+
+                    for (int i = 0; i < secondcolumns.Length; i++)
+                    {
+                        secondcolumns[i] = ds.Tables[1].Columns[i];
+                    }
+
+                    //Create DataRelation
+                    DataRelation r = new DataRelation(string.Empty, firstcolumns, secondcolumns, false);
+
+                    ds.Relations.Add(r);
+
+                    //Create columns for return table
+                    for (int i = 0; i < oldTable.Columns.Count; i++)
+                    {
+                        diffTable.Columns.Add(oldTable.Columns[i].ColumnName, oldTable.Columns[i].DataType);
+                    }
+
+                    //If First Row not in Second, Add to return table.
+                    diffTable.BeginLoadData();
+
+                    foreach (DataRow parentrow in ds.Tables[0].Rows)
+                    {
+                        DataRow[] childrows = parentrow.GetChildRows(r);
+                        if (childrows == null || childrows.Length == 0)
+                        {
+                            diffTable.LoadDataRow(parentrow.ItemArray, true);
+                        }
+                    }
+
+                    diffTable.EndLoadData();
+
                 }
-
-                DataColumn[] secondColumns = new DataColumn[ds.Tables[1].Columns.Count];
-                for (int i = 0; i < secondColumns.Length; i++)
-                {
-                    secondColumns[i] = ds.Tables[1].Columns[i];
-                }
-
-                DataRelation r1 = new DataRelation(string.Empty, firstColumns, secondColumns, false);
-                ds.Relations.Add(r1);
-
-                DataRelation r2 = new DataRelation(string.Empty, secondColumns, firstColumns, false);
-                ds.Relations.Add(r2);
-
-                for (int i = 0; i < oldTable.Columns.Count; i++)
-                {
-                    returnTable.Columns.Add(oldTable.Columns[i].ColumnName, oldTable.Columns[i].DataType);
-                }
-
-                returnTable.BeginLoadData();
-                foreach (DataRow parentrow in ds.Tables[0].Rows)
-                {
-                    DataRow[] childrows = parentrow.GetChildRows(r1);
-                    if (childrows == null || childrows.Length == 0)
-                        returnTable.LoadDataRow(parentrow.ItemArray, true);
-                }
-
-                foreach (DataRow parentrow in ds.Tables[1].Rows)
-                {
-                    DataRow[] childrows = parentrow.GetChildRows(r2);
-                    if (childrows == null || childrows.Length == 0)
-                        returnTable.LoadDataRow(parentrow.ItemArray, true);
-                }
-                returnTable.EndLoadData();
             }
-            return returnTable;
-        }
+            finally
+            {
 
+            }
+
+            return diffTable;
+
+        }
         private void InsertDataInProcessedTable(UploadTemplateEntity uploadTemplateEntity)
         {
             BaseRepository baseRepo = new BaseRepository();

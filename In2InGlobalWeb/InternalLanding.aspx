@@ -57,7 +57,7 @@
         </header>
         <div class="NavViewer" style="border-radius:3px;position:fixed;left:0px;top:80px;width:30px;height:20px;font-weight:bolder;color:brown;z-index:99999;cursor:pointer;text-align:center;"><img src="images/op-menu.png" style="width:20px;left:-5px;position:relative;" /></div>
         <main class="cd-main-content" style="width:100%; position:fixed;left:0px;top:30px;background-color:azure;">
-            <img id="navOverlayImg" style="display:none;z-index: 9999;width:150px;height:auto;position: fixed;top:350px;left:800px;" src="admin/img/load-indicator.gif" />
+            <img id="navOverlayImg" style="display:none;z-index: 9999;width:150px;height:auto;position: fixed;top:350px;left:500px;" src="admin/img/load-indicator.gif" />
              <div id="navOverlay" style="display:none;z-index: 9991;padding-top: 70px;width:100%;background-color: lightgray;height:100%;position:fixed;left:0px;top:10px;">
                
              </div>
@@ -187,6 +187,9 @@
                    
                     $("#frmTarget").show();
                 });
+                $('#frmCSVPage').on('load', function () {
+                    $('#navOverlayImg').hide();
+                })
             });
             function OpenPage(page) {
                 var iframe = $("#frmTarget");
@@ -202,6 +205,9 @@
             }
             function ShowDiv(fn) {
 
+                $('#navOverlayImg').css("left", (width / 2) - 100);
+                $('#navOverlayImg').css("top", (height / 2)-50);
+                $('#navOverlayImg').show();
                 var iframe = $("#frmCSVPage");
                 iframe.attr("src", "admin/DisplayCSV.aspx?csvfp=" + fn);
                 $('.csvPageDivParent').show();

@@ -357,7 +357,7 @@
              }
          });
      }   
-     function OpenCSV(fn) {
+     function OpenCSV(fn) {         
          window.parent.ShowDiv(fn);
      }
      function ClearProject() {
