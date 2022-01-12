@@ -95,9 +95,10 @@
            
             <div class="mainPageDiv" style="padding-top:0px;bottom:0px; background-color:azure;">  
                  <center>
-                    <div class="csvPageDivParent" style="display:none; text-align:left; border: 1px solid black;border-radius:5px; width:47.5%;height:450px;margin-bottom:30px;background-color:silver;">                
+                     <div class="holds-the-iframe">
+                    <div class="csvPageDivParent" style="display:none; text-align:left; border: 1px solid black;border-radius:5px; height:450px;margin-bottom:30px;background-color:silver;">                
                         <div class="panel-header panel-header-noborder window-header" style="width:100%;"><div class="panel-title panel-with-icon" style="">CSV Data Viewer</div><div class="panel-icon icon-readfile"></div><div class="panel-tool"><a class="panel-tool-close" href="#"></a></div></div>
-                         <div class="holds-the-iframe" style="width: 99.9%;height:93%;"><iframe style="width: inherit;height:inherit" id="frmCSVPage" src="about:blank"></iframe></div>                       
+                         <iframe id="frmCSVPage" src="about:blank"></iframe></div>                       
                     </div>
                  </center>
                  <center>
@@ -158,6 +159,9 @@
                     $('.cd-side-nav').css('top:0px;')
                     $('.holds-the-iframe').css("width", width - 220);
                     $('.zohoPageDivParent').css("width", width - 220);
+                    $('.csvPageDivParent').css("width", width / 2);
+                    $('#frmCSVPage').css("width", (width / 2) - 2);
+                    $('#frmCSVPage').css("height", (height / 2) + 100);
                  
                 });
 
@@ -166,7 +170,9 @@
                     $('.NavViewer').show();
                     $('.holds-the-iframe').css("width", width - 20);
                     $('.zohoPageDivParent').css("width", width - 20);
-                  
+                    $('.csvPageDivParent').css("width", width / 2);
+                    $('#frmCSVPage').css("width", (width / 2) - 2);
+                    $('#frmCSVPage').css("height", (height / 2) + 100);
                     
                 });
 

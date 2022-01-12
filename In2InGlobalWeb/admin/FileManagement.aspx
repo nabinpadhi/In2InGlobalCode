@@ -521,7 +521,7 @@
                              window.parent.ShowException();
                          }
                          else {
-                             ShowServerMessage("File Uploaded Successfully.");
+                             ShowServerMessage(result);
                          }
                          $("#fileUploader").val('');
                      }

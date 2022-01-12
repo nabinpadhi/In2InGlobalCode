@@ -48,9 +48,12 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
         }
         catch (Exception ex)
         {
-            context.Response.ContentType = "text/plain";
-            context.Response.Write("ShowException");
-            context.Response.End();
+            if (ex.Message != "Thread was being aborted.")
+            {
+                context.Response.ContentType = "text/plain";
+                context.Response.Write("ShowException");
+                context.Response.End();
+            }
         }
 
     }
@@ -123,7 +126,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
 
         CreateMasterTemplateTable(_tableScript.ToString());
         CrateMasterTemplateProcessedTable(templateName, fileNameWithPath);
-        return _tableScript;    
+        return _tableScript;
     }
 
 
@@ -232,15 +235,19 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
 
                     file.SaveAs(context.Server.MapPath(System.IO.Path.Combine(filePath, fileName)));
                     SaveUploadTemplateInformationInDB(fileName, uploadedBy, projectName, context, filePathWithFileName);
+                    context.Response.ContentType = "text/plain";
+                    context.Response.Write("File Uploaded Successfully.");
+                    context.Response.End();
                 }
                 else
                 {
-                    file.SaveAs(filePathWithFileName);
-                    SaveUploadTemplateInformationInDB(fileName, uploadedBy, projectName, context, filePathWithFileName);
+                    context.Response.ContentType = "text/plain";
+                    context.Response.Write("Uploaded data already exists.");
+                    context.Response.End();
                 }
-                context.Response.ContentType = "text/plain";
-                context.Response.Write("File Uploaded Successfully.");
-                context.Response.End();
+                //context.Response.ContentType = "text/plain";
+                //context.Response.Write("File Uploaded Successfully.");
+                //context.Response.End();
 
             }
         }

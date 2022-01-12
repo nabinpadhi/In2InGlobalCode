@@ -127,7 +127,7 @@
                                                     <Columns>
                                                         <asp:BoundField HeaderText="Template Name" ItemStyle-Width="25%" DataField="template_name" />
                                                         <asp:BoundField HeaderText="Created By" ItemStyle-Width="25%" DataField="created_by" />                                                                                                              
-                                                        <asp:BoundField HeaderText ="Instruction" ItemStyle-Width="35%" DataField="instruction"/>   
+                                                        <asp:BoundField HeaderText ="Instruction" ItemStyle-CssClass="specify" DataField="instruction"/>   
                                                         <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Edit" >
                                                             <ItemTemplate>
                                                                 <asp:Button ID="EditButton" CssClass="GridEditButton" runat="server" Text="" />               
