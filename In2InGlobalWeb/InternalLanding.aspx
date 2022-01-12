@@ -107,7 +107,7 @@
                             <div class="panel-icon icon-no"></div>
                             <div class="panel-tool"><a class="panel-tool-close" href="#"></a></div>
                         </div>                       
-                             <div style="width:inherit;height:inherit;text-align: center;"><img style="margin-top:30px;" src="img/ohNo.png" /><br /><span style="color:red;font-size:medium;font-weight:bold"><i>Oh No!</i> Something has gone wrong</span></div>
+                             <div style="width:inherit;height:inherit;text-align: center;position:relative;"><img style="margin-top:30px;" src="img/ohNo.png" /><br /><span style="color:red;font-size:medium;font-weight:bold"><i>Oh No!</i> Something has gone wrong</span></div>
                     </div>
                  </center>
                   <center>
@@ -166,7 +166,7 @@
                     $('.NavViewer').show();
                     $('.holds-the-iframe').css("width", width - 20);
                     $('.zohoPageDivParent').css("width", width - 20);
-                   
+                  
                     
                 });
 
@@ -211,6 +211,7 @@
 
             }
             function ShowException() {
+                $('.NavViewer').click();
                 $('.exceptionDivParent').show();
                 $("#frmTarget").hide();
             }

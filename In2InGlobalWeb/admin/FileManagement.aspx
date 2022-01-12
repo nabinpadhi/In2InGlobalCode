@@ -528,9 +528,10 @@
 
                  },
                  error: function (err) {
-                    
+
                      window.parent.$('#navOverlayImg').hide();
                      window.parent.$('#navOverlay').hide();
+                     window.parent.$('.NavViewer').click();
                      ShowServerMessage(err.statusText);
                  },
                  complete: function (data) {
