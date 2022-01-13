@@ -73,9 +73,10 @@
                                                                             <asp:ListItem Text="--Select a Template--" ></asp:ListItem>
                                                                         </asp:DropDownList>
                                                                         <asp:HiddenField ID="hdnTID" Value="" runat="server" />                                                                        
+                                                                         <asp:HiddenField ID="hdnReload" Value="" runat="server" />
                                                                         <asp:HiddenField ID="hdnTName" runat="server" Value="" />        
                                                                         <asp:Button runat="server" ID="hdnDelBtn" Text="" style="display:none;" OnClientClick="return true;" OnClick="hdnDelBtn_Click" />
-                                                         
+                                                                        <asp:Button runat="server" ID="hdnReloadBtn" Text="" style="display:none" OnClientClick="return true;" OnClick="hdnReloadBtn_Click" />
                                                                     </td>
                                                                 </tr>
                                                                  <tr>
@@ -557,6 +558,7 @@
                             ShowServerMessage("Master Template Uploaded Successfully.");                          
                             $("#tmpltFU").val('');
                             uploadingFileName = "";
+                           
 
                         }
 
@@ -581,7 +583,7 @@
         }); 
         function RefreshTemplateNames(templates) {
 
-            if (templates.length > 0) {
+            /*if (templates.length > 0) {
                 var myTemplates = $.parseJSON(templates);
                 $('#ddlMasterTemplate').html('');
                 var myDdl = document.getElementById('ddlMasterTemplate');    
@@ -593,7 +595,9 @@
                 }
                 $('#ddlMasterTemplate').val('first').change();
                 $("#ddlMasterTemplate").prop('selectedIndex', 0);
-            }
+            }*/
+            $('#hdnReload').val('ReloadMasterTemplate');
+            $('#hdnReloadBtn').click();
 
 
         }
@@ -623,15 +627,16 @@
             color: yellow;
         }
 
-        .specify {
+       .specify {
             overflow: hidden;
             text-overflow: ellipsis;
             max-height: 20px;
             height: 20px;
             word-break: break-all;
             word-wrap: break-word;
-            display: block;
-            border: none;
+            display: inline-block;
+            white-space: nowrap;
+            Width: 386px;
         }
 
         .messager-body.panel-body.panel-body-noborder.window-body {

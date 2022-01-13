@@ -265,6 +265,7 @@ namespace In2InGlobal.presentation.admin
 
         protected void btnUpdateProcess_Click(object sender, EventArgs e)
         {
+            
             string _message = "Processed successfully.";
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowProConf(); ", _message), true);
            // ScriptManager.RegisterStartupScript(analyticconfigurationscriptmanager, analyticconfigurationscriptmanager.GetType(), "ShowServerMessage", string.Format("ShowServerMessage('{0}');ShowProConf();", _message), true);

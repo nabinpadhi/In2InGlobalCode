@@ -510,18 +510,23 @@ namespace In2InGlobal.presentation.admin
             string masterTemplateId = "";
             try
             {
+                if (Session["TemplateInfo"] == null)
+                {
+                    BindMasterTemplate();
+                }
                 
                 DataTable masterTemplateDDLDT = (DataTable)Session["TemplateInfo"];
-                if (masterTemplateDDLDT == null)
-                    BindMasterTemplate();
-                if (masterTemplateDDLDT.Rows.Count > 0)
+                if (masterTemplateDDLDT != null)
                 {
-                    foreach (DataRow dr in masterTemplateDDLDT.Rows)
+                    if (masterTemplateDDLDT.Rows.Count > 0)
                     {
-                        if (dr[1].ToString() == template_name)
+                        foreach (DataRow dr in masterTemplateDDLDT.Rows)
                         {
-                            masterTemplateId = dr[0].ToString();
-                            break;
+                            if (dr[1].ToString() == template_name)
+                            {
+                                masterTemplateId = dr[0].ToString();
+                                break;
+                            }
                         }
                     }
                 }
@@ -592,11 +597,12 @@ namespace In2InGlobal.presentation.admin
         {
             try
             {
-                if (hdnTID.Value != "")
+                if(hdnTID.Value != "")
                 {
                     DeleteMasterTemplate(hdnTID.Value);
+                    BindMasterTemplateGrid();
                 }
-                BindMasterTemplateGrid();
+                 
                 string _message = "Template deleted successfully.";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", _message), true);
             }
@@ -605,7 +611,25 @@ namespace In2InGlobal.presentation.admin
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
         }
-     
+
+        protected void hdnReloadBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (hdnReload.Value == "ReloadMasterTemplate")
+                {
+                    BindMasterTemplate();
+                }
+              
+                string _message = "Master Template Uploaded successfully.";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", _message), true);
+                hdnReload.Value = "";
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
+            }
+        }
     }
 
 }

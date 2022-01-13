@@ -21,14 +21,14 @@
     <form id="form1" runat="server">
         <center>
             <div style="width: 100%; height: 435px; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
-                <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height: 40px; padding-top: 10px;"><span class="menu_frame_title">Analytic Configuration</span></div>
+                <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height: 40px; padding-top: 10px;"><span class="menu_frame_title">Analytic Setup</span></div>
                 <asp:ScriptManager ID="analyticconfigurationscriptmanager" runat="server">
                 </asp:ScriptManager>
                 <asp:UpdatePanel ID="pdnlanalyticconfiguration" runat="server">
                     <ContentTemplate>
                         <div style="border-bottom: 0 solid gray; display: flex; padding: 2px; width: auto;">
-                            <div id="btnAnaConf" onclick="ShowAnaConf();" class="PanelTab" style="background-color: azure; color: blue;">Analytics Configuration</div>
-                            <div id="btnProConf" onclick="ShowProConf();" class="PanelTab">Process Configuration</div>
+                            <div id="btnAnaConf" onclick="ShowAnaConf();" class="PanelTab" style="background-color: azure; color: blue;">Analytic Configuration</div>
+                            <div id="btnProConf" onclick="ShowProConf();" class="PanelTab">Analytic Process</div>
                         </div>
 
                         <div title="Analytics Configuration" class="anaconf" style="background-color: azure; color: blue;">
@@ -174,11 +174,10 @@
                                                     <tr>
                                                         <td colspan="4">
                                                             <div style="margin-top: 30px;">
-                                                               
+                                                                <center>
                                                                     <asp:Button  runat="server" ID="btnUpdateProcess" CssClass="button" Text="Update" tooltip="Update Process" OnClick="btnUpdateProcess_Click" OnClientClick="return ValidateProcessConfiguration();" />
                                                                     <input type="button" class="button" style="margin-left: 10px;" value="Cancel" onclick="ClearAllProcess();" />
-                                                                   
-                                                               
+                                                                 </center>
                                                             </div>
                                                         </td>
                                                     </tr>
