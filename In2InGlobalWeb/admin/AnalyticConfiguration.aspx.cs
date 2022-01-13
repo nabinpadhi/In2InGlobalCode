@@ -44,28 +44,48 @@ namespace In2InGlobal.presentation.admin
             ddlCompany.DataSource = dsCompany.Tables[0];
             ddlCompany.DataBind();
             ddlCompany.Items.Insert(0, "--Select a Company--");
+
+            ddlCompanyProcess.Items.Clear();
+
+            ddlCompanyProcess.DataTextField = "company_name";
+            ddlCompanyProcess.DataValueField = "company_id";
+            ddlCompanyProcess.DataSource = dsCompany.Tables[0];
+            ddlCompanyProcess.DataBind();
+            ddlCompanyProcess.Items.Insert(0, "--Select a Company--");
         }
 
-        private void BindUsers(long companyID)
+        private void BindUsers(long companyID,string ForTab)
         {
             try
             {
                 DataSet dsUsers = new DataSet();
                 AnalyticsBL userBL = new AnalyticsBL();
                 dsUsers = userBL.getUserEmailByCompany(companyID);
-                ddlUser.Items.Clear();
-                ddlUser.DataTextField = "user_email";
-                ddlUser.DataValueField = "user_id";
-                ddlUser.DataSource = dsUsers.Tables[0];
-                ddlUser.DataBind();
-                ddlUser.Items.Insert(0, "--Select a User--");
+                if (ForTab == "AnaConf")
+                {
+                    ddlUser.Items.Clear();
+                    ddlUser.DataTextField = "user_email";
+                    ddlUser.DataValueField = "user_id";
+                    ddlUser.DataSource = dsUsers.Tables[0];
+                    ddlUser.DataBind();
+                    ddlUser.Items.Insert(0, "--Select a User--");
+                }
+                else if (ForTab == "ProConf")
+                {
+                    ddlUserProcess.Items.Clear();
+                    ddlUserProcess.DataTextField = "user_email";
+                    ddlUserProcess.DataValueField = "user_id";
+                    ddlUserProcess.DataSource = dsUsers.Tables[0];
+                    ddlUserProcess.DataBind();
+                    ddlUserProcess.Items.Insert(0, "--Select a User--");
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
             }
         }
-        private void BindProjects(string userEmail)
+        private void BindProjects(string userEmail, string ForTab)
         {
             int companyId = 0;
             try
@@ -73,12 +93,24 @@ namespace In2InGlobal.presentation.admin
                 DataSet dsUsersPrject = new DataSet();
                 AnalyticsBL projectBL = new AnalyticsBL();
                 dsUsersPrject = projectBL.getProjectNameByUserEmail(companyId, userEmail);
-                ddlProject.DataTextField = "project_name";
-                ddlProject.DataValueField = "project_id";
-                ddlProject.Items.Clear();
-                ddlProject.DataSource = dsUsersPrject.Tables[0];
-                ddlProject.DataBind();
-                ddlProject.Items.Insert(0, "--Select a Project--");
+                if (ForTab == "AnaConf")
+                {
+                    ddlProject.DataTextField = "project_name";
+                    ddlProject.DataValueField = "project_id";
+                    ddlProject.Items.Clear();
+                    ddlProject.DataSource = dsUsersPrject.Tables[0];
+                    ddlProject.DataBind();
+                    ddlProject.Items.Insert(0, "--Select a Project--");
+                }
+                else if (ForTab == "ProConf")
+                {
+                    ddlProjectProcess.DataTextField = "project_name";
+                    ddlProjectProcess.DataValueField = "project_id";
+                    ddlProjectProcess.Items.Clear();
+                    ddlProjectProcess.DataSource = dsUsersPrject.Tables[0];
+                    ddlProjectProcess.DataBind();
+                    ddlProjectProcess.Items.Insert(0, "--Select a Project--");
+                }
             }
             catch (Exception ex)
             {
@@ -105,14 +137,27 @@ namespace In2InGlobal.presentation.admin
 
         protected void ddlCompany_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BindUsers(Convert.ToInt64(ddlCompany.SelectedValue));
+            BindUsers(Convert.ToInt64(ddlCompany.SelectedValue), "AnaConf");
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "ShowAnaConf();", true);
         }
 
         protected void ddlUser_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BindProjects(ddlUser.SelectedItem.Text);
+            BindProjects(ddlUser.SelectedItem.Text, "AnaConf");
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "ShowAnaConf();", true);
+        }
+        protected void ddlCompanyProcess_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindUsers(Convert.ToInt64(ddlCompanyProcess.SelectedValue),"ProConf");
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "ShowProConf();", true);
         }
 
+        protected void ddlUserProcess_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindProjects(ddlUserProcess.SelectedItem.Text, "ProConf");
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "ShowProConf();", true);
+        }
+        //btnUpdateProcess_Click
         protected void btnSave_Click(object sender, EventArgs e)
         {
             AnalyticsEntity analyticsEntity = new AnalyticsEntity();
@@ -148,7 +193,7 @@ namespace In2InGlobal.presentation.admin
                 ex.Message.ToString();
             }
             BindDashboardGrid();
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}'); ", _message), true);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowAnaConf(); ", _message), true);
         }
 
         private void DeleteAnalyticConfiguration(int _id)
@@ -179,16 +224,17 @@ namespace In2InGlobal.presentation.admin
                 {
                     string dashboardID = grdAnalyticsLink.DataKeys[e.Row.RowIndex].Value.ToString();
 
-                    string cid = ((System.Web.UI.WebControls.Label)e.Row.Cells[0].Controls[1]).Text;//
-                    string uid = ((System.Web.UI.WebControls.Label)e.Row.Cells[1].Controls[1]).Text;
-                    string pid = ((System.Web.UI.WebControls.Label)e.Row.Cells[2].Controls[1]).Text;
+                    string project = e.Row.Cells[5].Text;
+                    string user = e.Row.Cells[4].Text;
+                    string company = e.Row.Cells[3].Text;
+
                     string link = e.Row.Cells[6].Text;
 
                     foreach (Button editbutton in e.Row.Cells[7].Controls.OfType<Button>())
                     {
 
                         editbutton.UseSubmitBehavior = false;
-                        editbutton.Attributes["onclick"] = "return PullDataToEdit('" + link + "','" + dashboardID + "');";
+                        editbutton.Attributes["onclick"] = "return PullDataToEdit('" + link + "','" + dashboardID + "','"+user+"','"+company+"','"+project+"');";
 
                     }
                     foreach (Button delbutton in e.Row.Cells[8].Controls.OfType<Button>())
@@ -217,5 +263,11 @@ namespace In2InGlobal.presentation.admin
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}'); ", _message), true);
         }
 
+        protected void btnUpdateProcess_Click(object sender, EventArgs e)
+        {
+            string _message = "Processed successfully.";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowProConf(); ", _message), true);
+           // ScriptManager.RegisterStartupScript(analyticconfigurationscriptmanager, analyticconfigurationscriptmanager.GetType(), "ShowServerMessage", string.Format("ShowServerMessage('{0}');ShowProConf();", _message), true);
+        }
     }
 }

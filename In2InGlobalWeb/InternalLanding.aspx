@@ -156,6 +156,7 @@
                 $('.NavViewer').click(function () {
                     $('.cd-side-nav').show();
                     $('.NavViewer').hide();
+                    $('.panel-tool-close').click();
                     $('.cd-side-nav').css('top:0px;')
                     $('.holds-the-iframe').css("width", width - 220);
                     $('.zohoPageDivParent').css("width", width - 220);
@@ -216,6 +217,7 @@
             }
             function ShowZohoAnalytics(pageLink) {
 
+                $('.cd-side-nav a').click();
                 var iframe = $("#frmZohoPage");
                 iframe.attr("src", pageLink);
                 $('.zohoPageDivParent').show();

@@ -389,18 +389,6 @@ body {
 .menu_frame_title {
     font-size: 20px;
 }
-[fieldtype ~="readonly"] {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    background: #d6d2d2 no-repeat 2px 2px;
-    padding: 1px 1px 1px 5px;
-    border: 1px solid #1c4f8a;
-    width: 90%;
-    display: inline-block;
-    cursor: url("../img/no-pencil-sign.png"),auto;
-}
 
 td > input[type=text], td > input[type=password],textarea {
     border-top-left-radius: 5px;
@@ -492,4 +480,16 @@ select:disabled {
     left: 0;   
     opacity: 1;
     z-index: 9999999;
+}
+[fieldtype ~="readonly"] {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: #d6d2d2;
+    padding: 1px 1px 1px 5px;
+    border: 1px solid #1c4f8a;
+    width: 90%;
+    display: inline-block;
+    cursor: url("../img/no-pencil-sign.png"),auto;
 }
