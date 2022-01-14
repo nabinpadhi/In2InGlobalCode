@@ -13,176 +13,173 @@
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
     <script src="../scripts/Validation.js" type="text/javascript" lang="javascript"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" />
-    <link href="css/Grid.css" rel="stylesheet" type="text/css" />   
+    <link href="css/Grid.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">
         <center>
-            <div style="width: 100%;height:435px; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
+            <div style="width: 100%; height: 435px; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
                 <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height: 40px; padding-top: 10px;"><span class="menu_frame_title">Template Management</span></div>
-                <asp:ScriptManager ID="Templatescriptmanager" runat="server">                    
-                </asp:ScriptManager>              
-                <asp:UpdatePanel  ID="pdnlTemplate" runat="server">                    
-                    <ContentTemplate>
-                           <asp:Button style="display:none" Text="Delete" OnClientClick="return true;" OnClick="btnFUCalbk_Click" ID="btnFUCalbk" runat="server" />
-                            <asp:HiddenField ID="hdnFUCalBkMsg" Value="" runat="server" />
+                           <div id="pnlTemplate" style="width: auto; height: auto; min-height: 345px; color: black">
+                            <div style="border-bottom: 0 solid gray; display: flex; padding: 2px; width: auto;">
+                                <div id="btnUploadMasterTemplate" onclick="ShowUploadMasterTemplate();" class="PanelTab">Upload Master Template </div>
+                                <div id="btnCreateTemplate" onclick="ShowCreateTemplate();" class="PanelTab">Create Template </div>
+                                <%--        <div style="margin-left:4px;" onclick="ShowAssignTemplate();" class="PanelTab" id="btnAssignTemplate">Assign Template</div>   --%>
+                            </div>
+                            <div title="Upload Master Template" class="upldmt" style="background-color: azure; padding: 100px">
+                                <table style="width: 100%; background-color: azure;">
+                                    <tr>
+                                        <td style="width: 85%;">
+                                            <center>
+                                                <div style="width: 60%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
+                                                    <table style="width: 100%;">
+                                                        <tr>
+                                                            <td style="width: 25%">Template Files</td>
+                                                            <td style="width: 5%">:</td>
+                                                            <td style="width: 70%">
+                                                                <asp:FileUpload AllowMultiple="true" accept=".csv" ID="tmpltFU" runat="server" /></td>
+                                                            <td>
+                                                                <asp:Button ID="btnUpload" OnClientClick="return UploadMasterTemplateFile();" class="button" runat="server" Text="Upload" />
 
-                        <div id="pnlTemplate" style="width:auto;height:auto;min-height:345px;color:black">
-                        <div style="border-bottom:0 solid gray;display:flex;padding:2px;width:auto;">
-                            <div id="btnUploadMasterTemplate" onclick="ShowUploadMasterTemplate();" class="PanelTab"> Upload Master Template </div>
-                            <div id="btnCreateTemplate" onclick="ShowCreateTemplate();" class="PanelTab"> Create Template </div>
-                    <%--        <div style="margin-left:4px;" onclick="ShowAssignTemplate();" class="PanelTab" id="btnAssignTemplate">Assign Template</div>   --%>                         
-                        </div>
-                        <div title="Upload Master Template" class="upldmt" style="background-color: azure;padding:100px">
-                             <table style="width: 100%; background-color: azure;">
-                                <tr>                                   
-                                    <td style="width:85%;">                                      
-                                        <center>                                           
-                                            <div style="width: 60%;border: 1px solid black; border-radius: 5px; margin-top: 5px;">
-                                                <table style="width:100%;">                                                    
-                                                     <tr><td style="width:25%">Template Files</td>
-                                                        <td style="width:5%">:</td>
-                                                        <td style="width:70%"><asp:FileUpload  AllowMultiple="true"  accept=".csv" ID="tmpltFU" runat="server" /></td>
-                                                        <td>
-                                                            <asp:Button ID="btnUpload" class="button" runat="server" Text="Upload" />
-                                                           
-                                                        </td>
-                                                    </tr>                                                    
-                                                </table>                                                                                    
-                                            </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
                                             </center>
                                         </td>
                                     </tr>
-                                 </table>
+                                </table>
                             </div>
-                        <div title="Create Template" class="crtpnl" style="background-color: azure;padding:5px;display:none;">
-                             <table style="width: 100%; background-color: azure;">
-                                <tr>                                   
-                                    <td style="width:85%;">                                      
-                                        <center>                                           
-                                            <div style="width: 60%; border: 1px solid black; border-radius: 5px; margin-top: 0px;">
-                                                <table>
-                                                    <tr>
-                                                        <td style="width:50%;">
-                                                            <table style="width:100%">
-                                                                <tr>
-                                                                    
-                                                                    <td style="width:40%">
-                                                                        Template Name(<span style="color: red">*</span>)<br />
-                                                                        <asp:DropDownList ID="ddlMasterTemplate" Width="92%" onchange="UpdateHdnTID();" AppendDataBoundItems="true" runat="server" DataValueField="template_id" DataTextField="file_name">
-                                                                            <asp:ListItem Text="--Select a Template--" ></asp:ListItem>
-                                                                        </asp:DropDownList>
-                                                                        <asp:HiddenField ID="hdnTID" Value="" runat="server" />                                                                        
-                                                                        <asp:HiddenField ID="hdnTName" runat="server" Value="" />        
-                                                                        <asp:Button runat="server" ID="hdnDelBtn" Text="" style="display:none;" OnClientClick="return true;" OnClick="hdnDelBtn_Click" />
-                                                         
-                                                                    </td>
-                                                                </tr>
-                                                                 <tr>
-                                                                    <td>
-                                                                        Created By(<span style="color: red">*</span>)                                                                        
-                                                                        <span fieldtype="readonly" value="" runat="server" id="txtcreatedB" />
-                                                                    </td>
-                                                                </tr>                                                                                                         
-                                                            </table>
-                                                        </td>
-                                                        <td  style="width:50%;">
-                                                            <table>
-                                                                <tr>
-                                                                    <td>
-                                                                        Instruction(<span style="color: red">*</span>)
-                                                                        <textarea rows="5" id="txtInstruction" class="txtInstruction" name="txtInstruction" style="resize:none; width: 97%; height: 70px;" runat="server"></textarea>
-                                                                        <asp:HiddenField ID="hdnMTName" Value="" runat="server" />
-                                                                    </td>
-
-                                                                </tr>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2">
-                                                            <center>
-                                                            <div style="margin-top: 0px;">
-                                                                    <asp:Button  ID="btnCreate" runat="server" OnClientClick="return ValidateMasterTemplate();" OnClick="btnCreate_Click"  CssClass="button" Text="Create" />
-                                                                    <input type="button" class="button" style="margin-left: 10px;" value="Cancel" onclick="ClearAll();" />                                                                                                                                  
-                                                            </div>
-                                                            </center>
-                                                        </td>
-                                                    </tr>                                                    
-                                                </table>
-                                            </div>                                          
-                                        </center>
-                                    </td>                       
-                                </tr>
-                                  <tr>
-                                    <td>
-                                        <center>                                           
-                                            <div style="width:60%; border: 1px solid black; border-radius: 5px; margin-top: 2px; margin-bottom: 2px;"> 
-                                                 <div class="AspNet-GridView">
-                                                <asp:GridView DataKeyNames="template_id" ID="grdMasterTemplate" runat="server" Width="100%" 
-                                                    HeaderStyle-CssClass="AspNet-GridView" EmptyDataRowStyle-HorizontalAlign="Center" EmptyDataText ="No Template has been created."
-                                                    AllowPaging="True" OnRowDataBound="grdMasterTemplate_RowDataBound" OnRowDeleting="grdMasterTemplate_RowDeleting" 
-                                                    OnPageIndexChanging="grdMasterTemplate_PageIndexChanging"  AutoGenerateColumns="false" PageSize="4">
-                                                    <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
-                                                    <Columns>
-                                                        <asp:BoundField HeaderText="Template Name" ItemStyle-Width="25%" DataField="template_name" />
-                                                        <asp:BoundField HeaderText="Created By" ItemStyle-Width="25%" DataField="created_by" />                                                                                                              
-                                                        <asp:BoundField HeaderText ="Instruction" ItemStyle-CssClass="specify" DataField="instruction"/>   
-                                                        <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Edit" >
-                                                            <ItemTemplate>
-                                                                <asp:Button ID="EditButton" CssClass="GridEditButton" runat="server" Text="" />               
-                                                            </ItemTemplate>
-                                                        </asp:TemplateField>      
-                                                        <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Delete" >
-                                                            <ItemTemplate>
-                                                                <asp:Button ID="DeleteButton" CssClass="GridDeleteButton" runat="server" Text="" />               
-                                                            </ItemTemplate>
-                                                        </asp:TemplateField>                                                                                                                
-                                                    </Columns>
-                                                     <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
-                                                </asp:GridView>
-</div>
-                                            </div>
-                                        
-                                        </center>
-                                    </td>
-                                </tr>
-                               
-                        </table>
-                        </div>
-                        <div title="Assign Template" class="Asgnpnl" style="background-color: azure;padding:10px;display:none;">
-                             <table style="width: 100%; background-color: azure;">
-                                <tr>
-                                 <td>
-                                    <center>
-                                        <div style="width: 60%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
-                                         <table style="width:100%">
+                            <asp:ScriptManager ID="Templatescriptmanager" runat="server">
+                </asp:ScriptManager>
+                
+                <asp:UpdatePanel ID="pdnlTemplate" runat="server">                  
+                    <ContentTemplate>
+                            <div title="Create Template" class="crtpnl" style="background-color: azure; padding: 5px; display: none;">
+                                <table style="width: 100%; background-color: azure;">
+                                    <tr>
+                                        <td style="width: 85%;">
+                                            <center>
+                                                <div style="width: 60%; border: 1px solid black; border-radius: 5px; margin-top: 0px;">
+                                                    <table>
                                                         <tr>
-                                                            <td style="width:40%;text-align:right;">Project Name(<span style="color: red">*</span>)</td>
-                                                            <td style="width:60%;padding-right:20%;">
-                                                                <asp:DropDownList ID="ddlProjects" OnSelectedIndexChanged="ddlProjects_SelectedIndexChanged" AppendDataBoundItems="true" style="width:80%;" runat="server" DataTextField="ProjectName">
-                                                                    <asp:ListItem Text="--Select a Project--" ></asp:ListItem>
-                                                                </asp:DropDownList>
+                                                            <td style="width: 50%;">
+                                                                <table style="width: 100%">
+                                                                    <tr>
+
+                                                                        <td style="width: 40%">Template Name(<span style="color: red">*</span>)<br />
+                                                                            <asp:DropDownList ID="ddlMasterTemplate" Width="92%" onchange="UpdateHdnTID();" AppendDataBoundItems="true" runat="server" DataValueField="template_id" DataTextField="file_name">
+                                                                                <asp:ListItem Text="--Select a Template--"></asp:ListItem>
+                                                                            </asp:DropDownList>
+                                                                            <asp:HiddenField ID="hdnTID" Value="" runat="server" />
+                                                                            <asp:HiddenField ID="hdnTName" runat="server" Value="" />
+                                                                            <asp:Button runat="server" ID="hdnDelBtn" Text="" style="display: none;" OnClientClick="return true;" OnClick="hdnDelBtn_Click" />
+                                                                            <asp:Button runat="server" ID="btnReload" Text="" style="display:none;" OnClientClick="return true;" OnClick="btnReload_Click" />
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Created By(<span style="color: red">*</span>)                                                                        
+                                                                        <span fieldtype="readonly" value="" runat="server" id="txtcreatedB" />
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
                                                             </td>
-                                                        </tr> 
-                                                         <tr>
-                                                            <td style="text-align:right;">Email Id(<span style="color: red">*</span>)</td>
-                                                            <td style="padding-right:20%;">                                                                
-                                                                <asp:DropDownList ID="ddlUserEmail" style="width:77%;" AppendDataBoundItems="true" runat="server" DataTextField="Email">
-                                                                    <asp:ListItem Text="--Select an Email--" ></asp:ListItem>
+                                                            <td style="width: 50%;">
+                                                                <table>
+                                                                    <tr>
+                                                                        <td>Instruction(<span style="color: red">*</span>)
+                                                                        <textarea rows="5" id="txtInstruction" class="txtInstruction" name="txtInstruction" style="resize: none; width: 97%; height: 70px;" runat="server"></textarea>
+                                                                            <asp:HiddenField ID="hdnMTName" Value="" runat="server" />
+                                                                        </td>
+
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2">
+                                                                <center>
+                                                                    <div style="margin-top: 0px;">
+                                                                        <asp:Button ID="btnCreate" runat="server" OnClientClick="return ValidateMasterTemplate();" OnClick="btnCreate_Click" CssClass="button" Text="Create" />
+                                                                        <input type="button" class="button" style="margin-left: 10px;" value="Cancel" onclick="ClearAll();" />
+                                                                    </div>
+                                                                </center>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <center>
+                                                <div style="width: 60%; border: 1px solid black; border-radius: 5px; margin-top: 2px; margin-bottom: 2px;">
+                                                    <div class="AspNet-GridView">
+                                                        <asp:GridView DataKeyNames="template_id" ID="grdMasterTemplate" runat="server" Width="100%"
+                                                            HeaderStyle-CssClass="AspNet-GridView" EmptyDataRowStyle-HorizontalAlign="Center" EmptyDataText="No Template has been created."
+                                                            AllowPaging="True" OnRowDataBound="grdMasterTemplate_RowDataBound" OnRowDeleting="grdMasterTemplate_RowDeleting"
+                                                            OnPageIndexChanging="grdMasterTemplate_PageIndexChanging" AutoGenerateColumns="false" PageSize="4">
+                                                            <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
+                                                            <Columns>
+                                                                <asp:BoundField HeaderText="Template Name" ItemStyle-Width="25%" DataField="template_name" />
+                                                                <asp:BoundField HeaderText="Created By" ItemStyle-Width="25%" DataField="created_by" />
+                                                                <asp:BoundField HeaderText="Instruction" ItemStyle-CssClass="specify" DataField="instruction" />
+                                                                <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Edit">
+                                                                    <ItemTemplate>
+                                                                        <asp:Button ID="EditButton" CssClass="GridEditButton" runat="server" Text="" />
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateField>
+                                                                <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Delete">
+                                                                    <ItemTemplate>
+                                                                        <asp:Button ID="DeleteButton" CssClass="GridDeleteButton" runat="server" Text="" />
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateField>
+                                                            </Columns>
+                                                            <PagerStyle HorizontalAlign="Center" CssClass="GridPager" />
+                                                        </asp:GridView>
+                                                    </div>
+                                                </div>
+
+                                            </center>
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                            <div title="Assign Template" class="Asgnpnl" style="background-color: azure; padding: 10px; display: none;">
+                                <table style="width: 100%; background-color: azure;">
+                                    <tr>
+                                        <td>
+                                            <center>
+                                                <div style="width: 60%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
+                                                    <table style="width: 100%">
+                                                        <tr>
+                                                            <td style="width: 40%; text-align: right;">Project Name(<span style="color: red">*</span>)</td>
+                                                            <td style="width: 60%; padding-right: 20%;">
+                                                                <asp:DropDownList ID="ddlProjects" OnSelectedIndexChanged="ddlProjects_SelectedIndexChanged" AppendDataBoundItems="true" Style="width: 80%;" runat="server" DataTextField="ProjectName">
+                                                                    <asp:ListItem Text="--Select a Project--"></asp:ListItem>
                                                                 </asp:DropDownList>
                                                             </td>
                                                         </tr>
-                                                          
-                                             <tr>
-                                                            <td style="text-align:right;">Template Name(<span style="color: red">*</span>)</td>
-                                                            <td style="padding-right:20%;">
-                                                                <asp:DropDownList ID="ddlTemplates" style="width:auto;" AppendDataBoundItems="true" runat="server" DataTextField="TemplateName">
-                                                                    <asp:ListItem Text="--Select a Template--" ></asp:ListItem>
+                                                        <tr>
+                                                            <td style="text-align: right;">Email Id(<span style="color: red">*</span>)</td>
+                                                            <td style="padding-right: 20%;">
+                                                                <asp:DropDownList ID="ddlUserEmail" Style="width: 77%;" AppendDataBoundItems="true" runat="server" DataTextField="Email">
+                                                                    <asp:ListItem Text="--Select an Email--"></asp:ListItem>
                                                                 </asp:DropDownList>
                                                             </td>
                                                         </tr>
-                                                         <tr>
+
+                                                        <tr>
+                                                            <td style="text-align: right;">Template Name(<span style="color: red">*</span>)</td>
+                                                            <td style="padding-right: 20%;">
+                                                                <asp:DropDownList ID="ddlTemplates" Style="width: auto;" AppendDataBoundItems="true" runat="server" DataTextField="TemplateName">
+                                                                    <asp:ListItem Text="--Select a Template--"></asp:ListItem>
+                                                                </asp:DropDownList>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
                                                             <td colspan="2">
                                                                 <div style="margin-top: 15px;">
                                                                     <center>
@@ -192,44 +189,45 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                                         <tr>
+                                                        <tr>
                                                             <td colspan="2">
                                                                 <center>
-                                                                    <div style="width: 97%; border: 1px solid black; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;">                                    
+                                                                    <div style="width: 97%; border: 1px solid black; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;">
                                                                         <div>
-                                                                        <asp:GridView DataKeyNames="template_id" ID="grdTemplate" runat="server" Width="100%" AllowPaging="True" 
-                                                                            OnRowDataBound="grdTemplate_RowDataBound" OnRowDeleting="grdTemplate_RowDeleting" 
-                                                                            OnPageIndexChanging="grdTemplate_PageIndexChanging" AutoGenerateColumns="false" PageSize="4" 
-                                                                            HeaderStyle-CssClass="AspNet-GridView" EmptyDataText="No file has been uploaded." 
-                                                                            SortedAscendingCellStyle-CssClass="SortedAscendingHeaderStyle" SortedDescendingCellStyle-CssClass="SortedDescendingHeaderStyle">
-                                                                             <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
-                                                                             <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
-                                                                            <Columns>
-                                                                                <asp:BoundField HeaderText="Template Name" DataField="TemplateName" />
-                                                                                <asp:BoundField HeaderText="Assigned On" DataField="DateAdded" />
-                                                                                <asp:BoundField HeaderText="Project Name" DataField="ProjectName" />
-                                                                                <asp:BoundField HeaderText="User Email" DataField="Email" />
-                                                                                <asp:CommandField ItemStyle-HorizontalAlign="Center" HeaderText="Action" ShowDeleteButton="true" />
-                                                                            </Columns>
-                                                                        </asp:GridView>
-                                                                            </div>
+                                                                            <asp:GridView DataKeyNames="template_id" ID="grdTemplate" runat="server" Width="100%" AllowPaging="True"
+                                                                                OnRowDataBound="grdTemplate_RowDataBound" OnRowDeleting="grdTemplate_RowDeleting"
+                                                                                OnPageIndexChanging="grdTemplate_PageIndexChanging" AutoGenerateColumns="false" PageSize="4"
+                                                                                HeaderStyle-CssClass="AspNet-GridView" EmptyDataText="No file has been uploaded."
+                                                                                SortedAscendingCellStyle-CssClass="SortedAscendingHeaderStyle" SortedDescendingCellStyle-CssClass="SortedDescendingHeaderStyle">
+                                                                                <PagerStyle HorizontalAlign="Center" CssClass="GridPager" />
+                                                                                <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
+                                                                                <Columns>
+                                                                                    <asp:BoundField HeaderText="Template Name" DataField="TemplateName" />
+                                                                                    <asp:BoundField HeaderText="Assigned On" DataField="DateAdded" />
+                                                                                    <asp:BoundField HeaderText="Project Name" DataField="ProjectName" />
+                                                                                    <asp:BoundField HeaderText="User Email" DataField="Email" />
+                                                                                    <asp:CommandField ItemStyle-HorizontalAlign="Center" HeaderText="Action" ShowDeleteButton="true" />
+                                                                                </Columns>
+                                                                            </asp:GridView>
+                                                                        </div>
                                                                     </div>
                                                                 </center>
                                                             </td>
                                                         </tr>
-                                                </table>                                        
-                                              </div>
-                                    </center>
-                                 </td>
-                                </tr></table>
-                      
+                                                    </table>
+                                                </div>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                </table>
+
                             </div>
-                       
-                    </div> 
-                        
                      </ContentTemplate>
                 </asp:UpdatePanel>
-            </div>           
+                        </div>
+
+                   
+            </div>
         </center>
     </form>
 
@@ -291,7 +289,20 @@
                 uploadingFileName = e.target.files[0].name;
 
             });
+           
+        });
+        $(document).ajaxStop(function () {
+            $("#tmpltFU").val('');
+            uploadingFileName = "";
+            RefreshMasterTemplate();
+        });
+        $('input[type="file"]').change(function (e) {
+            uploadingFileName = e.target.files[0].name;
 
+        });
+        $('input[type="file"]').click(function (e) {
+           
+            $(this).val(null);
 
         });
         function PullDataToEdit(template_id, templatename, instruction, master_template_id) {
@@ -452,15 +463,17 @@
 
         function ShowUploadMasterTemplate() {
             //$('.Asgnpnl').invisible();
-            $('.crtpnl').invisible();
-            $('.upldmt').visible();
-            $('#btnUploadMasterTemplate').css("background-color", "azure");
-            $('#btnUploadMasterTemplate').css("color", "blue");
+            
+                $('.crtpnl').invisible();
+                $('.upldmt').visible();
+                $('#btnUploadMasterTemplate').css("background-color", "azure");
+                $('#btnUploadMasterTemplate').css("color", "blue");
 
-            $('#btnCreateTemplate').css("background-color", "#2c3c59");
-            $('#btnCreateTemplate').css("color", "#fff");
-            $('#btnAssignTemplate').css("background-color", "#2c3c59");
-            $('#btnAssignTemplate').css("color", "#fff");
+                $('#btnCreateTemplate').css("background-color", "#2c3c59");
+                $('#btnCreateTemplate').css("color", "#fff");
+                $('#btnAssignTemplate').css("background-color", "#2c3c59");
+                $('#btnAssignTemplate').css("color", "#fff");
+            
 
         }
         function sleep(milliseconds) {
@@ -472,10 +485,7 @@
             }
         }
         function VerifyFile() {
-            $('input[type="file"]').change(function (e) {
-                uploadingFileName = e.target.files[0].name;
-
-            });
+           
             
             var winH = 50
             Error_Message = "";
@@ -517,7 +527,7 @@
             }
         }
        
-        $("#btnUpload").click(function (evt)
+       function UploadMasterTemplateFile ()
         {
             if (VerifyFile())
             {
@@ -529,18 +539,13 @@
                 for (var i = 0; i < files.length; i++) {
                     data.append(files[i].name, files[i]);
                 }
-                //moved  below parameters to session variables.
-               /* data.append("targetfolder", "./mastertemplate/");
-                data.append("uploadedby", $('#txtcreatedb').text());
-                data.append("forscreen", "templatemanagement");*/
-               
                
                 $.ajax({
                     url: "FileUploadHandler.ashx",
                     type: "POST",
                     data: data,
                     contentType: false,
-                    processData: false,
+                    processData: false,                 
                     beforeSend: function () {
 
                         window.parent.$('#navOverlay').show();
@@ -553,10 +558,10 @@
                         if (result != '') {
                                                         
                             result = result.replace('ShowException', '');
-                            RefreshTemplateNames(result);
-                            ShowServerMessage("Master Template Uploaded Successfully.");                          
                             $("#tmpltFU").val('');
                             uploadingFileName = "";
+                            ShowServerMessage("Master Template Uploaded Successfully.");                          
+                           
 
                         }
 
@@ -570,15 +575,16 @@
                         
                         window.parent.$('#navOverlayImg').hide();
                         window.parent.$('#navOverlay').hide();
+                        $("#tmpltFU").val('');
+                        uploadingFileName = "";
                         ShowCreateTemplate();
 
                     }
                 });
                 
             }
-          
-            evt.preventDefault();
-        }); 
+           return false;
+        } 
         function RefreshTemplateNames(templates) {
 
             if (templates.length > 0) {
@@ -593,11 +599,15 @@
                 }
                 $('#ddlMasterTemplate').val('last').change();
                 $("#ddlMasterTemplate").prop('selectedIndex', 0);
-            }
-
+        }
+       
+           
 
         }
-        
+        function RefreshMasterTemplate() {
+            $('#btnReload').click();
+          
+        }
     </script>
     <style type="text/css">
         body {

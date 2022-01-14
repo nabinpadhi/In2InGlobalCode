@@ -424,7 +424,7 @@ namespace In2InGlobal.presentation.admin
 
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
@@ -458,17 +458,6 @@ namespace In2InGlobal.presentation.admin
             }
         }
 
-
-
-
-        protected void btnFUCalbk_Click(object sender, EventArgs e)
-        {
-            string _message = hdnFUCalBkMsg.Value;
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), string.Format("ShowServerMessage('{0}');ShowUploadMasterTemplate(); ", _message), true);
-            hdnFUCalBkMsg.Value = "";
-        }
-        
-       
         /// <summary>
         /// grdMasterTemplate RowDataBound
         /// </summary>
@@ -608,7 +597,12 @@ namespace In2InGlobal.presentation.admin
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
         }
-       
+
+        protected void btnReload_Click(object sender, EventArgs e)
+        {
+            BindMasterTemplate();
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), "ShowCreateTemplate();", true);
+        }
     }
 
 }

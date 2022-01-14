@@ -12,6 +12,7 @@ using System.Drawing;
 using System.Security.Cryptography;
 using System.Text;
 using In2InGlobal.businesslogic;
+using System.Web.UI;
 
 namespace In2InGlobal.presentation.admin
 {
@@ -136,21 +137,34 @@ namespace In2InGlobal.presentation.admin
             LoginBl userMasterBL = new LoginBl();
             DataSet dsUser = new DataSet();            
             dsUser = userMasterBL.getMyLogin(emailid);
-            if (dsUser.Tables[0].Rows.Count > 0)
+            try
             {
-                DataTable usrTable = dsUser.Tables[0];
-            ///and paawrd = '" + password + "'"
-            password = new EncryptField().Encrypt(password);
-
-                if (usrTable.Select("paawrd='" + password + "'").Length > 0)
+                if (dsUser.Tables[0].Rows.Count > 0)
                 {
-                    DataRow userRow = dsUser.Tables[0].Rows[0];
+                    DataTable usrTable = dsUser.Tables[0];
+                    ///and paawrd = '" + password + "'"
+                    password = new EncryptField().Encrypt(password);
 
-                    result = "Success";
-                    HttpContext.Current.Session["UserRole"] = dsUser.Tables[0].Rows[0]["role_name"].ToString();
-                    HttpContext.Current.Session["UserEmail"] = dsUser.Tables[0].Rows[0]["user_email"].ToString();
-                    HttpContext.Current.Session["UserRow"] = userRow;
-                    HttpContext.Current.Session["dsUser"] = dsUser;
+                    if (usrTable.Select("paawrd='" + password + "'").Length > 0)
+                    {
+                        DataRow userRow = dsUser.Tables[0].Rows[0];
+
+                        result = "Success";
+                        HttpContext.Current.Session["UserRole"] = dsUser.Tables[0].Rows[0]["role_name"].ToString();
+                        HttpContext.Current.Session["UserEmail"] = dsUser.Tables[0].Rows[0]["user_email"].ToString();
+                        HttpContext.Current.Session["UserRow"] = userRow;
+                        HttpContext.Current.Session["dsUser"] = dsUser;
+                    }
+                    else
+                    {
+                        result = "Invalid email / password";
+                        HttpContext.Current.Session["UserRole"] = null;
+                        HttpContext.Current.Session["UserRow"] = null;
+                        HttpContext.Current.Session["UserEmail"] = null;
+                        HttpContext.Current.Session["dsUser"] = null;
+                    }
+
+
                 }
                 else
                 {
@@ -159,18 +173,25 @@ namespace In2InGlobal.presentation.admin
                     HttpContext.Current.Session["UserRow"] = null;
                     HttpContext.Current.Session["UserEmail"] = null;
                     HttpContext.Current.Session["dsUser"] = null;
+
                 }
-
-               
             }
-            else
+            catch(Exception)
             {
-                result = "Invalid email / password";
-                HttpContext.Current.Session["UserRole"] = null;
-                HttpContext.Current.Session["UserRow"] = null;
-                HttpContext.Current.Session["UserEmail"] = null;
-                HttpContext.Current.Session["dsUser"] = null;
+                if (HttpContext.Current.CurrentHandler is Page)
+                {
+                    Page page = (Page)HttpContext.Current.CurrentHandler;
 
+                    if (ScriptManager.GetCurrent(page) != null)
+                    {
+                        ScriptManager.RegisterStartupScript(page, typeof(Page), "ApprovalHistory", "window.ShowException();", true);
+                    }
+                    else
+                    {
+                        page.ClientScript.RegisterStartupScript(typeof(Page), "ApprovalHistory", "window.ShowException();", true);
+                    }
+                }
+               
             }
             return result;
         }
@@ -203,20 +224,27 @@ namespace In2InGlobal.presentation.admin
                 LoginBl userMasterBL = new LoginBl();
                 DataSet dsUser = new DataSet();
                 dsUser = userMasterBL.getMyLogin(useremail);
-                if (dsUser.Tables[0].Rows.Count > 0)
+                try
                 {
-                    companyname.Text = dsUser.Tables[0].Rows[0]["company_name"].ToString();
-                    Session["CompanyName"]= dsUser.Tables[0].Rows[0]["company_name"].ToString();                   
-                    companyname.Enabled = false;
-                    Session["dsUser"] = dsUser;
+                    if (dsUser.Tables[0].Rows.Count > 0)
+                    {
+                        companyname.Text = dsUser.Tables[0].Rows[0]["company_name"].ToString();
+                        Session["CompanyName"] = dsUser.Tables[0].Rows[0]["company_name"].ToString();
+                        companyname.Enabled = false;
+                        Session["dsUser"] = dsUser;
+                    }
+                    else
+                    {
+                        companyname.Text = "No Company";
+                        loginbtn.Disabled = true;
+                        HttpContext.Current.Session["UserRole"] = null;
+                        HttpContext.Current.Session["UserRow"] = null;
+                        HttpContext.Current.Session["UserEmail"] = null;
+                    }
                 }
-                else
+                catch(Exception)
                 {
-                    companyname.Text = "No Company";
-                    loginbtn.Disabled = true;
-                    HttpContext.Current.Session["UserRole"] = null;
-                    HttpContext.Current.Session["UserRow"] = null;
-                    HttpContext.Current.Session["UserEmail"] = null;
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.ShowException();", true);
                 }
             }
         }

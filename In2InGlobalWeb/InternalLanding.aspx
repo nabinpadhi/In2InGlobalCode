@@ -117,7 +117,7 @@
                         <div class="holds-the-iframe" style="width: 99.9%;height:93%;"><iframe style="width: inherit;height:inherit;" id="frmZohoPage" src="about:blank"></iframe></div>
                     </div>
                  </center>
-                <div class="holds-the-iframe"  style="width: 100%; height: 90%"><iframe style="width: inherit; height: inherit;background-color:azure;" id="frmTarget" src="about:blank"></iframe></div>
+                <div class="holds-the-iframe"  style="height: 90%"><iframe style="width: inherit; height: inherit;background-color:azure;" id="frmTarget" src="about:blank"></iframe></div>
                 
             <div style="position: sticky; margin-left: auto;">
                     <div class="footerDiv" style="background: #212121;padding: 10px 0;height:50px;">
@@ -167,9 +167,10 @@
                 });
 
                 $('.cd-side-nav a').click(function () {
+                   
                     $('.cd-side-nav').hide();
                     $('.NavViewer').show();
-                    $('.holds-the-iframe').css("width", width - 20);
+                    $('.holds-the-iframe').css("width", width - 20);                   
                     $('.zohoPageDivParent').css("width", width - 20);
                     $('.csvPageDivParent').css("width", width / 2);
                     $('#frmCSVPage').css("width", (width / 2) - 2);

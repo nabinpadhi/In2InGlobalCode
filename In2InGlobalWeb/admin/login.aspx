@@ -16,10 +16,35 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
   <link href="css/admin.css" rel="stylesheet">
         <link href="css/login.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/black/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/icon.css" />
+      <script src="../NewJEasyUI/jquery.min.js" type="text/javascript" lang="javascript"></script>
+    <script src="../NewJEasyUI/jquery.easyui.min.js" type="text/javascript" lang="javascript"></script>
    <!-- <link href="css/admin.css" rel="stylesheet">-->
+<script type="text/javascript">
+    function ShowException() {
 
+        document.getElementById('exceptionDivParent').style.display = "block";
+
+    }
+    function ShowHidden() { }
+</script>
 </head> 
 <body class="bg-gradient-primary">
+    <center>
+        <div id="exceptionDivParent" style="position:fixed; left:400px;top:50px; display: none; 
+                                            text-align: left; border: 1px solid black; border-radius: 5px; 
+                                            width: 400px; height: 300px; margin-top: 100px; background-color: silver;z-index:9999">
+            <div class="panel-header panel-header-noborder window-header" style="width: 100%;">
+                <div class="panel-title panel-with-icon" style="">Error While Processing Request</div>
+                <div class="panel-icon icon-no"></div>
+                <div class="panel-tool"><a class="panel-tool-close" href="#"></a></div>
+            </div>
+            <div style="width: inherit; height: inherit; text-align: center; position: relative;">
+                <img style="margin-top: 30px;" src="../img/ohNo.png" /><br />
+                <span style="color: red; font-size: medium; font-weight: bold"><i>Oh No!</i> Something has gone wrong</span></div>
+        </div>
+    </center>
     <div style="position:fixed;left:10px;top:10px;"><img src="../images/in2ingloballogo.png" style="width:27%;" /></div>
 	<div class="login-page">        
 		<div class="container m-auto">            
@@ -55,7 +80,7 @@
                           </td>
                           <td>
                               <div>
-                                  <asp:TextBox Text="" ID="companyname" AutoPostBack="true" fieldtype="readonly"  class="form-control"  runat="server"  autocomplete="off" name="companyname"> </asp:TextBox>
+                                  <asp:TextBox Text="" ID="companyname" AutoPostBack="true" ReadOnly="true" fieldtype="readonly"  class="form-control"  runat="server"  autocomplete="off" name="companyname"> </asp:TextBox>
                               </div>
                           </td>
                       </tr>
@@ -161,6 +186,11 @@
                 $('.loginButton').prop('disabled', true);
             }
         });
+        $('.panel-tool-close').click(function () {
+           
+            $('#exceptionDivParent').hide();
+
+        });
     });
     function FillCompany(email) {
 
@@ -229,8 +259,7 @@
     function Demo() {
         $('#email').val('nabinpadhi@gmail.com');
     }
-
-
+    
 </script>
 <script src="<%= String.Format("{0}dt={1}",ResolveUrl("js/login.js?"), DateTime.Now.Ticks) %>"></script>
 <script src="js/jquery.cookie.js"></script>
