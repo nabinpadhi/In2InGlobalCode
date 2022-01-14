@@ -73,10 +73,9 @@
                                                                             <asp:ListItem Text="--Select a Template--" ></asp:ListItem>
                                                                         </asp:DropDownList>
                                                                         <asp:HiddenField ID="hdnTID" Value="" runat="server" />                                                                        
-                                                                         <asp:HiddenField ID="hdnReload" Value="" runat="server" />
                                                                         <asp:HiddenField ID="hdnTName" runat="server" Value="" />        
                                                                         <asp:Button runat="server" ID="hdnDelBtn" Text="" style="display:none;" OnClientClick="return true;" OnClick="hdnDelBtn_Click" />
-                                                                        <asp:Button runat="server" ID="hdnReloadBtn" Text="" style="display:none" OnClientClick="return true;" OnClick="hdnReloadBtn_Click" />
+                                                         
                                                                     </td>
                                                                 </tr>
                                                                  <tr>
@@ -558,7 +557,6 @@
                             ShowServerMessage("Master Template Uploaded Successfully.");                          
                             $("#tmpltFU").val('');
                             uploadingFileName = "";
-                           
 
                         }
 
@@ -583,21 +581,19 @@
         }); 
         function RefreshTemplateNames(templates) {
 
-            /*if (templates.length > 0) {
+            if (templates.length > 0) {
                 var myTemplates = $.parseJSON(templates);
                 $('#ddlMasterTemplate').html('');
-                var myDdl = document.getElementById('ddlMasterTemplate');    
-                myDdl.innerHTML = "<option selected='selected' value='0'>--Select a Template--</option>";
+                var myDdl = document.getElementById("<%=ddlMasterTemplate.ClientID %>");    
+                myDdl.innerHTML = "<option value='--Select a Template--'>--Select a Template--</option>";
                 for (var i = 0; i < myTemplates.length; i++) {
                   
                     myDdl.innerHTML = myDdl.innerHTML + "<option value='" + myTemplates[i]['template_id'] + "'>" + myTemplates[i]['file_name'] + "</option>";
                   
                 }
-                $('#ddlMasterTemplate').val('first').change();
+                $('#ddlMasterTemplate').val('last').change();
                 $("#ddlMasterTemplate").prop('selectedIndex', 0);
-            }*/
-            $('#hdnReload').val('ReloadMasterTemplate');
-            $('#hdnReloadBtn').click();
+            }
 
 
         }
@@ -627,16 +623,15 @@
             color: yellow;
         }
 
-       .specify {
+        .specify {
             overflow: hidden;
             text-overflow: ellipsis;
             max-height: 20px;
             height: 20px;
             word-break: break-all;
             word-wrap: break-word;
-            display: inline-block;
-            white-space: nowrap;
-            Width: 386px;
+            display: block;
+            border: none;
         }
 
         .messager-body.panel-body.panel-body-noborder.window-body {

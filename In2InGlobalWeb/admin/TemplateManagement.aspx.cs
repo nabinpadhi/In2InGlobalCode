@@ -112,24 +112,26 @@ namespace In2InGlobal.presentation.admin
         /// </summary>
         private void BindMasterTemplate()
         {           
-            DataSet dsloadTemplate = GetMasterTemplates();           
+            DataSet dsloadTemplate = GetMasterTemplates();
             try
-            {                
+            {
                 if (dsloadTemplate.Tables[0].Rows.Count > 0)
-                {                   
+                {
                     ddlMasterTemplate.Items.Clear();
                     ddlMasterTemplate.DataTextField = "file_name";
                     ddlMasterTemplate.DataValueField = "template_id";
-                    ddlMasterTemplate.Items.Insert(0,new ListItem("--Select a Template--"));
-                    ddlMasterTemplate.DataSource = dsloadTemplate.Tables[0];                    
+                    ddlMasterTemplate.Items.Insert(0, new ListItem("--Select a Template--"));
+                    ddlMasterTemplate.DataSource = dsloadTemplate.Tables[0];
                     ddlMasterTemplate.DataBind();
-                    Session["TemplateInfo"] = dsloadTemplate.Tables[0];
+
                 }
+                
             }
             catch (Exception ex)
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
+           
         }
 
         private DataSet GetMasterTemplates()
@@ -510,12 +512,7 @@ namespace In2InGlobal.presentation.admin
             string masterTemplateId = "";
             try
             {
-                if (Session["TemplateInfo"] == null)
-                {
-                    BindMasterTemplate();
-                }
-                
-                DataTable masterTemplateDDLDT = (DataTable)Session["TemplateInfo"];
+                DataTable masterTemplateDDLDT = GetMasterTemplates().Tables[0];
                 if (masterTemplateDDLDT != null)
                 {
                     if (masterTemplateDDLDT.Rows.Count > 0)
@@ -611,25 +608,7 @@ namespace In2InGlobal.presentation.admin
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
         }
-
-        protected void hdnReloadBtn_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (hdnReload.Value == "ReloadMasterTemplate")
-                {
-                    BindMasterTemplate();
-                }
-              
-                string _message = "Master Template Uploaded successfully.";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowCreateTemplate();", _message), true);
-                hdnReload.Value = "";
-            }
-            catch (Exception ex)
-            {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
-            }
-        }
+       
     }
 
 }

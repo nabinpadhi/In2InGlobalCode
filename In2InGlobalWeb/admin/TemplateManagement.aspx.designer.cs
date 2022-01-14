@@ -96,15 +96,6 @@ namespace In2InGlobal.presentation.admin
         protected global::System.Web.UI.WebControls.HiddenField hdnTID;
 
         /// <summary>
-        /// hdnReload control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnReload;
-
-        /// <summary>
         /// hdnTName control.
         /// </summary>
         /// <remarks>
@@ -121,15 +112,6 @@ namespace In2InGlobal.presentation.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button hdnDelBtn;
-
-        /// <summary>
-        /// hdnReloadBtn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button hdnReloadBtn;
 
         /// <summary>
         /// txtcreatedB control.
