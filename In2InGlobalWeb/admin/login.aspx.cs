@@ -13,13 +13,16 @@ using System.Security.Cryptography;
 using System.Text;
 using In2InGlobal.businesslogic;
 using System.Web.UI;
+using System.Configuration;
 
 namespace In2InGlobal.presentation.admin
 {
     public partial class login : System.Web.UI.Page
     {
+                      
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             if (!IsPostBack)
             {
                // BindActivity(Request.Form["email"]);
@@ -96,14 +99,15 @@ namespace In2InGlobal.presentation.admin
         /// <returns></returns>
         private static string GetForgotPasswordHTMLBody(string userName, string emailid)
         {
+            
 
             string htmlBody = "";
-
+            string hostedSite = ConfigurationManager.AppSettings["HostedSite"];
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            htmlBody = (new WebClient()).DownloadString("http://localhost:26677/tools/fgpwdhtmlformat.html");
+            htmlBody = (new WebClient()).DownloadString( hostedSite  + "/tools/fgpwdhtmlformat.html");
             htmlBody = htmlBody.Replace("${user-name}", userName);
-            htmlBody = htmlBody.Replace("${site-url}", "http://localhost:26677/admin/login.aspx");
+            htmlBody = htmlBody.Replace("${site-url}", "hostedSite/admin/login.aspx");
             htmlBody = htmlBody.Replace("${site-name}", "In2In Global pvt. ltd.");
             htmlBody = htmlBody.Replace("${customer-service-email}", "in2inglobalapp@gmail.com");
             htmlBody = htmlBody.Replace("${site-toll-free-number}", "1200-987654");
@@ -119,7 +123,8 @@ namespace In2InGlobal.presentation.admin
         /// <returns></returns>
         private static string GetResetURL(string emailid)
         {
-            string result = "http://localhost:26677/ResetPassword.aspx?fw=" + StringUtil.Crypt(emailid);
+            string hostedSite = ConfigurationManager.AppSettings["HostedSite"];
+            string result = hostedSite + "/ResetPassword.aspx?fw=" + StringUtil.Crypt(emailid);
             return result;
         }
 

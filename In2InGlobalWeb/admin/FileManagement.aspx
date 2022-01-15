@@ -92,9 +92,9 @@
                                 <tr>
                                     <td style="width: 50%;">
                                         <center>
-                                            <div style="width: 70%; border: 1px solid black; border-radius: 5px; margin-top:5px; margin-bottom:10px;"> 
+                                            <div style="width: 61.6%; border: 1px solid black; border-radius: 5px; margin-top:5px; margin-bottom:10px;"> 
                                                 <div class="AspNet-GridView">
-                                                <asp:GridView DataKeyNames="project_id" ID="grdProject" runat="server" Width="100%" AllowPaging="True" OnRowDataBound="grdProject_RowDataBound"
+                                                <asp:GridView DataKeyNames="project_id" ID="grdProject" runat="server" Width="95%" AllowPaging="True" OnRowDataBound="grdProject_RowDataBound"
                                                     OnPageIndexChanging="grdProject_PageIndexChanging"  AutoGenerateColumns="false" PageSize="4"
                                                     HeaderStyle-CssClass="AspNet-GridView" EmptyDataText="No file has been uploaded." >
                                                      <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
@@ -110,7 +110,7 @@
                                                                 <asp:Label ID="lblCreatedBy" runat="server" Text='<%# Bind("created_by") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>                                                          
-                                                        <asp:BoundField ItemStyle-Wrap="true" HeaderText="Description"  DataField="description" />  
+                                                        <asp:BoundField HeaderStyle-CssClass="specify" ItemStyle-CssClass="specify" ItemStyle-Width="452px" HeaderStyle-Width="452px" HeaderText="Description"  DataField="description" />  
                                                          <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Edit" >
                                                             <ItemTemplate>
                                                                 <asp:Button ID="EditButton" CssClass="GridEditButton" runat="server" Text="" />               
@@ -175,7 +175,7 @@
                                                                                             <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
                                                                                             <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
                                                                                             <Columns>
-                                                                                                    <asp:TemplateField HeaderStyle-CssClass="specify" ItemStyle-CssClass="specify" ItemStyle-Width="150px" HeaderStyle-Width="152px" HeaderText="File Name">
+                                                                                                    <asp:TemplateField HeaderStyle-CssClass="specify" ItemStyle-CssClass="specify" ItemStyle-Width="252px" HeaderStyle-Width="252px" HeaderText="File Name">
                                                                                                         <ItemTemplate>
                                                                                                             <a href='#' title=" <%# DataBinder.Eval(Container.DataItem, "template_file_name")%>" onclick="OpenCSV('<%# DataBinder.Eval(Container.DataItem, "template_file_name") %>');">
                                                                                                                 <%# DataBinder.Eval(Container.DataItem, "template_file_name")%>

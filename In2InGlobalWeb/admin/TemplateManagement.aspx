@@ -124,7 +124,7 @@
                                                             <Columns>
                                                                 <asp:BoundField HeaderText="Template Name" ItemStyle-Width="25%" DataField="template_name" />
                                                                 <asp:BoundField HeaderText="Created By" ItemStyle-Width="25%" DataField="created_by" />
-                                                                <asp:BoundField HeaderText="Instruction" ItemStyle-CssClass="specify" DataField="instruction" />
+                                                                <asp:BoundField HeaderText="Instruction" HeaderStyle-CssClass="specify" ItemStyle-CssClass="specify" ItemStyle-Width="290px" HeaderStyle-Width="290px" DataField="instruction" />
                                                                 <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Edit">
                                                                     <ItemTemplate>
                                                                         <asp:Button ID="EditButton" CssClass="GridEditButton" runat="server" Text="" />
@@ -633,17 +633,16 @@
             color: yellow;
         }
 
-        .specify {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-height: 20px;
-            height: 20px;
-            word-break: break-all;
-            word-wrap: break-word;
-            display: block;
-            border: none;
-        }
-
+         .specify {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-height: 20px;
+        height: 20px;
+        word-break: break-all;
+        word-wrap: break-word;
+        display:inline-block;     
+         white-space: nowrap;
+    }
         .messager-body.panel-body.panel-body-noborder.window-body {
             width: 278px;
             height: 32px;

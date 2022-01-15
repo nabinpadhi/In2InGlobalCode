@@ -50,11 +50,15 @@ namespace In2InGlobal.presentation.admin
                             usrEmailTR.Visible = true;
                             searchTemplatePanel.Visible = true;
                             BindTemplateGrid("", ddlUsrEmailId.SelectedItem.Text);
+                            grdUploadedFiles.Columns[0].ItemStyle.Width = 150;
+                            grdUploadedFiles.Columns[0].HeaderStyle.Width = 152;
                         }
                         else
                         {
                             searchTemplatePanel.Visible = false;
-                                                        
+                            grdUploadedFiles.Columns[0].ItemStyle.Width = 252;
+                            grdUploadedFiles.Columns[0].HeaderStyle.Width = 252;
+
                         }
 
                     }
