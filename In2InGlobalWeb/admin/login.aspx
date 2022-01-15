@@ -107,7 +107,7 @@
               </form>
               <hr>
               <div class="text-center">
-                <a class="small" id="forget_ps" href="javascript:void(0)">Forgot Password?</a> <a class="small" style="margin-left:50px;color:blue;" id="zohoLink" href=" https://analytics.zoho.in/open-view/210664000000009321">Zoho Analytics</a>
+                <a class="small" id="forget_ps" href="javascript:void(0)">Forgot Password?</a> <a class="small" style="margin-left:50px;color:blue;" id="zohoLink" href="https://analytics.zoho.in/open-view/210664000000116357/1940ea90f91aeff6411ba0a13cb9d6f2">Analytics Dashboard</a>
                    
               </div>
             </div>

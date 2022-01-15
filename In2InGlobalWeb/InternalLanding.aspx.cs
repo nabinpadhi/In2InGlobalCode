@@ -27,7 +27,7 @@ namespace In2InGlobal.presentation.admin
                     comMngmnt.Visible = true;
                     tmpltMngmnt.Visible = true;
                     divConfiguration.Visible = true;
-                    ancAnalytics.Attributes.Add("onclick", "javascript:OpenPage('https://analytics.zoho.in/workspace/210664000000004003');");
+                    ancAnalytics.Attributes.Add("onclick", "javascript:OpenPage('https://analytics.zoho.in/open-view/210664000000116357/1940ea90f91aeff6411ba0a13cb9d6f2');");
                     ancConfiguration.Attributes.Add("onclick", "javascript:OpenPage('admin/AnalyticConfiguration.aspx');");
                 }
                 BuildAnalyticsProjectList(LoggedInUsrRole);
