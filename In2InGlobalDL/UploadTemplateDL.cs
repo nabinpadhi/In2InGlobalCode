@@ -672,5 +672,45 @@ namespace In2InGlobal.datalink
             }
 
         }
+        public DataSet GetAnalyticsProcessedDataSchema(UploadTemplateEntity uploadTemplateEntity)
+        {
+            string tableName = uploadTemplateEntity.FileName;
+
+            tableName = tableName + "_" + "Processed";
+            BaseRepository baseRepo = new BaseRepository();
+            DataSet dsAnalyticsProcessedData = new DataSet();
+            NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
+
+            string query = $"SELECT * FROM dbo.{tableName}  where user_email ='{uploadTemplateEntity.UserEmail}' AND project_name ='{uploadTemplateEntity.ProjectName}' limit 1 ";
+            using (var connection = baseRepo.GetDBConnection())
+            {
+                try
+                {
+                    connection.Open();
+                    NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
+                    npgsqlCommand.CommandType = CommandType.Text;
+                    npgsqlDataAdapter.SelectCommand = npgsqlCommand;
+                    npgsqlDataAdapter.Fill(dsAnalyticsProcessedData);
+
+                    if (dsAnalyticsProcessedData.Tables[0].Columns.Count > 0)
+                    {
+                        if (dsAnalyticsProcessedData.Tables[0].Columns.Contains("id"))
+                            dsAnalyticsProcessedData.Tables[0].Columns.Remove("id");
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Dispose();
+                    npgsqlDataAdapter.Dispose();
+                }
+
+                return dsAnalyticsProcessedData;
+            }
+        }
     }
 }

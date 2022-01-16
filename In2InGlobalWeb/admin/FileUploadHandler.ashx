@@ -71,7 +71,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
             SaveUploadMasterTemplateFile(filePath, file.FileName.Replace(".csv", ""), uploadedBy);
 
             context.Response.ContentType = "text/plain";
-            context.Response.Write(GetMasterTemplatesJSON());
+            context.Response.Write("File uploaded successfully.");
             context.Response.End();
         }
         else
@@ -199,67 +199,149 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
 
     private void StartFileManagementTask(HttpContext context, HttpPostedFile file, string filePath, string uploadedBy)
     {
-        if (!CheckUploadedFileHaveOnlyHeader(file))
+        string projectName = context.Session["SelectedProjectName"].ToString();
+        string fileName = file.FileName;
+        string selectedTemplate =  HttpContext.Current.Session["TemplateName"].ToString();;
+        fileName = fileName.Replace(".csv", "~" + uploadedBy.Replace(" ", "") + "~" + projectName + ".csv");
+        string filePathWithFileName = context.Server.MapPath(filePath + fileName);
+
+        if (CheckUploadedFileSchema(selectedTemplate, uploadedBy, projectName, context, file))
         {
-            string projectName = context.Session["SelectedProjectName"].ToString();
-            string fileName = file.FileName;
-
-            fileName = fileName.Replace(".csv", "~" + uploadedBy.Replace(" ", "") + "~" + projectName + ".csv");
-            string filePathWithFileName = context.Server.MapPath(filePath + fileName);
-
-            if (!System.IO.File.Exists(filePathWithFileName))
+            if (!CheckUploadedFileHaveOnlyHeader(file))
             {
-                file.SaveAs(filePathWithFileName);
-                //call the function to db entry
-                SaveUploadTemplateInformationInDB(fileName, uploadedBy, projectName, context, filePathWithFileName);
 
-                context.Response.ContentType = "text/plain";
-                context.Response.Write("File Uploaded Successfully.");
-                context.Response.End();
-            }
-            else
-            {
-                if (!IsBothCSVFileDataAreSame(filePathWithFileName, file))
+                if (!System.IO.File.Exists(filePathWithFileName))
                 {
-                    string tempfileName = "";
-                    int counter = 1;
-                    while (System.IO.File.Exists(filePathWithFileName))
-                    {
-                        fileName = fileName.Replace(".csv", "");
-                        tempfileName = fileName + "-" + "V-" + counter.ToString() + ".csv";
-                        filePathWithFileName = filePath + tempfileName;
-                        filePathWithFileName = context.Server.MapPath(filePathWithFileName);
-                        counter++;
-                    }
-                    fileName = tempfileName;
-
-                    file.SaveAs(context.Server.MapPath(System.IO.Path.Combine(filePath, fileName)));
+                    file.SaveAs(filePathWithFileName);
+                    //call the function to db entry
                     SaveUploadTemplateInformationInDB(fileName, uploadedBy, projectName, context, filePathWithFileName);
+
                     context.Response.ContentType = "text/plain";
                     context.Response.Write("File Uploaded Successfully.");
                     context.Response.End();
                 }
                 else
                 {
-                    context.Response.ContentType = "text/plain";
-                    context.Response.Write("Uploaded data already exists.");
-                    context.Response.End();
-                }
-                //context.Response.ContentType = "text/plain";
-                //context.Response.Write("File Uploaded Successfully.");
-                //context.Response.End();
+                    if (!IsBothCSVFileDataAreSame(filePathWithFileName, file))
+                    {
+                        string tempfileName = "";
+                        int counter = 1;
+                        while (System.IO.File.Exists(filePathWithFileName))
+                        {
+                            fileName = fileName.Replace(".csv", "");
+                            tempfileName = fileName + "-" + "V-" + counter.ToString() + ".csv";
+                            filePathWithFileName = filePath + tempfileName;
+                            filePathWithFileName = context.Server.MapPath(filePathWithFileName);
+                            counter++;
+                        }
+                        fileName = tempfileName;
+                        //if (CheckUploadedFileSchema(fileName, uploadedBy, projectName, context, filePathWithFileName))
+                        //{
+                        file.SaveAs(context.Server.MapPath(System.IO.Path.Combine(filePath, fileName)));
+                        SaveUploadTemplateInformationInDB(fileName, uploadedBy, projectName, context, filePathWithFileName);
+                        context.Response.ContentType = "text/plain";
+                        context.Response.Write("File Uploaded Successfully.");
+                        context.Response.End();
+                        //}
+                        //else
+                        //{
+                        //    context.Response.ContentType = "text/plain";
+                        //    context.Response.Write("Upload Failed :- Invalid Template Header.");
+                        //    context.Response.End();
+                        //}
+                    }
+                    else
+                    {
+                        context.Response.ContentType = "text/plain";
+                        context.Response.Write("Uploaded data already exists.");
+                        context.Response.End();
+                    }
+                    //context.Response.ContentType = "text/plain";
+                    //context.Response.Write("File Uploaded Successfully.");
+                    //context.Response.End();
 
+                }
+            }
+            else
+            {
+                context.Response.ContentType = "text/plain";
+                context.Response.Write("Upload Failed : File is not in correct format.");
+                context.Response.End();
             }
         }
         else
         {
+            //delete uploaded file    
             context.Response.ContentType = "text/plain";
-            context.Response.Write("Upload Failed : File is not in correct format.");
+            context.Response.Write("Upload Failed :- Invalid Template Header.");
             context.Response.End();
         }
 
     }
+    private bool CheckUploadedFileSchema(string fileName, string uploadBy, string projectName, HttpContext context,  HttpPostedFile file)
+    {
+        UploadTemplateEntity templateEntity = new UploadTemplateEntity();
+        Boolean _result = false;
+        if (projectName != null && fileName != null)
+        {
+            templateEntity.FileName = fileName;
+            templateEntity.ProjectName = projectName;
+            templateEntity.CreatedBy = uploadBy;
+            templateEntity.RoleName = context.Session["UserRole"].ToString();
+            templateEntity.UserEmail = context.Session["UserEmail"].ToString();
+            templateEntity.Status = "Success";
 
+            UploadTemplateBL uploadTemplateBl = new UploadTemplateBL();
+
+            DataTable _processedTable =  uploadTemplateBl.GetAnalyticsProcessedDataSchema(templateEntity).Tables[0];
+
+            StreamReader uploadedFS = new StreamReader(file.InputStream);
+            uploadedFS.BaseStream.Position = 0;
+            TextReader uploaderFileTextReader = new StreamReader(uploadedFS.BaseStream);
+            //(Stream)uploaderFileTextReader.BaseStream.Position = 0;
+            DataTable _uploadedTemplateDataTable = new CSVReader(uploaderFileTextReader).CreateDataTable(true);
+            //_uploadedTemplateDataTable = GetUpdatedTemplateDataTable(fileName, filePathWithFileName, templateEntity);
+
+            foreach (DataColumn _dc in _uploadedTemplateDataTable.Columns)
+            {
+                _dc.ColumnName = _dc.ColumnName.Replace(" / ", "_or_").Replace(" ", "_");
+            }
+            _processedTable.Columns.Remove("project_name");
+            _processedTable.Columns.Remove("user_email");
+            _processedTable.Columns.Remove("uploaded_by");
+            _processedTable.Columns.Remove("is_processed");
+            _result = IsBothTableSchemaSame(_uploadedTemplateDataTable,_processedTable);
+        }
+        return _result;
+    }
+    private bool IsBothTableSchemaSame(DataTable sessionDataTable, DataTable processedDataTable)
+    {
+        bool _result = false;
+        if (sessionDataTable != null && processedDataTable != null)
+        {
+            if (sessionDataTable.Columns.Count != processedDataTable.Columns.Count)
+            {
+                _result = false;
+            }
+            else
+            {
+                for (int i=0;i < processedDataTable.Columns.Count;i++)
+                {
+                    if(processedDataTable.Columns[i].ColumnName.ToLower() != sessionDataTable.Columns[i].ColumnName.ToLower())
+                    {
+                        _result = false;
+                        break;
+                    }
+                    _result = true;
+                }
+            }
+        }
+        else
+        {
+            _result = false;
+        }
+        return _result;
+    }
     private void SaveUploadTemplateInformationInDB(string fileName, string uploadBy, string projectName, HttpContext context, string filePathWithFileName)
     {
         UploadTemplateEntity templateEntity = new UploadTemplateEntity();
@@ -276,25 +358,31 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
 
             UploadTemplateBL uploadTemplateBl = new UploadTemplateBL();
             uploadTemplateBl.SaveAssignedTemplate(templateEntity);
-            string templateName = fileName.Replace(".csv", "");
-            string masterTemplateName = HttpContext.Current.Session["TemplateName"].ToString();
-            DataTable _uploadedTemplateDataTable = new DataTable(masterTemplateName);
-            _uploadedTemplateDataTable = AddOptionalColumns(_uploadedTemplateDataTable);
-            using (CsvReader.CsvReader _csvTableLoader = new CsvReader.CsvReader(new StreamReader(System.IO.File.OpenRead(filePathWithFileName)), true))
-            {
-
-                _uploadedTemplateDataTable.Load(_csvTableLoader);
-            }
-            foreach (DataColumn _dc in _uploadedTemplateDataTable.Columns)
-            {
-                _dc.ColumnName = _dc.ColumnName.Replace(" / ", "_or_").Replace(" ", "_");
-            }
-            templateEntity.FileName = masterTemplateName;
-
-            _uploadedTemplateDataTable = UpdateOptionalColumnValue(_uploadedTemplateDataTable, templateEntity);
-            //Table name will tell u where tp insert data;
+            DataTable _uploadedTemplateDataTable = GetUpdatedTemplateDataTable(fileName,filePathWithFileName,templateEntity);
             uploadTemplateBl.SaveUploadTemplate(_uploadedTemplateDataTable, templateEntity);
         }
+
+    }
+    private DataTable GetUpdatedTemplateDataTable(string fileName,string filePathWithFileName,UploadTemplateEntity templateEntity)
+    {
+        string templateName = fileName.Replace(".csv", "");
+        string masterTemplateName = HttpContext.Current.Session["TemplateName"].ToString();
+        DataTable _uploadedTemplateDataTable = new DataTable(masterTemplateName);
+        _uploadedTemplateDataTable = AddOptionalColumns(_uploadedTemplateDataTable);
+        using (CsvReader.CsvReader _csvTableLoader = new CsvReader.CsvReader(new StreamReader(System.IO.File.OpenRead(filePathWithFileName)), true))
+        {
+
+            _uploadedTemplateDataTable.Load(_csvTableLoader);
+        }
+        foreach (DataColumn _dc in _uploadedTemplateDataTable.Columns)
+        {
+            _dc.ColumnName = _dc.ColumnName.Replace(" / ", "_or_").Replace(" ", "_");
+        }
+        templateEntity.FileName = masterTemplateName;
+
+        _uploadedTemplateDataTable = UpdateOptionalColumnValue(_uploadedTemplateDataTable, templateEntity);
+        //Table name will tell u where tp insert data;
+        return _uploadedTemplateDataTable;
 
     }
     private DataTable UpdateOptionalColumnValue(DataTable uploadedTemplateDataTable, UploadTemplateEntity templateEntity)

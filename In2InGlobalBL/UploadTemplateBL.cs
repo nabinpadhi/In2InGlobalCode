@@ -181,6 +181,19 @@ namespace In2InGlobalBL
             }
             return dsUplaodTemplate;
         }
-
+        public DataSet GetAnalyticsProcessedDataSchema(UploadTemplateEntity uploadTemplateEntity)
+        {
+            DataSet dsUplaodTemplate = new DataSet();
+            try
+            {
+                UploadTemplateDL objUploadTemplate = new UploadTemplateDL();
+                dsUplaodTemplate = objUploadTemplate.GetAnalyticsProcessedDataSchema(uploadTemplateEntity);
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
+            return dsUplaodTemplate;
+        }
     }
 }

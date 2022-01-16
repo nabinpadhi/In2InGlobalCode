@@ -12,8 +12,8 @@
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/gridview.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
     <script src="../scripts/Validation.js" type="text/javascript" lang="javascript"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" />
-    <link href="css/Grid.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" />    
+    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/Grid.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />     
 </head>
 <body>
     <form id="form1" runat="server">
@@ -124,7 +124,7 @@
                                                             <Columns>
                                                                 <asp:BoundField HeaderText="Template Name" ItemStyle-Width="25%" DataField="template_name" />
                                                                 <asp:BoundField HeaderText="Created By" ItemStyle-Width="25%" DataField="created_by" />
-                                                                <asp:BoundField HeaderText="Instruction" HeaderStyle-CssClass="specify" ItemStyle-CssClass="specify" ItemStyle-Width="290px" HeaderStyle-Width="290px" DataField="instruction" />
+                                                                <asp:BoundField HeaderText="Instruction" ItemStyle-Width="290px" HeaderStyle-Width="290px" DataField="instruction" />
                                                                 <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Edit">
                                                                     <ItemTemplate>
                                                                         <asp:Button ID="EditButton" CssClass="GridEditButton" runat="server" Text="" />
@@ -498,7 +498,7 @@
             if (CheckNull(uploadingFileName, in2in23)) {
                 if (CheckFileExtension(extFile, "csv", in2in24)) {
 
-                    CheckMasterTemplate(uploadingFileName, in2in26, winH)
+                    //CheckMasterTemplate(uploadingFileName, in2in26, winH)
                 }
             }
 
@@ -560,7 +560,7 @@
                             result = result.replace('ShowException', '');
                             $("#tmpltFU").val('');
                             uploadingFileName = "";
-                            ShowServerMessage("Master Template Uploaded Successfully.");                          
+                            ShowServerMessage(result);
                            
 
                         }
@@ -633,15 +633,27 @@
             color: yellow;
         }
 
-         .specify {
+         .specifyHeader {       
+        border-block:none;
+        width: 293px;
+        border: 0px;    
+        min-height: 30px;
+        vertical-align:middle;
+        text-align:center;
+    }
+          .specifyCell {
         overflow: hidden;
         text-overflow: ellipsis;
-        max-height: 20px;
+         max-height: 20px;
         height: 20px;
         word-break: break-all;
-        word-wrap: break-word;
-        display:inline-block;     
-         white-space: nowrap;
+        word-wrap: break-word;        
+        white-space: nowrap;
+        border:none;
+        width: 293px;  
+        display:block;
+        border-block: 0px;
+       
     }
         .messager-body.panel-body.panel-body-noborder.window-body {
             width: 278px;
