@@ -9,29 +9,34 @@
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/black/easyui.css" />
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/icon.css" />
     <link href="../css/msgBoxLight.css" rel="stylesheet" type="text/css" />
-    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/gridview.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
-    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
+    
     <script src="../scripts/Validation.js" type="text/javascript" lang="javascript"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" />    
-    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/Grid.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />     
+    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/Grid.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
+    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/gridview.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
+    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
 </head>
-<body>
+<body style="background-color:#E7EDFD;">
     <form id="form1" runat="server">
         <center>
-            <div style="width: 100%; height: 435px; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
-                <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height: 40px; padding-top: 10px;"><span class="menu_frame_title">Template Management</span></div>
-                           <div id="pnlTemplate" style="width: auto; height: auto; min-height: 345px; color: black">
-                            <div style="border-bottom: 0 solid gray; display: flex; padding: 2px; width: auto;">
-                                <div id="btnUploadMasterTemplate" onclick="ShowUploadMasterTemplate();" class="PanelTab">Upload Master Template </div>
-                                <div id="btnCreateTemplate" onclick="ShowCreateTemplate();" class="PanelTab">Create Template </div>
-                                <%--        <div style="margin-left:4px;" onclick="ShowAssignTemplate();" class="PanelTab" id="btnAssignTemplate">Assign Template</div>   --%>
-                            </div>
-                            <div title="Upload Master Template" class="upldmt" style="background-color: azure; padding: 100px">
-                                <table style="width: 100%; background-color: azure;">
+            <div style="width: 100%; height: 435px;" class="MainPageFrameDiv">
+                <div class="pagination-ys"><span class="menu_frame_title">Template Management</span></div>
+                           <div id="pnlTemplate" style="width: auto; height: auto; min-height: 345px; color: black">                            
+                               <ul style="border-bottom: 0 solid gray; display: flex; padding: 2px; width: auto;">
+                                   <li id="btnUploadMasterTemplate" onclick="ShowUploadMasterTemplate();" class="hover-underline-animation">Upload Master Template
+                                <hr class="selectedhr" id="fixedUMT" />
+                                   </li>
+                                   <li id="btnCreateTemplate" onclick="ShowCreateTemplate();" class="hover-underline-animation" style="margin-left: 24px;">Create Template
+                                <hr class="selectedhr" id="fixedCT" />
+                                   </li>
+
+                               </ul>
+                            <div title="Upload Master Template" class="upldmt" style="padding: 100px">
+                                <table style="width: 100%;">
                                     <tr>
                                         <td style="width: 85%;">
                                             <center>
-                                                <div style="width: 60%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
+                                                <div style="width: 60%; border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 5px;">
                                                     <table style="width: 100%;">
                                                         <tr>
                                                             <td style="width: 25%">Template Files</td>
@@ -55,12 +60,12 @@
                 
                 <asp:UpdatePanel ID="pdnlTemplate" runat="server">                  
                     <ContentTemplate>
-                            <div title="Create Template" class="crtpnl" style="background-color: azure; padding: 5px; display: none;">
-                                <table style="width: 100%; background-color: azure;">
+                            <div title="Create Template" class="crtpnl" style="padding: 5px; display: none;">
+                                <table style="width: 100%;">
                                     <tr>
                                         <td style="width: 85%;">
                                             <center>
-                                                <div style="width: 60%; border: 1px solid black; border-radius: 5px; margin-top: 0px;">
+                                                <div style="width: 60%; border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 0px;">
                                                     <table>
                                                         <tr>
                                                             <td style="width: 50%;">
@@ -68,7 +73,7 @@
                                                                     <tr>
 
                                                                         <td style="width: 40%">Template Name(<span style="color: red">*</span>)<br />
-                                                                            <asp:DropDownList ID="ddlMasterTemplate" Width="92%" onchange="UpdateHdnTID();" AppendDataBoundItems="true" runat="server" DataValueField="template_id" DataTextField="file_name">
+                                                                            <asp:DropDownList ID="ddlMasterTemplate" onchange="UpdateHdnTID();" AppendDataBoundItems="true" runat="server" DataValueField="template_id" DataTextField="file_name">
                                                                                 <asp:ListItem Text="--Select a Template--"></asp:ListItem>
                                                                             </asp:DropDownList>
                                                                             <asp:HiddenField ID="hdnTID" Value="" runat="server" />
@@ -88,7 +93,7 @@
                                                                 <table>
                                                                     <tr>
                                                                         <td>Instruction(<span style="color: red">*</span>)
-                                                                        <textarea rows="5" id="txtInstruction" class="txtInstruction" name="txtInstruction" style="resize: none; width: 97%; height: 70px;" runat="server"></textarea>
+                                                                        <textarea rows="5" id="txtInstruction" class="txtInstruction" name="txtInstruction" style="resize: none; width: 97%; height: 79px;" runat="server"></textarea>
                                                                             <asp:HiddenField ID="hdnMTName" Value="" runat="server" />
                                                                         </td>
 
@@ -114,7 +119,7 @@
                                     <tr>
                                         <td>
                                             <center>
-                                                <div style="width: 60%; border: 1px solid black; border-radius: 5px; margin-top: 2px; margin-bottom: 2px;">
+                                                <div style="width: 60%; border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 2px; margin-bottom: 2px;">
                                                     <div class="AspNet-GridView">
                                                         <asp:GridView DataKeyNames="template_id" ID="grdMasterTemplate" runat="server" Width="100%"
                                                             HeaderStyle-CssClass="AspNet-GridView" EmptyDataRowStyle-HorizontalAlign="Center" EmptyDataText="No Template has been created."
@@ -147,12 +152,12 @@
 
                                 </table>
                             </div>
-                            <div title="Assign Template" class="Asgnpnl" style="background-color: azure; padding: 10px; display: none;">
-                                <table style="width: 100%; background-color: azure;">
+                            <div title="Assign Template" class="Asgnpnl" style="padding: 10px; display: none;">
+                                <table style="width: 100%;">
                                     <tr>
                                         <td>
                                             <center>
-                                                <div style="width: 60%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
+                                                <div style="width: 60%;border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 5px;">
                                                     <table style="width: 100%">
                                                         <tr>
                                                             <td style="width: 40%; text-align: right;">Project Name(<span style="color: red">*</span>)</td>
@@ -192,7 +197,7 @@
                                                         <tr>
                                                             <td colspan="2">
                                                                 <center>
-                                                                    <div style="width: 97%; border: 1px solid black; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;">
+                                                                    <div style="width: 97%; border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;">
                                                                         <div>
                                                                             <asp:GridView DataKeyNames="template_id" ID="grdTemplate" runat="server" Width="100%" AllowPaging="True"
                                                                                 OnRowDataBound="grdTemplate_RowDataBound" OnRowDeleting="grdTemplate_RowDeleting"
@@ -449,14 +454,8 @@
             //$('.Asgnpnl').invisible();
             $('.crtpnl').visible();
             $('.upldmt').invisible();
-            $('#btnUploadMasterTemplate').css("background-color", "#2c3c59");
-            $('#btnUploadMasterTemplate').css("color", "#fff");
-            $('#btnCreateTemplate').css("background-color", "azure");
-            $('#btnCreateTemplate').css("color", "blue");
-            // $('#btnAssignTemplate').css("background-color", "#2c3c59");
-            // $('#btnAssignTemplate').css("color", "#fff");          
-
-
+            $('#fixedUMT').hide();
+            $('#fixedCT').show();
             ClearAll();
         }
 
@@ -466,14 +465,9 @@
             
                 $('.crtpnl').invisible();
                 $('.upldmt').visible();
-                $('#btnUploadMasterTemplate').css("background-color", "azure");
-                $('#btnUploadMasterTemplate').css("color", "blue");
-
-                $('#btnCreateTemplate').css("background-color", "#2c3c59");
-                $('#btnCreateTemplate').css("color", "#fff");
-                $('#btnAssignTemplate').css("background-color", "#2c3c59");
-                $('#btnAssignTemplate').css("color", "#fff");
-            
+            $('#fixedUMT').show();
+            $('#fixedCT').hide();
+                
 
         }
         function sleep(milliseconds) {

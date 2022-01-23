@@ -118,7 +118,7 @@ namespace In2InGlobal.presentation.admin
             DataTable csvTable = GetCSVPageData(Convert.ToInt32(hdnSkip.Value), Convert.ToInt32(hdnTake.Value), "");
             grdCSVData.DataSource = csvTable;
             grdCSVData.DataBind();
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "BuildPagination();" , true);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "BuildPagination();ResetScreenSize();", true);
 
 
         }

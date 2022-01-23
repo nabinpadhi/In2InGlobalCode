@@ -1,5 +1,5 @@
 ﻿div.AspNet-GridView {
-    border: 1px solid #828790;
+    border: 1px solid #d3d3d3;
     font-size: 0.8em;
     min-height: 1px;
     font-family: "Lucida Sans";
@@ -11,16 +11,15 @@
         font-size: small;
     }
 
-        tr.AspNet-GridView th {
-            padding: 5px 5px 4px 4px;
-            /*background: url('grid-header-back.gif') top left repeat-x;*/
-            background-color: Highlight;
-            color:yellow;
-            font-weight: bold;
-            border-bottom: 1px solid #d5d5d5;
-            border-right: 1px solid #e3e4e6;
-             white-space: nowrap;
-        }
+tr.AspNet-GridView th {
+    padding: 5px 5px 4px 4px;
+    /*background: url('grid-header-back.gif') top left repeat-x;*/
+    background-color: #55a1fb;/*Highlight;*/
+    color: white;
+    font-weight: bold;
+    border: 1px solid #d3d3d3;
+    white-space: nowrap;
+}
 
             div.AspNet-GridView table thead tr th.sortable {
                 padding: 0px;
@@ -62,7 +61,7 @@
 div.AspNet-GridView table tbody tr td {
     /*padding: 2px 4px 2px 5px;*/
     padding-left:7px;
-    border: 1px solid gray;
+     border: 1px solid #d3d3d3;
     color: blue;
     background-color: #f2f9fc;
 }
@@ -80,7 +79,7 @@ div.AspNet-GridView table tbody tr td {
             }
 
 div.AspNet-GridView table tbody tr.AspNet-GridView-Alternate td {
-    background: #CCCCCC; /*#f2f9fc;*/
+    background: #DCDCDC; /*#f2f9fc;*/
 }
 
 tr.AspNet-GridView-Pagination {

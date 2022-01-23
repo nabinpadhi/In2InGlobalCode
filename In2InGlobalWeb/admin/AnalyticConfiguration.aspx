@@ -6,39 +6,43 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
+   
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/black/easyui.css" />
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/icon.css" />
     <link href="../css/msgBoxLight.css" rel="stylesheet" type="text/css" />
-    <link href="css/gridview.css" rel="stylesheet" type="text/css" />
-
-    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/Grid.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
+   <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />  
+    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/gridview.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" /> 
+    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/Grid.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />    
     <script lang="JavaScript">
 
 </script>
 </head>
-<body>
+<body style="background-color:#E7EDFD;">
     <form id="form1" runat="server">
         <center>
-            <div style="width: 100%; height: 435px; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
-                <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height: 40px; padding-top: 10px;"><span class="menu_frame_title">Analytic Setup</span></div>
+            <div style="width: 100%; height: 435px" class="MainPageFrameDiv">
+                <div class="pagination-ys"><span class="menu_frame_title">ANALYTIC SETUP</span></div>
                 <asp:ScriptManager ID="analyticconfigurationscriptmanager" runat="server">
                 </asp:ScriptManager>
                 <asp:UpdatePanel ID="pdnlanalyticconfiguration" runat="server">
-                    <ContentTemplate>
-                        <div style="border-bottom: 0 solid gray; display: flex; padding: 2px; width: auto;">
-                            <div id="btnAnaConf" onclick="ShowAnaConf();" class="PanelTab" style="background-color: azure; color: blue;">Analytic Configuration</div>
-                            <div id="btnProConf" onclick="ShowProConf();" class="PanelTab">Analytic Process</div>
-                        </div>
+                    <ContentTemplate>                        
+                         <ul style="border-bottom: 0 solid gray; display: flex; padding: 2px; width: auto;">
+                                   <li id="btnAnaConf" onclick="ShowAnaConf();" class="hover-underline-animation">Analytic Configuration
+                                <hr class="selectedhr" id="fixedAC" />
+                                   </li>
+                                   <li id="btnProConf" onclick="ShowProConf();" class="hover-underline-animation" style="margin-left: 24px;">Analytic Process
+                                <hr class="selectedhr" id="fixedAP" />
+                                   </li>
 
-                        <div title="Analytics Configuration" class="anaconf" style="background-color: azure; color: blue;">
+                               </ul>
+                        <div title="Analytics Configuration" class="anaconf" color: blue;">
                             <div style="width: 100%" id="analyticconfigurationDiv">
 
-                                <table style="width: 90%; background-color: azure;">
+                                <table style="width: 90%;">
                                     <tr>
                                         <td>
                                             <center>
-                                                <div style="width: 80%; border: 1px solid black; border-radius: 5px; margin-top: 10px;">
+                                                <div style="width: 80%; border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 10px;">
                                                     <table style="width: 80%; padding-top: 10px;">
                                                         <tr>
                                                             <td style="width: 30%;">
@@ -93,8 +97,8 @@
                                     <tr>
                                         <td style="width: 80%;">
                                             <center>
-                                                <%--<div style="width: 72%; height: 90%; border: 1px solid black; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;"> </div>--%>
-                                                <div>
+                                                <div style="width:73.3%; border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 5px;">
+                                                  <div class="AspNet-GridView">
                                                     <asp:HiddenField ID="hdnDBID" Value="" runat="server" />
                                                     <asp:GridView runat="server" ID="grdAnalyticsLink" Width="72%" OnPageIndexChanging="grdAnalyticsLink_PageIndexChanging"
                                                         HeaderStyle-CssClass="AspNet-GridView" EmptyDataRowStyle-HorizontalAlign="Center" EmptyDataText="No Configuration data found"
@@ -119,7 +123,7 @@
                                                             <asp:BoundField DataField="company_name" HeaderText="Company Name" />
                                                             <asp:BoundField DataField="user_email" HeaderText="User Email" />
                                                             <asp:BoundField DataField="project_name" HeaderText="Project Name" />
-                                                            <asp:BoundField HeaderStyle-CssClass="specifyCol" ItemStyle-CssClass="specify" DataField="dashboard_url" HeaderText="Dashboard Link" />
+                                                            <asp:BoundField HeaderStyle-CssClass="specifyCol" ItemStyle-CssClass="specifyCol" DataField="dashboard_url" HeaderText="Dashboard Link" />
                                                             <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Edit">
                                                                 <ItemTemplate>
                                                                     <asp:Button ID="EditButton" CssClass="GridEditButton" runat="server" Text="" />
@@ -135,18 +139,19 @@
                                                     </asp:GridView>
                                                 </div>
 
+                                                    </div>
                                             </center>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
-                        <div title="Process Configuration" class="proconf" style="background-color: azure; color: blue;display:none;">
-                            <table style="width: 90%; background-color: azure;">
+                        <div title="Process Configuration" class="proconf" style="color: blue;display:none;">
+                            <table style="width: 90%;">
                                 <tr>
                                     <td>
                                         <center>
-                                            <div style="width: 80%; border: 1px solid black; border-radius: 5px; margin-top: 10px;">
+                                            <div style="width: 80%;  border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 10px;">
                                                 <table style="width: 80%; padding-top: 10px;">
                                                     <tr>
                                                         <td style="width: 30%;">
@@ -207,11 +212,28 @@
     <script src="js/jquery.easyui.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            var prm = Sys.WebForms.PageRequestManager.getInstance();
+            prm.add_initializeRequest(InitializeRequest);
+            prm.add_endRequest(EndRequest);
             ShowAnaConf();
             ClearAll();
             $('.aspNetDisabled').css('color', 'darkgray');
             $('.aspNetDisabled:hover').css('text-decoration', 'none');
+            $('#grdAnalyticsLink').removeAttr("border");
         });
+        function InitializeRequest(sender, args) {
+            window.parent.$('#navOverlayImg').show();
+            window.parent.$('#navOverlay').show();
+
+        }
+
+        function EndRequest(sender, args) {
+            window.parent.$('#navOverlayImg').hide();
+            window.parent.$('#navOverlay').hide();
+            $('#grdAnalyticsLink').removeAttr("border");
+            
+
+        }
         function ClearAll() {
 
             $('#ddlCompany').removeAttr("disabled");
@@ -334,21 +356,14 @@
         function ShowAnaConf() {
             $('.anaconf').show();
             $('.proconf').hide();
-
-            $('#btnAnaConf').css("background-color", "azure");
-            $('#btnAnaConf').css("color", "blue");
-            $('#btnProConf').css("background-color", "#2c3c59");
-            $('#btnProConf').css("color", "#fff");
+            $('#fixedAC').show();
+            $('#fixedAP').hide();
         }
         function ShowProConf() {
             $('.anaconf').hide();
             $('.proconf').show();
-
-            $('#btnProConf').css("background-color", "azure");
-            $('#btnProConf').css("color", "blue");
-            $('#btnAnaConf').css("background-color", "#2c3c59");
-            $('#btnAnaConf').css("color", "#fff");
-
+            $('#fixedAC').hide();
+            $('#fixedAP').show();
         }
         function ShowHidden() {
 
@@ -390,16 +405,15 @@
         }
 
         .specifyCol {
-            overflow: hidden;
+             overflow: hidden;
             text-overflow: ellipsis;
+            max-height: 20px;
             height: 20px;
             word-break: break-all;
             word-wrap: break-word;
-            display: flex;
-            white-space: nowrap;
-            Width: 388px;
-            text-align: center;
-            align-items: center;
+            display:inline-block;     
+             white-space: nowrap;
+                Width: 388px;
         }
     </style>
 </body>

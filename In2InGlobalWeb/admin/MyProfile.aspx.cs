@@ -13,10 +13,17 @@ namespace In2InGlobal.presentation.admin
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            string usrRole = Session["UserRole"].ToString();
-            if (!IsPostBack)
+            if (Session["UserRole"] != null)
             {
-                FillMyProfileDetails();
+                string usrRole = Session["UserRole"].ToString();
+                if (!IsPostBack)
+                {
+                    FillMyProfileDetails();
+                }
+            }
+            else
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
             }
         }
 

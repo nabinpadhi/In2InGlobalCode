@@ -114,7 +114,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #445870;
-    font-family: 'Work Sans', sans-serif;
+    font-family: Arial;
     font-size: 14px;
     font-weight: normal;
     letter-spacing: -0.25px;
@@ -387,34 +387,37 @@ body {
     max-height: 200px;
 }
 .menu_frame_title {
-    font-size: 20px;
+    font-family: Arial;
+    font-size: 32px;
+    font-weight: 600;
+    color: #4d4d4d;
+    text-transform: uppercase;
 }
 
-td > input[type=text], td > input[type=password],textarea {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+td > input[type=text], td > input[type=password], textarea {
+    border-radius: 5px;    
     background: #FFFFFF no-repeat 2px 2px;
     padding: 1px 1px 1px 5px;
-    border: 1px solid #1c4f8a;
-    width: 90%;
+    border: 1px solid #d3d3d3;
+    width: 190px;
     display: inline-block;
+    font-family:Arial;
+    font-size:14px;
+    height:25px;
 }
-td > input[type=text]:focus {
-    transition: all 0.30s ease-in-out;
-    border: 1px solid #9999FF;
-}
+    td > input[type=text]:focus {
+        transition: all 0.30s ease-in-out;
+        border: 1px solid #d3d3d3;
+    }
 
 .PanelTab {
-    -webkit-tap-highlight-color: transparent;
-    background-color: #2c3c59;
-    border-radius: 5px;
+    -webkit-tap-highlight-color: transparent;   
+    /*border-radius: 5px;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
-    border: 1px solid gray;
+    border: 1px solid gray;*/
     box-sizing: border-box;
-    color: #fff;
+    color: blue;
     cursor: pointer;
     display: inline-block;
     font-weight: 400;
@@ -428,7 +431,7 @@ td > input[type=text]:focus {
     transition: all 0.2s ease-in-out;
     white-space: nowrap;
     width: auto;
-    border-bottom:none;
+    
 }
 
     .PanelTab:hover, .PanelTab:focus {
@@ -466,7 +469,7 @@ select:disabled {
     border-bottom-right-radius: 5px;
     background: #b2aaaa no-repeat 2px 2px;
     padding: 1px 1px 1px 5px;
-    border: 1px solid #1c4f8a;
+    border: 1px solid #d3d3d3;
     width: auto;
     color: black;
     display: inline-block;
@@ -482,14 +485,66 @@ select:disabled {
     z-index: 9999999;
 }
 [fieldtype ~="readonly"] {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    background-color: #d6d2d2;
+    border-radius: 5px;
+    background-color: #E3E6F3;
     padding: 1px 1px 1px 5px;
-    border: 1px solid #1c4f8a;
-    width: 90%;
-    display: inline-block;
+    border: 1px solid #d3d3d3;
+    width: 190px;
+    height: 25px;
+    display: table-cell;
+    vertical-align: middle;
     cursor: url("../img/no-pencil-sign.png"),auto;
+}
+.hover-underline-animation {
+    display: inline-block;
+    position: relative;
+    color: #0087ca;
+    cursor: pointer;
+    font-weight: 400;
+    line-height: 32px;        
+    text-align: center;
+}
+
+    .hover-underline-animation:after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        transform: scaleX(0);
+        height: .25rem;
+        bottom: 0;
+        left: 0;
+        background-color: #0087ca;
+        transform-origin: bottom right;
+        transition: transform 0.25s ease-out;
+    }
+
+    .hover-underline-animation:hover:after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+    }
+.selectedhr {
+    height: .25rem;
+    width: 100%;
+    margin: 0;
+    background: #0087ca;
+    border: none;
+   /*transition: .3s ease-in-out;*/
+}
+select {
+    border: 1px solid #d3d3d3;
+    font-family: Arial;
+    font-size: 14px;
+    height: 29px;
+    width:200px;
+    border-radius: 5px;
+}
+    select:disabled {
+        background-color: #E3E6F3;
+    }
+.MainPageFrameDiv {
+    border: 0px solid #d3d3d3;
+    border-radius: 5px;
+    margin-top: 5px;
+    display: block;
+    width: 95%;
 }

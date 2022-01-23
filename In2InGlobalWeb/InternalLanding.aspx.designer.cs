@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace In2InGlobal.presentation.admin {
-    
-    
-    public partial class InternalLanding {
-        
+namespace In2InGlobal.presentation.admin
+{
+
+
+    public partial class InternalLanding
+    {
+
         /// <summary>
         /// form1 control.
         /// </summary>
@@ -20,7 +22,16 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-        
+
+        /// <summary>
+        /// ancMyProfile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor ancMyProfile;
+
         /// <summary>
         /// comMngmnt control.
         /// </summary>
@@ -29,7 +40,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor comMngmnt;
-        
+
         /// <summary>
         /// usrMngmnt control.
         /// </summary>
@@ -38,7 +49,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor usrMngmnt;
-        
+
         /// <summary>
         /// projtMngmt control.
         /// </summary>
@@ -47,7 +58,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor projtMngmt;
-        
+
         /// <summary>
         /// tmpltMngmnt control.
         /// </summary>
@@ -56,7 +67,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor tmpltMngmnt;
-        
+
         /// <summary>
         /// ancFileMan control.
         /// </summary>
@@ -65,7 +76,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor ancFileMan;
-        
+
         /// <summary>
         /// liAnalytics control.
         /// </summary>
@@ -74,7 +85,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liAnalytics;
-        
+
         /// <summary>
         /// ancAnalytics control.
         /// </summary>
@@ -83,7 +94,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor ancAnalytics;
-        
+
         /// <summary>
         /// divConfiguration control.
         /// </summary>
@@ -92,7 +103,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divConfiguration;
-        
+
         /// <summary>
         /// ancConfiguration control.
         /// </summary>
@@ -101,7 +112,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor ancConfiguration;
-        
+
         /// <summary>
         /// AnalyticsProjectList control.
         /// </summary>

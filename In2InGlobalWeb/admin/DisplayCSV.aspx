@@ -29,7 +29,7 @@
         .PageNavLink:hover { COLOR: yellow; TEXT-DECORATION: none; font-weight: none }
     </style>
 </head>
-<body>
+<body style="overflow: hidden;">
     <center>
         <form id="form1" runat="server">
             <asp:ScriptManager ID="Templatescriptmanager" runat="server">
@@ -42,14 +42,14 @@
                             <div style="position: relative; padding-left: 200px;margin-right:30px; padding-top: 5px;float:right;">
                                 <a runat="server" id="ancDownload" href="#" name="ancDownload">Download</a>
                             </div> 
-                    <div style="float:left; border: 1px solid black; border-radius: 5px; margin-top: 20px; display: block;width:100%;min-height:300px;">
+                    <div class="gridParentDiv" style="float:left; border: 1px solid black; border-radius: 5px; margin-top: 20px; display: block;">
                             <asp:HiddenField ID="hdnSkip" runat="server" Value="0" />
                         <asp:HiddenField ID="hdnTake" runat="server" Value="1000" />
                        
                         <asp:Button ID="btnLoadNewPage" runat="server" OnClientClick="return true;" OnClick="btnLoadNewPage_Click" style="display:none;" />
                         <center>
                             <div id='table-container'>
-                                <asp:GridView ID="grdCSVData" runat="server" GridLines="Both" CellPadding="3" AutoGenerateColumns="true"
+                                <asp:GridView ID="grdCSVData" style="width:98%;height:70%;" runat="server" GridLines="Both" CellPadding="3" AutoGenerateColumns="true"
                                     BackColor="WhiteSmoke" HeaderStyle-CssClass="specify" OnRowDataBound="grdCSVData_RowDataBound" AlternatingRowStyle-BackColor="Silver" HeaderStyle-Font-Size="Medium"
                                     OnPreRender="grdCSVData_PreRender" CssClass="gvTheGrid">
                                      
@@ -64,10 +64,12 @@
     </center>
     <script >
         var currentPage = 1;
+        var width = $(window).width();
+        var height = $(window).height();
         $(document).ready(function () {
 
             BuildPagination();
-            
+            ResetScreenSize();
         });
         function BuildPagination() {
 
@@ -103,10 +105,16 @@
             $('#btnLoadNewPage').trigger("click");
             var clickedPage = pageNo;
             clickedPage = "#pDiv" + pageNo;
-            currentPage = clickedPage;
+            currentPage = clickedPage;                     
            
         }
+        function ResetScreenSize() {
 
+            $('.gridParentDiv').css("width", width - 32);
+            $('.gridParentDiv').css("height", height - 100);
+            $('#table-container').css("width", width - 42);
+            $('#table-container').css("height", height - 180);
+        }
     </script>
     <style type="text/css">
          .specify {

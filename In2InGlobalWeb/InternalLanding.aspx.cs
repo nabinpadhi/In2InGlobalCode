@@ -27,17 +27,19 @@ namespace In2InGlobal.presentation.admin
                     comMngmnt.Visible = true;
                     tmpltMngmnt.Visible = true;
                     divConfiguration.Visible = true;
-                    ancAnalytics.Attributes.Add("onclick", "javascript:OpenPage('https://analytics.zoho.in/open-view/210664000000116357/1940ea90f91aeff6411ba0a13cb9d6f2');");
-                    ancConfiguration.Attributes.Add("onclick", "javascript:OpenPage('admin/AnalyticConfiguration.aspx');");
+                    //ancAnalytics.Attributes.Add("onclick", "javascript:OpenPage('https://analytics.zoho.in/open-view/210664000000116357/1940ea90f91aeff6411ba0a13cb9d6f2');");
+                    ancConfiguration.Attributes.Add("onclick", "javascript:OpenPage('admin/AnalyticConfiguration.aspx',this);");
                 }
                 BuildAnalyticsProjectList(LoggedInUsrRole);
-                ancFileMan.Attributes.Add("onclick", "javascript:OpenPage('admin/FileManagement.aspx');");
-                usrMngmnt.Attributes.Add("onclick", "javascript:OpenPage('admin/UserManagement.aspx');");
-                comMngmnt.Attributes.Add("onclick", "javascript:OpenPage('admin/CompanyManagement.aspx');");
-                tmpltMngmnt.Attributes.Add("onclick", "javascript:OpenPage('admin/TemplateManagement.aspx');");
-                projtMngmt.Attributes.Add("onclick", "javascript:OpenPage('admin/ProjectManagement.aspx');");
-                
-                
+                ancFileMan.Attributes.Add("onclick", "javascript:OpenPage('admin/FileManagement.aspx',this);");
+                usrMngmnt.Attributes.Add("onclick", "javascript:OpenPage('admin/UserManagement.aspx',this);");
+                comMngmnt.Attributes.Add("onclick", "javascript:OpenPage('admin/CompanyManagement.aspx',this);");
+                tmpltMngmnt.Attributes.Add("onclick", "javascript:OpenPage('admin/TemplateManagement.aspx',this);");
+                projtMngmt.Attributes.Add("onclick", "javascript:OpenPage('admin/ProjectManagement.aspx',this);");
+                ancMyProfile.Attributes.Add("onclick", "javascript:OpenPage('admin/MyProfile.aspx', this);");
+
+
+
             }
             else
             { Response.Redirect("./admin/login.aspx"); }

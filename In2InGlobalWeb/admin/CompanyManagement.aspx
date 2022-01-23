@@ -5,33 +5,33 @@
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <title></title>   
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/black/easyui.css" />
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/icon.css" />
     <link href="../css/msgBoxLight.css" rel="stylesheet" type="text/css" />
-    <link href="css/gridview.css" rel="stylesheet" type="text/css" />
-    <link href="css/Grid.css" rel="stylesheet" type="text/css" />
+    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />  
+    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/gridview.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" /> 
+    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/Grid.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />    
   <script lang="JavaScript">
   
 </script>
 </head>
-<body>
+<body style="background-color:#E7EDFD;">
     <form id="form1" runat="server">
         <center>
-            <div style="width: 100%;height:435px; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
-                <div class="pagination-ys" style="border: 1px solid black; border-radius: 5px; height: 40px; padding-top: 10px;"><span class="menu_frame_title">Company Management</span></div>
+            <div style="width: 100%;height:435px;" class="MainPageFrameDiv">
+                <div class="pagination-ys"><span class="menu_frame_title">Company Management</span></div>
                 <asp:ScriptManager ID="companyscriptmanager" runat="server">                    
                 </asp:ScriptManager>               
                 <asp:UpdatePanel  ID="pdnlCompany" runat="server">                       
                     <ContentTemplate> 
                        <div style="width:100%" id="companyDiv">
                        
-                        <table style="width: 70%; background-color: azure;">
+                        <table style="width: 70%;">
                             <tr>
                                 <td>
                                     <center>
-                                        <div style="width: 50%; border: 1px solid black; border-radius: 5px; margin-top: 10px;">
+                                        <div style="width: 50%; color:#0b2d89;border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 10px;">
                                             <table style="padding-top:10px;">
                                                 <tr>
                                                     <td>Company Name(<span style="color: red">*</span>)</td>
@@ -48,7 +48,7 @@
                                                  <tr>                                                   
                                                     <td>LOB</td>
                                                     <td>
-                                                       <asp:DropDownList ID="ddlLOB" runat="server" Width="94%" AppendDataBoundItems="true" DataValueField="lob_id" DataTextField="lob_name">
+                                                       <asp:DropDownList ID="ddlLOB" runat="server" AppendDataBoundItems="true" DataValueField="lob_id" DataTextField="lob_name">
                                                            <asp:ListItem>--Select a LOB--</asp:ListItem>
                                                        </asp:DropDownList>
                                                     </td>
@@ -71,7 +71,7 @@
                             <tr>
                                 <td style="width: 50%;">                                    
                                     <center>
-                                        <div style="width: 50%; height: 90%; border: 1px solid black; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;"> 
+                                        <div style="width: 50%; height: 90%; border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;"> 
                                             <div class="AspNet-GridView">
                                                  <asp:GridView runat="server" ID="grdCompany" Width="100%" OnPageIndexChanging="grdCompany_PageIndexChanging" 
                                                      HeaderStyle-CssClass="AspNet-GridView" AllowPaging="True" DataKeyNames="company_id" PageSize="5" 

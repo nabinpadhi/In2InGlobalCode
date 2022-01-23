@@ -16,28 +16,35 @@
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/gridview.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" /> 
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/Grid.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />      
 </head>
-<body style="background-color:azure;">
+<body style="background-color:#E7EDFD;">
     <form id="form1" runat="server">
         <center>
-            <div id="fmPageDiv" style="width: 100%;height:435px; border: 1px solid black; border-radius: 5px; margin-top: 5px;display:block;">
-                <div class="pagination-ys" style="border:0px solid black;border-bottom:1px solid black; border-radius: 5px; height:40px;padding-top:10px;"><span class="menu_frame_title">File Management</span></div>
+            <div id="fmPageDiv" style="width: 100%;height:435px;" class="MainPageFrameDiv">
+                <div class="pagination-ys"><span class="menu_frame_title">FILE MANAGEMENT</span></div>
                     <asp:ScriptManager ID="scriptmanager1" runat="server">
                 </asp:ScriptManager>                
                 <asp:UpdatePanel ID="pdnlFileMgnt" runat="server">
                      <Triggers><asp:PostBackTrigger ControlID="btnDownload" /></Triggers>                    
                     <ContentTemplate> 
                        
-                         <div style="border-bottom:0 solid gray;display:flex;padding:2px;width:auto;">
-                            <div id="btnProjectMgnt" onclick="ShowProjectMgnt();" class="PanelTab" style="background-color:azure;color:blue;">Project Management</div>
-                            <div id="btnFileMgnt" onclick="ShowFileMgnt();" class="PanelTab">File Management</div>                          
-                        </div>
+                         <ul style="border-bottom:0 solid gray;display:flex;padding:2px;width:auto;">
+                            <li id="btnProjectMgnt" onclick="ShowProjectMgnt();" class="hover-underline-animation">
+                                Project Management
+                                <hr class="selectedhr" id="fixedHRPM" />
+                            </li>
+                            <li id="btnFileMgnt" onclick="ShowFileMgnt();" class="hover-underline-animation" style="margin-left:24px;">
+                                File Management
+                                <hr class="selectedhr" id="fixedHRFM" />
+                            </li>
+                             
+                        </ul>
                         
-                        <div title="Project Management" class="projectmgnt" style="background-color: azure;color:blue;">
-                               <table style="width: 100%; background-color: azure;">
+                        <div title="Project Management" class="projectmgnt" style="color:#0b2d89;border: 1px solid #d3d3d3;">
+                               <table style="width: 100%;">
                                 <tr>
                                     <td>
                                         <center>
-                                            <div style="width: 60%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
+                                            <div style="width: 60%; border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 5px;">
                                                 <table>
                                                     <tr>
                                                         <td style="width:50%;">
@@ -66,7 +73,7 @@
                                                                 <tr>
                                                                     <td>
                                                                         Description(<span style="color: red">*</span>)
-                                                                        <textarea rows="5" id="txtDescription" class="txtDescription" name="txtDescription" style="resize:none; width: 97%; height: 70px;" runat="server"></textarea>
+                                                                        <textarea rows="5" id="txtDescription" class="txtDescription" name="txtDescription" style="resize:none; width: 97%; height: 79px;" runat="server"></textarea>
                                                                     </td>
 
                                                                 </tr>
@@ -92,7 +99,7 @@
                                 <tr>
                                     <td style="width: 50%;">
                                         <center>
-                                            <div style="width: 61.6%; border: 1px solid black; border-radius: 5px; margin-top:5px; margin-bottom:10px;"> 
+                                            <div style="width: 61.6%; border: 1px solid #d3d3d3; border-radius: 5px; margin-top:5px; margin-bottom:10px;"> 
                                                 <div class="AspNet-GridView">
                                                 <asp:GridView DataKeyNames="project_id" ID="grdProject" runat="server" Width="100%" AllowPaging="True" OnRowDataBound="grdProject_RowDataBound"
                                                     OnPageIndexChanging="grdProject_PageIndexChanging"  AutoGenerateColumns="false" PageSize="4"
@@ -130,14 +137,14 @@
                                 </tr>
                         </table>
                         </div>
-                        <div title="File Management" class="filemgnt" style="background-color: azure;display:none;">
-                            <table style="width: 100%; background-color: azure;">
+                        <div title="File Management" class="filemgnt" style="display:none;">
+                            <table style="width: 100%;">
                                 <tr>
                                     <td style="width: 70%;">                                                                
                                         <table style="width: 100%;">                               
                                             <tr>
                                                 <td style="text-align: center;">
-                                                    <div style="border: 1px solid black; margin-left: auto; margin-right: auto; border-radius: 5px">
+                                                    <div style="border: 1px solid #d3d3d3; margin-left: auto; margin-right: auto; border-radius: 5px">
                                                         <table id="tblFileuploader" style="width: 100%; margin-top: auto; margin-left: auto; margin-right: auto;">
                                                             <tr>
                                                                 <td style="width: 60%; vertical-align:top;">
@@ -167,7 +174,7 @@
                                                                         <tr>
                                                                             <td colspan="3">                                                                    
                                                                                 <center>
-                                                                                    <div style="width: 100%; border: 1px solid black; border-radius: 5px; margin-top: 5px;">
+                                                                                    <div style="width: 100%; border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 5px;">
                                                                                         <div class="AspNet-GridView">
                                                                                         <asp:GridView DataKeyNames="project_id" ID="grdUploadedFiles" runat="server" Width="100%" HeaderStyle-CssClass="AspNet-GridView"
                                                                                             AllowPaging="True" RowStyle-Wrap="false" HeaderStyle-Wrap="false" EmptyDataText="No files uploaded for selected Project." 
@@ -228,7 +235,7 @@
                                                                                 
                                     </td>
                                     <td runat="server" id="searchTemplatePanel" style="width: 30%; vertical-align: top;">
-                                        <div style="margin-top: 14px; margin-left: 20px;margin-bottom:20px;border-radius:5px; border: 1px solid gray; height: 300px;">
+                                        <div style="margin-top: 14px; margin-left: 20px;margin-bottom:20px;border-radius:5px; border: 1px solid #d3d3d3; height: 300px;">
                                             <div id="searchDIV">
                                             <span style="margin-left: 10px;"><b>Search Template </b></span>
                                             <table style="width: 100%; margin-left: 5px;margin-right: 5px;">
@@ -321,6 +328,8 @@
         }); 
         ShowProjectMgnt();
         ClearProject();
+        $('#grdUploadedFiles').removeAttr("border");
+        $('#grdTemplate').removeAttr("border");
        
     });
      function InitializeRequest(sender, args) {
@@ -332,6 +341,8 @@
      function EndRequest(sender, args) {
          window.parent.$('#navOverlayImg').hide();
          window.parent.$('#navOverlay').hide();
+         $('#grdUploadedFiles').removeAttr("border");
+         $('#grdTemplate').removeAttr("border");
          
      }
      function In2InGlobalConfirm(pName, pID) {
@@ -393,20 +404,17 @@
      function ShowProjectMgnt() {
          $('.projectmgnt').show();
          $('.filemgnt').hide();
+         $('#fixedHRFM').hide();
+         $('#fixedHRPM').show();
+
          
-         $('#btnProjectMgnt').css("background-color", "azure");
-         $('#btnProjectMgnt').css("color", "blue");
-         $('#btnFileMgnt').css("background-color", "#2c3c59");
-         $('#btnFileMgnt').css("color", "#fff");
+         
      }
      function ShowFileMgnt() {
          $('.projectmgnt').hide();
          $('.filemgnt').show();
-
-         $('#btnFileMgnt').css("background-color", "azure");
-         $('#btnFileMgnt').css("color", "blue");
-         $('#btnProjectMgnt').css("background-color", "#2c3c59");
-         $('#btnProjectMgnt').css("color", "#fff");
+         $('#fixedHRFM').show();
+         $('#fixedHRPM').hide();
         
      }
      function ValidateDownload() {
