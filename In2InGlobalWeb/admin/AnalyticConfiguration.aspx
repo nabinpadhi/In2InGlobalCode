@@ -17,7 +17,7 @@
 
 </script>
 </head>
-<body style="background-color:#E7EDFD;">
+<body>
     <form id="form1" runat="server">
         <center>
             <div style="width: 100%; height: 435px" class="MainPageFrameDiv">
@@ -42,8 +42,8 @@
                                     <tr>
                                         <td>
                                             <center>
-                                                <div style="width: 80%; border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 10px;">
-                                                    <table style="width: 80%; padding-top: 10px;">
+                                                <div style="width: 80%; border: 0px solid #d3d3d3; border-radius: 5px; margin-top: 10px;">
+                                                    <table  class="formDiv" style="width: 80%; padding-top: 10px;">
                                                         <tr>
                                                             <td style="width: 30%;">
                                                                 <span style="font-size: small; font-weight: bold;">Select Company(<span style="color: red">*</span>)</span>
@@ -97,7 +97,7 @@
                                     <tr>
                                         <td style="width: 80%;">
                                             <center>
-                                                <div style="width:73.3%; border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 5px;">
+                                                <div style="width:73.3%; border: 0px solid #d3d3d3; border-radius: 5px; margin-top: 5px;">
                                                   <div class="AspNet-GridView">
                                                     <asp:HiddenField ID="hdnDBID" Value="" runat="server" />
                                                     <asp:GridView runat="server" ID="grdAnalyticsLink" Width="72%" OnPageIndexChanging="grdAnalyticsLink_PageIndexChanging"
@@ -151,8 +151,8 @@
                                 <tr>
                                     <td>
                                         <center>
-                                            <div style="width: 80%;  border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 10px;">
-                                                <table style="width: 80%; padding-top: 10px;">
+                                            <div style="width: 80%;  border: 0px solid #d3d3d3; border-radius: 5px; margin-top: 10px;">
+                                                <table  class="formDiv" style="width: 80%; padding-top: 10px;">
                                                     <tr>
                                                         <td style="width: 30%;">
                                                             <span style="font-size: small; font-weight: bold;">Select Company(<span style="color: red">*</span>)</span>
@@ -370,10 +370,7 @@
         }
     </script>
     <style type="text/css">
-        body {
-            background-color: azure;
-        }
-
+       
         .window-body.panel-body {
             color: silver;
             padding-top: 30px;

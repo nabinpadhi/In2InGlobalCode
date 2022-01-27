@@ -16,7 +16,7 @@
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/gridview.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" /> 
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/Grid.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />      
 </head>
-<body style="background-color:#E7EDFD;">
+<body>
     <form id="form1" runat="server">
         <center>
             <div id="fmPageDiv" style="width: 100%;height:435px;" class="MainPageFrameDiv">
@@ -39,12 +39,12 @@
                              
                         </ul>
                         
-                        <div title="Project Management" class="projectmgnt" style="color:#0b2d89;border: 1px solid #d3d3d3;">
+                        <div title="Project Management" class="projectmgnt" style="color:#0b2d89;border: 0px solid #d3d3d3;">
                                <table style="width: 100%;">
                                 <tr>
                                     <td>
                                         <center>
-                                            <div style="width: 60%; border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 5px;">
+                                            <div class="formDiv" style="width: 60%; border: 0px solid #d3d3d3; border-radius: 5px; margin-top: 5px;">
                                                 <table>
                                                     <tr>
                                                         <td style="width:50%;">
@@ -99,7 +99,7 @@
                                 <tr>
                                     <td style="width: 50%;">
                                         <center>
-                                            <div style="width: 61.6%; border: 1px solid #d3d3d3; border-radius: 5px; margin-top:5px; margin-bottom:10px;"> 
+                                            <div style="width: 61.6%; border: 0px solid #d3d3d3; border-radius: 5px; margin-top:5px; margin-bottom:10px;"> 
                                                 <div class="AspNet-GridView">
                                                 <asp:GridView DataKeyNames="project_id" ID="grdProject" runat="server" Width="100%" AllowPaging="True" OnRowDataBound="grdProject_RowDataBound"
                                                     OnPageIndexChanging="grdProject_PageIndexChanging"  AutoGenerateColumns="false" PageSize="4"
@@ -144,12 +144,12 @@
                                         <table style="width: 100%;">                               
                                             <tr>
                                                 <td style="text-align: center;">
-                                                    <div style="border: 1px solid #d3d3d3; margin-left: auto; margin-right: auto; border-radius: 5px">
+                                                    <div style="border: 0px solid #d3d3d3; margin-left: auto; margin-right: auto; border-radius: 5px">
                                                         <table id="tblFileuploader" style="width: 100%; margin-top: auto; margin-left: auto; margin-right: auto;">
                                                             <tr>
                                                                 <td style="width: 60%; vertical-align:top;">
                                                                     <table style="width: 100%;">
-                                                                        <tr>
+                                                                        <tr class="formDiv">
                                                                             <td style="width: 25%;text-align:left;padding-left:25px;">
                                                                                  <b>Select Project</b>
                                                                                 <div style="width:100px;text-align:left;">
@@ -235,11 +235,11 @@
                                                                                 
                                     </td>
                                     <td runat="server" id="searchTemplatePanel" style="width: 30%; vertical-align: top;">
-                                        <div style="margin-top: 14px; margin-left: 20px;margin-bottom:20px;border-radius:5px; border: 1px solid #d3d3d3; height: 300px;">
+                                        <div style="margin-top: 14px; margin-left: 20px;margin-bottom:20px;border-radius:5px; border: 0px solid #d3d3d3; height: 300px;">
                                             <div id="searchDIV">
                                             <span style="margin-left: 10px;"><b>Search Template </b></span>
                                             <table style="width: 100%; margin-left: 5px;margin-right: 5px;">
-                                                <tr id="usrEmailTR" runat="server">
+                                                <tr  class="formDiv" id="usrEmailTR" runat="server">
                                                     <td style="width: 35%">
                                                         <b><u>Email ID</u> : </b>
                                                     </td>
@@ -251,7 +251,7 @@
                                                         </div>                                                                                                  
                                                     </td>
                                                 </tr>
-                                                <tr>
+                                                <tr  class="formDiv">
                                                     <td>
                                                         <b><u>Project ID</u> : </b>
                                                     </td>
@@ -558,9 +558,7 @@
      }
  </script>
        <style type="text/css">
-        body {
-            background-color: azure;
-        }
+       
         .window-body.panel-body {
                color:silver;              
                padding-top:30px;

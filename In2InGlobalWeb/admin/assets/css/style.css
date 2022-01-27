@@ -3790,7 +3790,7 @@ a {
     -moz-osx-font-smoothing: grayscale;
     transition: .2s;
     visibility: hidden;
-    opacity: 0
+    opacity: 0;   
 }
 
     .cd-side-nav a {
@@ -3804,7 +3804,7 @@ a {
         visibility: visible;
         opacity: 1;
         box-shadow: none;
-        transition: none
+        transition: none;       
     }
 }
 
@@ -3814,8 +3814,8 @@ a {
 }
 
 .cd-side__item, .cd-nav__item {
-    font-size: 0.875em;
-    position: relative
+    font-size: 14px;
+    position: relative;
 }
 
     .cd-side__item a, .cd-nav__item a {
@@ -3833,7 +3833,8 @@ a {
         display: -ms-flexbox;
         display: flex;
         -ms-flex-align: center;
-        align-items: center
+        align-items: center;
+        font-size: 14px;
     }
 
         .cd-side__item > a::before {
@@ -3847,7 +3848,7 @@ a {
 
 @media (min-width: 64rem) {
     .cd-side__item {
-        font-size: 0.65em
+        font-size: 14px;
     }
 
         .cd-side__item a {
@@ -4144,6 +4145,11 @@ a {
         padding: var(--space-xs) var(--space-sm)
     }
 }
+@media (min-width: 64rem) {
+    .js-cd-side__list {
+        font-size:10px;
+    }
+}
 
 input[type="text"] {
     border-bottom-color: #b3b3b3;
@@ -4172,8 +4178,8 @@ input[type="text"] {
 }
 
 .rounded-circle img {
-    width: 32px;
-    height: 32px;
+    width: 52px;
+    height: 52px;
     overflow: hidden;
     border-radius: 50%;
     background: #fff;

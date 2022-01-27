@@ -120,6 +120,7 @@ body {
     letter-spacing: -0.25px;
     margin: 0;
     padding: 0 18px;
+    background-color: #FFFFFF;
 }
 
 p {
@@ -315,11 +316,6 @@ label {
 .file_table tr td {
     border-bottom: 1px solid #ccc;
 }
-
-body {
-    background-color: aliceblue;
-}
-
 .button {
     -webkit-tap-highlight-color: transparent;
     background-color: #55a1fb;
@@ -387,10 +383,10 @@ body {
     max-height: 200px;
 }
 .menu_frame_title {
-    font-family: Arial;
-    font-size: 32px;
-    font-weight: 600;
-    color: #4d4d4d;
+    font-family:open sans-serif,sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #03989e;
     text-transform: uppercase;
 }
 
@@ -399,9 +395,9 @@ td > input[type=text], td > input[type=password], textarea {
     background: #FFFFFF no-repeat 2px 2px;
     padding: 1px 1px 1px 5px;
     border: 1px solid #d3d3d3;
-    width: 190px;
+    width: 200px;
     display: inline-block;
-    font-family:Arial;
+    font-family:open sans-serif,sans-serif;
     font-size:14px;
     height:25px;
 }
@@ -486,14 +482,25 @@ select:disabled {
 }
 [fieldtype ~="readonly"] {
     border-radius: 5px;
-    background-color: #E3E6F3;
+    background-color: #e6f4f5;
     padding: 1px 1px 1px 5px;
     border: 1px solid #d3d3d3;
-    width: 190px;
+    width: 200px;
     height: 25px;
     display: table-cell;
     vertical-align: middle;
     cursor: url("../img/no-pencil-sign.png"),auto;
+    font-size: 14px;
+    font-family: open sans,sans-serif;
+    font-weight:400;
+    color:#878787;
+
+}
+.formDiv {
+    font-size: 15px;
+    font-weight:600;
+    font-family: open sans,sans-serif;
+    color: #212121;
 }
 .hover-underline-animation {
     display: inline-block;
@@ -535,7 +542,7 @@ select {
     font-family: Arial;
     font-size: 14px;
     height: 29px;
-    width:200px;
+    width:209px;
     border-radius: 5px;
 }
     select:disabled {

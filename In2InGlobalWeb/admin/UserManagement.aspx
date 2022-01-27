@@ -18,7 +18,7 @@
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/Grid.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />   
    
 </head>
-<body style="background-color:#E7EDFD;">
+<body>
 
     <form id="form1" runat="server">
        
@@ -34,7 +34,7 @@
                             <tr>
                                 <td style="width: 80%;">
                                     <center>
-                                        <div style="width: 70%; color:#0b2d89;border: 1px solid #d3d3d3;border-radius: 5px; margin-top: 10px;">
+                                        <div class="formDiv" style="width: 70%; border: 0px solid #d3d3d3;border-radius: 5px; margin-top: 10px;">
                                             <table style="width: 80%;padding-top:10px;">
                                                 <tr>
                                                     <td>First Name(<span style="color: red">*</span>)</td>
@@ -289,9 +289,7 @@
         function ShowHidden() { }
     </script>
     <style type="text/css">
-        body {
-            background-color: azure;
-        }
+       
         .window-body.panel-body {
                color:silver;              
                padding-top:30px;

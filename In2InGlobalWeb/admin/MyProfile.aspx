@@ -14,10 +14,7 @@
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
 
     <style type="text/css">
-        body {
-            background-color: azure;
-        }
-
+       
         .GridViewImageAlignment {
             text-align: center;
         }
@@ -59,42 +56,47 @@
             }
     </style>
 </head>
-<body style="background-color:#E7EDFD;">
+<body>
 
     <form id="form1" runat="server">
 
         <center>
-         <div class="MainPageFrameDiv">
-             <div class="pagination-ys"><span class="menu_frame_title">My Profile</span></div>
-          <div style="position:relative;padding:50px 30px 30px 30px;">
-               <table style="width: 100%;">
-                            <tr>
-                                <td style="width: 100%;">
-                                    <center>
-                                        <div style="width: 70%; color:#0b2d89;border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 10px;">
-          <table style="width:90%;vertical-align:top;">
-              <tr style="padding:10px;vertical-align:middle;">
-                  <td style="padding:10px;width:20%">User Name  :</td>                  
-                  <td style="width:30%"><span fieldtype="readonly" value="" runat="server" id="username"></span></td>
-                  <td style="padding:10px;width:23%">Company Name  :</td>
-                  <td style="width:28%"><span fieldtype="readonly"  runat="server" id="companyname"></span></td>                 
-              </tr>
-               <tr>
-                  <td style="padding:10px">Email Id  :</td>
-                  <td><span value="" fieldtype="readonly" style="overflow-wrap:break-word;"  runat="server" id="email" /></td>
-                  <td style="padding:10px">Activity Access  :</td>
-                  <td><span value="" fieldtype="readonly"  runat="server"  id="activityaccess" /></td>                 
-              </tr>              
-               <tr>
-                  <td style="padding:10px">Role  :</td>
-                  <td><span value="" fieldtype="readonly"  runat="server"  id="role" /></td>
-                  <td style="padding:10px">Status  :</td>                    
-                  <td><span value="" fieldtype="readonly"  runat="server" id="status" /></td>                 
-              </tr>              
-          </table></div></center></td></tr></table>
-              </div>
-             </div>
-      </center>
+            <div class="MainPageFrameDiv">
+                <div class="pagination-ys"><span class="menu_frame_title">My Profile</span></div>
+                <div style="position: relative; padding: 50px 30px 30px 30px;">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 100%;">
+                                <center>
+                                    <div  class="formDiv" style="width: 70%;border: 0px solid #d3d3d3; border-radius: 5px; margin-top: 10px;">
+                                        <table style="width: 90%; vertical-align: top;">
+                                            <tr style="padding: 10px; vertical-align: middle;">
+                                                <td style="padding: 10px; width: 20%">User Name</td>
+                                                <td style="width: 30%"><span fieldtype="readonly" value="" runat="server" id="username"></span></td>
+                                                <td style="padding: 10px; width: 23%">Company Name</td>
+                                                <td style="width: 28%"><span fieldtype="readonly" runat="server" id="companyname"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 10px">Email Id</td>
+                                                <td><span value="" fieldtype="readonly" style="overflow-wrap: break-word;" runat="server" id="email" /></td>
+                                                <td style="padding: 10px">Activity Access</td>
+                                                <td><span value="" fieldtype="readonly" runat="server" id="activityaccess" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 10px">Role</td>
+                                                <td><span value="" fieldtype="readonly" runat="server" id="role" /></td>
+                                                <td style="padding: 10px">Status</td>
+                                                <td><span value="" fieldtype="readonly" runat="server" id="status" /></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </center>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </center>
     </form>
 </body>
 </html>

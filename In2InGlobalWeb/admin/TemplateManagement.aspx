@@ -16,7 +16,7 @@
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/gridview.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
 </head>
-<body style="background-color:#E7EDFD;">
+<body>
     <form id="form1" runat="server">
         <center>
             <div style="width: 100%; height: 435px;" class="MainPageFrameDiv">
@@ -65,7 +65,7 @@
                                     <tr>
                                         <td style="width: 85%;">
                                             <center>
-                                                <div style="width: 60%; border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 0px;">
+                                                <div class="formDiv" style="width: 60%; border: 0px solid #d3d3d3; border-radius: 5px; margin-top: 0px;">
                                                     <table>
                                                         <tr>
                                                             <td style="width: 50%;">
@@ -119,7 +119,7 @@
                                     <tr>
                                         <td>
                                             <center>
-                                                <div style="width: 60%; border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 2px; margin-bottom: 2px;">
+                                                <div style="width: 60%; border: 0px solid #d3d3d3; border-radius: 5px; margin-top: 2px; margin-bottom: 2px;">
                                                     <div class="AspNet-GridView">
                                                         <asp:GridView DataKeyNames="template_id" ID="grdMasterTemplate" runat="server" Width="100%"
                                                             HeaderStyle-CssClass="AspNet-GridView" EmptyDataRowStyle-HorizontalAlign="Center" EmptyDataText="No Template has been created."
@@ -157,7 +157,7 @@
                                     <tr>
                                         <td>
                                             <center>
-                                                <div style="width: 60%;border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 5px;">
+                                                <div class="formDiv" style="width: 60%;border: 0px solid #d3d3d3; border-radius: 5px; margin-top: 5px;">
                                                     <table style="width: 100%">
                                                         <tr>
                                                             <td style="width: 40%; text-align: right;">Project Name(<span style="color: red">*</span>)</td>
@@ -197,7 +197,7 @@
                                                         <tr>
                                                             <td colspan="2">
                                                                 <center>
-                                                                    <div style="width: 97%; border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;">
+                                                                    <div style="width: 97%; border: 0px solid #d3d3d3; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;">
                                                                         <div>
                                                                             <asp:GridView DataKeyNames="template_id" ID="grdTemplate" runat="server" Width="100%" AllowPaging="True"
                                                                                 OnRowDataBound="grdTemplate_RowDataBound" OnRowDeleting="grdTemplate_RowDeleting"
@@ -247,10 +247,7 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery.easyui.min.js"></script>
     <style type="text/css">
-        body {
-            background-color: azure;
-        }
-
+   
         .panel-title {
             color: greenyellow;
             background-color: #8f0108;
@@ -604,10 +601,7 @@
         }
     </script>
     <style type="text/css">
-        body {
-            background-color: azure;
-        }
-
+       
         .window-body.panel-body {
             color: silver;
             padding-top: 10px;

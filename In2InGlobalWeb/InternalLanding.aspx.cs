@@ -19,15 +19,14 @@ namespace In2InGlobal.presentation.admin
                     comMngmnt.Visible = false;
                     tmpltMngmnt.Visible = false;
                     divConfiguration.Visible = false;
-                    ancAnalytics.Attributes.Add("onclick", "javascript:return false;");
+                   
                 }
                 else if (LoggedInUsrRole == "Admin")
                 {
                     usrMngmnt.Visible = true;
                     comMngmnt.Visible = true;
                     tmpltMngmnt.Visible = true;
-                    divConfiguration.Visible = true;
-                    //ancAnalytics.Attributes.Add("onclick", "javascript:OpenPage('https://analytics.zoho.in/open-view/210664000000116357/1940ea90f91aeff6411ba0a13cb9d6f2');");
+                    divConfiguration.Visible = true;                   
                     ancConfiguration.Attributes.Add("onclick", "javascript:OpenPage('admin/AnalyticConfiguration.aspx',this);");
                 }
                 BuildAnalyticsProjectList(LoggedInUsrRole);
@@ -37,9 +36,13 @@ namespace In2InGlobal.presentation.admin
                 tmpltMngmnt.Attributes.Add("onclick", "javascript:OpenPage('admin/TemplateManagement.aspx',this);");
                 projtMngmt.Attributes.Add("onclick", "javascript:OpenPage('admin/ProjectManagement.aspx',this);");
                 ancMyProfile.Attributes.Add("onclick", "javascript:OpenPage('admin/MyProfile.aspx', this);");
-
-
-
+                DataRow drUsr;
+                if(Session["UserRow"] != null)
+                {
+                    drUsr = (DataRow)Session["UserRow"];
+                    spnMyName.InnerText = drUsr["first_name"].ToString();
+                }
+                
             }
             else
             { Response.Redirect("./admin/login.aspx"); }

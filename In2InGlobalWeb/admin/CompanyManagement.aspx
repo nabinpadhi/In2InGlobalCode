@@ -16,7 +16,7 @@
   
 </script>
 </head>
-<body style="background-color:#E7EDFD;">
+<body>
     <form id="form1" runat="server">
         <center>
             <div style="width: 100%;height:435px;" class="MainPageFrameDiv">
@@ -31,7 +31,7 @@
                             <tr>
                                 <td>
                                     <center>
-                                        <div style="width: 50%; color:#0b2d89;border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 10px;">
+                                        <div class="formDiv" style="width: 50%;border: 0px solid #d3d3d3; border-radius: 5px; margin-top: 10px;">
                                             <table style="padding-top:10px;">
                                                 <tr>
                                                     <td>Company Name(<span style="color: red">*</span>)</td>
@@ -71,7 +71,7 @@
                             <tr>
                                 <td style="width: 50%;">                                    
                                     <center>
-                                        <div style="width: 50%; height: 90%; border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;"> 
+                                        <div style="width: 50%; height: 90%; border: 0px solid #d3d3d3; border-radius: 5px; margin-top: 10px; margin-bottom: 20px;"> 
                                             <div class="AspNet-GridView">
                                                  <asp:GridView runat="server" ID="grdCompany" Width="100%" OnPageIndexChanging="grdCompany_PageIndexChanging" 
                                                      HeaderStyle-CssClass="AspNet-GridView" AllowPaging="True" DataKeyNames="company_id" PageSize="5" 
@@ -201,9 +201,7 @@
         }
     </script>
     <style type="text/css">
-        body {
-            background-color: azure;
-        }
+       
         .window-body.panel-body {
                color:silver;              
                padding-top:30px;
