@@ -35,7 +35,7 @@
             background:url(admin/img/load-indicator.gif) center center no-repeat;
             
         }
-    </style>
+    </style>  
 </head>
 <body onload="loadIframe();">
     
@@ -109,8 +109,8 @@
                 </ul>
                  
             </nav>
-           
-            <div class="mainPageDiv" style="padding-top:0px;bottom:0px; background-color:azure;">  
+          
+            <div class="mainPageDiv" style="padding-top:0px;bottom:0px;">  
                  <center>
                     <div class="csvPageDivParent" style="display:none; text-align:left; border: 1px solid black;border-radius:5px;position:fixed;left:5px;top:5px;background-color:silver;">                
                         <div class="panel-header panel-header-noborder window-header" style="width:100%;">
@@ -121,16 +121,7 @@
                          <iframe id="frmCSVPage" style="width: inherit;padding:30px; height: 100%;overflow:hidden;" src="about:blank"></iframe></div>                       
                     </div>
                  </center>
-                 <center>
-                    <div class="exceptionDivParent" style="display:none; text-align:left; border: 1px solid black;border-radius:5px; width:400px;height:300px;margin-top:100px;background-color:silver;">                
-                        <div class="panel-header panel-header-noborder window-header" style="width:100%;">
-                            <div class="panel-title panel-with-icon" style="">Error While Processing Request</div>
-                            <div class="panel-icon icon-no"></div>
-                            <div class="panel-tool"><a class="panel-tool-close" href="#"></a></div>
-                        </div>                       
-                             <div style="width:inherit;height:inherit;text-align: center;position:relative;"><img style="margin-top:30px;" src="img/ohNo.png" /><br /><span style="color:red;font-size:medium;font-weight:bold"><i>Oh No!</i> Something has gone wrong</span></div>
-                    </div>
-                 </center>
+                 
                 <center>
                     <div class="zohoPageDivParent" style="display: none; text-align: left; border: 1px solid black; border-radius: 5px; width: 99%; height: 98%; position: fixed; left: 5px; top: 0px; background-color: silver;">
                         <div class="panel-header panel-header-noborder window-header" style="width: 100%;">
@@ -148,7 +139,17 @@
                     <iframe style="width: inherit; height: inherit; border: 1px solid gray;" id="frmTarget" src="about:blank"></iframe>
                 </div>
 
-                <!-- .content-wrapper -->
+                 <center>
+                    <div class="exceptionDivParent" style="display:none; text-align:left; border: 1px solid black;border-radius:5px; width:400px;height:300px;margin-top:100px;margin-left:300px; background-color:silver;">                
+                        <div class="panel-header panel-header-noborder window-header" style="width:100%;">
+                            <div class="panel-title panel-with-icon" style="">Error While Processing Request</div>
+                            <div class="panel-icon icon-no"></div>
+                            <div class="panel-tool"><a class="panel-tool-close" href="#"></a></div>
+                        </div>                       
+                             <div style="width:inherit;height:inherit;text-align: center;position:relative;"><img style="margin-top:30px;" src="img/ohNo.png" /><br /><span style="color:red;font-size:medium;font-weight:bold"><i>Oh No!</i> Something has gone wrong</span></div>
+                    </div>
+                 </center>
+
                 </div>
         </main>       
     </div>
@@ -288,9 +289,9 @@
                 $('.zohoPageDivParent').hide();
             }
             function ShowException() {
-                $('.NavViewer').click();
+                $('.exceptionDivParent').css("margin-left", (width / 2)-200);
                 $('.exceptionDivParent').show();
-                $("#frmTarget").hide();
+                $("#frmTargetHF").hide();
             }
 
         </script>        

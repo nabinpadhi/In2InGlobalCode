@@ -9,8 +9,12 @@ namespace In2InGlobal.presentation.admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Response.AppendHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 10) + "; URL=admin/Login.aspx");
+
+
             if (Session["UserRole"] != null)
             {
+
                 string LoggedInUsrRole = Session["UserRole"].ToString();
 
                 if (LoggedInUsrRole == "User")

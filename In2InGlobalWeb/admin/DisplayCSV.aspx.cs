@@ -55,6 +55,14 @@ namespace In2InGlobal.presentation.admin
                 if (Session["csvTable"] == null)
                 {
                     csvTable = CSVReader.ReadCSVFile(HttpContext.Current.Server.MapPath("uploadedfiles\\" + csvFName), true);
+                    for (int col = csvTable.Columns.Count - 1; col >= 0; col--)
+                    {
+                        if (csvTable.Columns[col].ColumnName.IndexOf("Column") > -1)
+                        {
+                            csvTable.Columns.RemoveAt(col);
+                        }
+                    }
+                    csvTable.AcceptChanges();
                     Session["csvTable"] = csvTable;
                     lblRecordCnt.Text = "Record Count :-" + csvTable.Rows.Count;
                     ancDownload.HRef = "uploadedfiles\\" + csvFName;

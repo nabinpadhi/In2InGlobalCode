@@ -14,7 +14,8 @@
     <link href="../css/msgBoxLight.css" rel="stylesheet" type="text/css" />
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />  
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/gridview.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" /> 
-    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/Grid.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />      
+    <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/Grid.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />  
+  
 </head>
 <body>
     <form id="form1" runat="server">
@@ -103,7 +104,7 @@
                                                 <div class="AspNet-GridView">
                                                 <asp:GridView DataKeyNames="project_id" ID="grdProject" runat="server" Width="100%" AllowPaging="True" OnRowDataBound="grdProject_RowDataBound"
                                                     OnPageIndexChanging="grdProject_PageIndexChanging"  AutoGenerateColumns="false" PageSize="4"
-                                                    HeaderStyle-CssClass="AspNet-GridView" EmptyDataText="No file has been uploaded." >
+                                                    HeaderStyle-CssClass="AspNet-GridView" EmptyDataText="No project has been created." >
                                                      <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
                                                      <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
                                                     <Columns>                                                      
@@ -495,9 +496,10 @@
 
      function StartUploading() {
 
-         
+         alert("File varification started..");
          if (VerifyFile()) {
 
+             alert("File varification completed..");
              var fileUpload = $("#fileUploader").get(0);
              var files = fileUpload.files;
 

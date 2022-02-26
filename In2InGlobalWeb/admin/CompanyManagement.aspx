@@ -15,6 +15,7 @@
   <script lang="JavaScript">
   
 </script>
+    
 </head>
 <body>
     <form id="form1" runat="server">
@@ -48,7 +49,7 @@
                                                  <tr>                                                   
                                                     <td>LOB</td>
                                                     <td>
-                                                       <asp:DropDownList ID="ddlLOB" runat="server" AppendDataBoundItems="true" DataValueField="lob_id" DataTextField="lob_name">
+                                                       <asp:DropDownList ID="ddlLOB" runat="server" AppendDataBoundItems="true" DataValueField="lob_name" DataTextField="lob_name">
                                                            <asp:ListItem>--Select a LOB--</asp:ListItem>
                                                        </asp:DropDownList>
                                                     </td>
@@ -173,7 +174,8 @@
         }         
         function PullDataToEdit(cid,cname, lob) {
 
-            $('#txtCompanyName').val(cname);            
+            lob = lob.replace('&amp;', '&');
+            $('#txtCompanyName').val(cname);          
             $("#ddlLOB").val(lob); 
             $('#hdnCompanyID').val(cid);
             $('#btnSave').val('Update');

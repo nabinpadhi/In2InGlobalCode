@@ -15,7 +15,16 @@
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/Grid.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/gridview.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
     <link href="<%= String.Format("{0}dt={1}",ResolveUrl("css/style.css?"), DateTime.Now.Ticks) %>" rel="stylesheet" type="text/css" />
+<style type="text/css">
+
+  .upldmt  ul { list-style-type: none; }
+
+  .upldmt li:before { content:"\2713\0020"; }
+
+</style>
+    
 </head>
+  
 <body>
     <form id="form1" runat="server">
         <center>
@@ -46,6 +55,18 @@
                                                             <td>
                                                                 <asp:Button ID="btnUpload" OnClientClick="return UploadMasterTemplateFile();" class="button" runat="server" Text="Upload" />
 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>                                                            
+                                                            <td colspan="4">  
+                                                               <br /><br /><br />
+                                                                <span style="color:blue;">Instruction for upload master template:</span>
+                                                                <ul style="color:brown;">
+                                                                    <li>Template file name should be as descriptive and meaningful as possible and without space.</li>
+                                                                    <li>Template header name without space.</li>
+                                                                    <li>Template file should have only header information & no additional record.</li>
+                                                                </ul>
+                                                                  
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -267,7 +288,7 @@
     </style>
     <script type="text/javascript">
         var uploadingFileName = "";
-       
+        var uploadStatus = "";
         var recentnl = "btnCreateTemplate";
         (function ($) {
             $.fn.invisible = function () {
@@ -296,7 +317,9 @@
         $(document).ajaxStop(function () {
             $("#tmpltFU").val('');
             uploadingFileName = "";
-            RefreshMasterTemplate();
+            if (uploadStatus != "Failed") {
+                RefreshMasterTemplate();
+            }
         });
         $('input[type="file"]').change(function (e) {
             uploadingFileName = e.target.files[0].name;
@@ -519,10 +542,11 @@
         }
        
        function UploadMasterTemplateFile ()
-        {
+       {
+           
             if (VerifyFile())
             {
-                
+              
                 var fileUpload = $("#tmpltFU").get(0);
                 var files = fileUpload.files;
 
@@ -545,31 +569,36 @@
 
                     },
                     success: function (result) {
-
+                       
                         if (result != '') {
                                                         
                             result = result.replace('ShowException', '');
                             $("#tmpltFU").val('');
                             uploadingFileName = "";
                             ShowServerMessage(result);
-                           
-
+                            if (result.indexOf("Failed") > 0) {
+                                uploadStatus = "Failed";
+                            }
+                            else {
+                                uploadStatus = "Success";
+                            }
                         }
 
                     },
                     error: function (err) {
+                       
                         ShowServerMessage(err.statusText);
                         window.parent.$('#navOverlayImg').hide();
                         window.parent.$('#navOverlay').hide();
                     },
                     complete: function (data) {
-                        
+                      
                         window.parent.$('#navOverlayImg').hide();
                         window.parent.$('#navOverlay').hide();
                         $("#tmpltFU").val('');
                         uploadingFileName = "";
-                        ShowCreateTemplate();
-
+                       // ShowCreateTemplate();
+                     
                     }
                 });
                 

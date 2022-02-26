@@ -300,6 +300,16 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
             TextReader uploaderFileTextReader = new StreamReader(uploadedFS.BaseStream);
             //(Stream)uploaderFileTextReader.BaseStream.Position = 0;
             DataTable _uploadedTemplateDataTable = new CSVReader(uploaderFileTextReader).CreateDataTable(true);
+
+            for (int col = _uploadedTemplateDataTable.Columns.Count - 1; col >= 0; col--)
+            {
+                if (_uploadedTemplateDataTable.Columns[col].ColumnName.IndexOf("Column") > -1)
+                {
+                    _uploadedTemplateDataTable.Columns.RemoveAt(col);
+                }
+            }
+
+            _uploadedTemplateDataTable.AcceptChanges();
             //_uploadedTemplateDataTable = GetUpdatedTemplateDataTable(fileName, filePathWithFileName, templateEntity);
 
             foreach (DataColumn _dc in _uploadedTemplateDataTable.Columns)
@@ -317,6 +327,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
     private bool IsBothTableSchemaSame(DataTable sessionDataTable, DataTable processedDataTable)
     {
         bool _result = false;
+
         if (sessionDataTable != null && processedDataTable != null)
         {
             if (sessionDataTable.Columns.Count != processedDataTable.Columns.Count)
@@ -428,8 +439,35 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
         {
             _result = false;
         }
+        else if (!CheckColumns(_uploadedTemplateDataTable))
+        {
+            _result = false;
+        }
         templateUploadFile.InputStream.Position = 0;
         return _result;
+    }
+    private bool CheckColumns(DataTable uploadedTemplateDataTable)
+    {
+        bool _result = true;
+        foreach (DataColumn dc in uploadedTemplateDataTable.Columns)
+        {
+            if(HasSpecialChar(dc.ColumnName))
+            {
+                _result = false;
+            }
+        }
+        return _result;
+    }
+    private bool HasSpecialChar(string input)
+    {
+        /* string specialChar = @"\|!#$%&()=?»«@£§€{}.;'<>,";
+         foreach (var item in specialChar)
+         {
+             if (input.Contains(item)) return true;
+         }
+
+         return false;*/
+        return true;
     }
     public bool IsReusable
     {
