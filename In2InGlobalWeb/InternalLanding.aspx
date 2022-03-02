@@ -91,7 +91,7 @@
                   <li class="cd-side__item cd-side__item--has-children cd-side__item--file js-cd-item--has-children">
                         <a href="#" id="ancFileMan" runat="server">File Management</a>
                     </li>
-                    <li runat="server" id="liAnalytics" class="cd-side__item cd-side__item--has-children js-cd-item--has-children">
+                    <li runat="server" id="liAnalytics" class="cd-side__item cd-side__item--analytics cd-side__item--has-children js-cd-item--has-children">
                         <a href="#" id="ancAnalytics" runat="server" style="cursor:context-menu;">Analytics</a>
                         <div runat="server" id="divConfiguration" class="cd-side__item cd-side__item--configuration" style="margin-left: 25px; padding-top: 4px;padding-bottom: 4px;"><a href="#" id="ancConfiguration" style="font-size:10px;color:aqua;" runat="server">Configuration</a></div>
                         <div class="foo" style="margin-left: 30px; padding-top: 4px;height:150px;width:120px;overflow-y:auto;overflow-x:hidden;">
@@ -102,7 +102,7 @@
                     <li>
                         <div class="rounded-circle">
                             <div style="position: fixed; bottom: 20px;left:50px;">                                
-                                <a href="admin/login.aspx" style="position:relative;margin-left:23px;top:-15px; font-family: sans-serif; font-size: 14px;"><span>Logout</span></a>
+                                <a href="admin/login.aspx" style="position:relative;margin-left:23px;top:-15px;vertical-align:text-top; font-family: sans-serif; font-size: 14px;"><span style="vertical-align: super;">Logout</span>&nbsp;&nbsp;<img style="height:20px;width:20px;" src="img/icons/logout-icon.png" /></a>
                             </div>
                         </div>
                     </li>
@@ -200,32 +200,32 @@
                 });
 
                 $('.cd-side-nav a').click(function () {
-                   
-                    $('.cd-side-nav').hide();
-                    $('.NavViewer').show();
-                    
-                    $('.holds-the-iframe').css("position", "fixed");
-                    /*$('.holds-the-iframe').css("top", "3px");*/
-                    $('.holds-the-iframe').css("left", "5px");
-                    $('.holds-the-iframe').css("width", width - 20);
+                    if ($(this).attr('id') != 'ancAnalytics') {
+                        $('.cd-side-nav').hide();
+                        $('.NavViewer').show();
 
-                    $('.zohoPageDivParent').css("width", width - 20);
-                    $('.csvPageDivParent').css("width", width - 10);
-                    $('.csvPageDivParent').css("height", height - 10);
+                        $('.holds-the-iframe').css("position", "fixed");
+                        /*$('.holds-the-iframe').css("top", "3px");*/
+                        $('.holds-the-iframe').css("left", "5px");
+                        $('.holds-the-iframe').css("width", width - 20);
 
-                    $('#frmCSVPage').css("width", width - 12);
-                    $('#frmCSVPage').css("height", height - 40);
-                    $('#frmCSVPage').css("over5flow", "hidden");
-                    
-                    $('#frmTarget').css("width", width - 30);
-                    $('#frmTarget').css("height", height - 10);
-                    $('#frmTarget').css("top", 20);
-                    $('#frmTarget').css("left", 20);
-                    $('#frmTarget').css("margin-left", "15px");
+                        $('.zohoPageDivParent').css("width", width - 20);
+                        $('.csvPageDivParent').css("width", width - 10);
+                        $('.csvPageDivParent').css("height", height - 10);
 
-                    $('.cd-main-content').css("top", "0px");
-                  
-                    
+                        $('#frmCSVPage').css("width", width - 12);
+                        $('#frmCSVPage').css("height", height - 40);
+                        $('#frmCSVPage').css("over5flow", "hidden");
+
+                        $('#frmTarget').css("width", width - 30);
+                        $('#frmTarget').css("height", height - 10);
+                        $('#frmTarget').css("top", 20);
+                        $('#frmTarget').css("left", 20);
+                        $('#frmTarget').css("margin-left", "15px");
+
+                        $('.cd-main-content').css("top", "0px");
+
+                    }
                 });
 
                 $('.csvPageDivParent').hide();
@@ -243,7 +243,7 @@
                     $('#navOverlayImg').hide();
                 })               
                 $('.cd-side-nav a').click();
-                
+              
             });
             function OpenPage(page, org) {
                

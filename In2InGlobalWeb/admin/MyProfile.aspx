@@ -55,7 +55,7 @@
                 width: 1.3em; /* same as padding-left set on li */
             }
     </style>
-   
+ 
 </head>
 <body>
 
@@ -99,5 +99,13 @@
             </div>
         </center>
     </form>
-</body>
+     <script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        window.parent.$('.cd-side__item--users').css({'background-image': 'url(../img/icons/MyProfile-grey.png)','background - repeat': 'no - repeat'});
+            //, "url(../img/icons/MyProfile-grey.png)");
+             //$('.cd-side__item--users').css("background-image","url(../img/icons/MyProfile-grey.png)");
+         });
+</script>
+</body >
 </html>

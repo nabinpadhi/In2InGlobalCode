@@ -3886,35 +3886,41 @@ a {
     background: url(../admin/assets/img/user-management-22.svg) no-repeat 0 0;
     background-position: 0px 0;
 }
+
+.cd-side__item--users > a::before {
+	background: url(../img/icons/MyProfile.png) no-repeat 0 0;
+	background-size: 16px;
+	background-position: 0px 0;
+}
 .cd-side__item--usermgnt > a::before {
-    background: url(../admin/assets/img/usermgnt.svg) no-repeat 0 0;
-    background-size:16px;
-    background-position: 0px 0;
+	background: url(../img/icons/UserManagement.png) no-repeat 0 0;
+	background-size: 16px;
+	background-position: 0px 0;
 }
 .cd-side__item--companymgnt > a::before {
-    background: url(../admin/assets/img/companymgnt.svg) no-repeat 0 0;
-    background-size: 16px;
-    background-position: 0px 0;
+	background: url(../img/icons/CompanyManagement.png) no-repeat 0 0;
+	background-size: 16px;
+	background-position: 0px 0;
 }
 .cd-side__item--template > a::before {
-    background: url(../admin/assets/img/template.svg) no-repeat 0 0;
-    background-size: 16px;
-    background-position: 0px 0;
+	background: url(../img/icons/TemplateManagement.png) no-repeat 0 0;
+	background-size: 16px;
+	background-position: 0px 0;
 }
 .cd-side__item--file > a::before {
-    background: url(../admin/assets/img/filesmgnt.svg) no-repeat 0 0;
-    background-size: 16px;
-    background-position: 0px 0;
+	background: url(../img/icons/FileManagement.png) no-repeat 0 0;
+	background-size: 16px;
+	background-position: 0px 0;
 }
 .cd-side__item--analytics > a::before {
-    background: url(../admin/assets/img/analytics.svg) no-repeat 0 0;
-    background-size: 16px;
-    background-position: 0px 0;
+	background: url(../img/icons/Analytics.png) no-repeat 0 0;
+	background-size: 16px;
+	background-position: 0px 0;
 }
 .cd-side__item--configuration > a::before {
-    background: url(../admin/assets/img/configuration.svg) no-repeat 0 0;
-    background-size: 16px;
-    background-position: 0px 0;
+	background: url(../img/icons/Configuration.png) no-repeat 0 0;
+	background-size: 16px;
+	background-position: 0px 0;
 }
     .cd-side__item--notifications > a::before {
     background-position: -80px 0
@@ -3932,10 +3938,6 @@ a {
 	background-position: 0 0
 }
 
-.cd-side__item--users > a::before {
-
-	background-position: -16px 0
-}
 
 .cd-side__item--has-children > a::after, .cd-nav__item--has-children > a::after {
     content: '';
