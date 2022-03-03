@@ -102,7 +102,7 @@
      <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        window.parent.$('.cd-side__item--users').css({'background-image': 'url(../img/icons/MyProfile-grey.png)','background - repeat': 'no - repeat'});
+       // window.parent.$('.cd-side__item--users').css({'background-image': 'url(../img/icons/MyProfile-grey.png)','background - repeat': 'no - repeat'});
             //, "url(../img/icons/MyProfile-grey.png)");
              //$('.cd-side__item--users').css("background-image","url(../img/icons/MyProfile-grey.png)");
          });
