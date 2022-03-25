@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace In2InGlobal.presentation.admin {
-    
-    
-    public partial class login {
-        
+namespace In2InGlobal.presentation.admin
+{
+
+
+    public partial class NewLogin
+    {
+
         /// <summary>
         /// loginForm control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm loginForm;
-        
+
         /// <summary>
         /// txtEmailId control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtEmailId;
-        
+
         /// <summary>
         /// companyname control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox companyname;
-        
+
         /// <summary>
         /// password control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputPassword password;
-        
+
         /// <summary>
         /// loginbtn control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace In2InGlobal.presentation.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlButton loginbtn;
-        
+
         /// <summary>
         /// hdnPageAction control.
         /// </summary>

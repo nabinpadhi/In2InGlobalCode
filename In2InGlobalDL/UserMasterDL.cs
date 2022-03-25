@@ -219,7 +219,7 @@ namespace In2InGlobal.datalink
         public long UpdateUser(UserEntity userEntity) 
         {
             BaseRepository baseRepo = new BaseRepository();
-            var query = @"SELECT * FROM dbo.updateuserinfo(@firstname,@lastname,@companyname,@useremail,@phonenumber)";
+            var query = @"SELECT * FROM dbo.updateuserinfo(@firstname,@lastname,@companyname,@useremail,@phonenumber,@roleid)";
             using (var connection = baseRepo.GetDBConnection())
             {
                 try
@@ -232,8 +232,8 @@ namespace In2InGlobal.datalink
                         useremail = userEntity.Email,
                         phonenumber = userEntity.PhoneNumber,                     
                         //activityid = userEntity.ActivityId,
-                        companyname = userEntity.CompanyName
-                        //roleid = userEntity.RoleId
+                        companyname = userEntity.CompanyName,
+                        roleid = userEntity.RoleId
                         
                     }, commandType: CommandType.Text
                     );
@@ -316,6 +316,39 @@ namespace In2InGlobal.datalink
                     connection.Open();
                     NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
                     npgsqlCommand.Parameters.AddWithValue("@companyid", companyid);
+                    npgsqlCommand.CommandType = CommandType.Text;
+                    npgsqlDataAdapter.SelectCommand = npgsqlCommand;
+                    npgsqlDataAdapter.Fill(dsuser);
+
+                    return dsuser;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Dispose();
+                    npgsqlDataAdapter.Dispose();
+                }
+
+            }
+        }
+
+        public DataSet GetProjectForUser(UserEntity userEntity) 
+        {
+            BaseRepository baseRepo = new BaseRepository();
+            DataSet dsuser = new DataSet();
+            NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
+           
+            string query = @"SELECT * FROM dbo.getprojectusers(@email)";
+            using (var connection = baseRepo.GetDBConnection())
+            {
+                try
+                {
+                    connection.Open();
+                    NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
+                    npgsqlCommand.Parameters.AddWithValue("@email", userEntity.Email);
                     npgsqlCommand.CommandType = CommandType.Text;
                     npgsqlDataAdapter.SelectCommand = npgsqlCommand;
                     npgsqlDataAdapter.Fill(dsuser);

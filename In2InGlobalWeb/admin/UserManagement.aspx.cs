@@ -45,7 +45,7 @@ namespace In2InGlobal.presentation.admin
                             BindRoles();
                             BindActivity();
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
                             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
                         }
@@ -61,12 +61,13 @@ namespace In2InGlobal.presentation.admin
         /// </summary>
         private void BindUsers()
         {
-            try { 
-            UserMasterBL userMasterBL = new UserMasterBL();
-            DataSet dsUser = new DataSet();
-            dsUser = userMasterBL.FillUserGridInfo();
-            grdUsers.DataSource = dsUser;
-            grdUsers.DataBind();
+            try
+            {
+                UserMasterBL userMasterBL = new UserMasterBL();
+                DataSet dsUser = new DataSet();
+                dsUser = userMasterBL.FillUserGridInfo();
+                grdUsers.DataSource = dsUser;
+                grdUsers.DataBind();
             }
             catch (Exception ex)
             {
@@ -147,7 +148,7 @@ namespace In2InGlobal.presentation.admin
         /// </summary>
         private void BindRoles()
         {
-            DataSet dsRoles = new DataSet();         
+            DataSet dsRoles = new DataSet();
             try
             {
                 dsRoles = (DataSet)Session["dsRoles"];
@@ -174,11 +175,11 @@ namespace In2InGlobal.presentation.admin
             grdUsers.DataBind();
         }
 
-       
+
         private void BindActivity()
         {
-            
-            
+
+
             try
             {
                 DataSet dsUserDetails = (DataSet)Session["dsActivityAccess"];
@@ -216,7 +217,7 @@ namespace In2InGlobal.presentation.admin
             BindUsers();
         }
 
-      
+
         /// <summary>
         /// Update  User
         /// </summary>
@@ -226,9 +227,10 @@ namespace In2InGlobal.presentation.admin
         /// <param name="email"></param>
         private void UpdateUser(UserEntity userEntity)
         {
-            try { 
-            UserMasterBL userMasterBl = new UserMasterBL();
-            userMasterBl.UpdateUser(userEntity);
+            try
+            {
+                UserMasterBL userMasterBl = new UserMasterBL();
+                userMasterBl.UpdateUser(userEntity);
             }
             catch (Exception ex)
             {
@@ -242,6 +244,7 @@ namespace In2InGlobal.presentation.admin
         /// <param name="email"></param>
         private void DeleteUser(string email)
         {
+            DataSet userDs = new DataSet();
             try
             {
                 UserEntity userEntity = new UserEntity();
@@ -253,13 +256,32 @@ namespace In2InGlobal.presentation.admin
                 string _message = "User Deleted Successfully";
                 hdnUserEmail.Value = "";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);
-
             }
             catch (Exception ex)
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
-    }
+        }
+
+
+        /// <summary>
+        /// Get Project For User
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        private DataSet GetProjectForUser(string email)
+        {
+            DataSet dsUsers = new DataSet();
+            UserEntity userEntity = new UserEntity();
+            userEntity.Email = email;
+
+            UserMasterBL companyMasterBl = new UserMasterBL();
+
+            dsUsers = companyMasterBl.GetProjectForUser(userEntity);
+
+            return dsUsers;
+        }
+
 
         /// <summary>
         /// grdUsers RowCancelingEdit
@@ -288,7 +310,7 @@ namespace In2InGlobal.presentation.admin
                     string email = grdUsers.DataKeys[e.Row.RowIndex].Value.ToString();
                     string roleid = dtRole.Select("role_name = '" + e.Row.Cells[4].Text + "'")[0]["role_id"].ToString(); //e.Row.Cells[4].Text; ;
                     string activityid = dtActivity.Select("activity_name = '" + e.Row.Cells[5].Text + "'")[0]["activity_id"].ToString(); //e.Row.Cells[5].Text; ;                
-                   
+
 
                     foreach (Button editbutton in e.Row.Cells[6].Controls.OfType<Button>())
                     {
@@ -364,7 +386,7 @@ namespace In2InGlobal.presentation.admin
                 }
                 ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
             }
@@ -381,19 +403,34 @@ namespace In2InGlobal.presentation.admin
             ddlCompanyName.SelectedIndex = 0;
             ddlActivityAccess.SelectedIndex = 0;
             ddlRoleName.SelectedIndex = 0;
-            
+
             txtPassword.Value = "";
         }
         protected void hdnDelBtn_Click(object sender, EventArgs e)
         {
-            if (hdnUserEmail.Value != "")
+            DataSet userDs = new DataSet();
+            try
             {
-                DeleteUser(hdnUserEmail.Value);
-            }
-            BindUsers();
-            string _message = "User deleted successfully.";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}')", _message), true);
+                if (hdnUserEmail.Value != "")
+                {
+                    userDs = GetProjectForUser(hdnUserEmail.Value);
 
+                    if (userDs.Tables[0].Rows.Count > 0)
+                    {
+                        string _message = "User delete failed.User mapped to a project";
+                        hdnUserEmail.Value = "";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}'); ", _message), true);
+                    }
+                    else
+                    {
+                        DeleteUser(hdnUserEmail.Value);                      
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
+            }
         }
     }
 }

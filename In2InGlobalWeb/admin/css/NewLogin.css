@@ -1,0 +1,72 @@
+﻿
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: white;
+    font-size: 14px;
+    font-family: "open sans",sans-serif;
+}
+.container {
+    /*max-width: 1100px;*/
+    margin: auto;
+    padding: 40px 40px;
+    box-sizing: border-box;
+    background-color:white ;
+}
+.row {
+    background-color:white;
+    border-radius:20px;
+    justify-content:center ;
+    align-content :center ;
+ }
+
+.title {
+    /*font :bolder 20px sans serif;*/
+    font-family: "open sans",sans-serif;
+    font-size:20px;
+    font-weight:700;
+}
+
+input[type="password"] {
+    Font-Size: 14px;
+    height: 30px;
+}
+
+ input[type="password"]:focus {
+        outline :none!important;
+ }
+    
+    
+   input [type="email"] {
+        Font-Size: 14px;
+        height: 30px;
+   }
+
+.fa-envelope {
+        color: #299192;
+        cursor: pointer;
+        background: none;
+    }
+.fa-building {
+    color: #299192;
+}
+
+.fa-key {
+    color: #299192;
+}
+
+.fa-eye {
+    color: #299192;
+}
+
+.fa-eye-slash {
+    color: #299192;
+}
+.form-check-input:checked{
+    background-color: #299192;
+    border-color: #299192;
+}

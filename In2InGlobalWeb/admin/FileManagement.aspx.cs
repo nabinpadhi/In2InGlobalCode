@@ -567,16 +567,53 @@ namespace In2InGlobal.presentation.admin
 
         protected void hdnDelBtn_Click(object sender, EventArgs e)
         {
+            DataSet userDs = new DataSet();
+
             if (hdnPID.Value != "")
             {
-                DeleteProject(hdnPID.Value);
+                userDs = getTemplateInfoForProjectId(hdnPID.Value);
+                if (userDs.Tables[0].Rows.Count > 0)
+                {
+                    txtDescription.Value = "";
+                    string _message = "Project delete failed.Project mapped to a Template.";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowProjectMgnt(); ", _message), true);
+                }
+                else
+                {
+                    DeleteProject(hdnPID.Value);
+                    BindProjectGrid();
+                    txtDescription.Value = "";
+                    string _message = "Project deleted successfully.";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowProjectMgnt(); ", _message), true);
+                }
             }
-            BindProjectGrid();
-            txtDescription.Value = "";
-            string _message = "Project deleted successfully.";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}');ShowProjectMgnt(); ", _message), true);
 
         }
+
+
+        protected DataSet getTemplateInfoForProjectId(string pID) 
+        {
+            ProjectMasterBL projectBL = new ProjectMasterBL();
+            ProjectEntity projectEntitiy = new ProjectEntity();
+            DataSet userDs = new DataSet();
+            try
+            {
+                if (pID != string.Empty)
+                {
+                    projectEntitiy.ProjectId = Convert.ToInt64(pID);
+                    userDs= projectBL.getTemplateInfoForProjectId(projectEntitiy);
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
+            }
+
+            return userDs;
+        }
+
+
         protected void grdUploadedFiles_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)

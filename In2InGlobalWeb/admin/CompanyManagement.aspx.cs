@@ -193,6 +193,30 @@ namespace In2InGlobal.presentation.admin
             }            
         }
 
+
+        private DataSet GetUserForCompany(string companyID) 
+        {
+            DataSet dsUsers = new DataSet();
+            CompanyMasterBL objCompanyBL = new CompanyMasterBL();
+            long companyid= Convert.ToInt32(companyID);
+
+            if (companyID != null)
+            {
+                try
+                {
+                    dsUsers = objCompanyBL.GetUsers(companyid);
+                    
+                }
+                catch (Exception ex)
+                {
+                    ex.Message.ToString();
+                }               
+            }
+            return dsUsers;
+        }
+
+
+
         protected void UpdateCompany(string companyname, string lob, string companyID)
         {
             CompanyEntity companyEntity = new CompanyEntity();
@@ -208,15 +232,29 @@ namespace In2InGlobal.presentation.admin
         }
         protected void hdnDelBtn_Click(object sender, EventArgs e)
         {
+            DataSet userDs = new DataSet();
+           
             if (hdnCompanyID.Value != "")
             {
-                DeleteCompany(hdnCompanyID.Value);
+                userDs = GetUserForCompany(hdnCompanyID.Value);
+                if (userDs.Tables[0].Rows.Count > 0)
+                {
+                    hdnCName.Value = "";
+                    hdnCompanyID.Value = "";
+                    string _message = "Delete failed.User exists for the Company";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}')", _message), true);
+                }
+                else
+                {
+                    DeleteCompany(hdnCompanyID.Value);
+                    BindCompany();
+                    hdnCName.Value = "";
+                    hdnCompanyID.Value = "";
+                    string _message = "Company deleted successfully.";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}')", _message), true);
+                }
             }
-            BindCompany();
-             hdnCName.Value="";
-            hdnCompanyID.Value = "";
-            string _message = "Company deleted successfully.";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), string.Format("ShowServerMessage('{0}')", _message), true);
+          
 
         }
     }

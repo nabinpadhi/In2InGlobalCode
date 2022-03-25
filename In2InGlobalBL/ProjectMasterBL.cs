@@ -176,5 +176,21 @@ namespace In2InGlobalBL
 
             return dsProject;
         }
+
+        public DataSet getTemplateInfoForProjectId(ProjectEntity projectEntity)
+        {
+            DataSet dsProject = new DataSet();
+            try
+            {
+                ProjectMasterDL objProject = new ProjectMasterDL();
+                dsProject = objProject.getTemplateInfoForProjectId(projectEntity);
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
+
+            return dsProject;
+        }
     }
 }

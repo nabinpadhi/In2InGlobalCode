@@ -64,6 +64,7 @@
                                                                 <ul style="color:brown;">
                                                                     <li>Template file name should be as descriptive and meaningful as possible and without space.</li>
                                                                     <li>Template header name without space.</li>
+                                                                     <li>Template header name without special characters.</li>
                                                                     <li>Template file should have only header information & no additional record.</li>
                                                                 </ul>
                                                                   

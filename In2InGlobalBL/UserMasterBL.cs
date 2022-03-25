@@ -162,5 +162,22 @@ namespace In2InGlobal.businesslogic
 
             return dsUsers;
         }
+
+        public DataSet GetProjectForUser(UserEntity userEntity) 
+        {
+            DataSet dsUsers = new DataSet();
+            try
+            {
+                UserMasterDL objUsers = new UserMasterDL();
+                dsUsers = objUsers.GetProjectForUser(userEntity);
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
+
+            return dsUsers;
+        }
+       
     }
 }

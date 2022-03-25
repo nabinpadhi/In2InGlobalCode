@@ -496,10 +496,10 @@
 
      function StartUploading() {
 
-         alert("File varification started..");
+        // alert("File varification started..");
          if (VerifyFile()) {
 
-             alert("File varification completed..");
+            // alert("File varification completed..");
              var fileUpload = $("#fileUploader").get(0);
              var files = fileUpload.files;
 

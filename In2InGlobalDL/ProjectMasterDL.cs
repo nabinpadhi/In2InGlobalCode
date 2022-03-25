@@ -331,5 +331,39 @@ namespace In2InGlobal.datalink
             }
             return projectEntity.ProjectId;
         }
+
+        public DataSet getTemplateInfoForProjectId(ProjectEntity projectEntity) 
+        {
+            BaseRepository baseRepo = new BaseRepository();
+            DataSet dsProject = new DataSet();
+            NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
+
+            string query = @"SELECT * FROM dbo.getTemplateInfoForProjectId(@projectid)";
+            using (var connection = baseRepo.GetDBConnection())
+            {
+                try
+                {
+                    connection.Open();
+                    NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
+                    npgsqlCommand.Parameters.AddWithValue("@projectid", projectEntity.ProjectId);
+                    npgsqlCommand.CommandType = CommandType.Text;
+                    npgsqlDataAdapter.SelectCommand = npgsqlCommand;
+                    npgsqlDataAdapter.Fill(dsProject);
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Dispose();
+                    npgsqlDataAdapter.Dispose();
+                }
+                return dsProject;
+            }
+        }
+
+
     }
 }

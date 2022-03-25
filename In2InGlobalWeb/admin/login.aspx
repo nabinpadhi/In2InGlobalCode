@@ -1,36 +1,45 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="In2InGlobal.presentation.admin.login" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="In2InGlobal.presentation.admin.NewLogin" %>
 
 <!DOCTYPE html>
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
+ <html lang="en">
+<head runat="server">
+  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
- <title>Login | In2inglobal</title>
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-  <link href="css/admin.css" rel="stylesheet">
-        <link href="css/login.css" rel="stylesheet">
+  <title>Login | In2inglobal</title>
+
+                         <%--css--%>
+
+    <link href="../Bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/black/easyui.css" />
-    <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/icon.css" />
-      <script src="../NewJEasyUI/jquery.min.js" type="text/javascript" lang="javascript"></script>
+    <link href="../FontAwesome/css/all.css" rel="stylesheet" />
+    <link href="css/login.css" rel="stylesheet">
+   <%-- <link href="css/admin.css" rel="stylesheet" />--%>
+    <link href="../FontAwesome/css/fontawesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="css/NewLogin.css" rel="stylesheet" />
+                         <%--js--%>
+    <script src="../Bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../NewJEasyUI/jquery.min.js" type="text/javascript" lang="javascript"></script>
     <script src="../NewJEasyUI/jquery.easyui.min.js" type="text/javascript" lang="javascript"></script>
-   <!-- <link href="css/admin.css" rel="stylesheet">-->
-<script type="text/javascript">
+
+    <script type="text/javascript">
     function ShowException() {
 
         document.getElementById('exceptionDivParent').style.display = "block";
 
     }
     function ShowHidden() { }
-</script>
-</head> 
-<body class="bg-gradient-primary">
+    </script>
+</head>
+
+<body>
     <center>
         <div id="exceptionDivParent" style="position:fixed; left:400px;top:50px; display: none; 
                                             text-align: left; border: 1px solid black; border-radius: 5px; 
@@ -45,92 +54,92 @@
                 <span style="color: red; font-size: medium; font-weight: bold"><i>Oh No!</i> Something has gone wrong</span></div>
         </div>
     </center>
-    <div style="position:fixed;left:10px;top:10px;"><img src="../images/in2ingloballogo.png" style="width:27%;" /></div>
-	<div class="login-page">        
-		<div class="container m-auto">            
-			<div class="row justify-content-center">
-  <div class="col-xl-10 col-lg-12 col-md-9">
-    <div class="card o-hidden border-0 shadow-lg my-5" style="border: 2px solid blue;border-radius: 50px;">
-      <div class="card-body p-4" style="border: 2px solid blue;border-radius: 50px;">
-        <div class="row">
-          <div class="col-lg-6 d-none d-lg-block bg-login-image" style="border: 1px solid none;border-radius: 50px;">             
-          </div>
-          
-          <div class="col-lg-6" style="background-color:#74eff7;border: 2px solid white;border-radius: 50px;">
-            <div class="p-5" id="sign_in_div">
-              <div class="text-center">
-                <h1 class="sec-title">Welcome back!</h1>
-              </div>
-              <form class="user" id="loginForm" autocomplete="off" runat="server">              
-                   <table class="user" style="width:100%;">
-                      <tr>
-                          <td style="width:50%;text-align:center;color:white;font-weight:bold;">
-                              <div  style="background-color:#037f7f;width:80%;border-radius:3px;border:solid 1px #037f7f;">Email ID</div></td>
-                          <td style="width:50%;">
-                              <div>
-                                  <asp:TextBox Text="" ID="txtEmailId" AutoPostBack="true"  class="form-control validate" autocomplete="off" name="email" 
-                                      data-validate-msg="Email ID field is required" OnTextChanged="txtEmailId_TextChanged" 
-                                      runat="server" ></asp:TextBox>
-                              </div>
-                          </td>
-                      </tr>
-                      <tr>
-                          <td style="text-align:center;color:white;font-weight:bold;">
-                              <div style="background-color:#037f7f;width:80%;border-radius:3px;border:solid 1px #037f7f;">Company Name</div>
-                          </td>
-                          <td>
-                              <div>
-                                  <asp:TextBox Text="" ID="companyname" AutoPostBack="true" ReadOnly="true" fieldtype="readonly"  class="form-control"  runat="server"  autocomplete="off" name="companyname"> </asp:TextBox>
-                              </div>
-                          </td>
-                      </tr>
-                      
-                      <tr>
-                          <td style="text-align:center;color:white;font-weight:bold;">
-                              <div style="background-color:#037f7f;width:80%;border-radius:3px;border:solid 1px #037f7f;">Password</div>
-                          </td>
-                          <td>
-                            
-                               <div>
-                                  <input type="password" runat="server" class="form-control validate" autocomplete="off" id="password" name="password" data-validate-msg="Password field is required" placeholder="Password" />
-                              </div>
-                          </td>
-                      </tr>
-                  </table>
-                
-                  
-                <div class="custom-checkbox mb-3">
-                  <input type="checkbox" class="custom-input checkAll" checked style="width:0%;" id="remember" name="remember">
-                  <label class="custom-label" for="remember">Remember me</label>
-                    <button class="custom-button loginButton button" id="loginbtn" name="loginbtn" runat="server" type="button" style="margin-left:100px;">Login</button>
-                </div>
-              </form>
-              <hr>
-              <div class="text-center">
-                <a class="small" id="forget_ps" href="javascript:void(0)">Forgot Password?</a> <a class="small" style="margin-left:50px;color:blue;" id="zohoLink" href="https://analytics.zoho.in/open-view/210664000000116357/1940ea90f91aeff6411ba0a13cb9d6f2">Analytics Dashboard</a>
-                   
-              </div>
+   
+    <div class="container">
+        <div class="row no-gutters mx-auto p-2 " style="width:90%;" >
+            <div class="col-lg-6 mt-4 p-3 mx-auto" align="center">  
+                <img src="../images/Loginimage.png" class="img-fluid" style="width:90%;" />
             </div>
-            <div class="p-5" id="forgot_ps_div" style="display: none;">
-              <div class="text-center">
-                <h1 class="sec-title">We will send your password to your email account!</h1>
+            <div class="col-lg-6 p-3 mt-4" >   
+               <div class="p-2" id="sign_in_div">   
+                    <div class="text-center mb-3" style="width:85%;">
+                        <img src="../images/logo-development.png" class="img-fluid" style="width:45%;" />
+                    </div>
+                 <form id="loginForm" autocomplete="off" runat="server" class="form-group" style="width:85%;"  >
+                     <div class="text-center mb-3 ">
+                        <h1 class="title">Welcome back!</h1>
+                     </div>
+                      
+                     <div class="input-group mb-3">
+                         <span style="background-color:white" class="input-group-text">
+                         <i class="fa fa-envelope" ></i></span>
+                         <asp:TextBox ID="txtEmailId" AutoPostBack="true" autocomplete="off" name="email"  class="form-control validate" runat="server"
+                             data-validate-msg="Email ID field is required"  OnTextChanged="txtEmailId_TextChanged" placeholder="Email Address" Height="30px" Font-Size="14px">
+                         </asp:TextBox>
+                     </div>
+                     
+                     <div class="input-group mb-3">
+                         <span class="input-group-text" style="background-color:white" >
+                             <i class="fa fa-building"></i>
+                         </span>
+                          <asp:TextBox ID="companyname" AutoPostBack="true" ReadOnly="true" fieldtype="readonly" cssclass="form-control" autocomplete="off" name="companyname"
+                              placeholder = " Company" runat="server" Enabled="False"  Height="30px" Font-Size="14px"></asp:TextBox>
+                     </div>
+
+                      <div class="input-group mb-3">
+                         <span class="input-group-text" style="background-color:white" >
+                             <i class="fa fa-key"></i>
+                         </span>
+
+                            <input type="password" runat="server" class="form-control validate"  autocomplete="off" id="password" name="password"
+                                placeholder = "Password" data-validate-msg="Password field is required" />
+
+                            <div class="input-group-append">
+                                <span class="input-group-text" style="background-color: white" onclick="password_show_hide();">
+                                    <i class="fa fa-eye" id="show_eye"></i>
+                                    <i class="fa fa-eye-slash d-none" id="hide_eye"></i>
+                                </span>
+                            </div>
+                      </div>
+                  
+                     <div class="custom-checkbox mb-2">
+                         <input type="checkbox" class="custom-input checkAll" style="width:0%;" id="remember" name="remember">
+                         <label class="custom-label" for="remember">Remember me</label>
+
+                         <a class="small" style="margin-left:120px;color:#17adb3;" id="forget_ps" href="javascript:void(0)">Forgot Password?</a> 
+                     </div>
+
+                     <div align="center"  >
+                         <button class="custom-button loginButton button" id="loginbtn" name="loginbtn" runat="server" type="button" backcolor="#299192" width="150px">Login</button>
+                     </div>
+                     <div class="text-center mt-2">
+                        <a class="small" style="color:#299192;" id="zohoLink" href="https://analytics.zoho.in/open-view/210664000000116357/1940ea90f91aeff6411ba0a13cb9d6f2"  target="_blank">Analytics Dashboard</a>
+                     </div>
+                </form>
+               </div>
+
+               <div class="p-5" id="forgot_ps_div" style="display: none;">
+                   <div class="text-center p-3">
+                <h1 class="title">Your password will be emailed to you right away!</h1>
               </div>
-              <form class="user" id="forgotForm">
+                   <form class="user" id="forgotForm">
                   <center>
-                <div class="form-group">
-                  <input type="email" class="form-control form-control-user validate_fp email" name="emailFP" id="emailFP" data-validate-msg="Email field is required"  autocomplete="off" placeholder="Enter Email Address" style="width:60%">
+                <div class="form-group p-3">
+                  <input type="email" class="form-control validate_fp email" name="emailFP" id="emailFP" 
+                      data-validate-msg="Email field is required"  autocomplete="off" placeholder="Enter Email Address" style="width:90%" height="30px">
                 </div>
-                <button class="btn btn-primary btn-user btn-block forgotButton" type="button" style="width:30%">Send</button>
+                <button class="custom-button forgotButton button align-items-center " type="button" style="width:30%;" >Send</button>
                       </center>
               </form>
-              <hr>
-              <div class="text-center">
+                  <hr>
+                   <div class="text-center">
                 <a class="small" id="sign_in" href="javascript:void(0)">Sign In</a>
               </div>
-            </div>           
-            <div class="p-5" id="password_div" style="display: none;">
+               </div>
+                
+               <div class="p-2" id="password_div" style="display: none;">
               <div class="text-center">
-                <h1 class="sec-title">Enter your new password!</h1>
+                <h1 class="title">Enter your new password!</h1>
               </div>
               <form class="user" id="passwordForm">
                 <div class="form-group">
@@ -145,23 +154,27 @@
               </form>
               <hr>
             </div>
-          </div>
+               
+            </div> 
+       </div>
+        <div>
+            <center>
+               <footer class="p-3" style="font-size: small;color:grey "><i>All Rights Reserved.Copyright © In2In Global 2021</i></footer>
+            </center>
         </div>
-      </div>
     </div>
-  </div>
-</div> 
-		</div>
-	</div>
-    <input type="hidden" name="hdnPageAction" id="hdnPageAction" value="" runat="server" />
+
+
+<input type="hidden" name="hdnPageAction" id="hdnPageAction" value="" runat="server" />
 	
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/toastr.min.css">
 <script src="js/toastr.min.js"></script>
+
 <script type="text/javascript">
-    var BASE_URL = 'login.aspx';
+    var BASE_URL = 'Login.aspx';
     $(document).ready(function () {
 
         $("#email").change(function () {
@@ -187,7 +200,7 @@
             }
         });
         $('.panel-tool-close').click(function () {
-           
+
             $('#exceptionDivParent').hide();
 
         });
@@ -203,7 +216,7 @@
                 'global': false,
                 'dataType': 'json',
                 contentType: 'application/json; charset=utf-8',
-                'url': "login.aspx/GetUserDetails",
+                'url': "Login.aspx/GetUserDetails",
                 'data': dataValue,
                 'success': function (data) {
                     tmp = data.d;
@@ -227,7 +240,7 @@
                 'global': false,
                 'dataType': 'json',
                 contentType: 'application/json; charset=utf-8',
-                'url': "login.aspx/Dologin",
+                'url': "Login.aspx/Dologin",
                 'data': dataValue,
                 beforeSend: function () {
 
@@ -257,12 +270,31 @@
 
     }
     function Demo() {
-        $('#email').val('nabinpadhi@gmail.com');
+        $('#email').val('ganesh@gmail.com');
     }
-    
+    function password_show_hide() {
+        var x = document.getElementById("password");
+        var show_eye = document.getElementById("show_eye");
+        var hide_eye = document.getElementById("hide_eye");
+        hide_eye.classList.remove("d-none");
+        if (x.type === "password") {
+            x.type = "text";
+            x.style.fontFamily = "opan sans:sans series";
+            x.style.fontSize = "11pt";
+            x.style.height = "30px";
+            show_eye.style.display = "none";
+            hide_eye.style.display = "block";
+        }
+        else {
+            x.type = "password";
+            show_eye.style.display = "block";
+            hide_eye.style.display = "none";
+        }
+    }
 </script>
+   
 <script src="<%= String.Format("{0}dt={1}",ResolveUrl("js/login.js?"), DateTime.Now.Ticks) %>"></script>
 <script src="js/jquery.cookie.js"></script>
-
+ 
 </body>
 </html>
