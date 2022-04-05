@@ -443,16 +443,20 @@
          var idxDot = fileName.lastIndexOf(".") + 1;
          var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
          var selectedTemplate = jQuery("#ddlTemplate option:selected").text();
-       
+         if (selectedTemplate.indexOf('_') > 0) {
+
+             selectedTemplate = selectedTemplate.split('_')[0];
+         }
          if (CheckNull(fileName, in2in23)) {
              CheckFileExtension(extFile, "csv", in2in24);
+
              if (fileName.indexOf(selectedTemplate) < 0) {
                  Error_Message = Error_Message + Error_Count + " . Please upload a valid file for selected template<br>";
-                 Error_Count = Error_Count + 1;                 
+                 Error_Count = Error_Count + 1;
              }
          }
 
-         
+
          if (Error_Message != "") {
              ShowError(Error_Message, 80);
              return false;
@@ -496,10 +500,10 @@
 
      function StartUploading() {
 
-        // alert("File varification started..");
+         //alert("File varification started..");
          if (VerifyFile()) {
 
-            // alert("File varification completed..");
+             //  alert("File varification completed..");
              var fileUpload = $("#fileUploader").get(0);
              var files = fileUpload.files;
 
@@ -519,11 +523,11 @@
                  contentType: false,
                  processData: false,
                  beforeSend: function () {
-                                                             
+
                      window.parent.$('#navOverlay').show();
                      window.parent.$('#navOverlayImg').show();
                      window.parent.$('#navOverlay').css('opacity', '0.25');
-                     
+
                  },
                  success: function (result) {
 
@@ -550,8 +554,8 @@
                      window.parent.$('#navOverlayImg').hide();
                      window.parent.$('#navOverlay').hide();
                      $('#btnReload').trigger("click");
-                                     
-                     
+
+
                  }
              });
 

@@ -34,14 +34,23 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
                 string uploadedBy = HttpContext.Current.Session["UserEmail"].ToString();
 
                 HttpPostedFile file = context.Request.Files[0];
+                if (!FileContainsDuplicate())
+                {
+                    if (HttpContext.Current.Session["ForScreen"].ToString() == "TemplateManagement")
+                    {
+                        StartTemplateManagementTask(context, file, filePath, uploadedBy);
+                    }
+                    else if (context.Request["ForScreen"] == "FileManagement")
+                    {
+                        StartFileManagementTask(context, file, filePath, uploadedBy);
+                    }
 
-                if (HttpContext.Current.Session["ForScreen"].ToString() == "TemplateManagement")
-                {
-                    StartTemplateManagementTask(context, file, filePath, uploadedBy);
                 }
-                else if (context.Request["ForScreen"] == "FileManagement")
+                else
                 {
-                    StartFileManagementTask(context, file, filePath, uploadedBy);
+                    context.Response.ContentType = "text/plain";
+                    context.Response.Write("File cannot be uploaded, <br> as it contains duplicate record(s).");
+                    context.Response.End();
                 }
 
             }
@@ -138,7 +147,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
         {
             _uploadedTemplateDataTable.Load(_csvTableLoader);
         }
-        string TableName = templateName+"_" +"Processed";
+        string TableName = templateName + "_" + "Processed";
 
         _tableScript.AppendLine("CREATE TABLE IF NOT EXISTS dbo." + TableName);
         _tableScript.AppendLine("(");
@@ -201,7 +210,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
     {
         string projectName = context.Session["SelectedProjectName"].ToString();
         string fileName = file.FileName;
-        string selectedTemplate =  HttpContext.Current.Session["TemplateName"].ToString();;
+        string selectedTemplate = HttpContext.Current.Session["TemplateName"].ToString(); ;
         fileName = fileName.Replace(".csv", "~" + uploadedBy.Replace(" ", "") + "~" + projectName + ".csv");
         string filePathWithFileName = context.Server.MapPath(filePath + fileName);
 
@@ -212,16 +221,21 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
 
                 if (!System.IO.File.Exists(filePathWithFileName))
                 {
+
                     file.SaveAs(filePathWithFileName);
                     //call the function to db entry
-                    SaveUploadTemplateInformationInDB(fileName, uploadedBy, projectName, context, filePathWithFileName);
+                    SaveUploadTemplateInformationInDB(fileName, uploadedBy, projectName, context, filePathWithFileName, "");
 
                     context.Response.ContentType = "text/plain";
                     context.Response.Write("File Uploaded Successfully.");
                     context.Response.End();
+
                 }
                 else
                 {
+                    //Get the latest File Name with path
+                    filePathWithFileName = GetLatestUploadedFileNameWithPath(filePathWithFileName, fileName, context, filePath);
+                    string existingFileWithPath = filePathWithFileName;
                     if (!IsBothCSVFileDataAreSame(filePathWithFileName, file))
                     {
                         string tempfileName = "";
@@ -238,7 +252,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
                         //if (CheckUploadedFileSchema(fileName, uploadedBy, projectName, context, filePathWithFileName))
                         //{
                         file.SaveAs(context.Server.MapPath(System.IO.Path.Combine(filePath, fileName)));
-                        SaveUploadTemplateInformationInDB(fileName, uploadedBy, projectName, context, filePathWithFileName);
+                        SaveUploadTemplateInformationInDB(fileName, uploadedBy, projectName, context, filePathWithFileName, existingFileWithPath);
                         context.Response.ContentType = "text/plain";
                         context.Response.Write("File Uploaded Successfully.");
                         context.Response.End();
@@ -278,7 +292,57 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
         }
 
     }
-    private bool CheckUploadedFileSchema(string fileName, string uploadBy, string projectName, HttpContext context,  HttpPostedFile file)
+    private bool FileContainsDuplicate()
+    {
+        bool result = false;
+        HttpPostedFile _file = System.Web.HttpContext.Current.Request.Files[0];
+        Stream strm = _file.InputStream;
+        DataTable uploadedTemplateDataTable = new DataTable();
+        StreamReader uploadedFS = new StreamReader(_file.InputStream);
+        uploadedFS.BaseStream.Position = 0;
+        TextReader uploaderFileTextReader = new StreamReader(uploadedFS.BaseStream);
+        CsvReader.CsvReader _csvTableLoader = new CsvReader.CsvReader(uploaderFileTextReader, true);
+
+        uploadedTemplateDataTable.Load(_csvTableLoader);
+
+        var UniqueRows = uploadedTemplateDataTable.AsEnumerable().Distinct(DataRowComparer.Default);
+        DataTable uniqueDataTable = UniqueRows.CopyToDataTable();
+        if (uniqueDataTable.Rows.Count != uploadedTemplateDataTable.Rows.Count)
+        {
+            result = true;
+        }
+
+
+        return result;
+    }
+    private string GetLatestUploadedFileNameWithPath(string filePathWithFileName, string fileName, HttpContext context, string filePath)
+    {
+        string tempfileName;
+        string orgFileNameWithPath = filePathWithFileName;
+        int counter = 1;
+        while (System.IO.File.Exists(filePathWithFileName))
+        {
+            fileName = fileName.Replace(".csv", "");
+            tempfileName = fileName + "-" + "V-" + counter.ToString() + ".csv";
+            filePathWithFileName = filePath + tempfileName;
+            filePathWithFileName = context.Server.MapPath(filePathWithFileName);
+            counter++;
+        }
+        if (counter == 2)
+        {
+            filePathWithFileName = orgFileNameWithPath;
+        }
+        else if (counter > 2)
+        {
+            counter = counter - 2;
+            fileName = fileName.Replace(".csv", "");
+            tempfileName = fileName + "-" + "V-" + counter.ToString() + ".csv";
+            filePathWithFileName = filePath + tempfileName;
+            filePathWithFileName = context.Server.MapPath(filePathWithFileName);
+        }
+        return filePathWithFileName;
+    }
+    private bool CheckUploadedFileSchema(string fileName, string uploadBy, string projectName, HttpContext context, HttpPostedFile file)
     {
         UploadTemplateEntity templateEntity = new UploadTemplateEntity();
         Boolean _result = false;
@@ -293,7 +357,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
 
             UploadTemplateBL uploadTemplateBl = new UploadTemplateBL();
 
-            DataTable _processedTable =  uploadTemplateBl.GetAnalyticsProcessedDataSchema(templateEntity).Tables[0];
+            DataTable _processedTable = uploadTemplateBl.GetAnalyticsProcessedDataSchema(templateEntity).Tables[0];
 
             StreamReader uploadedFS = new StreamReader(file.InputStream);
             uploadedFS.BaseStream.Position = 0;
@@ -320,7 +384,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
             _processedTable.Columns.Remove("user_email");
             _processedTable.Columns.Remove("uploaded_by");
             _processedTable.Columns.Remove("is_processed");
-            _result = IsBothTableSchemaSame(_uploadedTemplateDataTable,_processedTable);
+            _result = IsBothTableSchemaSame(_uploadedTemplateDataTable, _processedTable);
         }
         return _result;
     }
@@ -336,9 +400,9 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
             }
             else
             {
-                for (int i=0;i < processedDataTable.Columns.Count;i++)
+                for (int i = 0; i < processedDataTable.Columns.Count; i++)
                 {
-                    if(processedDataTable.Columns[i].ColumnName.ToLower() != sessionDataTable.Columns[i].ColumnName.ToLower())
+                    if (processedDataTable.Columns[i].ColumnName.ToLower() != sessionDataTable.Columns[i].ColumnName.ToLower())
                     {
                         _result = false;
                         break;
@@ -353,7 +417,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
         }
         return _result;
     }
-    private void SaveUploadTemplateInformationInDB(string fileName, string uploadBy, string projectName, HttpContext context, string filePathWithFileName)
+    private void SaveUploadTemplateInformationInDB(string fileName, string uploadBy, string projectName, HttpContext context, string filePathWithFileName, string existingFileWithPath)
     {
         UploadTemplateEntity templateEntity = new UploadTemplateEntity();
 
@@ -369,12 +433,40 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
 
             UploadTemplateBL uploadTemplateBl = new UploadTemplateBL();
             uploadTemplateBl.SaveAssignedTemplate(templateEntity);
-            DataTable _uploadedTemplateDataTable = GetUpdatedTemplateDataTable(fileName,filePathWithFileName,templateEntity);
-            uploadTemplateBl.SaveUploadTemplate(_uploadedTemplateDataTable, templateEntity);
+            DataTable _uploadedTemplateDataTable = GetUpdatedTemplateDataTable(fileName, filePathWithFileName, templateEntity);
+            if (existingFileWithPath != "")
+            {
+                DataTable _existingTemplateDataTable = GetUpdatedTemplateDataTable(fileName, existingFileWithPath, templateEntity);
+                DataTable _NewTemplateTable = RemoveDuplicateRecords(_existingTemplateDataTable, _uploadedTemplateDataTable);
+                uploadTemplateBl.SaveUploadTemplate(_NewTemplateTable, templateEntity);
+            }
+            else
+            {
+                uploadTemplateBl.SaveUploadTemplate(_uploadedTemplateDataTable, templateEntity);
+            }
         }
 
     }
-    private DataTable GetUpdatedTemplateDataTable(string fileName,string filePathWithFileName,UploadTemplateEntity templateEntity)
+    private DataTable RemoveDuplicateRecords(DataTable oldTable, DataTable newTable)
+    {
+        foreach (DataRow row1 in oldTable.Rows)
+        {
+            foreach (DataRow row2 in newTable.Rows)
+            {
+                var array1 = row1.ItemArray;
+                var array2 = row2.ItemArray;
+
+                if (array1.SequenceEqual(array2))
+                {
+                    row2.Delete();
+                }
+            }
+            newTable.AcceptChanges();
+        }
+
+        return newTable;
+    }
+    private DataTable GetUpdatedTemplateDataTable(string fileName, string filePathWithFileName, UploadTemplateEntity templateEntity)
     {
         string templateName = fileName.Replace(".csv", "");
         string masterTemplateName = HttpContext.Current.Session["TemplateName"].ToString();
@@ -451,7 +543,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
         bool _result = true;
         foreach (DataColumn dc in uploadedTemplateDataTable.Columns)
         {
-            if(HasSpecialChar(dc.ColumnName))
+            if (HasSpecialChar(dc.ColumnName))
             {
                 _result = false;
             }

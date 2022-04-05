@@ -98,13 +98,13 @@ namespace In2InGlobalBL
         /// get Project Details
         /// </summary>
         /// <returns></returns>
-        public DataSet getAssignedProject(string userRole, string userEmail)
+        public DataSet getAssignedProject(string userRoll,string userEmail)
         {
             DataSet dsProject = new DataSet();
             try
             {
                 ProjectMasterDL objProject = new ProjectMasterDL();
-                dsProject = objProject.getAssignedProject(userRole, userEmail);
+                dsProject = objProject.getAssignedProject(userRoll,userEmail);
             }
             catch (Exception ex)
             {
@@ -113,6 +113,29 @@ namespace In2InGlobalBL
 
             return dsProject;
         }
+
+        /// <summary>
+        /// get Project Details
+        /// </summary>
+        /// <returns></returns>
+        public DataSet getAssignedProjects(string userEmail)
+        {
+            DataSet dsProject = new DataSet();
+            try
+            {
+                ProjectMasterDL objProject = new ProjectMasterDL();
+                dsProject = objProject.getAssignedProjects(userEmail);
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
+
+            return dsProject;
+        }
+
+
+
 
         /// <summary>
         /// get Project Details

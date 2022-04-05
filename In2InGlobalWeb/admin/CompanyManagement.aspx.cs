@@ -162,6 +162,7 @@ namespace In2InGlobal.presentation.admin
                 }
                 txtCompanyName.Value = "";
                 ddlLOB.SelectedIndex = 0;
+                hdnCompanyID.Value = "";
                 BindCompany();
             }
             catch (Exception ex)

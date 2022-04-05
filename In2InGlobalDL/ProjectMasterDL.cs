@@ -159,7 +159,7 @@ namespace In2InGlobal.datalink
                 try
                 {
                     connection.Open();
-                    NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);                    
+                    NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
                     npgsqlCommand.Parameters.AddWithValue("@useremail", userEmail);
                     npgsqlCommand.CommandType = CommandType.Text;
                     npgsqlDataAdapter.SelectCommand = npgsqlCommand;
@@ -180,7 +180,45 @@ namespace In2InGlobal.datalink
             }
         }
 
-        public DataSet getProjectNameForDashboard(string userRole, string userEmail) 
+
+        public DataSet getAssignedProjects(string userEmail)
+        {
+            BaseRepository baseRepo = new BaseRepository();
+            DataSet dsProject = new DataSet();
+            NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
+            string query = string.Empty;
+
+            query = @"SELECT * FROM dbo.fillprojectnameforuser(@useremail)";
+
+            using (var connection = baseRepo.GetDBConnection())
+            {
+                try
+                {
+                    connection.Open();
+                    NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
+                    npgsqlCommand.Parameters.AddWithValue("@useremail", userEmail);
+                    npgsqlCommand.CommandType = CommandType.Text;
+                    npgsqlDataAdapter.SelectCommand = npgsqlCommand;
+                    npgsqlDataAdapter.Fill(dsProject);
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Dispose();
+                    connection.Dispose();
+                    npgsqlDataAdapter.Dispose();
+                }
+                return dsProject;
+            }
+        }
+
+
+
+        public DataSet getProjectNameForDashboard(string userRole, string userEmail)
         {
             BaseRepository baseRepo = new BaseRepository();
             DataSet dsProject = new DataSet();
@@ -192,7 +230,7 @@ namespace In2InGlobal.datalink
             }
             else
             {
-                query = @"SELECT * FROM dbo.getdashboardprojectforuser(@useremail)"; 
+                query = @"SELECT * FROM dbo.getdashboardprojectforuser(@useremail)";
             }
             using (var connection = baseRepo.GetDBConnection())
             {
@@ -273,7 +311,7 @@ namespace In2InGlobal.datalink
                 {
                     connection.Open();
                     NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, connection);
-                    npgsqlCommand.Parameters.AddWithValue("@useremail", userEmail);                  
+                    npgsqlCommand.Parameters.AddWithValue("@useremail", userEmail);
                     npgsqlCommand.CommandType = CommandType.Text;
                     npgsqlDataAdapter.SelectCommand = npgsqlCommand;
                     npgsqlDataAdapter.Fill(dsProject);
@@ -332,7 +370,7 @@ namespace In2InGlobal.datalink
             return projectEntity.ProjectId;
         }
 
-        public DataSet getTemplateInfoForProjectId(ProjectEntity projectEntity) 
+        public DataSet getTemplateInfoForProjectId(ProjectEntity projectEntity)
         {
             BaseRepository baseRepo = new BaseRepository();
             DataSet dsProject = new DataSet();
