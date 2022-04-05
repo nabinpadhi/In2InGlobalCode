@@ -305,13 +305,21 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
 
         uploadedTemplateDataTable.Load(_csvTableLoader);
 
-        var UniqueRows = uploadedTemplateDataTable.AsEnumerable().Distinct(DataRowComparer.Default);
-        DataTable uniqueDataTable = UniqueRows.CopyToDataTable();
-        if (uniqueDataTable.Rows.Count != uploadedTemplateDataTable.Rows.Count)
+        if (uploadedTemplateDataTable.Rows.Count > 0)
         {
-            result = true;
-        }
 
+            var UniqueRows = uploadedTemplateDataTable.AsEnumerable().Distinct(DataRowComparer.Default);
+            DataTable uniqueDataTable = UniqueRows.CopyToDataTable();
+            if (uniqueDataTable.Rows.Count != uploadedTemplateDataTable.Rows.Count)
+            {
+                result = true;
+            }
+
+        }
+        else
+        {
+            result = false;
+        }
 
         return result;
     }
