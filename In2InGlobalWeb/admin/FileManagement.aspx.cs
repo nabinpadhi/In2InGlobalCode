@@ -386,6 +386,7 @@ namespace In2InGlobal.presentation.admin
             {
                 ddlTemplate.Enabled = true;
                 ddlTemplate.SelectedIndex = 0;
+                chkDeleteAndCreate.Enabled = true;
             }
             else
             {
@@ -394,6 +395,7 @@ namespace In2InGlobal.presentation.admin
                 btnUpload.Enabled = false;
                 btnDownload.Enabled = false;
                 fileUploader.Enabled = false;
+                chkDeleteAndCreate.Enabled = false;
             }
 
             BindFileGrid(ddlAssignedProject.SelectedValue);

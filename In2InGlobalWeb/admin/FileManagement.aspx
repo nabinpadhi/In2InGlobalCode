@@ -202,10 +202,18 @@
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
+                                                                            <td colspan="3" style="text-align: left;">
+                                                                                 <asp:CheckBox ID="chkDeleteAndCreate" Enabled=false style="padding-left:15px;margin-top:4px;" runat="server" />
+                                                                                <span style="text-align: left">Delete existing and create.</span><img src="img/red-question-mark.png" title="On checked it will delete all uploaded file for selected project by you and upload the new one. " style="padding-left:0px;margin-top:4px;width:5%;height:5%;cursor:help;" />
+                                                                                <image></image>
+                                                                            </td>                                                                            
+                                                                        </tr>
+                                                                        <tr>
                                                                             <td style="text-align: left;padding-left:20px;">
                                                                                 <asp:Button runat="server" ID="btnReload" Text="" style="display:none;" OnClientClick="return true;" OnClick="btnReload_Click" />
                                                                                 <asp:FileUpload ID="fileUploader" accept=".csv" Enabled="false" runat="server" />                                                                                                                                                    
                                                                             </td>
+                                                                             
                                                                             <td colspan="2" style="text-align: end;">
                                                                                  <asp:Button ID="btnUpload" OnClientClick="javascript:StartUploading();return false;"  style="width:70px;padding-left:15px;margin-top:4px;" CssClass="button" Enabled="false" runat="server" Text="Upload" />
                                                                             </td>                                                                
@@ -500,7 +508,12 @@
 
      function StartUploading() {
 
-         //alert("File varification started..");
+         if ($('#chkDeleteAndCreate').prop("checked") == true) {
+             var ans = confirm("Are you sure you want to delete exiting files and upload the new one for selected project ?");
+             if (ans == false) {
+                 return false;
+             }
+         }         
          if (VerifyFile()) {
 
              //  alert("File varification completed..");
@@ -511,7 +524,7 @@
              data.append("targetfolder", "./uploadedFiles/");
              data.append("UploadedBy", $('#spnCreatedBy').text());
              data.append("ForScreen", "FileManagement");
-
+             data.append("DeleteAndCreate", $('#chkDeleteAndCreate').prop("checked"));
              for (var i = 0; i < files.length; i++) {
                  data.append(files[i].name, files[i]);
              }

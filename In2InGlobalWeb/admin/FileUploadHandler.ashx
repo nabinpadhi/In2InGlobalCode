@@ -16,6 +16,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Newtonsoft.Json;
 using System.Text;
+    using System.Text.RegularExpressions;
 using System.Web.SessionState;
 using System.Reflection;
 using CsvReader;
@@ -27,11 +28,25 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
 
         try
         {
-
+            string uploadedBy = HttpContext.Current.Session["UserEmail"].ToString();
+            string projectName = context.Session["SelectedProjectName"].ToString();
             string filePath = HttpContext.Current.Session["targetfolder"].ToString(); //"./MasterTemplate/";
+            bool deleteAndCreate =Convert.ToBoolean(context.Request["DeleteAndCreate"]);
+            string userNameWithSelectedProject = uploadedBy.Replace(" ", "") + "~" + projectName;
+
+            if (deleteAndCreate)
+            { 
+                    new List<string>(Directory.GetFiles(context.Server.MapPath(filePath))).ForEach(file => {
+                        Regex re = new Regex(userNameWithSelectedProject, RegexOptions.IgnoreCase);
+                        if (re.IsMatch(file))
+                            File.Delete(file);
+                    });
+
+                    //Nabin : - files have been deleted from directory, now delete from database.
+            }
             if (context.Request.Files.Count > 0)
             {
-                string uploadedBy = HttpContext.Current.Session["UserEmail"].ToString();
+               
 
                 HttpPostedFile file = context.Request.Files[0];
                 if (!FileContainsDuplicate())
