@@ -6,9 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZReports;
 
 namespace In2InGlobal.datalink
 {
@@ -17,6 +19,14 @@ namespace In2InGlobal.datalink
     /// </summary>
     public class UploadTemplateDL
     {
+
+        string CLIENT_ID = "1000.MO8JJ8U6GPTBQMI9FH9B301MM5AW5N";
+        string CLIENT_SECRET = "ca62a259b6e2d969f0b05d2b5fcad9d1e666fc4647";
+        string REFRESH_TOKEN = "1000.c703e338195b3ef8ac30b4a319afb5ec.1e3d14dd8bd974828bbe77ad7984cc39";
+        string EMAIL = "info@in2inglobal.com";
+        string DBNAME = "Spend_Analytics_WS";
+        string TBNAME = "Spend_Analytics";
+
 
         /// <summary>
         /// Load Project Name For Template
@@ -364,7 +374,7 @@ namespace In2InGlobal.datalink
                 //Check if the procesesed table having the data
                 if (analyticsProcessedData.Tables[0].Rows.Count > 0)
                 {
-                   dtComapareTable = CompareDatatable(analyticsProcessedData.Tables[0], dtUploadTemplate);
+                    dtComapareTable = CompareDatatable(analyticsProcessedData.Tables[0], dtUploadTemplate);
                 }
             }
 
@@ -393,6 +403,7 @@ namespace In2InGlobal.datalink
                             command.Parameters.AddRange(parameters.ToArray());
                             command.ExecuteNonQuery();
                         }
+                        WriteToCsvFile(dtComapareTable, tableName);
                     }
                     else
                     {
@@ -414,11 +425,17 @@ namespace In2InGlobal.datalink
                             command.Parameters.AddRange(parameters.ToArray());
                             command.ExecuteNonQuery();
                         }
+                        WriteToCsvFile(dtUploadTemplate, tableName);
                     }
                     transaction.Commit();
+
                 }
 
                 InsertDataInProcessedTable(uploadTemplateEntity);
+
+                //Call ti ZohoAPI to Import the data
+                CallZohoApiToImoortData();
+
 
             }
             catch (Exception ex)
@@ -431,6 +448,16 @@ namespace In2InGlobal.datalink
             }
 
             return uploadTemplateEntity.TemplateId;
+        }
+
+
+        /// <summary>
+        /// Call Zoho API
+        /// </summary>
+        public void CallZohoApiToImoortData()
+        {
+            IReportClient rc = getClient();
+            importData(rc);
         }
 
 
@@ -518,11 +545,11 @@ namespace In2InGlobal.datalink
             }
         }
 
-       /* private DataTable CompareDatatable(DataTable oldTable, DataTable newTable)
-        {
-            var differences = newTable.AsEnumerable().Except(oldTable.AsEnumerable(), DataRowComparer.Default);
-            return differences.Any() ? differences.CopyToDataTable() : new DataTable();
-        }*/
+        /* private DataTable CompareDatatable(DataTable oldTable, DataTable newTable)
+         {
+             var differences = newTable.AsEnumerable().Except(oldTable.AsEnumerable(), DataRowComparer.Default);
+             return differences.Any() ? differences.CopyToDataTable() : new DataTable();
+         }*/
 
         private DataTable CompareDatatable(DataTable oldTable, DataTable newTable)
         {
@@ -538,7 +565,7 @@ namespace In2InGlobal.datalink
                 using (DataSet ds = new DataSet())
                 {
                     //Add tables
-                    ds.Tables.AddRange(new DataTable[] {newTable.Copy(), oldTable.Copy()});
+                    ds.Tables.AddRange(new DataTable[] { newTable.Copy(), oldTable.Copy() });
 
                     //Get Columns for DataRelation
                     DataColumn[] firstcolumns = new DataColumn[ds.Tables[0].Columns.Count];
@@ -712,5 +739,62 @@ namespace In2InGlobal.datalink
                 return dsAnalyticsProcessedData;
             }
         }
+
+
+        public void WriteToCsvFile(DataTable dataTable, string filename)
+        {
+            string folderPath = "C:\\CSV\\"; 
+
+            StringBuilder fileContent = new StringBuilder();
+
+            foreach (var col in dataTable.Columns)
+            {
+                fileContent.Append(col.ToString() + ",");
+            }
+
+            fileContent.Replace(",", System.Environment.NewLine, fileContent.Length - 1, 1);
+
+            foreach (DataRow dr in dataTable.Rows)
+            {
+                foreach (var column in dr.ItemArray)
+                {
+                    fileContent.Append("\"" + column.ToString() + "\",");
+                }
+
+                fileContent.Replace(",", System.Environment.NewLine, fileContent.Length - 1, 1);
+            }
+
+
+            System.IO.File.WriteAllText(folderPath + filename + ".csv", fileContent.ToString());
+        }
+
+        public IReportClient getClient()
+        {
+            IReportClient RepClient = new ReportClient(CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN);
+            return RepClient;
+        }
+
+        public void importData(IReportClient RepClient)
+        {
+           // string myFileName = @"C:\workspace\spend.csv";
+            var fileArray = Directory.GetFiles(@"c:\CSV\");
+
+            try
+            {
+                string tableURI = RepClient.GetURI(EMAIL, DBNAME, TBNAME);
+                Dictionary<string, string> ImportConfig = new Dictionary<string, string>();
+                ImportConfig.Add("ZOHO_ON_IMPORT_ERROR", "ABORT");
+                ImportConfig.Add("ZOHO_CREATE_TABLE", "FALSE");
+                ImportConfig.Add("ZOHO_AUTO_IDENTIFY", "TRUE");
+                Dictionary<string, string> ImportRes = RepClient.ImportData(tableURI, ZohoReportsConstants.APPEND, fileArray[0].ToString(), ImportConfig);
+            }
+            catch (Exception ex)
+            {
+                // throw new System.Exception();
+                ex.ToString();
+            }
+        }
+
+
     }
 }
