@@ -131,7 +131,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
         _tableScript.AppendLine(")");
         _tableScript.AppendLine("");
         _tableScript.AppendLine("" + " " + "TABLESPACE pg_default;");
-        _tableScript.AppendLine("ALTER TABLE dbo." + templateName + " " + "OWNER to postgres;");
+        _tableScript.AppendLine("ALTER TABLE dbo." + templateName + " " + "OWNER to spendpguser;");
 
         CreateMasterTemplateTable(_tableScript.ToString());
         CrateMasterTemplateProcessedTable(templateName, fileNameWithPath);
@@ -180,7 +180,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
         _tableScript.AppendLine(")");
         _tableScript.AppendLine("");
         _tableScript.AppendLine("" + " " + "TABLESPACE pg_default;");
-        _tableScript.AppendLine("ALTER TABLE dbo." + TableName + " " + "OWNER to postgres;");
+        _tableScript.AppendLine("ALTER TABLE dbo." + TableName + " " + "OWNER to spendpguser;");
         CreateMasterTemplateProcesedTable(_tableScript.ToString());
     }
 
