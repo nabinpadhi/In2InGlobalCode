@@ -92,6 +92,9 @@
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="ZohoReports">
+      <HintPath>..\..\..\..\Desktop\Desktop-Backup-May112022\ZohoDetails\ZohoReports.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="admin\assets\img\analytics.svg" />

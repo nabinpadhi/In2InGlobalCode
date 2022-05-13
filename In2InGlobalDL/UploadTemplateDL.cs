@@ -545,12 +545,12 @@ namespace In2InGlobal.datalink
             }
         }
 
-        /* private DataTable CompareDatatable(DataTable oldTable, DataTable newTable)
-         {
-             var differences = newTable.AsEnumerable().Except(oldTable.AsEnumerable(), DataRowComparer.Default);
-             return differences.Any() ? differences.CopyToDataTable() : new DataTable();
-         }*/
-
+        /// <summary>
+        /// Compare Datatable
+        /// </summary>
+        /// <param name="oldTable"></param>
+        /// <param name="newTable"></param>
+        /// <returns></returns>
         private DataTable CompareDatatable(DataTable oldTable, DataTable newTable)
         {
             oldTable.TableName = "oldTable";
@@ -617,6 +617,11 @@ namespace In2InGlobal.datalink
             return diffTable;
 
         }
+
+        /// <summary>
+        /// Insert DataIn Processed Table
+        /// </summary>
+        /// <param name="uploadTemplateEntity"></param>
         private void InsertDataInProcessedTable(UploadTemplateEntity uploadTemplateEntity)
         {
             BaseRepository baseRepo = new BaseRepository();
@@ -699,6 +704,12 @@ namespace In2InGlobal.datalink
             }
 
         }
+
+        /// <summary>
+        /// Get Analytics Data
+        /// </summary>
+        /// <param name="uploadTemplateEntity"></param>
+        /// <returns></returns>
         public DataSet GetAnalyticsProcessedDataSchema(UploadTemplateEntity uploadTemplateEntity)
         {
             string tableName = uploadTemplateEntity.FileName;
@@ -740,7 +751,11 @@ namespace In2InGlobal.datalink
             }
         }
 
-
+        /// <summary>
+        /// Write data to CSV file before update to Zoho
+        /// </summary>
+        /// <param name="dataTable"></param>
+        /// <param name="filename"></param>
         public void WriteToCsvFile(DataTable dataTable, string filename)
         {
             string folderPath = "C:\\CSV\\"; 
@@ -768,12 +783,35 @@ namespace In2InGlobal.datalink
             System.IO.File.WriteAllText(folderPath + filename + ".csv", fileContent.ToString());
         }
 
+
+        /// <summary>
+        /// Get Zoho clinet details
+        /// </summary>
+        /// <returns></returns>
         public IReportClient getClient()
         {
             IReportClient RepClient = new ReportClient(CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN);
             return RepClient;
         }
 
+
+            public void copyDatabase(IReportClient RepClient)
+            {
+                string dbURI = RepClient.GetURI(EMAIL, DBNAME);
+                string newDBName = "newdbname";
+                string newDBDesc = "dbdesc";
+                bool withData = true;
+                string copyDBKey = "************";
+                long dbid = RepClient.CopyDatabase(dbURI, newDBName, newDBDesc,
+                            withData, copyDBKey, null);
+            }
+
+
+
+        /// <summary>
+        /// Import data to zoho
+        /// </summary>
+        /// <param name="RepClient"></param>
         public void importData(IReportClient RepClient)
         {
            // string myFileName = @"C:\workspace\spend.csv";
