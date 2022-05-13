@@ -93,7 +93,7 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="ZohoReports">
-      <HintPath>..\..\..\..\Desktop\Desktop-Backup-May112022\ZohoDetails\ZohoReports.dll</HintPath>
+      <HintPath>AjaxOtherDLL\ZohoReports.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -198,7 +198,9 @@
     <Content Include="AjaxOtherDLL\Ajax.dll" />
     <Content Include="AjaxOtherDLL\AjaxControlToolkit.dll" />
     <Content Include="AjaxOtherDLL\AntiXSSLibrary.dll" />
+    <Content Include="AjaxOtherDLL\CsvReader.dll" />
     <Content Include="AjaxOtherDLL\HtmlAgilityPack.dll" />
+    <Content Include="AjaxOtherDLL\ZohoReports.dll" />
     <Content Include="Bootstrap\css\bootstrap.min.css" />
     <Content Include="Bootstrap\js\bootstrap.bundle.min.js" />
     <Content Include="css\jquery-ui.css" />
