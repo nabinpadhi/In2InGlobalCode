@@ -141,14 +141,14 @@
                         <div title="File Management" class="filemgnt" style="display:none;">
                             <table style="width: 100%;">
                                 <tr>
-                                    <td style="width: 70%;">                                                                
+                                    <td style="width: 75%;">                                                                
                                         <table style="width: 100%;">                               
                                             <tr>
                                                 <td style="text-align: center;">
                                                     <div style="border: 0px solid #d3d3d3; margin-left: auto; margin-right: auto; border-radius: 5px">
                                                         <table id="tblFileuploader" style="width: 100%; margin-top: auto; margin-left: auto; margin-right: auto;">
                                                             <tr>
-                                                                <td style="width: 60%; vertical-align:top;">
+                                                                <td style="width: 65%; vertical-align:top;">
                                                                     <table style="width: 100%;">
                                                                         <tr class="formDiv">
                                                                             <td style="width: 25%;text-align:left;padding-left:25px;">
@@ -168,7 +168,7 @@
                                                                                     </asp:DropDownList>
                                                                                 </div>
                                                                             </td>
-                                                                            <td style="width:40%;vertical-align:top;padding-top:20px;text-align: end;">
+                                                                            <td style="width:45%;vertical-align:top;padding-top:20px;text-align: end;">
                                                                                 <asp:Button CssClass="button" Enabled="false" OnClientClick="return ValidateDownload();" OnClick="btnDownload_Click" Text="Download" ID="btnDownload" runat="server" style="width:70px;padding-left:5px;"></asp:Button>
                                                                             </td>
                                                                         </tr>                                                                       
@@ -203,9 +203,7 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <td colspan="3" style="text-align: left;">
-                                                                                 <asp:CheckBox ID="chkDeleteAndCreate" Enabled=false style="padding-left:15px;margin-top:4px;" runat="server" />
-                                                                                <span style="text-align: left">Delete existing and create.</span><img src="img/red-question-mark.png" title="On checked it will delete all uploaded file for selected project by you and upload the new one. " style="padding-left:0px;margin-top:4px;width:5%;height:5%;cursor:help;" />
-                                                                                <image></image>
+                                                                                
                                                                             </td>                                                                            
                                                                         </tr>
                                                                         <tr>
@@ -215,18 +213,23 @@
                                                                             </td>
                                                                              
                                                                             <td colspan="2" style="text-align: end;">
-                                                                                 <asp:Button ID="btnUpload" OnClientClick="javascript:StartUploading();return false;"  style="width:70px;padding-left:15px;margin-top:4px;" CssClass="button" Enabled="false" runat="server" Text="Upload" />
+                                                                                 <asp:Button ID="btnUpload" OnClientClick="VerifyFile();return false;"  style="width:70px;padding-left:15px;margin-top:4px;" CssClass="button" Enabled="false" runat="server" Text="Upload" />
                                                                             </td>                                                                
                                                                                                                                                     
                                                                         </tr>
                                                                         <tr>
-                                                                            <td colspan="3" style="text-align:left;font-weight:">
+                                                                            <td colspan="2" style="text-align:left;">
                                                                                 <span style="color:darkgreen;font-size:smaller;"><i>To upload a template file , please select a <b style="color:blue;">Project</b> then a <b style="color:blue;">Template</b>.</i></span>
+                                                                            </td>
+                                                                             <td style="text-align: end;padding-left:15px;">
+                                                                                <asp:CheckBox ID="chkDeleteAndCreate" Font-Size="Smaller" Enabled='false' style="margin-top:4px;cursor:pointer;" runat="server" />
+                                                                                <span style="font-size:smaller;text-align: left;cursor:pointer;" title="On checked it will drop all the data for above selected project and upload the new data.">Drop And Create.</span>
+                                                                                
                                                                             </td>
                                                                         </tr>
                                                                     </table>
                                                                 </td>
-                                                                <td style="width: 35%;vertical-align:text-top;">
+                                                                <td style="width: 25%;vertical-align:text-top;">
                                                                     <div style="width: 95%; text-align: left; margin-left: 15px; height: 220px; overflow-y: auto;">
                                                                         <b>Template Instruction</b><br />
                                                                         <p></p>
@@ -243,7 +246,7 @@
                                         </table>
                                                                                 
                                     </td>
-                                    <td runat="server" id="searchTemplatePanel" style="width: 30%; vertical-align: top;">
+                                    <td runat="server" id="searchTemplatePanel" style="width: 25%; vertical-align: top;">
                                         <div style="margin-top: 14px; margin-left: 20px;margin-bottom:20px;border-radius:5px; border: 0px solid #d3d3d3; height: 300px;">
                                             <div id="searchDIV">
                                             <span style="margin-left: 10px;"><b>Search Template </b></span>
@@ -443,10 +446,38 @@
          }
      }
      function VerifyFile() {
-
+        
+         if ($('#chkDeleteAndCreate').prop("checked") == true) {
+           
+             $.messager.confirm({
+                 title: 'In2In Global Confirmation',
+                 msg: 'Are you sure you want to drop and create new record ?',
+                 ok: 'Yes',
+                 cancel: 'No',
+                 fn: function (r) {
+                    
+                     if (r) {
+                         StartUploading();
+                         return true;
+                     }
+                     else {
+                         return false;
+                     }
+                 }
+             });
+             $('.messager-body.panel-body.panel-body-noborder.window-body').css('height', '32px');
+             $('.messager-body.panel-body.panel-body-noborder.window-body').css('width', '275px');
+         }
+         else {
+             StartUploading();
+             return true;
+         }
+     }
+     function DoOtherValidation()
+     {
          Error_Message = "";
          Error_Count = 1;
-
+      
          var fileName = $('#fileUploader').val();
          var idxDot = fileName.lastIndexOf(".") + 1;
          var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
@@ -463,8 +494,7 @@
                  Error_Count = Error_Count + 1;
              }
          }
-
-
+         
          if (Error_Message != "") {
              ShowError(Error_Message, 80);
              return false;
@@ -473,6 +503,8 @@
 
              return true;
          }
+
+
      }
 
      function ShowServerMessage(servermessage) {
@@ -507,17 +539,10 @@
      ga('send', 'pageview');
 
      function StartUploading() {
+        
+         if (DoOtherValidation()) {
 
-         if ($('#chkDeleteAndCreate').prop("checked") == true) {
-             var ans = confirm("Are you sure you want to delete exiting files and upload the new one for selected project ?");
-             if (ans == false) {
-                 return false;
-             }
-         }         
-         if (VerifyFile()) {
-
-             //  alert("File varification completed..");
-             var fileUpload = $("#fileUploader").get(0);
+            var fileUpload = $("#fileUploader").get(0);
              var files = fileUpload.files;
 
              var data = new FormData();
