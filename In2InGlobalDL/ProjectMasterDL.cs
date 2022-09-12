@@ -108,11 +108,23 @@ namespace In2InGlobal.datalink
         /// <returns></returns>
         public DataSet getProjectGridDetails(string userRole, string userEmail)
         {
+
+            string query = string.Empty;
+
+            if (userRole == "Admin")
+            {
+                query = @"SELECT * FROM dbo.fillprojectgridForAdmin(@userrole,@useremail)";
+            }
+            else
+            {
+
+                query = @"SELECT * FROM dbo.fillprojectgrid(@userrole,@useremail)";
+            }
+
             BaseRepository baseRepo = new BaseRepository();
             DataSet dsProject = new DataSet();
             NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
 
-            string query = @"SELECT * FROM dbo.fillprojectgrid(@userrole,@useremail)";
             using (var connection = baseRepo.GetDBConnection())
             {
                 try

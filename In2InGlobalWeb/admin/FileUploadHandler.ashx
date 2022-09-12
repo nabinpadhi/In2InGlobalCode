@@ -16,37 +16,90 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Newtonsoft.Json;
 using System.Text;
-    using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
 using System.Web.SessionState;
 using System.Reflection;
 using CsvReader;
 public class FileUploadHandler : IHttpHandler, IRequiresSessionState
 {
 
+
+    private void DeleteAnalysisDataFromDB(string uploadBy, string projectName, string fileName)
+    {
+        UploadTemplateEntity templateEntity = new UploadTemplateEntity();
+
+
+        if (projectName != null)
+        {
+            templateEntity.FileName = fileName;
+            templateEntity.ProjectName = projectName;
+            templateEntity.CreatedBy = uploadBy;
+            //templateEntity.RoleName = context.Session["UserRole"].ToString();
+            templateEntity.UserEmail = HttpContext.Current.Session["UserEmail"].ToString();
+            templateEntity.Status = "Success";
+
+            UploadTemplateBL uploadTemplateBl = new UploadTemplateBL();
+            uploadTemplateBl.DeleteProjectDataFromDB(templateEntity);
+        }
+
+    }
+
+    private void DeleteAnalysisProcessedDataFromDB(string uploadBy, string projectName, string fileName)
+    {
+        UploadTemplateEntity templateEntity = new UploadTemplateEntity();
+
+
+        if (projectName != null)
+        {
+            templateEntity.FileName = fileName;
+            templateEntity.ProjectName = projectName;
+            templateEntity.CreatedBy = uploadBy;
+            //templateEntity.RoleName = context.Session["UserRole"].ToString();
+            templateEntity.UserEmail = HttpContext.Current.Session["UserEmail"].ToString();
+            templateEntity.Status = "Success";
+
+            UploadTemplateBL uploadTemplateBl = new UploadTemplateBL();
+            uploadTemplateBl.DeleteProjectProcessedDataFromDB(templateEntity);
+
+            uploadTemplateBl.CallZohoApiToImoortData(templateEntity);
+
+        }     
+    }
+
+
+
     public void ProcessRequest(HttpContext context)
     {
 
         try
         {
+            //string fileName = "";
             string uploadedBy = HttpContext.Current.Session["UserEmail"].ToString();
-            string projectName = context.Session["SelectedProjectName"].ToString();
+            bool deleteAndCreate = Convert.ToBoolean(context.Request["DeleteAndCreate"]);
             string filePath = HttpContext.Current.Session["targetfolder"].ToString(); //"./MasterTemplate/";
-            bool deleteAndCreate =Convert.ToBoolean(context.Request["DeleteAndCreate"]);
-            string userNameWithSelectedProject = uploadedBy.Replace(" ", "") + "~" + projectName;
 
             if (deleteAndCreate)
-            { 
-                    new List<string>(Directory.GetFiles(context.Server.MapPath(filePath))).ForEach(file => {
-                        Regex re = new Regex(userNameWithSelectedProject, RegexOptions.IgnoreCase);
-                        if (re.IsMatch(file))
-                            File.Delete(file);
-                    });
+            {
 
-                    //Nabin : - files have been deleted from directory, now delete from database.
+                string projectName = context.Session["SelectedProjectName"].ToString();
+
+                string userNameWithSelectedProject = uploadedBy.Replace(" ", "") + "~" + projectName;
+                new List<string>(Directory.GetFiles(context.Server.MapPath(filePath))).ForEach(file =>
+                {
+                    Regex re = new Regex(userNameWithSelectedProject, RegexOptions.IgnoreCase);
+                    if (re.IsMatch(file))
+                        //  fileName = file.ToString();
+                        File.Delete(file);
+                });
+
+                string selectedTemplate = HttpContext.Current.Session["TemplateName"].ToString();
+                //Nabin : - files have been deleted from directory, now delete from database.
+                DeleteAnalysisProcessedDataFromDB(uploadedBy, projectName, selectedTemplate);
+                DeleteAnalysisDataFromDB(uploadedBy, projectName, selectedTemplate);                
             }
             if (context.Request.Files.Count > 0)
             {
-               
+
 
                 HttpPostedFile file = context.Request.Files[0];
                 if (!FileContainsDuplicate())
@@ -365,6 +418,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
         }
         return filePathWithFileName;
     }
+
     private bool CheckUploadedFileSchema(string fileName, string uploadBy, string projectName, HttpContext context, HttpPostedFile file)
     {
         UploadTemplateEntity templateEntity = new UploadTemplateEntity();
@@ -444,7 +498,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
     {
         UploadTemplateEntity templateEntity = new UploadTemplateEntity();
 
-
+        bool deleteAndCreatedata = Convert.ToBoolean(context.Request["DeleteAndCreate"]);
         if (projectName != null && fileName != null)
         {
             templateEntity.FileName = fileName;
@@ -453,23 +507,86 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
             templateEntity.RoleName = context.Session["UserRole"].ToString();
             templateEntity.UserEmail = context.Session["UserEmail"].ToString();
             templateEntity.Status = "Success";
+            templateEntity.IsDeleteAndCreate = deleteAndCreatedata;
 
             UploadTemplateBL uploadTemplateBl = new UploadTemplateBL();
             uploadTemplateBl.SaveAssignedTemplate(templateEntity);
             DataTable _uploadedTemplateDataTable = GetUpdatedTemplateDataTable(fileName, filePathWithFileName, templateEntity);
+
+            string filePathzoho = HttpContext.Current.Session["targetfolder"].ToString();
+            string filePathdirectoryzoho = "./CSV/";
+            string filePathWithFileNameZoho = context.Server.MapPath(filePathdirectoryzoho);
+            templateEntity.filePathZoho = filePathWithFileNameZoho;
+
             if (existingFileWithPath != "")
             {
                 DataTable _existingTemplateDataTable = GetUpdatedTemplateDataTable(fileName, existingFileWithPath, templateEntity);
                 DataTable _NewTemplateTable = RemoveDuplicateRecords(_existingTemplateDataTable, _uploadedTemplateDataTable);
+                createCsvFile(context, _NewTemplateTable, templateEntity.FileName, templateEntity);
                 uploadTemplateBl.SaveUploadTemplate(_NewTemplateTable, templateEntity);
             }
             else
             {
+                DataTable dtZoho = new DataTable();
+                dtZoho = uploadTemplateBl.zohoTable(_uploadedTemplateDataTable, templateEntity);
+                if (dtZoho.Rows.Count > 0)
+                {
+                    createCsvFile(context, dtZoho, templateEntity.FileName, templateEntity);
+                }
+                else
+                {
+                    createCsvFile(context, _uploadedTemplateDataTable, templateEntity.FileName, templateEntity);
+                }
                 uploadTemplateBl.SaveUploadTemplate(_uploadedTemplateDataTable, templateEntity);
+
             }
         }
 
     }
+
+
+    private void createCsvFile(HttpContext context, DataTable dataTable, string fileName, UploadTemplateEntity templateEntity)
+    {
+        string filePath = HttpContext.Current.Session["targetfolder"].ToString();
+        filePath = "./CSV/";
+        string filePathWithFileName = context.Server.MapPath(filePath);
+        templateEntity.filePathZoho = filePathWithFileName;
+        string filecreate = filePathWithFileName + fileName + ".csv";
+        try
+        {
+            if (!Directory.Exists(filePathWithFileName))
+            {
+                System.IO.Directory.CreateDirectory(filePathWithFileName);
+            }
+
+            string[] files = Directory.GetFiles(filePathWithFileName);
+
+            if (files.Length > 0)
+            {
+                foreach (string file in files)
+                {
+                    File.Delete(file);
+                }
+            }
+
+            using (var myFile = File.Create(filecreate))
+            {
+                // interact with myFile here, it will be disposed automatically
+            }
+            UploadTemplateBL uploadTemplateBl = new UploadTemplateBL();
+
+            uploadTemplateBl.EXPORT_CSV(dataTable, filecreate);
+            //ToCSV(dataTable, filePathWithFileName);
+            uploadTemplateBl.CallZohoApiToImoortData(templateEntity);
+        }
+
+        catch (Exception ex)
+        {
+            ex.ToString();
+        }
+    }
+
+
     private DataTable RemoveDuplicateRecords(DataTable oldTable, DataTable newTable)
     {
         foreach (DataRow row1 in oldTable.Rows)
@@ -505,7 +622,6 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
             _dc.ColumnName = _dc.ColumnName.Replace(" / ", "_or_").Replace(" ", "_");
         }
         templateEntity.FileName = masterTemplateName;
-
         _uploadedTemplateDataTable = UpdateOptionalColumnValue(_uploadedTemplateDataTable, templateEntity);
         //Table name will tell u where tp insert data;
         return _uploadedTemplateDataTable;

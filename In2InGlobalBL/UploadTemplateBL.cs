@@ -35,6 +35,23 @@ namespace In2InGlobalBL
             };
             return response;
         }
+
+        public DataTable zohoTable(DataTable dtUploadTemplate, UploadTemplateEntity uploadTemplateEntity)
+        {
+            DataTable dt = new DataTable();
+            try
+            {                
+                UploadTemplateDL tempuploadDL = new UploadTemplateDL();
+                dt = tempuploadDL.GetZohoDataTable(dtUploadTemplate, uploadTemplateEntity);                
+            }
+            catch(Exception ex)
+            {
+                ex.ToString();
+            }
+            return dt;
+        }
+
+
         public UploadTemplateDto SaveUploadTemplate(DataTable dtUploadTemplate, UploadTemplateEntity uploadTemplateEntity)
         {
             UploadTemplateDto response = null;
@@ -50,6 +67,41 @@ namespace In2InGlobalBL
             };
             return response;
         }
+
+
+        public UploadTemplateDto DeleteProjectDataFromDB(UploadTemplateEntity uploadTemplateEntity)
+        {
+            UploadTemplateDto response = null;
+            UploadTemplateDL tempuploadDL = new UploadTemplateDL();
+
+            if (uploadTemplateEntity == null) return response;
+
+            var varTemplateId = tempuploadDL.DeleteAnalysisData(uploadTemplateEntity);
+
+            response = new UploadTemplateDto
+            {
+                TemplateId = varTemplateId
+            };
+            return response;
+        }
+
+        public UploadTemplateDto DeleteProjectProcessedDataFromDB(UploadTemplateEntity uploadTemplateEntity)
+        {
+            UploadTemplateDto response = null;
+            UploadTemplateDL tempuploadDL = new UploadTemplateDL();
+
+            if (uploadTemplateEntity == null) return response;
+
+            var varTemplateId = tempuploadDL.DeleteAnalysisProcessedData(uploadTemplateEntity);
+
+            response = new UploadTemplateDto
+            {
+                TemplateId = varTemplateId
+            };
+            return response;
+        }
+
+
         public UploadTemplateDto UpdateAssignedTemplate(UploadTemplateEntity tempEntity)
         {
             UploadTemplateDto response = null;
@@ -160,6 +212,33 @@ namespace In2InGlobalBL
                 ex.Message.ToString();
             }
             return dsUplaodUser;
+        }
+
+        public void EXPORT_CSV(DataTable dt,string filename)
+        {          
+            try
+            {
+                UploadTemplateDL objUploadUser = new UploadTemplateDL();
+                objUploadUser.EXPORT_CSV(dt, filename);
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }         
+
+        }
+
+        public void CallZohoApiToImoortData(UploadTemplateEntity utp)
+        {
+            try
+            {
+                UploadTemplateDL objUploadUser = new UploadTemplateDL();
+                objUploadUser.CallZohoApiToImoortData( utp);
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
         }
 
 

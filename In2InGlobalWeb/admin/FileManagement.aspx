@@ -179,7 +179,7 @@
                                                                                         <div class="AspNet-GridView">
                                                                                         <asp:GridView DataKeyNames="project_id" ID="grdUploadedFiles" runat="server" Width="100%" HeaderStyle-CssClass="AspNet-GridView"
                                                                                             AllowPaging="True" RowStyle-Wrap="false" HeaderStyle-Wrap="false" EmptyDataText="No files uploaded for selected Project." 
-                                                                                            OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" OnRowDataBound="grdUploadedFiles_RowDataBound" AutoGenerateColumns="false" PageSize="4">
+                                                                                            OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" OnRowDataBound="grdUploadedFiles_RowDataBound" AutoGenerateColumns="false" PageSize="10">
                                                                                             <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
                                                                                             <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
                                                                                             <Columns>
@@ -287,7 +287,7 @@
                                                                     <td >
                                                                         <div class="AspNet-GridView">                                                                          
                                                                             <asp:GridView ID="grdTemplate"  runat="server" Width="100%" HeaderStyle-CssClass="AspNet-GridView"
-                                                                                AllowPaging="True" OnPageIndexChanging="grdTemplate_PageIndexChanging" AutoGenerateColumns="false" RowStyle-Wrap="false" HeaderStyle-Wrap="false" EmptyDataText="No Template Found." PageSize="4">
+                                                                                AllowPaging="True" OnPageIndexChanging="grdTemplate_PageIndexChanging" AutoGenerateColumns="false" RowStyle-Wrap="false" HeaderStyle-Wrap="false" EmptyDataText="No Template Found." PageSize="10">
                                                                                <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
                                                                                 <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
                                                                                 <Columns>

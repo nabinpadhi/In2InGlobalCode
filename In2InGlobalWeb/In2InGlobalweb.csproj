@@ -198,6 +198,7 @@
     <Content Include="AjaxOtherDLL\Ajax.dll" />
     <Content Include="AjaxOtherDLL\AjaxControlToolkit.dll" />
     <Content Include="AjaxOtherDLL\AntiXSSLibrary.dll" />
+    <Content Include="AjaxOtherDLL\CsvHelper.dll" />
     <Content Include="AjaxOtherDLL\CsvReader.dll" />
     <Content Include="AjaxOtherDLL\HtmlAgilityPack.dll" />
     <Content Include="AjaxOtherDLL\ZohoReports.dll" />
@@ -3544,6 +3545,7 @@
     <Folder Include="admin\uploadedFiles\" />
     <Folder Include="admin\ZohoFilePath\" />
     <Folder Include="App_Data\" />
+    <Folder Include="CSV\" />
     <Folder Include="scripts\jquery\jqMenu\css\" />
     <Folder Include="scripts\jquery\jqMenu\images\" />
     <Folder Include="scripts\jquery\jqMenu\js\" />
