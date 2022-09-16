@@ -32,10 +32,10 @@
                         <div style="width:100%" id="userDiv">                       
                         <table style="width: 100%;">
                             <tr>
-                                <td style="width: 80%;">
+                                <td style="width: 90%;">
                                     <center>
-                                        <div class="formDiv" style="width: 70%; border: 0px solid #d3d3d3;border-radius: 5px; margin-top: 10px;">
-                                            <table style="width: 80%;padding-top:10px;">
+                                        <div class="formDiv" style="width: 80%; border: 0px solid #d3d3d3;border-radius: 5px; margin-top: 10px;">
+                                            <table style="width: 98%;padding-top:10px;padding-left:30px">
                                                 <tr>
                                                     <td>First Name(<span style="color: red">*</span>)</td>
                                                     <td>
@@ -151,13 +151,28 @@
     <script src="js/jquery.easyui.min.js"></script>   
     
     <script type="text/javascript">
-       
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+        prm.add_initializeRequest(InitializeRequest);
+        prm.add_endRequest(EndRequest);
         $(document).ready(function () {
             //$('select:not(.ignore)').niceSelect();
             FastClick.attach(document.body);
             ClearAll(); 
-            
+            window.parent.$('#navOverlayImg').hide();
+            window.parent.$('#navOverlay').hide();
         });
+        function InitializeRequest(sender, args) {
+            window.parent.$('#navOverlayImg').css("top", 176);
+            window.parent.$('#navOverlayImg').css("left", 820);
+            window.parent.$('#navOverlayImg').show();
+            window.parent.$('#navOverlay').show();
+
+        }
+
+        function EndRequest(sender, args) {
+            window.parent.$('#navOverlayImg').hide();
+            window.parent.$('#navOverlay').hide();
+        }
         function In2InGlobalConfirm(email) {
 
             $.messager.confirm({

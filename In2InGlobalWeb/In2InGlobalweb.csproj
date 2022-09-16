@@ -20,7 +20,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -128,6 +128,7 @@
     <Content Include="admin\img\no-pencil-sign.png" />
     <Content Include="admin\img\processing-1.gif" />
     <Content Include="admin\img\processing.gif" />
+    <Content Include="admin\img\processingNew.gif" />
     <Content Include="admin\img\red-question-mark.png" />
     <Content Include="admin\img\refresh.jpg" />
     <Content Include="admin\img\success-alt.png" />
@@ -226,6 +227,7 @@
     <Content Include="css\tag_topic.css" />
     <Content Include="css\theme-metallic.css" />
     <Content Include="css\zistyle.css" />
+    <Content Include="favicon.ico" />
     <Content Include="FontAwesome\attribution.js" />
     <Content Include="FontAwesome\css\all.css" />
     <Content Include="FontAwesome\css\all.min.css" />
@@ -3593,7 +3595,6 @@
     <Content Include="admin\MasterTemplate\Purchasing.csv" />
     <Content Include="admin\MasterTemplate\Spend_Analytics.csv" />
     <Content Include="admin\FileUploadHandler.ashx" />
-    <Content Include="admin\json-data\AnalyticDashboard.json" />
     <Content Include="FontAwesome\less\brands.less" />
     <Content Include="FontAwesome\less\fontawesome.less" />
     <Content Include="FontAwesome\less\regular.less" />

@@ -313,6 +313,8 @@
                 uploadingFileName = e.target.files[0].name;
 
             });
+            window.parent.$('#navOverlayImg').hide();
+            window.parent.$('#navOverlay').hide();
            
         });
         $(document).ajaxStop(function () {

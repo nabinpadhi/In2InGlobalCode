@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Text;
+using System.Web.UI;
 
 namespace In2InGlobal.presentation.admin
 {
@@ -51,7 +52,6 @@ namespace In2InGlobal.presentation.admin
             else
             { Response.Redirect("./admin/login.aspx"); }
         }
-
         private void BuildAnalyticsProjectList(string LoggedInUsrRole)
         {
             DataTable dtUserProjectList = GetUserAssignedProjects();
@@ -72,7 +72,7 @@ namespace In2InGlobal.presentation.admin
                     
                     string ancLink = " onclick = \"OpenPage('" + dr["dashboard_url"].ToString() + "');\"";
 
-                    string liForProject = " <li class='cd-side__item'><a href = '#'  id = '" + dr["project_name"].ToString() + "'" + ancLink + "' runat = 'server' >" + dr["project_name"].ToString() + "</a></li>";
+                    string liForProject = " <li class='cd-side__item'><a href = '#' style='font-size:small;'  id = '" + dr["project_name"].ToString() + "'" + ancLink + "' runat = 'server' >" + dr["project_name"].ToString() + "</a></li>";
 
                     analyticsProjectLinkLiString.AppendLine(liForProject);
                 }
@@ -97,6 +97,14 @@ namespace In2InGlobal.presentation.admin
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
             }
             return dsUserAssignedProject.Tables[0];
+        }
+
+        protected void btnRefAnalytics_Click(object sender, EventArgs e)
+        {
+            ancFileMan.Attributes.Add("onclick", "javascript:OpenPage('admin/FileManagement.aspx?FM=true',this);");            
+            string LoggedInUsrRole = Session["UserRole"].ToString();
+            BuildAnalyticsProjectList(LoggedInUsrRole);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("D"), "RefreshAnalytics();", true);
         }
     }
     

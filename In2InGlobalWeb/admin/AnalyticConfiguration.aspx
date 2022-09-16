@@ -221,6 +221,8 @@
             $('.aspNetDisabled').css('color', 'darkgray');
             $('.aspNetDisabled:hover').css('text-decoration', 'none');
             $('#grdAnalyticsLink').removeAttr("border");
+            window.parent.$('#navOverlayImg').hide();
+            window.parent.$('#navOverlay').hide();
         });
         function InitializeRequest(sender, args) {
             window.parent.$('#navOverlayImg').show();

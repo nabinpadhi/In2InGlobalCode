@@ -170,9 +170,16 @@ namespace In2InGlobal.presentation.admin
         /// <param name="e"></param>
         protected void grdUsers_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            BindUsers();
-            grdUsers.PageIndex = e.NewPageIndex;
-            grdUsers.DataBind();
+            try
+            {
+                BindUsers();
+                grdUsers.PageIndex = e.NewPageIndex;
+                grdUsers.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.ShowException();", true);
+            }
         }
 
 

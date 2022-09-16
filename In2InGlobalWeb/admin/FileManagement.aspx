@@ -175,7 +175,7 @@
                                                                         <tr>
                                                                             <td colspan="3">                                                                    
                                                                                 <center>
-                                                                                    <div style="width: 100%; border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 5px;">
+                                                                                    <div style="width: 88%; border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 5px;">
                                                                                         <div class="AspNet-GridView">
                                                                                         <asp:GridView DataKeyNames="project_id" ID="grdUploadedFiles" runat="server" Width="100%" HeaderStyle-CssClass="AspNet-GridView"
                                                                                             AllowPaging="True" RowStyle-Wrap="false" HeaderStyle-Wrap="false" EmptyDataText="No files uploaded for selected Project." 
@@ -333,15 +333,23 @@
         var prm = Sys.WebForms.PageRequestManager.getInstance();
         prm.add_initializeRequest(InitializeRequest);
         prm.add_endRequest(EndRequest);
-
+        $('#grdUploadedFiles').css('width', 'auto');
+     
         FastClick.attach(document.body);
         $("#projectids").change(function () {
             $('#projectid').val($("#projectids").val());
-        }); 
-        ShowProjectMgnt();
+        });
+
+        var isFM = getUrlVars()["FM"];       
+        if (isFM) {
+            ShowFileMgnt();
+        }
+        else { ShowProjectMgnt();}
         ClearProject();
         $('#grdUploadedFiles').removeAttr("border");
         $('#grdTemplate').removeAttr("border");
+        window.parent.$('#navOverlayImg').hide();
+        window.parent.$('#navOverlay').hide();
        
     });
      function InitializeRequest(sender, args) {
@@ -418,16 +426,28 @@
          $('.filemgnt').hide();
          $('#fixedHRFM').hide();
          $('#fixedHRPM').show();
-
-         
-         
+     }
+     function getUrlVars() {
+         var vars = [], hash;
+         var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+         for (var i = 0; i < hashes.length; i++) {
+             hash = hashes[i].split('=');
+             vars.push(hash[0]);
+             vars[hash[0]] = hash[1];
+         }
+         return vars;
      }
      function ShowFileMgnt() {
+         
          $('.projectmgnt').hide();
          $('.filemgnt').show();
          $('#fixedHRFM').show();
          $('#fixedHRPM').hide();
-        
+         if($('#grdTemplate').length)
+         {
+             $('#grdUploadedFiles').css('width', '100%');
+         }
+         
      }
      function ValidateDownload() {
          Error_Message = "";
@@ -592,8 +612,7 @@
                      window.parent.$('#navOverlayImg').hide();
                      window.parent.$('#navOverlay').hide();
                      $('#btnReload').trigger("click");
-
-
+                     window.parent.$('#btnRefAnalytics').trigger("click");                     
                  }
              });
 

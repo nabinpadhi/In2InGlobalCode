@@ -121,12 +121,28 @@
     <script type="text/javascript">
        
         var BASE_URL = "CompanyManagement.aspx";
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+        prm.add_initializeRequest(InitializeRequest);
+        prm.add_endRequest(EndRequest);
         $(document).ready(function () {
             FastClick.attach(document.body);
             ClearAll();
             $('.aspNetDisabled').css('color', 'darkgray');
             $('.aspNetDisabled:hover').css('text-decoration', 'none');
+            window.parent.$('#navOverlayImg').hide();
+            window.parent.$('#navOverlay').hide();
         });
+        function InitializeRequest(sender, args) {
+            window.parent.$('#navOverlayImg').show();
+            window.parent.$('#navOverlay').show();
+
+        }
+
+        function EndRequest(sender, args) {
+            window.parent.$('#navOverlayImg').hide();
+            window.parent.$('#navOverlay').hide();
+        }
+
         function ClearAll() {
 
             $('#txtCompanyName').val('');
