@@ -101,7 +101,7 @@
                                                 <div style="width:73.3%; border: 0px solid #d3d3d3; border-radius: 5px; margin-top: 5px;">
                                                   <div class="AspNet-GridView">
                                                     <asp:HiddenField ID="hdnDBID" Value="" runat="server" />
-                                                    <asp:GridView runat="server" ID="grdAnalyticsLink" Width="72%" OnPageIndexChanging="grdAnalyticsLink_PageIndexChanging"
+                                                    <asp:GridView runat="server" ID="grdAnalyticsLink" Width="100%" OnPageIndexChanging="grdAnalyticsLink_PageIndexChanging"
                                                         HeaderStyle-CssClass="AspNet-GridView" EmptyDataRowStyle-HorizontalAlign="Center" EmptyDataText="No Configuration data found"
                                                         AllowPaging="True" OnRowDataBound="grdAnalyticsLink_RowDataBound" DataKeyNames="id" PageSize="4" AutoGenerateColumns="false">
                                                         <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
@@ -124,7 +124,7 @@
                                                             <asp:BoundField DataField="company_name" HeaderText="Company Name" />
                                                             <asp:BoundField DataField="user_email" HeaderText="User Email" />
                                                             <asp:BoundField DataField="project_name" HeaderText="Project Name" />
-                                                            <asp:BoundField HeaderStyle-CssClass="specifyCol" ItemStyle-CssClass="specifyCol" DataField="dashboard_url" HeaderText="Dashboard Link" />
+                                                            <asp:BoundField ItemStyle-CssClass="specifyCol" DataField="dashboard_url" HeaderText="Dashboard Link" />
                                                             <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Edit">
                                                                 <ItemTemplate>
                                                                     <asp:Button ID="EditButton" CssClass="GridEditButton" runat="server" Text="" />
@@ -401,19 +401,19 @@
             word-wrap: break-word;
             display: inline-block;
             white-space: nowrap;
-            Width: 386px;
+            Width: 398px;
         }
 
         .specifyCol {
              overflow: hidden;
             text-overflow: ellipsis;
-            max-height: 20px;
-            height: 20px;
+            max-height: 25px;
+            height: 25px;
             word-break: break-all;
             word-wrap: break-word;
             display:inline-block;     
-             white-space: nowrap;
-                Width: 388px;
+            white-space: nowrap;
+            Width: 420px;
         }
     </style>
 </body>

@@ -173,17 +173,16 @@
                                                                             </td>
                                                                         </tr>                                                                       
                                                                         <tr>
-                                                                            <td colspan="3">                                                                    
-                                                                                <center>
-                                                                                    <div style="width: 88%; border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 5px;">
+                                                                            <td colspan="3">                                                                                                                                                  
+                                                                                    <div style="width:96%;border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 5px;margin-left:25px;">
                                                                                         <div class="AspNet-GridView">
-                                                                                        <asp:GridView DataKeyNames="project_id" ID="grdUploadedFiles" runat="server" Width="100%" HeaderStyle-CssClass="AspNet-GridView"
+                                                                                        <asp:GridView DataKeyNames="project_id" ID="grdUploadedFiles" runat="server" HeaderStyle-CssClass="AspNet-GridView"
                                                                                             AllowPaging="True" RowStyle-Wrap="false" HeaderStyle-Wrap="false" EmptyDataText="No files uploaded for selected Project." 
                                                                                             OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" OnRowDataBound="grdUploadedFiles_RowDataBound" AutoGenerateColumns="false" PageSize="10">
                                                                                             <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
                                                                                             <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
                                                                                             <Columns>
-                                                                                                    <asp:TemplateField HeaderStyle-CssClass="specify" ItemStyle-CssClass="specify" ItemStyle-Width="252px" HeaderStyle-Width="252px" HeaderText="File Name">
+                                                                                                    <asp:TemplateField ItemStyle-CssClass="specify" HeaderText="File Name" ItemStyle-Width="152px">
                                                                                                         <ItemTemplate>
                                                                                                             <a href='#' title=" <%# DataBinder.Eval(Container.DataItem, "template_file_name")%>" onclick="OpenCSV('<%# DataBinder.Eval(Container.DataItem, "template_file_name") %>');">
                                                                                                                 <%# DataBinder.Eval(Container.DataItem, "template_file_name")%>
@@ -197,8 +196,7 @@
                                                                                             </Columns>
                                                                                         </asp:GridView>
                                                                                             </div>
-                                                                                    </div>
-                                                                                </center>
+                                                                                    </div>                                                                                
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -291,7 +289,7 @@
                                                                                <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
                                                                                 <AlternatingRowStyle CssClass="AspNet-GridView-Alternate" />
                                                                                 <Columns>
-                                                                                    <asp:BoundField HeaderStyle-CssClass="specifySearchCol" ItemStyle-CssClass="specifySearch" ItemStyle-Width="160px" HeaderStyle-Width="165px"  HeaderText="Template Name" DataField="template_file_name" />
+                                                                                    <asp:BoundField ItemStyle-CssClass="specifySearch" ItemStyle-Width="165px" HeaderStyle-Width="165px"  HeaderText="Template Name" DataField="template_file_name" />
                                                                                     <asp:BoundField ItemStyle-Width="200px" HeaderStyle-Width="200px" DataFormatString= "{0:d}" HeaderText="On Date" DataField="uploaded_on" />
                                                                                 </Columns>
                                                                             </asp:GridView>
@@ -643,33 +641,31 @@
           .specify {
         overflow: hidden;
         text-overflow: ellipsis;
-        max-height: 20px;
-        height: 20px;
+        max-height: 23px;
+        height: 23px;
         word-break: break-all;
         word-wrap: break-word;
-        display:inline-block;     
+        display:block;     
          white-space: nowrap;
     }
             .specifySearch {
         overflow: hidden;
         text-overflow: ellipsis;
-        max-height: 20px;
-        height: 20px;
+        max-height: 23px;
+        height: 23px;
         word-break: break-all;
         word-wrap: break-word;
-        display:inline-block;
-        margin-bottom: 2px;  
-        margin-left:3px;
+        display:block;     
          white-space: nowrap;
     }
             .specifySearchCol {
         overflow: hidden;
         text-overflow: ellipsis;
-        max-height: 20px;
-        height: 20px;
+        max-height: 23px;
+        height: 23px;
         word-break: break-all;
         word-wrap: break-word;
-        display:inline-block;        
+        display:block;        
          white-space: nowrap;
     }
        .messager-body.panel-body.panel-body-noborder.window-body{
