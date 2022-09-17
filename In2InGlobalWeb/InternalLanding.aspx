@@ -183,7 +183,9 @@
         var height = $(window).height();
         var navbarWidth = $('.cd-side-nav').width() - 10;
         var activeMenu = null;
-        
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+        prm.add_initializeRequest(InitializeRequest);
+        prm.add_endRequest(EndRequest);
         $(document).ready(function () {
            
             DoManualReadyDocument();
@@ -191,6 +193,16 @@
             window.parent.$('#navOverlay').hide();
 
         });
+        function InitializeRequest(sender, args) {
+            window.parent.$('#navOverlayImg').show();
+            window.parent.$('#navOverlay').show();
+
+        }
+
+        function EndRequest(sender, args) {
+            window.parent.$('#navOverlayImg').hide();
+            window.parent.$('#navOverlay').hide();
+        }
         function DoManualReadyDocument() {
             var gridcol = $("#frmTarget").contents().find('.AspNet-GridView.specifyCol');//.css('width',520);
             gridcol.css('width', 520);
@@ -266,6 +278,7 @@
             });
             $('#frmCSVPage').on('load', function () {
                 $('#navOverlayImg').hide();
+                $('#navOverlay').hide();
             })
             $('.cd-side-nav a').click();
         }
@@ -274,7 +287,13 @@
             var iframe = $("#frmTarget");
             iframe.attr("src", page);
             activeMenu = org;
+            $('#navOverlayImg').hide();
+            $('#navOverlay').hide();
         }
+        $('#frmTarget').on('load', function () {
+            $('#navOverlayImg').hide();
+            $('#navOverlay').hide();
+        });
         function loadIframe() {
 
             const urlParams = new URLSearchParams(window.location.search);
@@ -297,6 +316,7 @@
         function ShowZohoAnalytics(pageLink) {
 
             $("#frmTarget").hide();
+            $('#navOverlay').hide();
             $('#navOverlayImg').hide();
             $('#frmTargetHF').hide();
             $('.cd-side-nav a').click();
@@ -309,6 +329,8 @@
         function HideZohoAnalytics() {
 
             $("#frmTarget").show();
+            $('#navOverlay').hide();
+            $('#navOverlayImg').hide();
             $('.cd-side-nav a').click();
             $('.zohoPageDivParent').hide();
         }
@@ -317,6 +339,7 @@
             $('.exceptionDivParent').show();
             $("#frmTargetHF").hide();
         }
+        //used to refresh the Analytics project list after file uploaded successfully.
         function RefreshAnalytics() {
             var iframe = $('#frmTarget');
             var gridcol = iframe.contents().find('.AspNet-GridView.specifyCol');
@@ -325,6 +348,7 @@
             $('#ancFileMan').trigger("click");
             $('.NavViewer').trigger("click");
         }
+        //used to highlight "File Management after postback.
         function UpdateURL() {
 
             $('#ancFileMan').attr("onclick", "OpenPage('admin/FileManagement.aspx?FM=true',this);");
