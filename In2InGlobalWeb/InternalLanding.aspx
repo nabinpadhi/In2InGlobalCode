@@ -232,6 +232,12 @@
 
                 $('ul.cd-side__list a').css('color', 'rgb(255, 255, 255)');
                 $(activeMenu).css('color', 'rgb(227, 221, 61)');
+
+                $('#frmTarget').on('load', function () {
+                    alert("FrmTarget Loaded");
+                    $('#navOverlayImg').hide();
+                    $('#navOverlay').hide();
+                });
             });
 
             $('.cd-side-nav a').click(function () {
@@ -291,6 +297,7 @@
             $('#navOverlay').hide();
         }
         $('#frmTarget').on('load', function () {
+           
             $('#navOverlayImg').hide();
             $('#navOverlay').hide();
         });

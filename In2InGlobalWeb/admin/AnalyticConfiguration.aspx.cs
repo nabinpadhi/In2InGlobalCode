@@ -27,7 +27,7 @@ namespace In2InGlobal.presentation.admin
                 }
             }
             else
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
+                Page. ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", "window.parent.location='login.aspx';", true);
 
 
         }
