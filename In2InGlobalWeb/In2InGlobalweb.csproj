@@ -1904,6 +1904,7 @@
     <Content Include="img\icons\TemplateManagement.png" />
     <Content Include="img\icons\UserManagement-grey.png" />
     <Content Include="img\icons\UserManagement.png" />
+    <Content Include="img\icons\zoholink.png" />
     <Content Include="img\loggedInAvatar.jpg" />
     <Content Include="img\mobile.png" />
     <Content Include="img\ohNo.png" />

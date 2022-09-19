@@ -70,10 +70,17 @@ namespace In2InGlobal.presentation.admin
                 foreach (DataRow dr in dtUserProjectList.Rows)
                 {
                     
-                    string ancLink = " onclick = \"OpenPage('" + dr["dashboard_url"].ToString() + "');\"";
+                    
 
-                    string liForProject = " <li class='cd-side__item'><a href = '#' style='font-size:small;'  id = '" + dr["project_name"].ToString() + "'" + ancLink + "' runat = 'server' >" + dr["project_name"].ToString() + "</a></li>";
-
+                    string liForProject = " <li style = 'cursor:default;margin-left:5px; font-size:12px;color:white;'>" + dr["project_name"].ToString();// + "</li>";
+                    liForProject = liForProject + "<ul>";
+                    foreach (DataRow drTemplate in dtUserProjectList.Select("project_name='"+dr["project_name"].ToString()+"'"))
+                    {
+                        string ancLink = " onclick = \"OpenPage('" + drTemplate["dashboard_url"].ToString() + "');\"";
+                        liForProject = liForProject+ "<li class='cd-side__item cd-side__item--Zoholink'><a href = '#' style = 'font-size:10px; color:lightskyblue;'  id = '" + dr["project_name"].ToString() + "'" + ancLink + " runat = 'server' ><i>" + dr["template_name"].ToString() + "</i></a></li>";
+                        
+                    }
+                    liForProject = liForProject + "</ul></li>";
                     analyticsProjectLinkLiString.AppendLine(liForProject);
                 }
             }

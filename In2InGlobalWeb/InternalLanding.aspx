@@ -35,7 +35,7 @@
         }
     </style>
 </head>
-<body onload="loadIframe();">
+<body>
 
     <form status="1" id="form1" runat="server">
         <asp:ScriptManager ID="scriptmanager1" runat="server">
@@ -96,12 +96,11 @@
                                 <li class="cd-side__item cd-side__item--has-children cd-side__item--file js-cd-item--has-children">
                                     <a href="#" id="ancFileMan" runat="server">File Management</a>
                                 </li>
-                                <li runat="server" id="liAnalytics" class="cd-side__item cd-side__item--analytics cd-side__item--has-children js-cd-item--has-children">
-                                   
+                                <li runat="server" id="liAnalytics" class="cd-side__item cd-side__item--analytics">
                                     <a href="#" id="ancAnalytics" runat="server" style="cursor: context-menu;">Analytics</a>
                                     <div runat="server" id="divConfiguration" class="cd-side__item cd-side__item--configuration" style="margin-left: 25px; padding-top: 4px; padding-bottom: 4px;"><a href="#" id="ancConfiguration" style="font-size: 10px; color: aqua;" runat="server">Configuration</a></div>
                                     <div class="foo" style="margin-left: 30px; padding-top: 4px; height: 185px; width: auto; overflow-y: auto; overflow-x: hidden;">
-                                        <ul class="js-cd-side__list" runat="server" id="AnalyticsProjectList">
+                                        <ul runat="server" id="AnalyticsProjectList">
                                         </ul>
                                     </div>
                                 </li>
@@ -189,6 +188,10 @@
         $(document).ready(function () {
            
             DoManualReadyDocument();
+            var iframe = $("#frmTarget");
+            iframe.attr("src", "about:blank");
+            var uri = "admin/MyProfile.aspx";
+            OpenPage(uri, $('#ancMyProfile'));
             window.parent.$('#navOverlayImg').hide();
             window.parent.$('#navOverlay').hide();
 
@@ -239,7 +242,7 @@
                     $('#navOverlay').hide();
                 });
             });
-
+            
             $('.cd-side-nav a').click(function () {
                 if ($(this).attr('id') != 'ancAnalytics') {
                     $('.cd-side-nav').hide();
@@ -264,7 +267,7 @@
 
                     $('#frmCSVPage').css("width", width - 12);
                     $('#frmCSVPage').css("height", height - 40);
-                    $('#frmCSVPage').css("over5flow", "hidden");
+                    $('#frmCSVPage').css("overflow", "hidden");
 
 
 
@@ -290,6 +293,7 @@
         }
         function OpenPage(page, org) {
 
+            
             var iframe = $("#frmTarget");
             iframe.attr("src", page);
             activeMenu = org;

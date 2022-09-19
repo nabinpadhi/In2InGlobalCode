@@ -3922,6 +3922,11 @@ a {
 	background-size: 16px;
 	background-position: 0px 0;
 }
+.cd-side__item--Zoholink > a::before {
+	background: url(../img/icons/zoholink.png) no-repeat 0 0;
+	background-size: 16px;
+	background-position: 0px 0;
+}
     .cd-side__item--notifications > a::before {
     background-position: -80px 0
 }
