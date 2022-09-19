@@ -234,7 +234,7 @@
                 $(activeMenu).css('color', 'rgb(227, 221, 61)');
 
                 $('#frmTarget').on('load', function () {
-                    alert("FrmTarget Loaded");
+                    
                     $('#navOverlayImg').hide();
                     $('#navOverlay').hide();
                 });
