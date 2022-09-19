@@ -1043,7 +1043,10 @@ namespace In2InGlobal.datalink
                 {
                     if (uploadTemplateEntity.IsDeleteAndCreate)
                     {
-                        deleteRow(RepClient, uploadTemplateEntity, companyName);
+                        DeleteZohoWOrksheet(RepClient, EMAIL, workspace);
+                        DeleteWorkSpaceInfo(uploadTemplateEntity, workspace, TBNAME);
+                        SaveWorkSpaceInfo(uploadTemplateEntity, workspace, TBNAME);
+                        dbid = RepClient.CopyDatabase(dbURI, newDBName, newDBDesc, withData, copyDBKey, null);
                         importData(RepClient, workspace, TBNAME, uploadTemplateEntity.FileName, uploadTemplateEntity.filePathZoho);
                     }
                     else
@@ -1053,9 +1056,18 @@ namespace In2InGlobal.datalink
                 }
                 else
                 {
-                    SaveWorkSpaceInfo(uploadTemplateEntity, workspace, TBNAME);
-                    dbid = RepClient.CopyDatabase(dbURI, newDBName, newDBDesc, withData, copyDBKey, null);
-                    importData(RepClient, workspace, TBNAME, uploadTemplateEntity.FileName, uploadTemplateEntity.filePathZoho);
+                    if (isWorkSpacePresent.Tables[0].Rows.Count > 0)
+                    {
+                        //string uri = RepClient.GetURI(EMAIL);
+                        //long result = RepClient.GetDatabaseID(uri, workspace, null);
+                        importData(RepClient, workspace, TBNAME, uploadTemplateEntity.FileName, uploadTemplateEntity.filePathZoho);
+                    }
+                    else
+                    {
+                        dbid = RepClient.CopyDatabase(dbURI, newDBName, newDBDesc, withData, copyDBKey, null);
+                        SaveWorkSpaceInfo(uploadTemplateEntity, workspace, TBNAME);
+                        importData(RepClient, workspace, TBNAME, uploadTemplateEntity.FileName, uploadTemplateEntity.filePathZoho);
+                    }
 
                 }
 
@@ -1068,7 +1080,17 @@ namespace In2InGlobal.datalink
             }
         }
 
-        public void GetDashboards(IAnalyticsClient ac,long workspaceids,string company, UploadTemplateEntity uploadtemplateEntity)
+
+
+        public void DeleteZohoWOrksheet(IReportClient RepClient, string email, string workspacename)
+        {
+            string userURI = RepClient.GetURI(email);
+            string databaseName = workspacename;
+            RepClient.DeleteDatabase(userURI, databaseName, null);
+        }
+
+
+        public void GetDashboards(IAnalyticsClient ac, long workspaceids, string company, UploadTemplateEntity uploadtemplateEntity)
         {
             try
             {
@@ -1130,7 +1152,7 @@ namespace In2InGlobal.datalink
                 }
                 else
                 {
-                    GetViewUrl(ac, orgIdx, workspaceIdx, viewIdx, company, uploadtemplateEntity.ProjectName);
+                    GetViewUrl(ac, orgIdx, workspaceIdx, viewIdx, company, uploadtemplateEntity);
                 }
             }
             catch (Exception ex)
@@ -1139,15 +1161,15 @@ namespace In2InGlobal.datalink
             }
         }
 
-        public void GetViewUrl(IAnalyticsClient ac, long orgId, long workspaceId, long viewId,string company,string project)
+        public void GetViewUrl(IAnalyticsClient ac, long orgId, long workspaceId, long viewId, string company, UploadTemplateEntity uploadtemplateEntity)
         {
             try
             {
                 IViewAPI view = ac.GetViewInstance(orgId, workspaceId, viewId);
                 string viewUrl = view.GetViewURL(null);
-                SaveDashboardConfiguration(orgId, workspaceId, viewId, company, project, viewUrl);
+                SaveDashboardConfiguration(orgId, workspaceId, viewId, company, uploadtemplateEntity, viewUrl);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ex.ToString();
             }
@@ -1159,7 +1181,7 @@ namespace In2InGlobal.datalink
             string DBNAME = ConfigurationManager.AppSettings["DBNAME"];
             DBNAME = company + "_" + DBNAME;
             string TBNAME = ConfigurationManager.AppSettings["TBNAME"];
-           
+
             try
             {
                 string uri = rc.GetURI(EMAIL);
@@ -1170,8 +1192,8 @@ namespace In2InGlobal.datalink
                 string CLIENT_SECRET = ConfigurationManager.AppSettings["CLIENT_SECRET"];
                 string REFRESH_TOKEN = ConfigurationManager.AppSettings["REFRESH_TOKEN"];
 
-                IAnalyticsClient ac = new AnalyticsClient(CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN);               
-                GetDashboards(ac, workspaceid,company, uploadtemplateEntity);
+                IAnalyticsClient ac = new AnalyticsClient(CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN);
+                GetDashboards(ac, workspaceid, company, uploadtemplateEntity);
             }
             catch (Exception ex)
             {
@@ -1187,16 +1209,17 @@ namespace In2InGlobal.datalink
         /// </summary>
         /// <param name="templateEntity"></param>
         /// <returns></returns>
-        public void SaveDashboardConfiguration(long orgId, long workspaceId, long viewId, string company, string project,string url)
+        public void SaveDashboardConfiguration(long orgId, long workspaceId, long viewId, string company, UploadTemplateEntity uploadtemplateEntity, string url)
         {
             DataSet projectdata = new DataSet();
             DataSet companydata = new DataSet();
-            projectdata = getProjectData(project);
+            projectdata = getProjectData(uploadtemplateEntity.ProjectName);
             companydata = getCompanyData(company);
             string userid = string.Empty;
             string companyid = string.Empty;
             string projectid = string.Empty;
             string createdby = string.Empty;
+
 
             if (projectdata.Tables[0].Rows.Count > 0)
             {
@@ -1207,11 +1230,11 @@ namespace In2InGlobal.datalink
 
             if (companydata.Tables[0].Rows.Count > 0)
             {
-                companyid= companydata.Tables[0].Rows[0]["company_id"].ToString();
+                companyid = companydata.Tables[0].Rows[0]["company_id"].ToString();
             }
 
             BaseRepository baseRepo = new BaseRepository();
-            var query = @"SELECT * FROM dbo.saveanalyticconfiguration(@projectid ,@dashboardid ,@companyid ,@userid ,@templateid ,@workspaceid,@createdby ,@dashboardurl  )";
+            var query = @"SELECT * FROM dbo.saveanalyticconfiguration(@projectid ,@dashboardid ,@companyid ,@userid ,@templateid ,@workspaceid,@createdby ,@dashboardurl,@templatename)";
             using (var connection = baseRepo.GetDBConnection())
             {
                 try
@@ -1223,10 +1246,11 @@ namespace In2InGlobal.datalink
                         dashboardid = Convert.ToInt64(viewId),
                         companyid = Convert.ToInt64(companyid),
                         userid = Convert.ToInt64(userid),
-                        templateid = Convert.ToInt64(1),
+                        templateid = Convert.ToInt64(uploadtemplateEntity.TemplateId),
                         workspaceid = Convert.ToInt64(workspaceId),
                         createdby = createdby,
-                        dashboardurl = url
+                        dashboardurl = url,
+                        templatename = uploadtemplateEntity.FileName
                     }, commandType: CommandType.Text
                     );
 
@@ -1245,10 +1269,10 @@ namespace In2InGlobal.datalink
                 {
                     connection.Dispose();
                 }
-            }          
+            }
         }
 
-        public DataSet getProjectData(string projectname) 
+        public DataSet getProjectData(string projectname)
         {
             BaseRepository baseRepo = new BaseRepository();
             DataSet dsProject = new DataSet();
@@ -1283,7 +1307,7 @@ namespace In2InGlobal.datalink
             }
         }
 
-        public DataSet getDashboardData(string projectname,string useremail,long workspaceid,long dashboardid)
+        public DataSet getDashboardData(string projectname, string useremail, long workspaceid, long dashboardid)
         {
             BaseRepository baseRepo = new BaseRepository();
             DataSet dsDashboard = new DataSet();
@@ -1476,6 +1500,52 @@ namespace In2InGlobal.datalink
             }
 
         }
+
+        /// <summary>
+        /// Save Upload Template
+        /// </summary>
+        /// <param name="templateEntity"></param>
+        /// <returns></returns>
+        public void DeleteWorkSpaceInfo(UploadTemplateEntity uploadTemplateEntity, string workspacename, string workspacetablename)
+        {
+            BaseRepository baseRepo = new BaseRepository();
+            var query = @"SELECT * FROM dbo.deleteworkspaceinfo(@workspacename,@workspacetablename,@projectname,@email,@createdby)";
+
+            using (var connection = baseRepo.GetDBConnection())
+            {
+                try
+                {
+                    connection.Open();
+                    var result = connection.Query(query, new
+                    {
+                        workspacename = workspacename,
+                        workspacetablename = workspacetablename,
+                        projectname = uploadTemplateEntity.ProjectName,
+                        createdby = uploadTemplateEntity.CreatedBy,
+                        email = uploadTemplateEntity.UserEmail
+
+                    }, commandType: CommandType.Text
+                    );
+
+                    if (result == null || !result.Any())
+                    {
+                        // throw (" failed to create company").ToString();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Dispose();
+                }
+
+            }
+
+        }
+
+
 
 
 

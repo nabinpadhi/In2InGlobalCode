@@ -61,9 +61,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
             UploadTemplateBL uploadTemplateBl = new UploadTemplateBL();
             uploadTemplateBl.DeleteProjectProcessedDataFromDB(templateEntity);
 
-            uploadTemplateBl.CallZohoApiToImoortData(templateEntity);
-
-        }     
+        }
     }
 
 
@@ -95,7 +93,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
                 string selectedTemplate = HttpContext.Current.Session["TemplateName"].ToString();
                 //Nabin : - files have been deleted from directory, now delete from database.
                 DeleteAnalysisProcessedDataFromDB(uploadedBy, projectName, selectedTemplate);
-                DeleteAnalysisDataFromDB(uploadedBy, projectName, selectedTemplate);                
+                DeleteAnalysisDataFromDB(uploadedBy, projectName, selectedTemplate);
             }
             if (context.Request.Files.Count > 0)
             {
@@ -521,7 +519,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
             if (existingFileWithPath != "")
             {
                 DataTable _existingTemplateDataTable = GetUpdatedTemplateDataTable(fileName, existingFileWithPath, templateEntity);
-                DataTable _NewTemplateTable = RemoveDuplicateRecords(_existingTemplateDataTable, _uploadedTemplateDataTable);
+                DataTable _NewTemplateTable = RemoveDuplicateRecords(_existingTemplateDataTable, _uploadedTemplateDataTable);              
                 createCsvFile(context, _NewTemplateTable, templateEntity.FileName, templateEntity);
                 uploadTemplateBl.SaveUploadTemplate(_NewTemplateTable, templateEntity);
             }
@@ -538,6 +536,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
                     createCsvFile(context, _uploadedTemplateDataTable, templateEntity.FileName, templateEntity);
                 }
                 uploadTemplateBl.SaveUploadTemplate(_uploadedTemplateDataTable, templateEntity);
+
 
             }
         }

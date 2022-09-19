@@ -40,11 +40,11 @@ namespace In2InGlobalBL
         {
             DataTable dt = new DataTable();
             try
-            {                
+            {
                 UploadTemplateDL tempuploadDL = new UploadTemplateDL();
-                dt = tempuploadDL.GetZohoDataTable(dtUploadTemplate, uploadTemplateEntity);                
+                dt = tempuploadDL.GetZohoDataTable(dtUploadTemplate, uploadTemplateEntity);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ex.ToString();
             }
@@ -214,8 +214,8 @@ namespace In2InGlobalBL
             return dsUplaodUser;
         }
 
-        public void EXPORT_CSV(DataTable dt,string filename)
-        {          
+        public void EXPORT_CSV(DataTable dt, string filename)
+        {
             try
             {
                 UploadTemplateDL objUploadUser = new UploadTemplateDL();
@@ -224,16 +224,16 @@ namespace In2InGlobalBL
             catch (Exception ex)
             {
                 ex.Message.ToString();
-            }         
+            }
 
         }
 
-        public void CallZohoApiToImoortData(UploadTemplateEntity utp)
+        public void CallZohoApiToImoortData(UploadTemplateEntity uploadTemplateEntity)
         {
             try
             {
                 UploadTemplateDL objUploadUser = new UploadTemplateDL();
-                objUploadUser.CallZohoApiToImoortData( utp);
+                objUploadUser.CallZohoApiToImoortData(uploadTemplateEntity);
             }
             catch (Exception ex)
             {
