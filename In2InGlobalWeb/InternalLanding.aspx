@@ -50,6 +50,7 @@
                     </div>
                     <main class="cd-main-content" style="width: 100%; position: fixed; left: 0px; top: 0px;">
                         <img id="navOverlayImg" style="display: none; z-index: 9999; width:150px;height:auto; position: fixed; top: 200px; left: 550px;" src="admin/img/processingNew.gif" />
+                        <img id="navOverlayCSVPL" style="display: none; z-index: 9999; width:250px;height:auto; position: fixed; top: 300px; left: 550px;" src="admin/img/LoadingTrans.gif" />
                         <div id="navOverlay" style="display: none; z-index: 9991; padding-top: 0px; width: 100%; background-color:rgba(1,1,1,0.3); height: 100%; position: fixed; left: 0px; top: 0px;">
                         </div>
 
@@ -192,19 +193,19 @@
             iframe.attr("src", "about:blank");
             var uri = "admin/MyProfile.aspx";
             OpenPage(uri, $('#ancMyProfile'));
-            window.parent.$('#navOverlayImg').hide();
-            window.parent.$('#navOverlay').hide();
+            $('#navOverlayImg').hide();
+            $('#navOverlay').hide();
 
         });
         function InitializeRequest(sender, args) {
-            window.parent.$('#navOverlayImg').show();
-            window.parent.$('#navOverlay').show();
+            $('#navOverlayImg').show();
+            $('#navOverlay').show();
 
         }
 
         function EndRequest(sender, args) {
-            window.parent.$('#navOverlayImg').hide();
-            window.parent.$('#navOverlay').hide();
+            $('#navOverlayImg').hide();
+            $('#navOverlay').hide();
         }
         function DoManualReadyDocument() {
             var gridcol = $("#frmTarget").contents().find('.AspNet-GridView.specifyCol');//.css('width',520);
@@ -240,6 +241,7 @@
                     
                     $('#navOverlayImg').hide();
                     $('#navOverlay').hide();
+                    $('#navOverlayCSVPL').hide();
                 });
             });
             
@@ -288,6 +290,7 @@
             $('#frmCSVPage').on('load', function () {
                 $('#navOverlayImg').hide();
                 $('#navOverlay').hide();
+                $('#navOverlayCSVPL').hide();
             })
             $('.cd-side-nav a').click();
         }
@@ -299,11 +302,13 @@
             activeMenu = org;
             $('#navOverlayImg').hide();
             $('#navOverlay').hide();
+            $('#navOverlayCSVPL').hide();
         }
         $('#frmTarget').on('load', function () {
            
             $('#navOverlayImg').hide();
             $('#navOverlay').hide();
+            $('#navOverlayCSVPL').hide();
         });
         function loadIframe() {
 
@@ -313,15 +318,15 @@
             OpenPage(uri, $('#ancMyProfile'));
         }
         function ShowDiv(fn) {
-
+           
             var iframe = $("#frmCSVPage");
-            iframe.attr("src", "admin/DisplayCSV.aspx?csvfp=" + fn);
-            //$('.cd-side-nav a').click();
+            iframe.attr("src", "admin/DisplayCSV.aspx?csvfp=" + fn);            
             $('#ancFileMan').click();
             $('.csvPageDivParent').show();
-            $("#frmTarget").hide();
-            $('#navOverlayImg').hide();
+            $("#frmTarget").hide();           
             $('#frmTargetHF').hide();
+            $('#navOverlayCSVPL').show();
+            $('#navOverlay').show();
 
         }
         function ShowZohoAnalytics(pageLink) {

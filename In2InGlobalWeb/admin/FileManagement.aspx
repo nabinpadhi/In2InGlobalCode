@@ -141,7 +141,7 @@
                         <div title="File Management" class="filemgnt" style="display:none;">
                             <table style="width: 100%;">
                                 <tr>
-                                    <td style="width: 75%;">                                                                
+                                    <td style="width: 65%;">                                                                
                                         <table style="width: 100%;">                               
                                             <tr>
                                                 <td style="text-align: center;">
@@ -174,9 +174,9 @@
                                                                         </tr>                                                                       
                                                                         <tr>
                                                                             <td colspan="3">                                                                                                                                                  
-                                                                                    <div style="width:96%;border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 5px;margin-left:25px;">
+                                                                                    <div id="fileGridHolder" style="width:96%;border: 1px solid #d3d3d3; border-radius: 5px; margin-top: 5px;margin-left:25px;">
                                                                                         <div class="AspNet-GridView">
-                                                                                        <asp:GridView DataKeyNames="project_id" ID="grdUploadedFiles" runat="server" HeaderStyle-CssClass="AspNet-GridView"
+                                                                                        <asp:GridView DataKeyNames="project_id" ID="grdUploadedFiles" Width="100%"  runat="server" HeaderStyle-CssClass="AspNet-GridView"
                                                                                             AllowPaging="True" RowStyle-Wrap="false" HeaderStyle-Wrap="false" EmptyDataText="No files uploaded for selected Project." 
                                                                                             OnPageIndexChanging="grdUploadedFiles_PageIndexChanging" OnRowDataBound="grdUploadedFiles_RowDataBound" AutoGenerateColumns="false" PageSize="10">
                                                                                             <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
@@ -244,11 +244,11 @@
                                         </table>
                                                                                 
                                     </td>
-                                    <td runat="server" id="searchTemplatePanel" style="width: 25%; vertical-align: top;">
-                                        <div style="margin-top: 14px; margin-left: 20px;margin-bottom:20px;border-radius:5px; border: 0px solid #d3d3d3; height: 300px;">
+                                    <td runat="server" id="searchTemplatePanel" style="width: 35%; vertical-align: top;">
+                                        <div style="margin-top: 4px; margin-left: 20px;margin-bottom:20px;border-radius:5px; border: 0px solid #d3d3d3; height: 300px;">
                                             <div id="searchDIV">
                                             <span style="margin-left: 10px;"><b>Search Template </b></span>
-                                            <table style="width: 100%; margin-left: 5px;margin-right: 5px;">
+                                            <table style="width: 80%; margin-left: 5px;margin-right: 5px;">
                                                 <tr  class="formDiv" id="usrEmailTR" runat="server">
                                                     <td style="width: 35%">
                                                         <b><u>Email ID</u> : </b>
@@ -283,7 +283,7 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td >
-                                                                        <div class="AspNet-GridView">                                                                          
+                                                                        <div class="AspNet-GridView" style="width:92%">                                                                          
                                                                             <asp:GridView ID="grdTemplate"  runat="server" Width="100%" HeaderStyle-CssClass="AspNet-GridView"
                                                                                 AllowPaging="True" OnPageIndexChanging="grdTemplate_PageIndexChanging" AutoGenerateColumns="false" RowStyle-Wrap="false" HeaderStyle-Wrap="false" EmptyDataText="No Template Found." PageSize="10">
                                                                                <PagerStyle HorizontalAlign = "Center" CssClass="GridPager" />
@@ -441,10 +441,16 @@
          $('.filemgnt').show();
          $('#fixedHRFM').show();
          $('#fixedHRPM').hide();
-         if($('#grdTemplate').length)
-         {
+         if ($('#grdTemplate').length) {
              $('#grdUploadedFiles').css('width', '100%');
+             $('#fileGridHolder').css('width', '96%');
          }
+         else {
+             $('#fileGridHolder').css('width', '97%');
+             $('#grdUploadedFiles').css('width', '100%');
+             $('.specify').css('width','328px');
+         }
+         
          
      }
      function ValidateDownload() {
