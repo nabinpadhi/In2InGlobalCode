@@ -575,6 +575,48 @@ namespace In2InGlobal.datalink
         }
 
 
+        /// <summary>
+        /// Delete Analysis Data
+        /// </summary>
+        /// <param name="uploadTemplateEntity"></param>
+        /// <returns></returns>
+        public long DeleteUploadTemplateData(UploadTemplateEntity uploadTemplateEntity)
+        {
+            string tableName = "upload_template";            
+            BaseRepository baseRepo = new BaseRepository();
+            var query = $"Delete FROM dbo.{tableName} where user_email ='{uploadTemplateEntity.UserEmail}'AND template_file_name'{uploadTemplateEntity.FileToDelete}  AND project_name ='{uploadTemplateEntity.ProjectName}'";
+            using (var connection = baseRepo.GetDBConnection())
+            {
+                try
+                {
+                    connection.Open();
+                    var result = connection.Query(query, new
+                    {
+                    }, commandType: CommandType.Text
+                    );
+
+                    if (result == null || !result.Any())
+                    {
+                        //  throw (" failed to create company").ToString();
+                    }
+                    // companyEntity.CompanyId = Convert.ToInt64(result.First().CompanyId);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Dispose();
+                }
+            }
+            return uploadTemplateEntity.Id;
+        }
+
+
+
+
+
 
         /// <summary>
         /// Load Analytics Processed Data
@@ -1003,25 +1045,25 @@ namespace In2InGlobal.datalink
             }
         }
 
-        public void copyDatabase(IReportClient RepClient, UploadTemplateEntity uploadTemplateEntity)
-        {
-            string dbURI = RepClient.GetURI(EMAIL, DBNAME);
+        //public void copyDatabase(IReportClient RepClient, UploadTemplateEntity uploadTemplateEntity)
+        //{
+        //    string dbURI = RepClient.GetURI(EMAIL, DBNAME);
 
-            string TBNAME = uploadTemplateEntity.FileName;
-            string newDBName = uploadTemplateEntity.FileName + "WS";
-            string newDBDesc = uploadTemplateEntity.FileName + "WorkSpace";
-            bool withData = false;
-            copyDatabaseKey(RepClient);
+        //    string TBNAME = uploadTemplateEntity.FileName;
+        //    string newDBName = uploadTemplateEntity.FileName + "WS";
+        //    string newDBDesc = uploadTemplateEntity.FileName + "WorkSpace";
+        //    bool withData = false;
+        //    copyDatabaseKey(RepClient);
 
-            string copyDBKey = "086cc1f4fcbed31733ea7eb13fe05436";
-            long dbid = RepClient.CopyDatabase(dbURI, newDBName, newDBDesc, withData, copyDBKey, null);
-        }
+        //    string copyDBKey = "086cc1f4fcbed31733ea7eb13fe05436";
+        //    long dbid = RepClient.CopyDatabase(dbURI, newDBName, newDBDesc, withData, copyDBKey, null);
+        //}
 
         public void CopyWorkSpaceAndRename(IReportClient RepClient, UploadTemplateEntity uploadTemplateEntity)
         {
             long dbid = 0;
             string companyName = GetCompanyName(uploadTemplateEntity.UserEmail);
-            string workspace = companyName + "_" + uploadTemplateEntity.FileName;
+            string workspace=companyName + "_" + uploadTemplateEntity.ProjectName + "_" + uploadTemplateEntity.UserEmail + "_" + uploadTemplateEntity.FileName;
             string TBNAME = uploadTemplateEntity.FileName;
             string dbURI = RepClient.GetURI(EMAIL, DBNAME);
 
@@ -1178,9 +1220,14 @@ namespace In2InGlobal.datalink
         public string getEmbedURL(IReportClient rc, string company, UploadTemplateEntity uploadtemplateEntity)
         {
             string result = String.Empty;
-            string DBNAME = ConfigurationManager.AppSettings["DBNAME"];
-            DBNAME = company + "_" + DBNAME;
-            string TBNAME = ConfigurationManager.AppSettings["TBNAME"];
+            //string DBNAME = uploadtemplateEntity.FileName;
+           // DBNAME = company + "_" + DBNAME;
+
+            string companyName = GetCompanyName(uploadtemplateEntity.UserEmail);
+            string DBNAME = companyName + "_" + uploadtemplateEntity.ProjectName + "_" + uploadtemplateEntity.UserEmail + "_" + uploadtemplateEntity.FileName;
+
+
+            string TBNAME = uploadtemplateEntity.FileName;
 
             try
             {
@@ -1386,24 +1433,24 @@ namespace In2InGlobal.datalink
 
 
 
-        public void deleteRow(IReportClient RepClient, UploadTemplateEntity uploadTemplateEntity, string company)
-        {
-            try
-            {
-                string DBNAME = ConfigurationManager.AppSettings["DBNAME"];
-                DBNAME = company + "_" + DBNAME;
-                string TBNAME = ConfigurationManager.AppSettings["TBNAME"];
+        //public void deleteRow(IReportClient RepClient, UploadTemplateEntity uploadTemplateEntity, string company)
+        //{
+        //    try
+        //    {
+        //        string DBNAME = uploadTemplateEntity.FileName;
+        //        DBNAME = company + "_" + DBNAME;
+        //        string TBNAME = uploadTemplateEntity.FileName;
 
-                string tableURI = RepClient.GetURI(EMAIL, DBNAME, TBNAME);
-                string criteria = $"\"user_email\"=='{uploadTemplateEntity.UserEmail}'";
+        //        string tableURI = RepClient.GetURI(EMAIL, DBNAME, TBNAME);
+        //        string criteria = $"\"user_email\"=='{uploadTemplateEntity.UserEmail}'";
 
-                var id = RepClient.DeleteData(tableURI, null, null);
-            }
-            catch (Exception ex)
-            {
-                ex.ToString();
-            }
-        }
+        //        var id = RepClient.DeleteData(tableURI, null, null);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ex.ToString();
+        //    }
+        //}
 
 
         public void copyDatabaseKey(IReportClient RepClient)

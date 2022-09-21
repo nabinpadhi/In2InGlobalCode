@@ -101,6 +101,24 @@ namespace In2InGlobalBL
             return response;
         }
 
+        public UploadTemplateDto DeleteUploadTemplateData(UploadTemplateEntity uploadTemplateEntity)
+        {
+            UploadTemplateDto response = null;
+            UploadTemplateDL tempuploadDL = new UploadTemplateDL();
+
+            if (uploadTemplateEntity == null) return response;
+
+            var varTemplateId = tempuploadDL.DeleteUploadTemplateData(uploadTemplateEntity);
+
+            response = new UploadTemplateDto
+            {
+                TemplateId = varTemplateId
+            };
+            return response;
+        }
+
+
+
 
         public UploadTemplateDto UpdateAssignedTemplate(UploadTemplateEntity tempEntity)
         {

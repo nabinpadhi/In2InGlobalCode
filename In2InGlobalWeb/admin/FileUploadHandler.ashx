@@ -65,13 +65,35 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
     }
 
 
+    private void DeleteUploadTemplateData(string uploadBy, string projectName, string fileName,string filenametodelte)
+    {
+        UploadTemplateEntity templateEntity = new UploadTemplateEntity();
+
+
+        if (projectName != null)
+        {
+            templateEntity.FileName = fileName;
+            templateEntity.ProjectName = projectName;
+            templateEntity.CreatedBy = uploadBy;
+            //templateEntity.RoleName = context.Session["UserRole"].ToString();
+            templateEntity.UserEmail = HttpContext.Current.Session["UserEmail"].ToString();
+            templateEntity.Status = "Success";
+            templateEntity.FileToDelete = filenametodelte;
+
+            UploadTemplateBL uploadTemplateBl = new UploadTemplateBL();
+            uploadTemplateBl.DeleteUploadTemplateData(templateEntity);
+
+        }
+    }
+
+
 
     public void ProcessRequest(HttpContext context)
     {
 
         try
         {
-            //string fileName = "";
+            string fileName = "";
             string uploadedBy = HttpContext.Current.Session["UserEmail"].ToString();
             bool deleteAndCreate = Convert.ToBoolean(context.Request["DeleteAndCreate"]);
             string filePath = HttpContext.Current.Session["targetfolder"].ToString(); //"./MasterTemplate/";
@@ -85,15 +107,15 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
                 new List<string>(Directory.GetFiles(context.Server.MapPath(filePath))).ForEach(file =>
                 {
                     Regex re = new Regex(userNameWithSelectedProject, RegexOptions.IgnoreCase);
-                    if (re.IsMatch(file))
-                        //  fileName = file.ToString();
-                        File.Delete(file);
+                    if (re.IsMatch(file))                        
+                    File.Delete(file);
                 });
 
                 string selectedTemplate = HttpContext.Current.Session["TemplateName"].ToString();
                 //Nabin : - files have been deleted from directory, now delete from database.
                 DeleteAnalysisProcessedDataFromDB(uploadedBy, projectName, selectedTemplate);
                 DeleteAnalysisDataFromDB(uploadedBy, projectName, selectedTemplate);
+                DeleteUploadTemplateData(uploadedBy, projectName, selectedTemplate,fileName);
             }
             if (context.Request.Files.Count > 0)
             {
@@ -519,7 +541,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
             if (existingFileWithPath != "")
             {
                 DataTable _existingTemplateDataTable = GetUpdatedTemplateDataTable(fileName, existingFileWithPath, templateEntity);
-                DataTable _NewTemplateTable = RemoveDuplicateRecords(_existingTemplateDataTable, _uploadedTemplateDataTable);              
+                DataTable _NewTemplateTable = RemoveDuplicateRecords(_existingTemplateDataTable, _uploadedTemplateDataTable);
                 createCsvFile(context, _NewTemplateTable, templateEntity.FileName, templateEntity);
                 uploadTemplateBl.SaveUploadTemplate(_NewTemplateTable, templateEntity);
             }
