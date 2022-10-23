@@ -1063,7 +1063,7 @@ namespace In2InGlobal.datalink
         {
             long dbid = 0;
             string companyName = GetCompanyName(uploadTemplateEntity.UserEmail);
-            string workspace=companyName + "_" + uploadTemplateEntity.ProjectName + "_" + uploadTemplateEntity.UserEmail + "_" + uploadTemplateEntity.FileName;
+            string workspace=companyName.Trim() + "_" + uploadTemplateEntity.ProjectName.Trim() + "_" + uploadTemplateEntity.UserEmail.Trim() + "_" + uploadTemplateEntity.FileName.Trim();
             string TBNAME = uploadTemplateEntity.FileName;
             string dbURI = RepClient.GetURI(EMAIL, DBNAME);
 
@@ -1106,7 +1106,15 @@ namespace In2InGlobal.datalink
                     }
                     else
                     {
-                        dbid = RepClient.CopyDatabase(dbURI, newDBName, newDBDesc, withData, copyDBKey, null);
+                        string dbURIs = RepClient.GetURI(EMAIL, DBNAME);
+                        string copyDBKeyy = RepClient.GetCopyDBKey(dbURIs, null);
+                       
+                        bool withDatas = false;
+                        string copyDBKeys = copyDBKeyy;
+                        //RepClient.CopyDatabase(dbURI, newDBName, newDBDesc, withData, copyDBKey, null);
+
+                        dbid = RepClient.CopyDatabase(dbURIs, newDBName, newDBDesc, withDatas, copyDBKeys, null);
+                       // dbid = RepClient.CopyDatabase(dbURI, newDBName, newDBDesc, withData, copyDBKey, null);
                         SaveWorkSpaceInfo(uploadTemplateEntity, workspace, TBNAME);
                         importData(RepClient, workspace, TBNAME, uploadTemplateEntity.FileName, uploadTemplateEntity.filePathZoho);
                     }
