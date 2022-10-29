@@ -428,55 +428,37 @@ namespace In2InGlobal.datalink
 
             try
             {
+                string _tempCSVFile = uploadTemplateEntity.UploadedFilePath + "_temp-" + uploadTemplateEntity.UserEmail + "-"+uploadTemplateEntity.ProjectName + ".csv";
+
                 connection.Open();
                 using (var transaction = connection.BeginTransaction())
                 {
                     if (analyticsProcessedData.Tables[0].Rows.Count > 0 && dtComapareTable.Rows.Count > 0)
-                    {
-                        foreach (DataRow row in dtComapareTable.Rows)
+                    {                       
+                        ToCSV(dtComapareTable, _tempCSVFile);
+                        string sql = string.Format("COPY dbo.{0} FROM '{1}' DELIMITER ',' CSV Header;", tableName, _tempCSVFile);
+
+                        using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
                         {
-                            // Create an NpgsqlParameter for every field in the column
-                            var parameters = new List<DbParameter>();
-
-                            for (var i = 0; i < dtComapareTable.Columns.Count; i++)
-                            {
-                                parameters.Add(new NpgsqlParameter($"@p{i}", row[i]));
-                            }
-                            var parameterNames = string.Join(", ", parameters.Select(p => p.ParameterName));
-
-                            // Create an INSERT SQL query which inserts the data from the current row into PostgreSql table
-                            var command = new NpgsqlCommand(
-                                $"INSERT INTO dbo.{tableName} VALUES (DEFAULT,{parameterNames})",
-                                connection);
-                            command.Parameters.AddRange(parameters.ToArray());
                             command.ExecuteNonQuery();
                         }
                         WriteToCsvFile(dtComapareTable, tableName, uploadTemplateEntity);
                     }
                     else
-                    {
-                        foreach (DataRow row in dtUploadTemplate.Rows)
+                    {                        
+                        ToCSV(dtUploadTemplate, _tempCSVFile);
+                        string sql = string.Format("COPY dbo.{0} FROM '{1}' DELIMITER ',' CSV Header;", tableName, _tempCSVFile);
+
+                        using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
                         {
-                            // Create an NpgsqlParameter for every field in the column
-                            var parameters = new List<DbParameter>();
-
-                            for (var i = 0; i < dtUploadTemplate.Columns.Count; i++)
-                            {
-                                parameters.Add(new NpgsqlParameter($"@p{i}", row[i]));
-                            }
-                            var parameterNames = string.Join(", ", parameters.Select(p => p.ParameterName));
-
-                            // Create an INSERT SQL query which inserts the data from the current row into PostgreSql table
-                            var command = new NpgsqlCommand(
-                                $"INSERT INTO dbo.{tableName} VALUES (DEFAULT,{parameterNames})",
-                                connection);
-                            command.Parameters.AddRange(parameters.ToArray());
                             command.ExecuteNonQuery();
                         }
+
                         WriteToCsvFile(dtUploadTemplate, tableName, uploadTemplateEntity);
                     }
                     transaction.Commit();
-
+                   
+                    File.Delete(_tempCSVFile);
                 }
 
                 InsertDataInProcessedTable(uploadTemplateEntity);
@@ -643,11 +625,11 @@ namespace In2InGlobal.datalink
                     npgsqlDataAdapter.SelectCommand = npgsqlCommand;
                     npgsqlDataAdapter.Fill(dsAnalyticsProcessedData);
 
-                    if (dsAnalyticsProcessedData.Tables[0].Columns.Count > 0)
+                   /* if (dsAnalyticsProcessedData.Tables[0].Columns.Count > 0)
                     {
                         if (dsAnalyticsProcessedData.Tables[0].Columns.Contains("id"))
                             dsAnalyticsProcessedData.Tables[0].Columns.Remove("id");
-                    }
+                    }*/
 
                 }
                 catch (Exception ex)
@@ -840,12 +822,6 @@ namespace In2InGlobal.datalink
                     npgsqlCommand.CommandType = CommandType.Text;
                     npgsqlDataAdapter.SelectCommand = npgsqlCommand;
                     npgsqlDataAdapter.Fill(dsAnalyticsProcessedData);
-
-                    if (dsAnalyticsProcessedData.Tables[0].Columns.Count > 0)
-                    {
-                        if (dsAnalyticsProcessedData.Tables[0].Columns.Contains("id"))
-                            dsAnalyticsProcessedData.Tables[0].Columns.Remove("id");
-                    }
 
                 }
                 catch (Exception ex)

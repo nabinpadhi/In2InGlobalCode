@@ -93,7 +93,6 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
 
         try
         {
-            string fileName = "";
             string uploadedBy = HttpContext.Current.Session["UserEmail"].ToString();
             bool deleteAndCreate = Convert.ToBoolean(context.Request["DeleteAndCreate"]);
             string filePath = HttpContext.Current.Session["targetfolder"].ToString(); //"./MasterTemplate/";
@@ -539,7 +538,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
                 string filePathdirectoryzoho = "./CSV/";
                 string filePathWithFileNameZoho = context.Server.MapPath(filePathdirectoryzoho);
                 templateEntity.filePathZoho = filePathWithFileNameZoho;
-
+                templateEntity.UploadedFilePath = filePathWithFileName.Replace(fileName,"");
                 if (existingFileWithPath != "")
                 {
                     DataTable _existingTemplateDataTable = GetUpdatedTemplateDataTable(fileName, existingFileWithPath, templateEntity);
@@ -549,7 +548,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
 
                 }
                 else
-                { 
+                {
                     DataTable dtZoho = new DataTable();
                     dtZoho = uploadTemplateBl.zohoTable(_uploadedTemplateDataTable, templateEntity);
                     if (dtZoho.Rows.Count > 0)
@@ -660,6 +659,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
     {
         foreach (DataRow dr in uploadedTemplateDataTable.Rows)
         {
+           
             dr["project_name"] = templateEntity.ProjectName;
             dr["user_email"] = templateEntity.UserEmail;
             dr["uploaded_by"] = templateEntity.UserEmail;
@@ -671,6 +671,7 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
     }
     private DataTable AddOptionalColumns(DataTable uploadedTemplateDataTable)
     {
+        
         uploadedTemplateDataTable.Columns.Add("project_name", typeof(string));
         uploadedTemplateDataTable.Columns.Add("user_email", typeof(string));
         uploadedTemplateDataTable.Columns.Add("uploaded_by", typeof(string));

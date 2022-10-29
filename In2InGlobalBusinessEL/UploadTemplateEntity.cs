@@ -16,6 +16,7 @@ namespace In2InGlobalBusinessEL
         public string UserEmail { get; set; }
         public string Status { get; set; }
         public string RoleName { get; set; }
+        public string UploadedFilePath { get; set; }        
         public bool IsDeleteAndCreate { get; set; }
         public string filePathZoho { get; set; }
         public string FileToDelete { get; set; }
