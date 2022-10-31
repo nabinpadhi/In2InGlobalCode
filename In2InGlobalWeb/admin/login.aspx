@@ -15,13 +15,13 @@
 
     <link href="../Bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <%--<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">--%>
     <link rel="stylesheet" type="text/css" href="../NewJEasyUI/themes/black/easyui.css" />
     <link href="../FontAwesome/css/all.css" rel="stylesheet" />
     <link href="css/login.css" rel="stylesheet">
    <%-- <link href="css/admin.css" rel="stylesheet" />--%>
     <link href="../FontAwesome/css/fontawesome.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <%--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">--%>
 
     <link href="css/NewLogin.css" rel="stylesheet" />
                          <%--js--%>

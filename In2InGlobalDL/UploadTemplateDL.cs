@@ -2,6 +2,7 @@
 using In2InGlobalBusinessEL;
 using kss.ra.dataaccess;
 using Npgsql;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,6 +16,7 @@ using ZohoAnalytics;
 using CsvHelper;
 using System.Globalization;
 using System.Configuration;
+using System.Diagnostics;
 
 namespace In2InGlobal.datalink
 {
@@ -436,32 +438,23 @@ namespace In2InGlobal.datalink
                     if (analyticsProcessedData.Tables[0].Rows.Count > 0 && dtComapareTable.Rows.Count > 0)
                     {                       
                         ToCSV(dtComapareTable, _tempCSVFile);
-                        string sql = string.Format("COPY dbo.{0} FROM '{1}' DELIMITER ',' CSV Header;", tableName, _tempCSVFile);
-
-                        using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
-                        {
-                            command.ExecuteNonQuery();
-                        }
+                        BulkImportToDatabase(tableName, _tempCSVFile);
                         WriteToCsvFile(dtComapareTable, tableName, uploadTemplateEntity);
                     }
                     else
-                    {                        
+                    {  
+                        //Write the uploaded template data along with few required details in datatable into a temporaray csv file.
                         ToCSV(dtUploadTemplate, _tempCSVFile);
-                        string sql = string.Format("COPY dbo.{0} FROM '{1}' DELIMITER ',' CSV Header;", tableName, _tempCSVFile);
 
-                        using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
-                        {
-                            command.ExecuteNonQuery();
-                        }
-
+                        BulkImportToDatabase(tableName, _tempCSVFile);
+                        
                         WriteToCsvFile(dtUploadTemplate, tableName, uploadTemplateEntity);
                     }
-                    transaction.Commit();
-                   
+                    transaction.Commit();                   
                     File.Delete(_tempCSVFile);
                 }
 
-                InsertDataInProcessedTable(uploadTemplateEntity);
+               InsertDataInProcessedTable(uploadTemplateEntity);
 
                 //Call ti ZohoAPI to Import the data
                 // CallZohoApiToImoortData(uploadTemplateEntity);
@@ -479,6 +472,52 @@ namespace In2InGlobal.datalink
 
             return uploadTemplateEntity.TemplateId;
         }
+        /// <summary>
+        /// Import the datas in CSV to postgres table
+        /// </summary>
+        /// <param name="tableName"></param>
+        /// <param name="_tempCSVFile"></param>
+        private void BulkImportToDatabase(string tableName, string _tempCSVFile)
+        {
+            //TSQL command script to import CSV data into specified Postgres Table.
+            string sql = string.Format(@"\COPY ""dbo"".{0} FROM '{1}' DELIMITER ',' CSV Header;", tableName, _tempCSVFile); //
+
+            Process process = new System.Diagnostics.Process();
+            ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WorkingDirectory = ConfigurationManager.AppSettings["PsqlWorkingDirectory"];
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+            startInfo.FileName = "cmd.exe";
+            //uncomment below for local dev server
+            startInfo.Arguments = ConfigurationManager.AppSettings["LocalCmdArgmnt"] + "\"" + sql + "\"";
+            
+            //uncomment below for live server
+            //startInfo.Arguments = ConfigurationManager.AppSettings["AzureCmdArgmnt"] + "\"" + sql + "\"";
+            process.StartInfo = startInfo;
+            process.StartInfo.RedirectStandardInput = true;
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.RedirectStandardError = true;
+            process.StartInfo.UseShellExecute = false;
+
+            process.OutputDataReceived += (sender, e) =>
+            {
+                Console.WriteLine($"Output: {e.Data}");
+            };
+            process.ErrorDataReceived += (sender, e) =>
+            {
+                Console.WriteLine($"Error: {e.Data}");
+            };
+            process.Start();
+
+            while (!process.StandardOutput.EndOfStream)
+            {
+                string line = process.StandardOutput.ReadLine();
+            }
+
+            process.StandardInput.WriteLine("exit");
+
+            process.WaitForExit();
+        }
+
 
         /// <summary>
         /// Delete Analysis Data
