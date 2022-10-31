@@ -480,17 +480,17 @@ namespace In2InGlobal.datalink
         private void BulkImportToDatabase(string tableName, string _tempCSVFile)
         {
             //TSQL command script to import CSV data into specified Postgres Table.
-            string sql = string.Format(@"\COPY ""dbo"".{0} FROM '{1}' DELIMITER ',' CSV Header;", tableName, _tempCSVFile); //
+            string sql = string.Format(@"\COPY ""dbo"".{0} FROM '{1}' DELIMITER ',' CSV Header;", tableName, _tempCSVFile);
 
             Process process = new System.Diagnostics.Process();
             ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WorkingDirectory = ConfigurationManager.AppSettings["PsqlWorkingDirectory"];
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
             startInfo.FileName = "cmd.exe";
-            //uncomment below for local dev server
+            //comment/uncomment below for local dev server
             startInfo.Arguments = ConfigurationManager.AppSettings["LocalCmdArgmnt"] + "\"" + sql + "\"";
-            
-            //uncomment below for live server
+
+            //comment/uncomment below for live server
             //startInfo.Arguments = ConfigurationManager.AppSettings["AzureCmdArgmnt"] + "\"" + sql + "\"";
             process.StartInfo = startInfo;
             process.StartInfo.RedirectStandardInput = true;
