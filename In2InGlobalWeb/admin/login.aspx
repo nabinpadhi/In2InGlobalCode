@@ -176,57 +176,13 @@
 <script type="text/javascript">
     var BASE_URL = 'Login.aspx';
     $(document).ready(function () {
-
-        $("#email").change(function () {
-            $('.loginButton').prop('disabled', false);
-            var usercompanynameandrole = FillCompany($("#email").val());
-            var usercompanyname = usercompanynameandrole.split(",")[0];
-            var userrole = usercompanynameandrole.split(",")[1];
-            if (usercompanyname != "") {
-                if (userrole == "Admin") {
-                    $('#companyname').val(usercompanyname);
-                    $('#ddlActivity').val('All');
-                    $('#ddlActivity').prop("disabled", true);
-                }
-                else {
-                    $("#ddlActivity").removeAttr('disabled');
-                    $('#companyname').val(usercompanyname);
-                    $('#ddlActivity').val('File Management');
-                }
-            }
-            else {
-                $('#companyname').val("No Company");
-                $('.loginButton').prop('disabled', true);
-            }
-        });
+       
         $('.panel-tool-close').click(function () {
 
             $('#exceptionDivParent').hide();
 
         });
     });
-    function FillCompany(email) {
-
-        var return_companynameandrole = function () {
-            var tmp = null;
-            var dataValue = "{ emailid:'" + email + "'}";
-            $.ajax({
-                'async': false,
-                'type': "POST",
-                'global': false,
-                'dataType': 'json',
-                contentType: 'application/json; charset=utf-8',
-                'url': "Login.aspx/GetUserDetails",
-                'data': dataValue,
-                'success': function (data) {
-                    tmp = data.d;
-                }
-            });
-            return tmp;
-        }();
-        return return_companynameandrole;
-    }
-
     function Login() {
 
         var return_status = function () {
@@ -257,9 +213,9 @@
 
         if (return_status == "Success") {
 
-            $('.loginButton').html('Logged In');
+            //$('.loginButton').html('Logged In');
 
-            toastr.success('Logged In', 'Success', { timeOut: 1000, progressBar: true, onHidden: function () { window.location.href = BASE_URL; } });
+            //toastr.success('Logged In', 'Success', { timeOut: 1000, progressBar: true, onHidden: function () { window.location.href = BASE_URL; } });
             location.href = '../InternalLanding.aspx';
         }
         else {
