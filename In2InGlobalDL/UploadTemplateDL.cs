@@ -439,7 +439,7 @@ namespace In2InGlobal.datalink
                     {                       
                         ToCSV(dtComapareTable, _tempCSVFile);
                         BulkImportToDatabase(tableName, _tempCSVFile);
-                        WriteToCsvFile(dtComapareTable, tableName, uploadTemplateEntity);
+                        //WriteToCsvFile(dtComapareTable, tableName, uploadTemplateEntity);
                     }
                     else
                     {  
@@ -448,7 +448,7 @@ namespace In2InGlobal.datalink
 
                         BulkImportToDatabase(tableName, _tempCSVFile);
                         
-                        WriteToCsvFile(dtUploadTemplate, tableName, uploadTemplateEntity);
+                        //WriteToCsvFile(dtUploadTemplate, tableName, uploadTemplateEntity);
                     }
                     transaction.Commit();                   
                     File.Delete(_tempCSVFile);
@@ -479,43 +479,52 @@ namespace In2InGlobal.datalink
         /// <param name="_tempCSVFile"></param>
         private void BulkImportToDatabase(string tableName, string _tempCSVFile)
         {
-            //TSQL command script to import CSV data into specified Postgres Table.
-            string sql = string.Format(@"\COPY ""dbo"".{0} FROM '{1}' DELIMITER ',' CSV Header;", tableName, _tempCSVFile);
-
-            Process process = new System.Diagnostics.Process();
-            ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-            startInfo.WorkingDirectory = ConfigurationManager.AppSettings["PsqlWorkingDirectory"];
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
-            startInfo.FileName = "cmd.exe";
-            //comment/uncomment below for local dev server
-            //startInfo.Arguments = ConfigurationManager.AppSettings["LocalCmdArgmnt"] + "\"" + sql + "\"";
-
-            //comment/uncomment below for live server
-            startInfo.Arguments = ConfigurationManager.AppSettings["AzureCmdArgmnt"] + "\"" + sql + "\"";
-            process.StartInfo = startInfo;
-            process.StartInfo.RedirectStandardInput = true;
-            process.StartInfo.RedirectStandardOutput = true;
-            process.StartInfo.RedirectStandardError = true;
-            process.StartInfo.UseShellExecute = false;
-
-            process.OutputDataReceived += (sender, e) =>
+            try
             {
-                Console.WriteLine($"Output: {e.Data}");
-            };
-            process.ErrorDataReceived += (sender, e) =>
-            {
-                Console.WriteLine($"Error: {e.Data}");
-            };
-            process.Start();
 
-            while (!process.StandardOutput.EndOfStream)
-            {
-                string line = process.StandardOutput.ReadLine();
+
+                //TSQL command script to import CSV data into specified Postgres Table.
+                string sql = string.Format(@"\COPY ""dbo"".{0} FROM '{1}' DELIMITER ',' CSV Header;", tableName, _tempCSVFile);
+
+                Process process = new System.Diagnostics.Process();
+                ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                startInfo.WorkingDirectory = ConfigurationManager.AppSettings["PsqlWorkingDirectory"];
+                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+                startInfo.FileName = "cmd.exe";
+                //comment/uncomment below for local dev server
+                startInfo.Arguments = ConfigurationManager.AppSettings["LocalCmdArgmnt"] + "\"" + sql + "\"";
+
+                //comment/uncomment below for live server
+                //startInfo.Arguments = ConfigurationManager.AppSettings["AzureCmdArgmnt"] + "\"" + sql + "\"";
+                process.StartInfo = startInfo;
+                process.StartInfo.RedirectStandardInput = true;
+                process.StartInfo.RedirectStandardOutput = true;
+                process.StartInfo.RedirectStandardError = true;
+                process.StartInfo.UseShellExecute = false;
+
+                process.OutputDataReceived += (sender, e) =>
+                {
+                    Console.WriteLine($"Output: {e.Data}");
+                };
+                process.ErrorDataReceived += (sender, e) =>
+                {
+                    Console.WriteLine($"Error: {e.Data}");
+                };
+                process.Start();
+
+                while (!process.StandardOutput.EndOfStream)
+                {
+                    string line = process.StandardOutput.ReadLine();
+                }
+
+                process.StandardInput.WriteLine("exit");
+
+                process.WaitForExit();
             }
-
-            process.StandardInput.WriteLine("exit");
-
-            process.WaitForExit();
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
 
@@ -897,42 +906,6 @@ namespace In2InGlobal.datalink
             return RepClient;
         }
 
-
-        /// <summary>
-        /// Write data to CSV file before update to Zoho
-        /// </summary>
-        /// <param name="dataTable"></param>
-        /// <param name="filename"></param>
-        public void WriteToCsvFile(DataTable dataTable, string filename, UploadTemplateEntity ute)
-        {
-            //var filePath = ute.filePathZoho;
-            // if (!Directory.Exists(filePath))
-            // {
-            //     Directory.CreateDirectory(filePath);
-            // }
-
-            // string filecreates = filePath + filename + ".csv";
-
-            // string[] files = Directory.GetFiles(filePath);
-
-            // if (files.Length > 0)
-            // {
-            //     string filecreate = filePath + filename + ".csv";
-
-            //     foreach (string file in files)
-            //     {
-            //         File.Delete(file);
-            //     }
-            // }
-
-            // using (var myFile = File.Create(filecreates))
-            // {
-            //     // interact with myFile here, it will be disposed automatically
-            // }
-
-            // EXPORT_CSV(dataTable, filecreates);
-        }
-
         public void EXPORT_CSV(DataTable dataTable, string filecreates)
         {
             using (var textWriter = File.CreateText(filecreates))
@@ -993,44 +966,22 @@ namespace In2InGlobal.datalink
             }
         }
 
-        public void ToCSV(DataTable dtDataTable, string strFilePath)
+        public void ToCSV(DataTable dt, string strFilePath)
         {
-            StreamWriter sw = new StreamWriter(strFilePath, false);
-            //headers    
-            for (int i = 0; i < dtDataTable.Columns.Count; i++)
+            StringBuilder sb = new StringBuilder();
+
+            IEnumerable<string> columnNames = dt.Columns.Cast<DataColumn>().
+                                              Select(column => column.ColumnName);
+            sb.AppendLine(string.Join(",", columnNames));
+
+            foreach (DataRow row in dt.Rows)
             {
-                sw.Write(dtDataTable.Columns[i]);
-                if (i < dtDataTable.Columns.Count - 1)
-                {
-                    sw.Write(",");
-                }
+                IEnumerable<string> fields = row.ItemArray.Select(field =>
+                  string.Concat("\"", field.ToString().Replace("\"", "\"\""), "\""));
+                sb.AppendLine(string.Join(",", fields));
             }
-            sw.Write(sw.NewLine);
-            foreach (DataRow dr in dtDataTable.Rows)
-            {
-                for (int i = 0; i < dtDataTable.Columns.Count; i++)
-                {
-                    if (!Convert.IsDBNull(dr[i]))
-                    {
-                        string value = dr[i].ToString();
-                        if (value.Contains(','))
-                        {
-                            value = String.Format("\"{0}\"", value);
-                            sw.Write(value);
-                        }
-                        else
-                        {
-                            sw.Write(dr[i].ToString());
-                        }
-                    }
-                    if (i < dtDataTable.Columns.Count - 1)
-                    {
-                        sw.Write(",");
-                    }
-                }
-                sw.Write(sw.NewLine);
-            }
-            sw.Close();
+
+            File.WriteAllText(strFilePath, sb.ToString());
         }
 
 
@@ -1059,20 +1010,6 @@ namespace In2InGlobal.datalink
                 ex.ToString();
             }
         }
-
-        //public void copyDatabase(IReportClient RepClient, UploadTemplateEntity uploadTemplateEntity)
-        //{
-        //    string dbURI = RepClient.GetURI(EMAIL, DBNAME);
-
-        //    string TBNAME = uploadTemplateEntity.FileName;
-        //    string newDBName = uploadTemplateEntity.FileName + "WS";
-        //    string newDBDesc = uploadTemplateEntity.FileName + "WorkSpace";
-        //    bool withData = false;
-        //    copyDatabaseKey(RepClient);
-
-        //    string copyDBKey = "086cc1f4fcbed31733ea7eb13fe05436";
-        //    long dbid = RepClient.CopyDatabase(dbURI, newDBName, newDBDesc, withData, copyDBKey, null);
-        //}
 
         public void CopyWorkSpaceAndRename(IReportClient RepClient, UploadTemplateEntity uploadTemplateEntity)
         {
