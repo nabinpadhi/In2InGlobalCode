@@ -492,10 +492,10 @@ namespace In2InGlobal.datalink
                 startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
                 startInfo.FileName = "cmd.exe";
                 //comment/uncomment below for local dev server
-                startInfo.Arguments = ConfigurationManager.AppSettings["LocalCmdArgmnt"] + "\"" + sql + "\"";
+                //startInfo.Arguments = ConfigurationManager.AppSettings["LocalCmdArgmnt"] + "\"" + sql + "\"";
 
                 //comment/uncomment below for live server
-                //startInfo.Arguments = ConfigurationManager.AppSettings["AzureCmdArgmnt"] + "\"" + sql + "\"";
+                startInfo.Arguments = ConfigurationManager.AppSettings["AzureCmdArgmnt"] + "\"" + sql + "\"";
                 process.StartInfo = startInfo;
                 process.StartInfo.RedirectStandardInput = true;
                 process.StartInfo.RedirectStandardOutput = true;
