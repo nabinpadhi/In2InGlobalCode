@@ -439,7 +439,7 @@ namespace In2InGlobal.datalink
                     {                       
                         ToCSV(dtComapareTable, _tempCSVFile);
                         BulkImportToDatabase(tableName, _tempCSVFile);
-                        //WriteToCsvFile(dtComapareTable, tableName, uploadTemplateEntity);
+                        WriteToCsvFile(dtComapareTable, tableName, uploadTemplateEntity);
                     }
                     else
                     {  
@@ -448,7 +448,7 @@ namespace In2InGlobal.datalink
 
                         BulkImportToDatabase(tableName, _tempCSVFile);
                         
-                        //WriteToCsvFile(dtUploadTemplate, tableName, uploadTemplateEntity);
+                        WriteToCsvFile(dtUploadTemplate, tableName, uploadTemplateEntity);
                     }
                     transaction.Commit();                   
                     File.Delete(_tempCSVFile);
@@ -906,6 +906,42 @@ namespace In2InGlobal.datalink
             return RepClient;
         }
 
+
+        /// <summary>
+        /// Write data to CSV file before update to Zoho
+        /// </summary>
+        /// <param name="dataTable"></param>
+        /// <param name="filename"></param>
+        public void WriteToCsvFile(DataTable dataTable, string filename, UploadTemplateEntity ute)
+        {
+            //var filePath = ute.filePathZoho;
+            // if (!Directory.Exists(filePath))
+            // {
+            //     Directory.CreateDirectory(filePath);
+            // }
+
+            // string filecreates = filePath + filename + ".csv";
+
+            // string[] files = Directory.GetFiles(filePath);
+
+            // if (files.Length > 0)
+            // {
+            //     string filecreate = filePath + filename + ".csv";
+
+            //     foreach (string file in files)
+            //     {
+            //         File.Delete(file);
+            //     }
+            // }
+
+            // using (var myFile = File.Create(filecreates))
+            // {
+            //     // interact with myFile here, it will be disposed automatically
+            // }
+
+            // EXPORT_CSV(dataTable, filecreates);
+        }
+
         public void EXPORT_CSV(DataTable dataTable, string filecreates)
         {
             using (var textWriter = File.CreateText(filecreates))
@@ -1010,6 +1046,20 @@ namespace In2InGlobal.datalink
                 ex.ToString();
             }
         }
+
+        //public void copyDatabase(IReportClient RepClient, UploadTemplateEntity uploadTemplateEntity)
+        //{
+        //    string dbURI = RepClient.GetURI(EMAIL, DBNAME);
+
+        //    string TBNAME = uploadTemplateEntity.FileName;
+        //    string newDBName = uploadTemplateEntity.FileName + "WS";
+        //    string newDBDesc = uploadTemplateEntity.FileName + "WorkSpace";
+        //    bool withData = false;
+        //    copyDatabaseKey(RepClient);
+
+        //    string copyDBKey = "086cc1f4fcbed31733ea7eb13fe05436";
+        //    long dbid = RepClient.CopyDatabase(dbURI, newDBName, newDBDesc, withData, copyDBKey, null);
+        //}
 
         public void CopyWorkSpaceAndRename(IReportClient RepClient, UploadTemplateEntity uploadTemplateEntity)
         {
